@@ -366,22 +366,39 @@ def pesquisar_tendencias(tema: str, plataforma: str, api_key: str) -> str:
     """Passo 1: Claude pesquisa o que está funcionando no tema antes de criar."""
     client = anthropic.Anthropic(api_key=api_key)
 
-    prompt = f"""Você é um analista de conteúdo digital especializado em {plataforma}.
+    prompt = f"""Você é um analista de conteúdo digital com experiência em {plataforma}.
 
-Analise o tema "{tema}" e responda de forma direta:
+Estude o tema "{tema}" considerando MÚLTIPLAS PERSPECTIVAS e responda:
 
-1. PADRÕES VIRAIS: Quais formatos de carrossel funcionam melhor para esse tema? (ex: listas, antes/depois, mitos vs verdades, passo a passo)
-2. ÂNGULO VENCEDOR: Qual ângulo/perspectiva gera mais engajamento? (ex: polêmica, revelação, erro comum, segredo)
-3. LINGUAGEM: Como o público que consome esse conteúdo fala? Gírias, expressões, tom?
-4. GANCHO: Qual tipo de frase de abertura para esse tema faz as pessoas pararem o scroll?
-5. SEQUÊNCIA LÓGICA: Como deve ser a jornada emocional do leitor slide a slide? (ex: dor → esperança → solução → prova → ação)
-6. OBJEÇÕES: Quais são as maiores dúvidas/resistências do público sobre esse tema?
+1. ESTRUTURA IDEAL: Qual sequência narrativa funciona melhor para esse tema?
+   — Considere: problema→solução, antes→depois, mito→realidade, pergunta→resposta progressiva
+   — Qual dessas estruturas gera mais salvamentos e comentários reflexivos (não só reações)?
 
-Seja específico e prático. Máximo 300 palavras."""
+2. GANCHO EFICAZ: Que tipo de abertura prende sem clickbait ou exagero?
+   — O gancho deve despertar curiosidade genuína, não ansiedade artificial
+   — Ex de bom gancho: contextualiza uma situação real que o leitor reconhece
+   — Ex de gancho ruim: "99% das pessoas estão ERRANDO nisso" (polariza e aliena)
+
+3. PERSPECTIVAS DO TEMA: Quais são os diferentes pontos de vista legítimos sobre esse assunto?
+   — Quem discorda e por quê? Quais são as nuances e exceções?
+   — Como abordar o tema sem excluir leitores que têm contextos diferentes?
+
+4. LINGUAGEM NATURAL: Como pessoas reais falam sobre esse tema em conversas do dia a dia?
+   — Não como marketer, mas como alguém que viveu o assunto
+   — Expressões, analogias domésticas, comparações que tornam o complexo simples
+
+5. LOOP DE CURIOSIDADE: Como manter o leitor avançando slide a slide?
+   — Cada slide deve resolver algo e abrir uma nova pergunta
+   — Qual é a "grande revelação" que vale guardar para o meio do carrossel?
+
+6. IMAGENS IDEAIS: Para cada etapa narrativa, que tipo de cena visual representa bem o conteúdo?
+   — Seja específico: ambiente, iluminação, emoção da pessoa, ação sendo realizada
+
+Seja analítico e equilibrado. Máximo 350 palavras."""
 
     resposta = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=600,
+        max_tokens=700,
         messages=[{"role": "user", "content": prompt}]
     )
     return resposta.content[0].text
@@ -395,55 +412,76 @@ PESQUISA PRÉVIA SOBRE O TEMA (use isso para criar conteúdo mais preciso e vira
 {tendencias}
 """ if tendencias else ""
 
-    prompt = f"""Você é um estrategista de conteúdo viral com 10 anos de experiência em {plataforma}.
+    prompt = f"""Você é um criador de conteúdo experiente em {plataforma}, com foco em conteúdo que gera reflexão genuína e engajamento real.
 {contexto_tendencias}
 Crie um carrossel de 7 slides sobre: "{tema}"
 
-━━ ESTRUTURA OBRIGATÓRIA DE STORYTELLING ━━
+━━ FILOSOFIA DO CONTEÚDO ━━
 
-Slide 1 — GANCHO (para o scroll)
-- Começa com número, dado chocante ou pergunta que dói
-- Promete uma transformação específica
-- Ex: "X pessoas perdem dinheiro com isso todo dia (e você pode ser uma delas)"
+Escreva como um amigo inteligente que entende profundamente do assunto — não como um copywriter tentando vender algo.
+Reconheça que o tema tem nuances. Evite posições absolutas quando a realidade é mais complexa.
+O leitor deve terminar o carrossel sentindo que aprendeu algo real, não que foi manipulado a reagir.
 
-Slide 2 — DOR / PROBLEMA
-- Aprofunda o problema que o leitor já sente
-- Usa linguagem empática, não julgadora
-- Faz o leitor pensar "isso sou eu"
+━━ ESTRUTURA NARRATIVA — LOOP DE CURIOSIDADE ━━
 
-Slide 3 — REVELAÇÃO / VIRADA
-- O insight que muda tudo
-- Algo que vai contra o senso comum
-- Começa com "O que ninguém te conta é..."
+Slide 1 — GANCHO com CONTEXTO REAL
+- Descreve uma situação concreta que o leitor reconhece na própria vida
+- Abre uma pergunta ou tensão que o leitor quer ver resolvida
+- NÃO usa estatísticas alarmistas ou "X pessoas estão errando"
+- Tom: "Você já percebeu que..." / "Existe uma diferença entre X e Y que pouca gente para pra pensar..."
+- O título deve ser uma frase que o leitor concorda ou fica curioso, não ameaçado
 
-Slide 4 — COMO FUNCIONA (mecanismo)
-- Explica o porquê de forma simples
-- Usa analogia ou exemplo concreto
-- Dá credibilidade ao conteúdo
+Slide 2 — O CONTEXTO (por que isso importa)
+- Explica por que o tema é relevante no momento atual
+- Apresenta a complexidade sem simplificar demais
+- Reconhece que existem diferentes situações e perfis de pessoas
+- Conecta o tema à realidade do leitor sem generalizar
 
-Slide 5 — PROVA / EXEMPLO REAL
-- Caso concreto, dado, estatística ou exemplo prático
-- Torna o abstrato em real
-- "Na prática, isso significa..."
+Slide 3 — A TENSÃO (onde a maioria trava)
+- Identifica o ponto exato onde as pessoas ficam confusas ou tomam o caminho mais difícil
+- NÃO culpa o leitor — explica por que é natural travar ali
+- Apresenta a pergunta central que o carrossel vai responder
 
-Slide 6 — APLICAÇÃO PRÁTICA
-- O que o leitor pode fazer AGORA
-- Passo a passo simples (2-3 ações)
-- Remove a desculpa de "não sei por onde começar"
+Slide 4 — A VIRADA (o insight que reorganiza tudo)
+- O ponto de vista que muda como o leitor enxerga o problema
+- Pode contradizer o senso comum, mas com argumento sólido — não por provocação
+- Reconhece exceções e casos onde pode não se aplicar
+- Usa uma analogia simples do cotidiano
 
-Slide 7 — CTA COM URGÊNCIA
-- Por que agir agora e não depois
-- Consequência de não agir
-- Chamada clara para salvar/seguir/comentar
+Slide 5 — NA PRÁTICA (como funciona de verdade)
+- Exemplo concreto e realista (não o caso extremo de sucesso, mas o caso comum)
+- Mostra o processo, não só o resultado
+- Inclui o que pode dar errado e como lidar — isso gera confiança, não medo
+
+Slide 6 — O PRÓXIMO PASSO (ação acessível)
+- Uma ação específica que qualquer pessoa pode fazer hoje
+- Considera que diferentes leitores estão em momentos diferentes
+- Tom: "Se você ainda não chegou lá, tudo bem — comece por..."
+- Remove a pressão, não aumenta
+
+Slide 7 — FECHAMENTO com CONVITE
+- Sintetiza a ideia central em uma frase memorável
+- Faz uma pergunta genuína para o leitor refletir (não retórica)
+- O CTA é natural: "se isso fez sentido pra você, salva pra rever" — sem urgência artificial
 
 ━━ REGRAS DE ESCRITA ━━
-- Linguagem brasileira direta, sem enrolação
-- Cada slide: 3 a 5 linhas densas de conteúdo
-- Sem bullet points no texto — parágrafos corridos
-- Títulos curtos e impactantes (máx 6 palavras)
-- Nunca use "aprenda", "descubra", "veja" — seja direto
+- Parágrafos corridos, sem bullet points no campo "texto"
+- Voz ativa, presente — como se estivesse falando com alguém
+- Títulos de até 6 palavras — diretos, não clickbait
+- Cada slide: 3 a 5 frases. Dense, mas respirável
+- Evite: "descubra", "aprenda", "simples assim", "todo mundo sabe", afirmações absolutas sem contexto
+- Use: "uma das formas", "pode ser que", "dependendo do seu contexto", "na minha visão"
+- Se o tema tiver dois lados legítimos, apresente os dois — o leitor é inteligente
 
-Para cada slide, "query_imagem" em INGLÊS específico para o contexto visual.
+━━ IMAGENS — REGRAS PARA QUERY ━━
+Para cada slide, o campo "query_imagem" deve ser em INGLÊS e descrever:
+- A CENA específica, não o conceito abstrato
+- O AMBIENTE: escritório, rua, casa, natureza, etc.
+- A EMOÇÃO ou AÇÃO da pessoa na imagem
+- A LUZ e o TOM: "warm morning light", "overcast city", "dim cozy interior"
+- Formato: [ação/emoção] [tipo de pessoa] [ambiente] [luz/tom]
+- Exemplos BONS: "focused young woman reviewing notes at coffee shop warm morning light", "tired man staring at laptop screen at night home office", "small business owner talking to customer at market stall"
+- Exemplos RUINS: "success", "business", "money", "people working"
 
 Responda APENAS JSON válido:
 {{
@@ -460,16 +498,17 @@ Responda APENAS JSON válido:
   "hashtags": ["...", "..."],
   "melhor_horario": "19:00",
   "slides": [
-    {{"numero": 1, "emoji": "🔥", "titulo": "...", "texto": "...", "query_imagem": "..."}}
+    {{"numero": 1, "emoji": "💡", "titulo": "...", "texto": "...", "query_imagem": "..."}}
   ]
 }}
 
-Paletas por tom:
-- Urgente/impacto: accent #FF4D00, bg #0a0a0a
-- Premium/luxo: accent #C9A84C, bg #0d0d0d
-- Tech/futuro: accent #00E5FF, bg #050510
-- Growth/verde: accent #00E676, bg #071a0e
-- Confiança/azul: accent #2563eb, bg #050a1a"""
+Paletas por tom emocional do tema:
+- Reflexivo/humano: accent #F59E0B, bg #0c0a00 (âmbar quente)
+- Confiança/clareza: accent #2563eb, bg #050a1a (azul)
+- Crescimento/esperança: accent #10b981, bg #071a0e (verde)
+- Premium/autoridade: accent #C9A84C, bg #0d0d0d (dourado)
+- Tech/inovação: accent #00E5FF, bg #050510 (ciano)
+- Urgente/transformação: accent #FF4D00, bg #0a0a0a (laranja)"""
 
     resposta = ""
     with client.messages.stream(
