@@ -286,6 +286,7 @@ def baixar_imagem(query: str, destino: Path, pexels_key: str = "") -> str:
 def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local: str = "") -> str:
     num = slide.get("numero", 1)
     tipo = slide.get("tipo", "editorial")
+    fundo = slide.get("fundo", "foto")
     titulo = slide.get("titulo", "")
     texto = slide.get("texto", "")
     destaque = slide.get("destaque", "")
@@ -295,11 +296,20 @@ def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local
     a, a2 = paleta["accent"], paleta["accent2"]
     ov = paleta["overlay"]
 
+    # Usa fundo da marca se solicitado, ou se não há imagem disponível
+    usar_fundo_marca = (fundo == "marca") or (not img_local)
+
     destaque_html = f'<div class="destaque-line">{destaque}</div>' if destaque else ""
     prefixo_titulo = f'<span class="num-principio">{num_principio}.</span> ' if num_principio else ""
 
+    # Fundo: foto com overlay OU gradiente da marca
+    if usar_fundo_marca:
+        bg_layers = '<div class="bg-marca"></div>'
+    else:
+        bg_layers = f'<div class="bg-img"></div>\n<div class="overlay"></div>'
+
     if tipo == "capa" or num == 1:
-        # Slide 1: gancho como citação ou frase impactante
+        logo_pos = "logo-topo-esq"
         corpo = f"""<div class="slide-inner capa">
   <div class="num-badge">01 / {total:02d}</div>
   <div class="aspas-abertura">"</div>
@@ -309,16 +319,17 @@ def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local
 </div>"""
 
     elif tipo == "cta" or num == total:
+        logo_pos = "logo-topo-esq"
         corpo = f"""<div class="slide-inner cta">
   <div class="num-badge">{num:02d} / {total:02d}</div>
-  <div class="emoji-big">{emoji}</div>
+  <div class="logo-cta">NUUX</div>
   <h2 class="titulo-cta">{titulo}</h2>
   <p class="texto-cta">{texto}</p>
   <div class="cta-pill">SALVA ✦ COMPARTILHA ✦ SEGUE</div>
 </div>"""
 
     elif tipo == "reflexao":
-        # Slide de pergunta reflexiva: título como pergunta grande
+        logo_pos = "logo-rodape-dir"
         corpo = f"""<div class="slide-inner reflexao">
   <div class="num-badge">{num:02d} / {total:02d}</div>
   <div class="tag-topo">{emoji} {tema.upper()}</div>
@@ -329,7 +340,7 @@ def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local
 </div>"""
 
     elif tipo == "sintese":
-        # Slide de síntese: sem foto ideal, texto mais denso centralizado
+        logo_pos = "logo-rodape-dir"
         corpo = f"""<div class="slide-inner sintese">
   <div class="num-badge">{num:02d} / {total:02d}</div>
   <h2 class="titulo-sintese">{titulo}</h2>
@@ -339,7 +350,7 @@ def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local
 </div>"""
 
     else:
-        # Editorial padrão (contexto, tensão, princípio, etc.)
+        logo_pos = "logo-rodape-dir"
         titulo_html = f"{prefixo_titulo}{titulo}"
         corpo = f"""<div class="slide-inner conteudo">
   <div class="num-badge">{num:02d} / {total:02d}</div>
@@ -352,52 +363,77 @@ def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local
 
     return f"""<!DOCTYPE html><html><head><meta charset="UTF-8">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{width:1080px;height:1080px;overflow:hidden;font-family:'DM Sans',sans-serif;background:{paleta["bg"]};position:relative}}
-.bg-img{{position:absolute;inset:0;background:url('{img_url}') center/cover no-repeat;filter:saturate(1.1) brightness(0.85)}}
-.overlay{{position:absolute;inset:0;background:{ov};opacity:0.65}}
-.side-bar{{position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(to bottom,{a},{a2})}}
-.marca{{position:absolute;bottom:40px;right:48px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:rgba(255,255,255,0.3);letter-spacing:3px}}
+
+/* ── FUNDOS ── */
+.bg-img{{position:absolute;inset:0;background:url('{img_url}') center/cover no-repeat;filter:saturate(1.1) brightness(0.82)}}
+.overlay{{position:absolute;inset:0;background:{ov};opacity:0.68}}
+.bg-marca{{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 65% 55% at 12% 65%, rgba({int(a[1:3],16)},{int(a[3:5],16)},{int(a[5:7],16)},0.38) 0%, transparent 65%),
+    radial-gradient(ellipse 65% 55% at 88% 35%, rgba({int(a2[1:3],16)},{int(a2[3:5],16)},{int(a2[5:7],16)},0.30) 0%, transparent 65%),
+    radial-gradient(ellipse 30% 25% at 50% 50%, rgba({int(a[1:3],16)},{int(a[3:5],16)},{int(a[5:7],16)},0.08) 0%, transparent 70%),
+    {paleta["bg"]};
+}}
+
+/* ── ESTRUTURA ── */
+.side-bar{{position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(to bottom,{a},{a2})}}
 .slide-inner{{position:absolute;inset:0;padding:72px 72px 80px 88px;display:flex;flex-direction:column;justify-content:center;color:{paleta["text"]}}}
-.num-badge{{position:absolute;top:44px;right:52px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:rgba(255,255,255,0.45)}}
+.num-badge{{position:absolute;top:44px;right:52px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:rgba(255,255,255,0.38)}}
+
+/* ── LOGO NUUX ── */
+.logo-topo-esq{{
+  position:absolute;top:40px;left:88px;
+  font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;
+  letter-spacing:4px;color:rgba(255,255,255,0.55);
+}}
+.logo-rodape-dir{{
+  position:absolute;bottom:40px;right:52px;
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;
+  letter-spacing:4px;color:rgba(255,255,255,0.35);
+}}
+.logo-cta{{
+  font-family:'DM Sans',sans-serif;font-size:22px;font-weight:700;
+  letter-spacing:5px;color:{a};margin-bottom:20px;
+}}
 
 /* ── CAPA ── */
-.capa{{justify-content:flex-end;padding-bottom:100px}}
-.aspas-abertura{{font-family:'Playfair Display',serif;font-size:140px;line-height:0.6;color:{a};margin-bottom:20px;opacity:0.9}}
-.titulo-capa{{font-family:'Playfair Display',serif;font-style:italic;font-size:76px;line-height:1.05;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.6);margin-bottom:28px;max-width:860px}}
-.atribuicao{{font-size:13px;letter-spacing:5px;color:{a};font-weight:600;text-transform:uppercase;margin-bottom:24px}}
-.bar-accent{{width:80px;height:4px;background:linear-gradient(90deg,{a},{a2});border-radius:2px}}
+.capa{{justify-content:flex-end;padding-bottom:96px}}
+.aspas-abertura{{font-family:'Playfair Display',serif;font-size:130px;line-height:0.6;color:{a};margin-bottom:16px;opacity:0.85}}
+.titulo-capa{{font-family:'Playfair Display',serif;font-style:italic;font-size:72px;line-height:1.05;color:#fff;text-shadow:0 4px 28px rgba(0,0,0,.7);margin-bottom:28px;max-width:860px}}
+.atribuicao{{font-size:12px;letter-spacing:5px;color:{a};font-weight:700;text-transform:uppercase;margin-bottom:20px}}
+.bar-accent{{width:72px;height:3px;background:linear-gradient(90deg,{a},{a2});border-radius:2px}}
 
 /* ── CONTEÚDO EDITORIAL ── */
-.tag-topo{{font-size:12px;letter-spacing:4px;color:{a};font-weight:700;text-transform:uppercase;margin-bottom:20px}}
-.num-principio{{color:{a};font-family:'Playfair Display',serif;font-style:normal}}
-.titulo-slide{{font-family:'Playfair Display',serif;font-size:58px;line-height:1.08;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:20px;max-width:860px}}
-.divider-line{{width:48px;height:3px;background:linear-gradient(90deg,{a},{a2});border-radius:2px;margin-bottom:24px}}
-.texto-slide{{font-size:24px;line-height:1.7;color:rgba(255,255,255,.88);max-width:860px;font-weight:400;text-shadow:0 1px 10px rgba(0,0,0,.6)}}
+.tag-topo{{font-size:11px;letter-spacing:4px;color:{a};font-weight:700;text-transform:uppercase;margin-bottom:18px}}
+.num-principio{{color:{a};font-family:'Playfair Display',serif;}}
+.titulo-slide{{font-family:'Playfair Display',serif;font-size:56px;line-height:1.08;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:18px;max-width:860px}}
+.divider-line{{width:44px;height:3px;background:linear-gradient(90deg,{a},{a2});border-radius:2px;margin-bottom:22px}}
+.texto-slide{{font-size:23px;line-height:1.72;color:rgba(255,255,255,.87);max-width:860px;font-weight:400;text-shadow:0 1px 10px rgba(0,0,0,.55)}}
 .texto-slide strong{{color:#fff;font-weight:600}}
-.destaque-line{{margin-top:24px;font-size:22px;font-style:italic;color:{a};font-family:'Playfair Display',serif;max-width:820px;line-height:1.4;text-shadow:0 1px 8px rgba(0,0,0,.5)}}
+.destaque-line{{margin-top:22px;font-size:21px;font-style:italic;color:{a};font-family:'Playfair Display',serif;max-width:820px;line-height:1.45;text-shadow:0 1px 8px rgba(0,0,0,.5)}}
 
 /* ── REFLEXÃO ── */
 .reflexao{{justify-content:center}}
-.titulo-reflexao{{font-family:'Playfair Display',serif;font-size:52px;font-style:italic;line-height:1.15;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:20px;max-width:860px}}
+.titulo-reflexao{{font-family:'Playfair Display',serif;font-size:50px;font-style:italic;line-height:1.15;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:18px;max-width:860px}}
 
 /* ── SÍNTESE ── */
 .sintese{{justify-content:center}}
-.titulo-sintese{{font-family:'Playfair Display',serif;font-size:60px;line-height:1.08;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:20px;max-width:860px}}
+.titulo-sintese{{font-family:'Playfair Display',serif;font-size:58px;line-height:1.08;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:18px;max-width:860px}}
 
 /* ── CTA ── */
 .cta{{align-items:center;text-align:center;padding:80px}}
-.emoji-big{{font-size:56px;margin-bottom:20px}}
-.titulo-cta{{font-family:'Playfair Display',serif;font-size:68px;color:#fff;line-height:1.05;margin-bottom:20px;text-shadow:0 4px 24px rgba(0,0,0,.5)}}
-.texto-cta{{font-size:24px;color:rgba(255,255,255,.8);max-width:700px;line-height:1.65;margin-bottom:36px;font-weight:300}}
-.cta-pill{{background:linear-gradient(135deg,{a},{a2});color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;padding:16px 44px;border-radius:100px}}
+.titulo-cta{{font-family:'Playfair Display',serif;font-size:64px;color:#fff;line-height:1.05;margin-bottom:18px;text-shadow:0 4px 24px rgba(0,0,0,.5)}}
+.texto-cta{{font-size:23px;color:rgba(255,255,255,.78);max-width:700px;line-height:1.65;margin-bottom:32px;font-weight:300}}
+.cta-pill{{background:linear-gradient(135deg,{a},{a2});color:#fff;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:4px;padding:15px 42px;border-radius:100px}}
 </style></head><body>
-<div class="bg-img"></div>
-<div class="overlay"></div>
+{bg_layers}
 <div class="side-bar"></div>
+<div class="{logo_pos}">NUUX</div>
 {corpo}
-<div class="marca">@[SEU_USERNAME]</div>
 </body></html>"""
 
 
@@ -505,17 +541,34 @@ Bom: "founder filming himself working out at 5am in dark gym minimal equipment"
 Ruim: "success", "branding", "marketing strategy", "business people"
 Para conceitos abstratos, use metáfora visual concreta.
 
+ALTERNÂNCIA DE FUNDO
+
+Cada slide tem o campo "fundo": "foto" ou "marca".
+- "foto": usa uma imagem de fundo real relacionada ao conteúdo (alta qualidade)
+- "marca": usa gradiente animado com as cores da marca (elegante, sem foto)
+
+Padrão de alternância sugerido:
+- Slide 1 (capa): "foto" — foto editorial do protagonista ou cena central
+- Slide 2 (contexto): "foto" — cena que representa o protagonista em ação
+- Slide 3 (tensão): "marca" — gradiente da marca para o momento conceitual
+- Slide 4 (princípio 1): "foto" — cena que ilustra o princípio
+- Slide 5 (princípio 2): "marca" — gradiente da marca
+- Slide 6 (princípio 3): "foto" — cena que ilustra o princípio
+- Slide 7 (síntese): "marca" — gradiente para o momento de síntese
+- Slide 8 (reflexão): "foto" — cena que representa o leitor refletindo
+- Slide 9 (cta): "marca" — gradiente para o CTA final
+
 Responda APENAS JSON válido:
 {{
   "titulo_serie": "...",
   "angulo": "...",
   "paleta": {{
-    "nome": "amber",
-    "bg": "#0c0a00",
-    "accent": "#F59E0B",
-    "accent2": "#FCD34D",
+    "nome": "nuux",
+    "bg": "#000814",
+    "accent": "#2979FF",
+    "accent2": "#1565C0",
     "text": "#ffffff",
-    "overlay": "linear-gradient(160deg, rgba(0,0,0,0.72) 0%, rgba(12,10,0,0.90) 100%)"
+    "overlay": "linear-gradient(160deg, rgba(0,8,20,0.68) 0%, rgba(0,8,20,0.88) 100%)"
   }},
   "hashtags": ["...", "..."],
   "melhor_horario": "19:00",
@@ -523,6 +576,7 @@ Responda APENAS JSON válido:
     {{
       "numero": 1,
       "tipo": "capa",
+      "fundo": "foto",
       "emoji": "",
       "titulo": "...",
       "texto": "",
@@ -533,13 +587,7 @@ Responda APENAS JSON válido:
   ]
 }}
 
-Paletas por tom emocional do tema:
-- Reflexivo/humano: accent #F59E0B, bg #0c0a00 (ambar)
-- Confianca/autoridade: accent #C9A84C, bg #0d0d0d (dourado)
-- Crescimento/estrategia: accent #10b981, bg #071a0e (verde)
-- Tech/inovacao: accent #00E5FF, bg #050510 (ciano)
-- Confianca/clareza: accent #2563eb, bg #050a1a (azul)
-- Urgente/transformacao: accent #FF4D00, bg #0a0a0a (laranja)"""
+A paleta padrão é sempre a NUUX (bg #000814, accent #2979FF, accent2 #1565C0). Só use outra paleta se o tema pedir fortemente por outra identidade visual."""
 
     resposta = ""
     with client.messages.stream(
