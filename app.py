@@ -9,38 +9,98 @@ import os
 import re
 import io
 import zipfile
+import subprocess
+import sys
 import urllib.request
 import urllib.parse
 from datetime import datetime
 from pathlib import Path
 import anthropic
 
+@st.cache_resource(show_spinner=False)
+def instalar_playwright():
+    subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"],
+                   capture_output=True)
+
+instalar_playwright()
+
 # ── CONFIG ───────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Agência de Conteúdo · Claude AI",
     page_icon="🤖",
-    layout="centered",
-    initial_sidebar_state="collapsed"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 # ── CSS ──────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap');
 
 html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
 
-.stApp { background: #ffffff; }
+.stApp { background: #f8fafc; }
+.stMain { background: #f8fafc; }
 
-header[data-testid="stHeader"],
-footer, #MainMenu { display: none !important; }
+header[data-testid="stHeader"], footer, #MainMenu { display: none !important; }
 
-/* Tipografia */
-h1 { color: #0f172a !important; font-weight: 700 !important; font-size: 28px !important; margin-bottom: 4px !important; }
-h2 { color: #0f172a !important; font-weight: 600 !important; font-size: 20px !important; }
-p { color: #475569; }
+/* ── SIDEBAR ── */
+[data-testid="stSidebar"] {
+    background: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+[data-testid="stSidebar"] > div { padding: 32px 24px !important; }
 
-/* Inputs */
+/* ── MAIN CONTENT ── */
+.block-container {
+    padding: 40px 48px !important;
+    max-width: 1000px !important;
+}
+
+/* ── HERO ── */
+.hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #eff6ff; color: #2563eb;
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; padding: 6px 14px;
+    border-radius: 100px; margin-bottom: 20px;
+    border: 1px solid #dbeafe;
+}
+.hero-title {
+    font-size: 48px; font-weight: 800; color: #0f172a;
+    line-height: 1.1; margin-bottom: 12px; letter-spacing: -1px;
+}
+.hero-title span {
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+    font-size: 16px; color: #64748b; margin-bottom: 8px;
+    font-weight: 400; line-height: 1.6;
+}
+.hero-stats {
+    display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap;
+}
+.stat-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #64748b; font-weight: 500;
+}
+.stat-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #2563eb;
+}
+
+/* ── CARD FORM ── */
+.form-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04);
+    margin-top: 32px;
+}
+
+/* ── INPUTS ── */
 .stTextInput > div > div > input,
 .stTextArea > div > div > textarea {
     border: 1.5px solid #e2e8f0 !important;
@@ -51,6 +111,7 @@ p { color: #475569; }
     color: #0f172a !important;
     background: #f8fafc !important;
     box-shadow: none !important;
+    transition: all 0.15s !important;
 }
 .stTextInput > div > div > input:focus,
 .stTextArea > div > div > textarea:focus {
@@ -59,127 +120,139 @@ p { color: #475569; }
     box-shadow: 0 0 0 3px rgba(37,99,235,0.08) !important;
 }
 
-/* Labels */
+/* ── LABELS ── */
 .stTextInput label, .stTextArea label,
 .stSelectbox label, .stRadio > label {
-    font-size: 11px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.8px !important;
-    text-transform: uppercase !important;
-    color: #94a3b8 !important;
-    margin-bottom: 6px !important;
+    font-size: 11px !important; font-weight: 700 !important;
+    letter-spacing: 1px !important; text-transform: uppercase !important;
+    color: #94a3b8 !important; margin-bottom: 8px !important;
 }
 
-/* Botão principal */
+/* ── BOTÃO PRINCIPAL ── */
 div[data-testid="stButton"] > button {
-    background: #2563eb !important;
-    color: #fff !important;
-    border: none !important;
-    border-radius: 12px !important;
-    padding: 16px 32px !important;
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    width: 100% !important;
-    letter-spacing: 0.3px !important;
-    transition: all 0.15s !important;
-    box-shadow: 0 2px 12px rgba(37,99,235,0.25) !important;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    color: #fff !important; border: none !important;
+    border-radius: 14px !important; padding: 18px 32px !important;
+    font-size: 15px !important; font-weight: 700 !important;
+    width: 100% !important; letter-spacing: 0.5px !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.3) !important;
 }
 div[data-testid="stButton"] > button:hover {
-    background: #1d4ed8 !important;
-    box-shadow: 0 4px 20px rgba(37,99,235,0.35) !important;
-    transform: translateY(-1px) !important;
+    background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
+    box-shadow: 0 8px 24px rgba(37,99,235,0.4) !important;
+    transform: translateY(-2px) !important;
 }
 
-/* Botão download */
+/* ── BOTÃO DOWNLOAD ── */
 div[data-testid="stDownloadButton"] > button {
-    background: #fff !important;
-    color: #2563eb !important;
-    border: 1.5px solid #dbeafe !important;
-    border-radius: 10px !important;
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    padding: 10px 16px !important;
-    width: 100% !important;
+    background: #fff !important; color: #2563eb !important;
+    border: 1.5px solid #dbeafe !important; border-radius: 10px !important;
+    font-size: 13px !important; font-weight: 600 !important;
+    padding: 10px 16px !important; width: 100% !important;
     transition: all 0.15s !important;
 }
 div[data-testid="stDownloadButton"] > button:hover {
-    background: #eff6ff !important;
-    border-color: #2563eb !important;
+    background: #eff6ff !important; border-color: #2563eb !important;
 }
 
-/* Radio */
-.stRadio > div {
-    flex-direction: row !important;
-    gap: 10px !important;
-}
+/* ── RADIO ── */
+.stRadio > div { flex-direction: row !important; gap: 10px !important; }
 .stRadio > div > label {
-    background: #f8fafc !important;
-    border: 1.5px solid #e2e8f0 !important;
-    border-radius: 10px !important;
-    padding: 10px 24px !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    color: #475569 !important;
-    text-transform: none !important;
-    letter-spacing: 0 !important;
-    cursor: pointer !important;
+    background: #f8fafc !important; border: 1.5px solid #e2e8f0 !important;
+    border-radius: 12px !important; padding: 12px 28px !important;
+    font-size: 14px !important; font-weight: 600 !important;
+    color: #475569 !important; text-transform: none !important;
+    letter-spacing: 0 !important; cursor: pointer !important;
     transition: all 0.15s !important;
 }
 .stRadio > div > label:has(input:checked) {
     border-color: #2563eb !important;
-    background: #eff6ff !important;
-    color: #2563eb !important;
+    background: #eff6ff !important; color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1) !important;
 }
 
-/* Progress */
+/* ── PROGRESS ── */
 .stProgress > div > div > div > div {
     background: linear-gradient(90deg, #2563eb, #60a5fa) !important;
     border-radius: 4px !important;
 }
-
-/* Alertas limpos */
-div[data-testid="stAlert"] {
-    border-radius: 12px !important;
-    border: none !important;
-    font-size: 14px !important;
+.stProgress > div > div {
+    background: #e2e8f0 !important; border-radius: 4px !important;
 }
 
-/* Expander */
-.streamlit-expanderHeader {
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    color: #64748b !important;
-    background: #f8fafc !important;
-    border-radius: 10px !important;
-    border: 1.5px solid #e2e8f0 !important;
-}
-
-/* Métricas */
+/* ── MÉTRICAS ── */
 div[data-testid="metric-container"] {
-    background: #f8fafc;
-    border: 1.5px solid #f1f5f9;
-    border-radius: 12px;
-    padding: 16px !important;
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 16px; padding: 20px !important;
     text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 div[data-testid="metric-container"] label {
-    font-size: 11px !important;
-    color: #94a3b8 !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.8px !important;
+    font-size: 10px !important; color: #94a3b8 !important;
+    font-weight: 700 !important; letter-spacing: 1px !important;
     text-transform: uppercase !important;
 }
 div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
-    font-size: 22px !important;
-    font-weight: 700 !important;
-    color: #0f172a !important;
+    font-size: 24px !important; font-weight: 800 !important; color: #0f172a !important;
 }
 
-/* Imagens */
+/* ── CARDS DE SLIDE ── */
+.slide-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.2s;
+    margin-bottom: 16px;
+}
+.slide-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+/* ── SIDEBAR ITEMS ── */
+[data-testid="stSidebar"] .stTextInput > div > div > input {
+    background: #f8fafc !important;
+}
+
+/* ── EXPANDER ── */
+details { border: 1px solid #e2e8f0 !important; border-radius: 12px !important; }
+summary {
+    font-size: 13px !important; font-weight: 600 !important;
+    color: #475569 !important; padding: 12px 16px !important;
+}
+
+/* ── DIVIDER ── */
+hr { border: none !important; border-top: 1px solid #f1f5f9 !important; margin: 32px 0 !important; }
+
+/* ── IMAGENS ── */
 img { border-radius: 12px !important; }
 
-/* Divider */
-hr { border: none !important; border-top: 1px solid #f1f5f9 !important; margin: 28px 0 !important; }
+/* ── STEPPER ── */
+.stepper {
+    display: flex; align-items: center; gap: 0;
+    margin: 24px 0; padding: 20px 24px;
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 16px;
+}
+.step {
+    display: flex; align-items: center; gap: 10px;
+    flex: 1; position: relative;
+}
+.step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.step-num.active { background: #2563eb; color: #fff; }
+.step-num.done { background: #dcfce7; color: #16a34a; }
+.step-num.pending { background: #f1f5f9; color: #94a3b8; }
+.step-label { font-size: 13px; font-weight: 500; color: #475569; }
+.step-label.active { color: #2563eb; font-weight: 600; }
+.step-label.done { color: #16a34a; }
+.step-line { flex: 1; height: 1px; background: #e2e8f0; margin: 0 12px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -419,59 +492,87 @@ Paletas por tom:
 
 # ── INTERFACE ────────────────────────────────────────────────────
 def main():
-    # ── Header ───────────────────────────────────────────────────
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("""
-    <div style='margin-bottom: 8px;'>
-        <span style='font-size:32px; font-weight:700; color:#0f172a;'>Agência de Conteúdo</span>
-        <span style='font-size:28px; margin-left:10px;'>🤖</span>
-    </div>
-    <p style='color:#94a3b8; font-size:14px; margin-bottom:32px; font-weight:400;'>
-        Carrosséis visuais prontos para postar · Powered by Claude AI
-    </p>
-    """, unsafe_allow_html=True)
+    # ── SIDEBAR — API Keys ───────────────────────────────────────
+    with st.sidebar:
+        st.markdown("""
+        <div style='margin-bottom:28px;'>
+            <div style='font-size:22px; font-weight:800; color:#0f172a; letter-spacing:-0.5px;'>🤖 Agência</div>
+            <div style='font-size:12px; color:#94a3b8; font-weight:500; margin-top:2px;'>Powered by Claude AI</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    st.divider()
+        st.markdown("<div style='font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;'>Configurações</div>", unsafe_allow_html=True)
 
-    # ── API Keys ─────────────────────────────────────────────────
-    api_key = st.session_state.get("anthropic_key", os.environ.get("ANTHROPIC_API_KEY", ""))
-    px_key = st.session_state.get("pexels_key", os.environ.get("PEXELS_API_KEY", ""))
+        api_key_env = os.environ.get("ANTHROPIC_API_KEY", "")
+        px_key_env = os.environ.get("PEXELS_API_KEY", "")
 
-    with st.expander("🔑  Configurar API Keys", expanded=not bool(api_key)):
-        c1, c2 = st.columns(2)
-        with c1:
-            new_key = st.text_input("Anthropic API Key", type="password",
-                                    placeholder="sk-ant-...", value=api_key)
-        with c2:
-            new_px = st.text_input("Pexels API Key (opcional)", type="password",
-                                   placeholder="Leave empty para usar Picsum", value=px_key)
-        if st.button("Salvar"):
+        new_key = st.text_input("Anthropic API Key", type="password",
+                                placeholder="sk-ant-...",
+                                value=st.session_state.get("anthropic_key", api_key_env))
+        new_px = st.text_input("Pexels API Key", type="password",
+                               placeholder="Opcional — usa Picsum sem ela",
+                               value=st.session_state.get("pexels_key", px_key_env))
+
+        if st.button("Salvar configurações"):
             if new_key:
                 st.session_state["anthropic_key"] = new_key
                 st.session_state["pexels_key"] = new_px
-                st.success("Configurações salvas!")
-                st.rerun()
+                st.success("Salvo!")
             else:
                 st.error("Insira a Anthropic API Key")
 
-    st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.divider()
+        st.markdown("""
+        <div style='font-size:12px;color:#94a3b8;line-height:1.7;'>
+            <strong style='color:#475569;'>Como funciona:</strong><br>
+            1. Cole seu tema<br>
+            2. Escolha a plataforma<br>
+            3. Claude analisa tendências<br>
+            4. Gera 7 slides com storytelling<br>
+            5. Renderiza PNGs 1080×1080px<br>
+            6. Baixe e poste!
+        </div>
+        """, unsafe_allow_html=True)
 
-    # ── Formulário ───────────────────────────────────────────────
+    api_key = st.session_state.get("anthropic_key", os.environ.get("ANTHROPIC_API_KEY", ""))
+    px_key = st.session_state.get("pexels_key", os.environ.get("PEXELS_API_KEY", ""))
+
+    # ── HERO ─────────────────────────────────────────────────────
+    st.markdown("""
+    <div style='padding: 8px 0 0 0;'>
+        <div class='hero-badge'>✦ Carrosséis com IA</div>
+        <div class='hero-title'>Crie conteúdo que<br><span>para o scroll.</span></div>
+        <div class='hero-sub'>Cole seu tema, escolha a plataforma e o Claude cria 7 slides otimizados,<br>com storytelling, imagens e paleta profissional. Pronto para postar.</div>
+        <div class='hero-stats'>
+            <div class='stat-item'><div class='stat-dot'></div>7 slides por carrossel</div>
+            <div class='stat-item'><div class='stat-dot'></div>1080 × 1080px</div>
+            <div class='stat-item'><div class='stat-dot'></div>Instagram & LinkedIn</div>
+            <div class='stat-item'><div class='stat-dot'></div>Download em PNG + ZIP</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ── FORM CARD ────────────────────────────────────────────────
+    st.markdown("<div class='form-card'>", unsafe_allow_html=True)
+
     tema = st.text_area(
         "Tema do carrossel",
-        placeholder="Ex: Por que investir em tráfego pago em 2026?",
-        height=90
+        placeholder="Ex: Por que investir em tráfego pago em 2026?  |  5 erros fatais no Instagram  |  Como a IA vai mudar seu trabalho",
+        height=100
     )
 
-    plataforma = st.radio("Plataforma", ["Instagram", "LinkedIn"], horizontal=True)
+    plataforma = st.radio("Plataforma", ["📸  Instagram", "💼  LinkedIn"], horizontal=True)
+    plataforma = "Instagram" if "Instagram" in plataforma else "LinkedIn"
 
     st.markdown("<br>", unsafe_allow_html=True)
     gerar = st.button("✦  Gerar Carrossel")
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # ── Geração ──────────────────────────────────────────────────
     if gerar:
         if not api_key:
-            st.error("Configure sua Anthropic API Key primeiro.")
+            st.error("Configure sua Anthropic API Key na barra lateral.")
             return
         if not tema.strip():
             st.error("Digite o tema do carrossel.")
@@ -482,29 +583,45 @@ def main():
         pasta.mkdir(exist_ok=True)
         (pasta / "html").mkdir(exist_ok=True)
 
-        st.divider()
+        st.markdown("<br>", unsafe_allow_html=True)
 
-        # Status container limpo
+        # Stepper visual
+        stepper = st.empty()
         status_box = st.empty()
         progress = st.progress(0)
 
+        def render_stepper(etapa):
+            steps = ["Pesquisando", "Criando", "Renderizando", "Pronto"]
+            items = ""
+            for i, s in enumerate(steps):
+                if i < etapa:
+                    cls = "done"; num = "✓"
+                elif i == etapa:
+                    cls = "active"; num = str(i+1)
+                else:
+                    cls = "pending"; num = str(i+1)
+                sep = "<div class='step-line'></div>" if i < len(steps)-1 else ""
+                items += f"<div class='step'><div class='step-num {cls}'>{num}</div><div class='step-label {cls}'>{s}</div></div>{sep}"
+            stepper.markdown(f"<div class='stepper'>{items}</div>", unsafe_allow_html=True)
+
         arquivos_png = []
         dados = {}
+        tendencias = ""
 
         try:
-            # Passo 1 — Pesquisa de tendências
-            status_box.markdown("""
-            <div style='background:#eff6ff;border-radius:12px;padding:16px 20px;color:#1d4ed8;font-size:14px;font-weight:500;'>
-                🔍 &nbsp; Analisando o que está viralizando sobre esse tema...
-            </div>""", unsafe_allow_html=True)
+            render_stepper(0)
+            status_box.markdown("""<div style='background:#eff6ff;border-radius:12px;padding:14px 18px;
+                color:#1d4ed8;font-size:14px;font-weight:500;'>
+                🔍 &nbsp; Analisando tendências e padrões virais para esse tema...</div>""",
+                unsafe_allow_html=True)
             progress.progress(8)
             tendencias = pesquisar_tendencias(tema.strip(), plataforma, api_key)
 
-            # Passo 2 — Gera conteúdo com contexto
-            status_box.markdown("""
-            <div style='background:#eff6ff;border-radius:12px;padding:16px 20px;color:#1d4ed8;font-size:14px;font-weight:500;'>
-                🧠 &nbsp; Claude criando carrossel com storytelling otimizado...
-            </div>""", unsafe_allow_html=True)
+            render_stepper(1)
+            status_box.markdown("""<div style='background:#eff6ff;border-radius:12px;padding:14px 18px;
+                color:#1d4ed8;font-size:14px;font-weight:500;'>
+                🧠 &nbsp; Claude criando storytelling otimizado para máximo engajamento...</div>""",
+                unsafe_allow_html=True)
             progress.progress(18)
 
             dados = gerar_conteudo_claude(tema.strip(), plataforma, api_key, tendencias)
@@ -514,19 +631,17 @@ def main():
                 "text": "#ffffff",
                 "overlay": "linear-gradient(160deg,rgba(0,0,0,0.75) 0%,rgba(10,10,10,0.92) 100%)"
             })
-            hashtags = dados.get("hashtags", [])
-            horario = dados.get("melhor_horario", "19:00")
             progress.progress(25)
 
+            render_stepper(2)
             for i, slide in enumerate(slides):
                 num = slide.get("numero", 1)
                 query = slide.get("query_imagem", tema)
                 pct = 25 + int((i / len(slides)) * 65)
-
-                status_box.markdown(f"""
-                <div style='background:#eff6ff;border-radius:12px;padding:16px 20px;color:#1d4ed8;font-size:14px;font-weight:500;'>
-                    🖼️ &nbsp; Slide {num}/{len(slides)} — baixando imagem e renderizando...
-                </div>""", unsafe_allow_html=True)
+                status_box.markdown(f"""<div style='background:#eff6ff;border-radius:12px;padding:14px 18px;
+                    color:#1d4ed8;font-size:14px;font-weight:500;'>
+                    🖼️ &nbsp; Slide {num} de {len(slides)} — baixando imagem e renderizando...</div>""",
+                    unsafe_allow_html=True)
                 progress.progress(pct)
 
                 img_path = pasta / f"img_{num:02d}.jpg"
@@ -549,68 +664,78 @@ def main():
                     import traceback
                     st.error(f"Erro no slide {num}: {type(e).__name__}: {e}\n\n{traceback.format_exc()}")
 
+            render_stepper(3)
             progress.progress(100)
-            status_box.markdown("""
-            <div style='background:#f0fdf4;border-radius:12px;padding:16px 20px;color:#166534;font-size:14px;font-weight:500;'>
-                ✅ &nbsp; Carrossel gerado com sucesso!
-            </div>""", unsafe_allow_html=True)
+            status_box.markdown("""<div style='background:#f0fdf4;border-radius:12px;padding:14px 18px;
+                color:#166534;font-size:14px;font-weight:600;'>
+                ✅ &nbsp; Carrossel gerado com sucesso!</div>""", unsafe_allow_html=True)
 
         except Exception as e:
             progress.empty()
+            stepper.empty()
             status_box.error(f"Erro: {str(e)}")
             return
 
-        # ── Resultado ────────────────────────────────────────────
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.divider()
-        st.markdown("### Seu carrossel")
-        st.markdown("<br>", unsafe_allow_html=True)
-
-        # Métricas
+        # ── RESULTADO ────────────────────────────────────────────
         hashtags = dados.get("hashtags", [])
         horario = dados.get("melhor_horario", "19:00")
         angulo = dados.get("angulo", "")
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Slides gerados", len(arquivos_png))
-        c2.metric("Melhor horário", horario)
+        serie = dados.get("titulo_serie", tema.strip())
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown(f"""
+        <div style='margin-bottom:8px;'>
+            <div style='font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;'>Resultado</div>
+            <div style='font-size:24px;font-weight:800;color:#0f172a;letter-spacing:-0.5px;'>{serie}</div>
+        </div>""", unsafe_allow_html=True)
+
+        # Métricas
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Slides", len(arquivos_png))
+        c2.metric("Postar às", horario)
         c3.metric("Plataforma", plataforma)
+        c4.metric("Formato", "1080px")
 
-        # Ângulo escolhido
+        # Ângulo + tendências
         if angulo:
-            st.markdown(f"""
-            <div style='background:#f8fafc;border-left:3px solid #2563eb;border-radius:0 10px 10px 0;
-                        padding:14px 18px;margin:16px 0;color:#334155;font-size:14px;'>
-                <strong style='color:#2563eb;'>Ângulo escolhido:</strong> {angulo}
-            </div>""", unsafe_allow_html=True)
+            st.markdown(f"""<div style='background:#fff;border:1px solid #dbeafe;border-left:4px solid #2563eb;
+                border-radius:12px;padding:16px 20px;margin:16px 0;color:#334155;font-size:14px;'>
+                <strong style='color:#2563eb;font-size:11px;text-transform:uppercase;letter-spacing:1px;'>
+                Ângulo estratégico</strong><br><span style='font-size:15px;font-weight:500;color:#0f172a;'>
+                {angulo}</span></div>""", unsafe_allow_html=True)
 
-        # Análise de tendências (expansível)
         if tendencias:
-            with st.expander("🔍  Ver análise de tendências usada"):
-                st.markdown(f"<div style='color:#475569;font-size:14px;line-height:1.7;'>{tendencias}</div>",
+            with st.expander("🔍  Ver análise de tendências completa"):
+                st.markdown(f"<div style='color:#475569;font-size:14px;line-height:1.8;white-space:pre-wrap;'>{tendencias}</div>",
                            unsafe_allow_html=True)
 
         # Hashtags
         if hashtags:
-            st.markdown("<br>", unsafe_allow_html=True)
             chips = "".join(
                 f"<span style='display:inline-block;background:#eff6ff;color:#2563eb;border-radius:20px;"
-                f"padding:5px 14px;font-size:13px;font-weight:500;margin:3px;'>#{h}</span>"
+                f"padding:5px 14px;font-size:13px;font-weight:500;margin:3px 3px 3px 0;border:1px solid #dbeafe;'>#{h}</span>"
                 for h in hashtags
             )
-            st.markdown(f"<div style='margin-bottom:8px;'>{chips}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='margin:16px 0;'>{chips}</div>", unsafe_allow_html=True)
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.divider()
 
-        # Grid de slides
+        # Grid de slides 3 colunas
         if arquivos_png:
-            cols = st.columns(2)
+            st.markdown("<div style='font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;'>Slides gerados</div>", unsafe_allow_html=True)
+            cols = st.columns(3)
             for i, png in enumerate(arquivos_png):
                 if png.exists():
-                    with cols[i % 2]:
-                        st.image(png.read_bytes(), use_container_width=True)
+                    with cols[i % 3]:
+                        img_bytes = png.read_bytes()
+                        st.markdown(f"""<div style='background:#fff;border:1px solid #e2e8f0;border-radius:14px;
+                            overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:4px;'>""",
+                            unsafe_allow_html=True)
+                        st.image(img_bytes, use_container_width=True)
+                        st.markdown("</div>", unsafe_allow_html=True)
                         st.download_button(
-                            f"⬇  Baixar slide {i+1}",
-                            data=png.read_bytes(),
+                            f"⬇  Slide {i+1}",
+                            data=img_bytes,
                             file_name=png.name,
                             mime="image/png",
                             key=f"dl_{i}"
@@ -618,7 +743,7 @@ def main():
                         st.markdown("<br>", unsafe_allow_html=True)
 
             # ZIP
-            st.divider()
+            st.markdown("<br>", unsafe_allow_html=True)
             buf = io.BytesIO()
             with zipfile.ZipFile(buf, "w") as zf:
                 for p in arquivos_png:
