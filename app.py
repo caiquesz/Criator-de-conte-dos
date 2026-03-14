@@ -362,39 +362,25 @@ def renderizar_png(html_path: str, png_path: str):
         raise RuntimeError(result.stderr or result.stdout or "Erro desconhecido no Playwright")
 
 
-def pesquisar_tendencias(tema: str, plataforma: str, api_key: str) -> str:
+def pesquisar_tendencias(tema: str, plataforma: str, api_key: str, insights: str = "") -> str:
     """Passo 1: Claude pesquisa o que está funcionando no tema antes de criar."""
     client = anthropic.Anthropic(api_key=api_key)
 
+    contexto_insights = f"\nCONTEXTO FORNECIDO PELO CRIADOR:\n{insights}\n" if insights.strip() else ""
+
     prompt = f"""Você é um analista de conteúdo digital com experiência em {plataforma}.
+{contexto_insights}
+Estude o tema "{tema}" considerando múltiplas perspectivas e responda:
 
-Estude o tema "{tema}" considerando MÚLTIPLAS PERSPECTIVAS e responda:
+1. ESTRUTURA IDEAL: Qual sequência narrativa funciona melhor? Considere: problema > solução, antes > depois, mito > realidade, pergunta > resposta progressiva. Qual gera mais salvamentos e comentários reflexivos?
 
-1. ESTRUTURA IDEAL: Qual sequência narrativa funciona melhor para esse tema?
-   — Considere: problema→solução, antes→depois, mito→realidade, pergunta→resposta progressiva
-   — Qual dessas estruturas gera mais salvamentos e comentários reflexivos (não só reações)?
+2. GANCHO SEM CLICKBAIT: Que tipo de abertura prende genuinamente? O gancho deve contextualizar uma situação real que o leitor reconhece, não criar ansiedade ou usar estatísticas alarmistas.
 
-2. GANCHO EFICAZ: Que tipo de abertura prende sem clickbait ou exagero?
-   — O gancho deve despertar curiosidade genuína, não ansiedade artificial
-   — Ex de bom gancho: contextualiza uma situação real que o leitor reconhece
-   — Ex de gancho ruim: "99% das pessoas estão ERRANDO nisso" (polariza e aliena)
+3. PERSPECTIVAS E NUANCES: Quais os diferentes pontos de vista legítimos sobre esse assunto? Quem discorda e por quê? Quais exceções existem? Como abordar sem excluir leitores com contextos diferentes?
 
-3. PERSPECTIVAS DO TEMA: Quais são os diferentes pontos de vista legítimos sobre esse assunto?
-   — Quem discorda e por quê? Quais são as nuances e exceções?
-   — Como abordar o tema sem excluir leitores que têm contextos diferentes?
+4. IMAGENS POR ETAPA: Para cada momento da narrativa, que cena concreta representa bem o conteúdo visualmente? Descreva ambiente, ação da pessoa, iluminação e tom emocional. Evite sugerir conceitos abstratos como imagem.
 
-4. LINGUAGEM NATURAL: Como pessoas reais falam sobre esse tema em conversas do dia a dia?
-   — Não como marketer, mas como alguém que viveu o assunto
-   — Expressões, analogias domésticas, comparações que tornam o complexo simples
-
-5. LOOP DE CURIOSIDADE: Como manter o leitor avançando slide a slide?
-   — Cada slide deve resolver algo e abrir uma nova pergunta
-   — Qual é a "grande revelação" que vale guardar para o meio do carrossel?
-
-6. IMAGENS IDEAIS: Para cada etapa narrativa, que tipo de cena visual representa bem o conteúdo?
-   — Seja específico: ambiente, iluminação, emoção da pessoa, ação sendo realizada
-
-Seja analítico e equilibrado. Máximo 350 palavras."""
+Seja equilibrado e analítico. Máximo 300 palavras."""
 
     resposta = client.messages.create(
         model="claude-sonnet-4-6",
@@ -404,96 +390,84 @@ Seja analítico e equilibrado. Máximo 350 palavras."""
     return resposta.content[0].text
 
 
-def gerar_conteudo_claude(tema: str, plataforma: str, api_key: str, tendencias: str = "") -> dict:
+def gerar_conteudo_claude(tema: str, plataforma: str, api_key: str, tendencias: str = "", insights: str = "") -> dict:
     client = anthropic.Anthropic(api_key=api_key)
 
-    contexto_tendencias = f"""
-PESQUISA PRÉVIA SOBRE O TEMA (use isso para criar conteúdo mais preciso e viral):
-{tendencias}
-""" if tendencias else ""
+    bloco_tendencias = f"\nANÁLISE PRÉVIA DO TEMA:\n{tendencias}\n" if tendencias else ""
+    bloco_insights = f"\nINSIGHTS E CONTEXTO DO CRIADOR (use com prioridade):\n{insights}\n" if insights.strip() else ""
 
-    prompt = f"""Você é um criador de conteúdo experiente em {plataforma}, com foco em conteúdo que gera reflexão genuína e engajamento real.
-{contexto_tendencias}
+    prompt = f"""Você é um criador de conteúdo experiente em {plataforma}, com foco em conteúdo que gera reflexão genuína.
+{bloco_tendencias}{bloco_insights}
 Crie um carrossel de 7 slides sobre: "{tema}"
 
-━━ FILOSOFIA DO CONTEÚDO ━━
+FILOSOFIA DO CONTEÚDO
 
-Escreva como um amigo inteligente que entende profundamente do assunto — não como um copywriter tentando vender algo.
+Escreva como alguém que viveu o assunto e quer compartilhar o que aprendeu. Não como um copywriter tentando vender algo.
 Reconheça que o tema tem nuances. Evite posições absolutas quando a realidade é mais complexa.
-O leitor deve terminar o carrossel sentindo que aprendeu algo real, não que foi manipulado a reagir.
+O leitor deve terminar sentindo que aprendeu algo real, não que foi provocado a reagir.
 
-━━ ESTRUTURA NARRATIVA — LOOP DE CURIOSIDADE ━━
+ESTRUTURA NARRATIVA
 
-Slide 1 — GANCHO com CONTEXTO REAL
-- Descreve uma situação concreta que o leitor reconhece na própria vida
-- Abre uma pergunta ou tensão que o leitor quer ver resolvida
-- NÃO usa estatísticas alarmistas ou "X pessoas estão errando"
-- Tom: "Você já percebeu que..." / "Existe uma diferença entre X e Y que pouca gente para pra pensar..."
-- O título deve ser uma frase que o leitor concorda ou fica curioso, não ameaçado
+Slide 1 — GANCHO COM CONTEXTO REAL
+Descreva uma situação concreta que o leitor reconhece na própria vida. Abra uma pergunta ou tensão que ele vai querer ver resolvida. Não use estatísticas alarmistas nem frases como "X pessoas estão errando isso". O título deve ser algo que o leitor concorda ou que o deixa genuinamente curioso.
 
-Slide 2 — O CONTEXTO (por que isso importa)
-- Explica por que o tema é relevante no momento atual
-- Apresenta a complexidade sem simplificar demais
-- Reconhece que existem diferentes situações e perfis de pessoas
-- Conecta o tema à realidade do leitor sem generalizar
+Slide 2 — O CONTEXTO
+Explique por que o tema importa no momento atual. Apresente a complexidade sem simplificar demais. Reconheça que existem diferentes situações e perfis de pessoas. Conecte ao cotidiano do leitor sem generalizar.
 
-Slide 3 — A TENSÃO (onde a maioria trava)
-- Identifica o ponto exato onde as pessoas ficam confusas ou tomam o caminho mais difícil
-- NÃO culpa o leitor — explica por que é natural travar ali
-- Apresenta a pergunta central que o carrossel vai responder
+Slide 3 — A TENSÃO
+Mostre onde a maioria das pessoas trava nesse assunto e por que é natural travar ali. Não culpe o leitor. Formule a pergunta central que o carrossel vai responder.
 
-Slide 4 — A VIRADA (o insight que reorganiza tudo)
-- O ponto de vista que muda como o leitor enxerga o problema
-- Pode contradizer o senso comum, mas com argumento sólido — não por provocação
-- Reconhece exceções e casos onde pode não se aplicar
-- Usa uma analogia simples do cotidiano
+Slide 4 — A VIRADA
+O ponto de vista que reorganiza como o leitor enxerga o problema. Pode contrariar o senso comum, mas com argumento sólido. Reconheça exceções. Use uma analogia do cotidiano para tornar o conceito concreto.
 
-Slide 5 — NA PRÁTICA (como funciona de verdade)
-- Exemplo concreto e realista (não o caso extremo de sucesso, mas o caso comum)
-- Mostra o processo, não só o resultado
-- Inclui o que pode dar errado e como lidar — isso gera confiança, não medo
+Slide 5 — NA PRÁTICA
+Mostre como funciona de verdade com um exemplo realista, não o caso extremo de sucesso. Inclua o processo, não só o resultado. Mencione o que pode dar errado e como lidar.
 
-Slide 6 — O PRÓXIMO PASSO (ação acessível)
-- Uma ação específica que qualquer pessoa pode fazer hoje
-- Considera que diferentes leitores estão em momentos diferentes
-- Tom: "Se você ainda não chegou lá, tudo bem — comece por..."
-- Remove a pressão, não aumenta
+ATENÇÃO SLIDE 5: Se o criador forneceu um case real nos insights, use-o aqui com os detalhes exatos que ele forneceu. Se não forneceu nenhum case, descreva uma situação genérica e realista SEM inventar nomes, números ou atribuir resultados a pessoas reais. Nunca invente estatísticas. Se quiser citar dado, use linguagem como "segundo estudos da área" sem fabricar números específicos.
 
-Slide 7 — FECHAMENTO com CONVITE
-- Sintetiza a ideia central em uma frase memorável
-- Faz uma pergunta genuína para o leitor refletir (não retórica)
-- O CTA é natural: "se isso fez sentido pra você, salva pra rever" — sem urgência artificial
+Slide 6 — O PRÓXIMO PASSO
+Uma ação específica que qualquer pessoa pode fazer hoje. Considere que diferentes leitores estão em momentos diferentes. Remova a pressão, não aumente.
 
-━━ REGRAS DE ESCRITA ━━
-- Parágrafos corridos, sem bullet points no campo "texto"
-- Voz ativa, presente — como se estivesse falando com alguém
-- Títulos de até 6 palavras — diretos, não clickbait
-- Cada slide: 3 a 5 frases. Dense, mas respirável
-- Evite: "descubra", "aprenda", "simples assim", "todo mundo sabe", afirmações absolutas sem contexto
-- Use: "uma das formas", "pode ser que", "dependendo do seu contexto", "na minha visão"
-- Se o tema tiver dois lados legítimos, apresente os dois — o leitor é inteligente
+Slide 7 — FECHAMENTO COM CONVITE
+Sintetize a ideia central em uma frase memorável. Faça uma pergunta genuína para o leitor refletir. O CTA deve ser natural, sem urgência artificial.
 
-━━ IMAGENS — REGRAS PARA QUERY ━━
-Para cada slide, o campo "query_imagem" deve ser em INGLÊS e descrever:
-- A CENA específica, não o conceito abstrato
-- O AMBIENTE: escritório, rua, casa, natureza, etc.
-- A EMOÇÃO ou AÇÃO da pessoa na imagem
-- A LUZ e o TOM: "warm morning light", "overcast city", "dim cozy interior"
-- Formato: [ação/emoção] [tipo de pessoa] [ambiente] [luz/tom]
-- Exemplos BONS: "focused young woman reviewing notes at coffee shop warm morning light", "tired man staring at laptop screen at night home office", "small business owner talking to customer at market stall"
-- Exemplos RUINS: "success", "business", "money", "people working"
+REGRAS DE ESCRITA
+
+Tom: voz ativa, presente, como se estivesse conversando com alguém. Não como lista de instruções.
+Estrutura do texto: parágrafos corridos. Proibido bullet points no campo "texto".
+Pontuação: use vírgulas e pontos. Não use traço longo (—) como separador de ideias. Use ponto e vírgula ou nova frase quando necessário.
+Comprimento: 3 a 5 frases por slide. Densas mas respiráveis.
+Títulos: até 6 palavras, diretos, sem clickbait.
+Proibido: "descubra", "aprenda", "simples assim", "todo mundo sabe", afirmações absolutas sem contexto, asteriscos para negrito no texto, hífens como marcadores de lista.
+Permitido: "pode ser que", "dependendo do contexto", "na minha visão", "uma das formas".
+Se o tema tiver dois lados legítimos, apresente os dois. O leitor é inteligente.
+
+REGRAS PARA IMAGEM (query_imagem)
+
+O campo query_imagem deve estar em INGLÊS e descrever uma cena concreta que ILUSTRA visualmente o que o texto do slide está dizendo, não o título nem palavras-chave abstratas.
+
+Formato obrigatório: [ação ou emoção da pessoa] [tipo de pessoa] [ambiente específico] [luz e tom emocional]
+
+Exemplos corretos:
+- Para slide sobre posicionamento de marca: "confident woman presenting brand strategy on whiteboard to small team modern studio natural light"
+- Para slide sobre travamento em decisões: "person staring at blank notebook at desk late afternoon dim light indecisive"
+- Para slide sobre resultado real: "small shop owner smiling while checking phone behind counter warm morning light"
+
+Exemplos errados: "success", "branding", "business strategy", "people working", "marketing".
+
+Se o conceito for abstrato, use uma metáfora visual concreta: posicionamento pode ser representado por alguém escolhendo onde colocar uma placa na porta de um negócio.
 
 Responda APENAS JSON válido:
 {{
   "titulo_serie": "...",
   "angulo": "...",
   "paleta": {{
-    "nome": "dark-orange",
-    "bg": "#0a0a0a",
-    "accent": "#FF4D00",
-    "accent2": "#FF8C42",
+    "nome": "amber",
+    "bg": "#0c0a00",
+    "accent": "#F59E0B",
+    "accent2": "#FCD34D",
     "text": "#ffffff",
-    "overlay": "linear-gradient(160deg, rgba(0,0,0,0.75) 0%, rgba(10,10,10,0.92) 100%)"
+    "overlay": "linear-gradient(160deg, rgba(0,0,0,0.72) 0%, rgba(12,10,0,0.90) 100%)"
   }},
   "hashtags": ["...", "..."],
   "melhor_horario": "19:00",
@@ -502,13 +476,13 @@ Responda APENAS JSON válido:
   ]
 }}
 
-Paletas por tom emocional do tema:
-- Reflexivo/humano: accent #F59E0B, bg #0c0a00 (âmbar quente)
-- Confiança/clareza: accent #2563eb, bg #050a1a (azul)
-- Crescimento/esperança: accent #10b981, bg #071a0e (verde)
+Paletas por tom emocional:
+- Reflexivo/humano: accent #F59E0B, bg #0c0a00 (ambar)
+- Confianca/clareza: accent #2563eb, bg #050a1a (azul)
+- Crescimento/esperanca: accent #10b981, bg #071a0e (verde)
 - Premium/autoridade: accent #C9A84C, bg #0d0d0d (dourado)
-- Tech/inovação: accent #00E5FF, bg #050510 (ciano)
-- Urgente/transformação: accent #FF4D00, bg #0a0a0a (laranja)"""
+- Tech/inovacao: accent #00E5FF, bg #050510 (ciano)
+- Urgente/transformacao: accent #FF4D00, bg #0a0a0a (laranja)"""
 
     resposta = ""
     with client.messages.stream(
@@ -595,10 +569,16 @@ def main():
     # ── FORM CARD ────────────────────────────────────────────────
     st.markdown("<div class='form-card'>", unsafe_allow_html=True)
 
-    tema = st.text_area(
-        "Tema do carrossel",
-        placeholder="Ex: Por que investir em tráfego pago em 2026?  |  5 erros fatais no Instagram  |  Como a IA vai mudar seu trabalho",
-        height=100
+    entrada = st.text_area(
+        "Tema e contexto",
+        placeholder=(
+            'Coloque o tema entre aspas e, abaixo, seus insights.\n\n'
+            '"Posicionamento de marca no Instagram"\n\n'
+            'Minha agência atendeu uma loja de roupas que dobrou o engajamento mudando '
+            'só a forma como falava nos posts. Quero mostrar que não é sobre anunciar, '
+            'é sobre como você se posiciona. Público: donos de pequenos negócios.'
+        ),
+        height=180
     )
 
     plataforma = st.radio("Plataforma", ["📸  Instagram", "💼  LinkedIn"], horizontal=True)
@@ -613,9 +593,19 @@ def main():
         if not api_key:
             st.error("Configure sua Anthropic API Key na barra lateral.")
             return
-        if not tema.strip():
+        if not entrada.strip():
             st.error("Digite o tema do carrossel.")
             return
+
+        # Extrai tema (entre aspas) e insights (o resto)
+        import re as _re
+        match_tema = _re.search(r'["\u201c\u201d\u2018\u2019](.+?)["\u201c\u201d\u2018\u2019]', entrada, _re.DOTALL)
+        if match_tema:
+            tema = match_tema.group(1).strip()
+            insights = entrada.replace(match_tema.group(0), "").strip()
+        else:
+            tema = entrada.strip()
+            insights = ""
 
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         pasta = Path(f"carrossel_{ts}")
@@ -654,7 +644,7 @@ def main():
                 🔍 &nbsp; Analisando tendências e padrões virais para esse tema...</div>""",
                 unsafe_allow_html=True)
             progress.progress(8)
-            tendencias = pesquisar_tendencias(tema.strip(), plataforma, api_key)
+            tendencias = pesquisar_tendencias(tema, plataforma, api_key, insights)
 
             render_stepper(1)
             status_box.markdown("""<div style='background:#eff6ff;border-radius:12px;padding:14px 18px;
@@ -663,7 +653,7 @@ def main():
                 unsafe_allow_html=True)
             progress.progress(18)
 
-            dados = gerar_conteudo_claude(tema.strip(), plataforma, api_key, tendencias)
+            dados = gerar_conteudo_claude(tema, plataforma, api_key, tendencias, insights)
             slides = dados.get("slides", [])
             paleta = dados.get("paleta", {
                 "bg": "#0a0a0a", "accent": "#FF4D00", "accent2": "#FF8C42",
@@ -690,7 +680,7 @@ def main():
                 except Exception:
                     pass
 
-                html_content = gerar_html_slide(slide, len(slides), tema.strip(), paleta, img_local)
+                html_content = gerar_html_slide(slide, len(slides), tema, paleta, img_local)
                 html_path = pasta / "html" / f"slide_{num:02d}.html"
                 html_path.write_text(html_content, encoding="utf-8")
 
