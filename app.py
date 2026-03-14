@@ -322,7 +322,7 @@ def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local
         logo_pos = "logo-topo-esq"
         corpo = f"""<div class="slide-inner cta">
   <div class="num-badge">{num:02d} / {total:02d}</div>
-  <div class="logo-cta">NUUX</div>
+  <div class="logo-cta"><span class="logo-tri">▼</span>nux</div>
   <h2 class="titulo-cta">{titulo}</h2>
   <p class="texto-cta">{texto}</p>
   <div class="cta-pill">SALVA ✦ COMPARTILHA ✦ SEGUE</div>
@@ -384,21 +384,27 @@ body{{width:1080px;height:1080px;overflow:hidden;font-family:'DM Sans',sans-seri
 .slide-inner{{position:absolute;inset:0;padding:72px 72px 80px 88px;display:flex;flex-direction:column;justify-content:center;color:{paleta["text"]}}}
 .num-badge{{position:absolute;top:44px;right:52px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:rgba(255,255,255,0.38)}}
 
-/* ── LOGO NUUX ── */
+/* ── LOGO ▼nux ── */
 .logo-topo-esq{{
   position:absolute;top:40px;left:88px;
-  font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;
-  letter-spacing:4px;color:rgba(255,255,255,0.55);
+  font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;
+  letter-spacing:1px;color:rgba(255,255,255,0.50);
+  display:flex;align-items:center;gap:4px;
 }}
+.logo-topo-esq .logo-tri{{color:{a};font-size:14px;}}
 .logo-rodape-dir{{
   position:absolute;bottom:40px;right:52px;
-  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;
-  letter-spacing:4px;color:rgba(255,255,255,0.35);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  letter-spacing:1px;color:rgba(255,255,255,0.30);
+  display:flex;align-items:center;gap:3px;
 }}
+.logo-rodape-dir .logo-tri{{color:{a};font-size:11px;opacity:0.7;}}
 .logo-cta{{
-  font-family:'DM Sans',sans-serif;font-size:22px;font-weight:700;
-  letter-spacing:5px;color:{a};margin-bottom:20px;
+  font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;
+  letter-spacing:1px;color:#fff;margin-bottom:20px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
 }}
+.logo-cta .logo-tri{{color:{a};font-size:16px;}}
 
 /* ── CAPA ── */
 .capa{{justify-content:flex-end;padding-bottom:96px}}
@@ -432,7 +438,7 @@ body{{width:1080px;height:1080px;overflow:hidden;font-family:'DM Sans',sans-seri
 </style></head><body>
 {bg_layers}
 <div class="side-bar"></div>
-<div class="{logo_pos}">NUUX</div>
+<div class="{logo_pos}"><span class="logo-tri">▼</span>nux</div>
 {corpo}
 </body></html>"""
 
