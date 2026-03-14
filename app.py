@@ -285,22 +285,30 @@ def baixar_imagem(query: str, destino: Path, pexels_key: str = "") -> str:
 
 def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local: str = "") -> str:
     num = slide.get("numero", 1)
+    tipo = slide.get("tipo", "editorial")
     titulo = slide.get("titulo", "")
     texto = slide.get("texto", "")
+    destaque = slide.get("destaque", "")
     emoji = slide.get("emoji", "✦")
+    num_principio = slide.get("numero_principio", "")
     img_url = f"file:///{img_local.replace(chr(92), '/')}" if img_local else ""
     a, a2 = paleta["accent"], paleta["accent2"]
     ov = paleta["overlay"]
 
-    if num == 1:
+    destaque_html = f'<div class="destaque-line">{destaque}</div>' if destaque else ""
+    prefixo_titulo = f'<span class="num-principio">{num_principio}.</span> ' if num_principio else ""
+
+    if tipo == "capa" or num == 1:
+        # Slide 1: gancho como citação ou frase impactante
         corpo = f"""<div class="slide-inner capa">
   <div class="num-badge">01 / {total:02d}</div>
-  <div class="emoji-big">{emoji}</div>
+  <div class="aspas-abertura">"</div>
   <h1 class="titulo-capa">{titulo}</h1>
-  <div class="subtema">{tema.upper()}</div>
+  <div class="atribuicao">{tema.upper()}</div>
   <div class="bar-accent"></div>
 </div>"""
-    elif num == total:
+
+    elif tipo == "cta" or num == total:
         corpo = f"""<div class="slide-inner cta">
   <div class="num-badge">{num:02d} / {total:02d}</div>
   <div class="emoji-big">{emoji}</div>
@@ -308,39 +316,82 @@ def gerar_html_slide(slide: dict, total: int, tema: str, paleta: dict, img_local
   <p class="texto-cta">{texto}</p>
   <div class="cta-pill">SALVA ✦ COMPARTILHA ✦ SEGUE</div>
 </div>"""
+
+    elif tipo == "reflexao":
+        # Slide de pergunta reflexiva: título como pergunta grande
+        corpo = f"""<div class="slide-inner reflexao">
+  <div class="num-badge">{num:02d} / {total:02d}</div>
+  <div class="tag-topo">{emoji} {tema.upper()}</div>
+  <h2 class="titulo-reflexao">{titulo}</h2>
+  <div class="divider-line"></div>
+  <p class="texto-slide">{texto}</p>
+  {destaque_html}
+</div>"""
+
+    elif tipo == "sintese":
+        # Slide de síntese: sem foto ideal, texto mais denso centralizado
+        corpo = f"""<div class="slide-inner sintese">
+  <div class="num-badge">{num:02d} / {total:02d}</div>
+  <h2 class="titulo-sintese">{titulo}</h2>
+  <div class="divider-line"></div>
+  <p class="texto-slide">{texto}</p>
+  {destaque_html}
+</div>"""
+
     else:
+        # Editorial padrão (contexto, tensão, princípio, etc.)
+        titulo_html = f"{prefixo_titulo}{titulo}"
         corpo = f"""<div class="slide-inner conteudo">
   <div class="num-badge">{num:02d} / {total:02d}</div>
   <div class="tag-topo">{emoji} {tema.upper()}</div>
-  <h2 class="titulo-slide">{titulo}</h2>
+  <h2 class="titulo-slide">{titulo_html}</h2>
   <div class="divider-line"></div>
   <p class="texto-slide">{texto}</p>
+  {destaque_html}
 </div>"""
 
     return f"""<!DOCTYPE html><html><head><meta charset="UTF-8">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{width:1080px;height:1080px;overflow:hidden;font-family:'DM Sans',sans-serif;background:{paleta["bg"]};position:relative}}
 .bg-img{{position:absolute;inset:0;background:url('{img_url}') center/cover no-repeat;filter:saturate(1.1) brightness(0.85)}}
 .overlay{{position:absolute;inset:0;background:{ov};opacity:0.65}}
 .side-bar{{position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(to bottom,{a},{a2})}}
 .marca{{position:absolute;bottom:40px;right:48px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:rgba(255,255,255,0.3);letter-spacing:3px}}
-.slide-inner{{position:absolute;inset:0;padding:72px 72px 72px 88px;display:flex;flex-direction:column;justify-content:center;color:{paleta["text"]}}}
+.slide-inner{{position:absolute;inset:0;padding:72px 72px 80px 88px;display:flex;flex-direction:column;justify-content:center;color:{paleta["text"]}}}
 .num-badge{{position:absolute;top:44px;right:52px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:rgba(255,255,255,0.45)}}
+
+/* ── CAPA ── */
 .capa{{justify-content:flex-end;padding-bottom:100px}}
-.emoji-big{{font-size:64px;margin-bottom:24px}}
-.titulo-capa{{font-family:'Bebas Neue',sans-serif;font-size:96px;line-height:.95;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.5);margin-bottom:20px;max-width:800px}}
-.subtema{{font-size:14px;letter-spacing:5px;color:{a};font-weight:600;margin-bottom:24px}}
+.aspas-abertura{{font-family:'Playfair Display',serif;font-size:140px;line-height:0.6;color:{a};margin-bottom:20px;opacity:0.9}}
+.titulo-capa{{font-family:'Playfair Display',serif;font-style:italic;font-size:76px;line-height:1.05;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.6);margin-bottom:28px;max-width:860px}}
+.atribuicao{{font-size:13px;letter-spacing:5px;color:{a};font-weight:600;text-transform:uppercase;margin-bottom:24px}}
 .bar-accent{{width:80px;height:4px;background:linear-gradient(90deg,{a},{a2});border-radius:2px}}
-.tag-topo{{font-size:13px;letter-spacing:4px;color:{a};font-weight:600;text-transform:uppercase;margin-bottom:28px}}
-.titulo-slide{{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.6);margin-bottom:24px;max-width:820px}}
-.divider-line{{width:56px;height:3px;background:linear-gradient(90deg,{a},{a2});border-radius:2px;margin-bottom:28px}}
-.texto-slide{{font-size:26px;line-height:1.65;color:rgba(255,255,255,.92);max-width:820px;font-weight:400;text-shadow:0 2px 12px rgba(0,0,0,.7)}}
+
+/* ── CONTEÚDO EDITORIAL ── */
+.tag-topo{{font-size:12px;letter-spacing:4px;color:{a};font-weight:700;text-transform:uppercase;margin-bottom:20px}}
+.num-principio{{color:{a};font-family:'Playfair Display',serif;font-style:normal}}
+.titulo-slide{{font-family:'Playfair Display',serif;font-size:58px;line-height:1.08;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:20px;max-width:860px}}
+.divider-line{{width:48px;height:3px;background:linear-gradient(90deg,{a},{a2});border-radius:2px;margin-bottom:24px}}
+.texto-slide{{font-size:24px;line-height:1.7;color:rgba(255,255,255,.88);max-width:860px;font-weight:400;text-shadow:0 1px 10px rgba(0,0,0,.6)}}
+.texto-slide strong{{color:#fff;font-weight:600}}
+.destaque-line{{margin-top:24px;font-size:22px;font-style:italic;color:{a};font-family:'Playfair Display',serif;max-width:820px;line-height:1.4;text-shadow:0 1px 8px rgba(0,0,0,.5)}}
+
+/* ── REFLEXÃO ── */
+.reflexao{{justify-content:center}}
+.titulo-reflexao{{font-family:'Playfair Display',serif;font-size:52px;font-style:italic;line-height:1.15;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:20px;max-width:860px}}
+
+/* ── SÍNTESE ── */
+.sintese{{justify-content:center}}
+.titulo-sintese{{font-family:'Playfair Display',serif;font-size:60px;line-height:1.08;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5);margin-bottom:20px;max-width:860px}}
+
+/* ── CTA ── */
 .cta{{align-items:center;text-align:center;padding:80px}}
-.titulo-cta{{font-family:'Bebas Neue',sans-serif;font-size:80px;color:#fff;line-height:1;margin-bottom:24px;text-shadow:0 4px 24px rgba(0,0,0,.5)}}
-.texto-cta{{font-size:26px;color:rgba(255,255,255,.8);max-width:700px;line-height:1.6;margin-bottom:40px;font-weight:300}}
-.cta-pill{{background:linear-gradient(135deg,{a},{a2});color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;padding:18px 48px;border-radius:100px}}
+.emoji-big{{font-size:56px;margin-bottom:20px}}
+.titulo-cta{{font-family:'Playfair Display',serif;font-size:68px;color:#fff;line-height:1.05;margin-bottom:20px;text-shadow:0 4px 24px rgba(0,0,0,.5)}}
+.texto-cta{{font-size:24px;color:rgba(255,255,255,.8);max-width:700px;line-height:1.65;margin-bottom:36px;font-weight:300}}
+.cta-pill{{background:linear-gradient(135deg,{a},{a2});color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;padding:16px 44px;border-radius:100px}}
 </style></head><body>
 <div class="bg-img"></div>
 <div class="overlay"></div>
@@ -396,66 +447,63 @@ def gerar_conteudo_claude(tema: str, plataforma: str, api_key: str, tendencias: 
     bloco_tendencias = f"\nANÁLISE PRÉVIA DO TEMA:\n{tendencias}\n" if tendencias else ""
     bloco_insights = f"\nINSIGHTS E CONTEXTO DO CRIADOR (use com prioridade):\n{insights}\n" if insights.strip() else ""
 
-    prompt = f"""Você é um criador de conteúdo experiente em {plataforma}, com foco em conteúdo que gera reflexão genuína.
+    prompt = f"""Você é um jornalista de negócios e estrategista de conteúdo para {plataforma}.
 {bloco_tendencias}{bloco_insights}
-Crie um carrossel de 7 slides sobre: "{tema}"
+Crie um carrossel de 9 slides no estilo case study jornalístico sobre: "{tema}"
 
-FILOSOFIA DO CONTEÚDO
+FILOSOFIA
 
-Escreva como alguém que viveu o assunto e quer compartilhar o que aprendeu. Não como um copywriter tentando vender algo.
-Reconheça que o tema tem nuances. Evite posições absolutas quando a realidade é mais complexa.
-O leitor deve terminar sentindo que aprendeu algo real, não que foi provocado a reagir.
+Escreva como um jornalista que investigou o assunto e encontrou algo que vale compartilhar. Não como um guru com respostas prontas. Use detalhes específicos que geram credibilidade: horários, lugares, números reais quando disponíveis. Cada slide deve fazer o leitor querer avançar para o próximo.
 
-ESTRUTURA NARRATIVA
+ESTRUTURA OBRIGATÓRIA — 9 SLIDES
 
-Slide 1 — GANCHO COM CONTEXTO REAL
-Descreva uma situação concreta que o leitor reconhece na própria vida. Abra uma pergunta ou tensão que ele vai querer ver resolvida. Não use estatísticas alarmistas nem frases como "X pessoas estão errando isso". O título deve ser algo que o leitor concorda ou que o deixa genuinamente curioso.
+Slide 1 — GANCHO (tipo: "capa")
+O titulo deve ser uma frase impactante, provocativa ou citação que captura a essência do tema. Pode ser uma declaração que parece exagerada mas é verdadeira, ou uma pergunta que o leitor quer ver respondida. Sem texto no campo texto (deixe vazio ""). Sem emoji.
+Exemplo de bom título: "Meu perfil vende mais que qualquer celebridade que eu contrato"
+Exemplo ruim: "Como usar redes sociais para vender mais"
 
-Slide 2 — O CONTEXTO
-Explique por que o tema importa no momento atual. Apresente a complexidade sem simplificar demais. Reconheça que existem diferentes situações e perfis de pessoas. Conecte ao cotidiano do leitor sem generalizar.
+Slide 2 — O PROTAGONISTA / CONTEXTO (tipo: "editorial")
+Apresente quem ou o que está no centro desse case. Se o criador forneceu um exemplo real nos insights, use-o. Se não, construa um contexto concreto e plausível. Dê detalhes que situem o leitor. No campo texto, use <strong>tags strong</strong> para destacar 1 ou 2 frases-chave dentro do parágrafo. No campo destaque, coloque o paradoxo central: algo que não deveria funcionar mas funciona, ou algo esperado que não acontece.
 
-Slide 3 — A TENSÃO
-Mostre onde a maioria das pessoas trava nesse assunto e por que é natural travar ali. Não culpe o leitor. Formule a pergunta central que o carrossel vai responder.
+Slide 3 — A TENSÃO / IRONIA (tipo: "editorial")
+Introduza o paradoxo com tom levemente irônico e autoconsciente. A ideia central: "dizem X, mas identificamos Y." Mostre onde a lógica convencional falha. No destaque: a frase que reformula o problema de forma inesperada.
 
-Slide 4 — A VIRADA
-O ponto de vista que reorganiza como o leitor enxerga o problema. Pode contrariar o senso comum, mas com argumento sólido. Reconheça exceções. Use uma analogia do cotidiano para tornar o conceito concreto.
+Slide 4 — PRINCÍPIO 1 (tipo: "editorial", numero_principio: 1)
+Primeiro princípio concreto. Título curto e declarativo (ex: "Viver a marca, não representá-la"). No texto: explique a mecânica com um exemplo específico. Use <strong> para a frase que resume o mecanismo. No destaque: a frase de remate que sintetiza o princípio em palavras simples.
 
-Slide 5 — NA PRÁTICA
-Mostre como funciona de verdade com um exemplo realista, não o caso extremo de sucesso. Inclua o processo, não só o resultado. Mencione o que pode dar errado e como lidar.
+Slide 5 — PRINCÍPIO 2 (tipo: "editorial", numero_principio: 2)
+Segundo princípio. Mesmo formato: título declarativo, texto com mecânica e exemplo, <strong> nas frases-chave, destaque com o remate.
 
-ATENÇÃO SLIDE 5: Se o criador forneceu um case real nos insights, use-o aqui com os detalhes exatos que ele forneceu. Se não forneceu nenhum case, descreva uma situação genérica e realista SEM inventar nomes, números ou atribuir resultados a pessoas reais. Nunca invente estatísticas. Se quiser citar dado, use linguagem como "segundo estudos da área" sem fabricar números específicos.
+Slide 6 — PRINCÍPIO 3 (tipo: "editorial", numero_principio: 3)
+Terceiro princípio. Mesmo formato. Este pode ser o mais contraintuitivo dos três — algo que vai contra o que todo mundo faz.
 
-Slide 6 — O PRÓXIMO PASSO
-Uma ação específica que qualquer pessoa pode fazer hoje. Considere que diferentes leitores estão em momentos diferentes. Remova a pressão, não aumente.
+Slide 7 — RESULTADO / SÍNTESE (tipo: "sintese")
+O que essa equação prova? Mostre o resultado real, concreto, sem exagero. Se o criador forneceu dados reais nos insights, use-os. Se não, use linguagem como "o resultado é visível em..." sem inventar números. No destaque: a frase que resume o poder do conjunto dos 3 princípios.
 
-Slide 7 — FECHAMENTO COM CONVITE
-Sintetize a ideia central em uma frase memorável. Faça uma pergunta genuína para o leitor refletir. O CTA deve ser natural, sem urgência artificial.
+Slide 8 — PERGUNTA REFLEXIVA (tipo: "reflexao")
+O titulo deve ser uma pergunta que o leitor aplica à própria situação imediatamente. Não retórica, genuinamente reflexiva. No texto: explique a diferença entre quem faz e quem não faz. No destaque: a resposta curta e direta para quem age diferente.
+
+Slide 9 — CTA NATURAL (tipo: "cta")
+CTA conectado ao conteúdo do carrossel, não genérico. Mencione o que o leitor vai aprender ou conseguir ao seguir/salvar. Tom: convite, não pressão.
 
 REGRAS DE ESCRITA
 
-Tom: voz ativa, presente, como se estivesse conversando com alguém. Não como lista de instruções.
-Estrutura do texto: parágrafos corridos. Proibido bullet points no campo "texto".
-Pontuação: use vírgulas e pontos. Não use traço longo (—) como separador de ideias. Use ponto e vírgula ou nova frase quando necessário.
-Comprimento: 3 a 5 frases por slide. Densas mas respiráveis.
-Títulos: até 6 palavras, diretos, sem clickbait.
-Proibido: "descubra", "aprenda", "simples assim", "todo mundo sabe", afirmações absolutas sem contexto, asteriscos para negrito no texto, hífens como marcadores de lista.
-Permitido: "pode ser que", "dependendo do contexto", "na minha visão", "uma das formas".
-Se o tema tiver dois lados legítimos, apresente os dois. O leitor é inteligente.
+Voz: jornalística, presente, como se estivesse narrando algo que investigou.
+Parágrafos corridos no campo texto. Sem bullet points, sem hífens como marcadores.
+Use <strong>texto</strong> dentro do campo "texto" para 1 ou 2 frases por slide, nunca o slide inteiro.
+Títulos: até 8 palavras, declarativos ou como pergunta. Sem verbos no imperativo.
+Proibido: "descubra", "aprenda", "você precisa", afirmações absolutas sem contexto, exclamações.
+Remates curtos no campo destaque: frases de 10 a 20 palavras, declarativas, memoráveis.
+Detalhes específicos valem ouro: horário, cidade, número, nome real quando fornecido.
+Se o criador forneceu case nos insights, use os detalhes exatos. Nunca invente nomes ou números.
 
 REGRAS PARA IMAGEM (query_imagem)
 
-O campo query_imagem deve estar em INGLÊS e descrever uma cena concreta que ILUSTRA visualmente o que o texto do slide está dizendo, não o título nem palavras-chave abstratas.
-
-Formato obrigatório: [ação ou emoção da pessoa] [tipo de pessoa] [ambiente específico] [luz e tom emocional]
-
-Exemplos corretos:
-- Para slide sobre posicionamento de marca: "confident woman presenting brand strategy on whiteboard to small team modern studio natural light"
-- Para slide sobre travamento em decisões: "person staring at blank notebook at desk late afternoon dim light indecisive"
-- Para slide sobre resultado real: "small shop owner smiling while checking phone behind counter warm morning light"
-
-Exemplos errados: "success", "branding", "business strategy", "people working", "marketing".
-
-Se o conceito for abstrato, use uma metáfora visual concreta: posicionamento pode ser representado por alguém escolhendo onde colocar uma placa na porta de um negócio.
+Descreva em INGLÊS uma cena concreta que ILUSTRA o que o texto do slide está dizendo.
+Formato: [ação ou emoção] [tipo de pessoa] [ambiente específico] [luz e tom]
+Bom: "founder filming himself working out at 5am in dark gym minimal equipment"
+Ruim: "success", "branding", "marketing strategy", "business people"
+Para conceitos abstratos, use metáfora visual concreta.
 
 Responda APENAS JSON válido:
 {{
@@ -472,22 +520,31 @@ Responda APENAS JSON válido:
   "hashtags": ["...", "..."],
   "melhor_horario": "19:00",
   "slides": [
-    {{"numero": 1, "emoji": "💡", "titulo": "...", "texto": "...", "query_imagem": "..."}}
+    {{
+      "numero": 1,
+      "tipo": "capa",
+      "emoji": "",
+      "titulo": "...",
+      "texto": "",
+      "destaque": "",
+      "numero_principio": "",
+      "query_imagem": "..."
+    }}
   ]
 }}
 
-Paletas por tom emocional:
+Paletas por tom emocional do tema:
 - Reflexivo/humano: accent #F59E0B, bg #0c0a00 (ambar)
-- Confianca/clareza: accent #2563eb, bg #050a1a (azul)
-- Crescimento/esperanca: accent #10b981, bg #071a0e (verde)
-- Premium/autoridade: accent #C9A84C, bg #0d0d0d (dourado)
+- Confianca/autoridade: accent #C9A84C, bg #0d0d0d (dourado)
+- Crescimento/estrategia: accent #10b981, bg #071a0e (verde)
 - Tech/inovacao: accent #00E5FF, bg #050510 (ciano)
+- Confianca/clareza: accent #2563eb, bg #050a1a (azul)
 - Urgente/transformacao: accent #FF4D00, bg #0a0a0a (laranja)"""
 
     resposta = ""
     with client.messages.stream(
         model="claude-sonnet-4-6",
-        max_tokens=3500,
+        max_tokens=5000,
         messages=[{"role": "user", "content": prompt}]
     ) as stream:
         for text in stream.text_stream:
