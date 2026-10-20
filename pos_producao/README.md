@@ -26,7 +26,7 @@ python pos_producao/tipografia.py video.mp4 --cenas pos_producao/saida/video_tip
 python pos_producao/tipografia.py video.mp4 --cenas pos_producao/saida/video_tipografia.cenas.json
 ```
 
-O que ele faz, frame a frame:
+O que ele faz, frame a frame (motor PyAV: cada frame sai com o mesmo timestamp do original, então vídeos de celular com frame rate variável ficam idênticos em duração e sincronia):
 
 1. segmenta a pessoa (u2net_human_seg, CPU, ~0,3 s/frame em 1080×1920);
 2. desenha os blocos de texto da cena (camada `atras`), recoloca a pessoa por cima, desenha a camada `frente`;

@@ -3,3 +3,4 @@ numpy
 onnxruntime
 opencv-python-headless
 pillow
+av

@@ -62,8 +62,14 @@ class Segmentador:
         self.tam = 320 if "u2net" in modelo else 1024
         self.anterior: np.ndarray | None = None
 
-    def mascara(self, frame_rgb: np.ndarray, suavizar: float = 0.35) -> np.ndarray:
-        """Retorna máscara float32 [0..1] (1 = pessoa) no tamanho do frame."""
+    def mascara(self, frame_rgb: np.ndarray, suavizar: float = 0.35, t: float | None = None) -> np.ndarray:
+        """Retorna máscara float32 [0..1] (1 = pessoa) no tamanho do frame.
+
+        Em vídeos a 60 fps reaproveita a máscara anterior se passaram < 25 ms (metade do custo).
+        """
+        if t is not None and getattr(self, "_t_ultimo", None) is not None and getattr(self, "_ultima", None) is not None \
+                and 0 <= (t - self._t_ultimo) < 0.025:
+            return self._ultima
         h, w = frame_rgb.shape[:2]
         x = cv2.resize(frame_rgb, (self.tam, self.tam), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
         x = (x - np.array([0.485, 0.456, 0.406], np.float32)) / np.array([0.229, 0.224, 0.225], np.float32)
@@ -76,7 +82,9 @@ class Segmentador:
         if self.anterior is not None and suavizar > 0:
             m = (1 - suavizar) * m + suavizar * self.anterior
         self.anterior = m
-        return cv2.GaussianBlur(m, (0, 0), 2.0)
+        self._ultima = cv2.GaussianBlur(m, (0, 0), 2.0)
+        self._t_ultimo = t
+        return self._ultima
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -246,7 +254,7 @@ class Renderizador:
         for b in atras:
             self.aplicar_bloco(base, frame, b, t)
         if atras and seg is not None:
-            m = seg.mascara(frame)[..., None]
+            m = seg.mascara(frame, t=t)[..., None]
             base = (base.astype(np.float32) * (1 - m) + frame.astype(np.float32) * m).astype(np.uint8)
         for b in frente:
             self.aplicar_bloco(base, frame, b, t)
@@ -321,9 +329,14 @@ def layout_automatico(cards: list[L.Card], preset: dict, W: int, H: int, chaves:
         if tpl["nome"] == "faz":           # ref. 1: linha curta no alto à direita, gigante no centro, linha leve abaixo
             if antes:
                 t1 = _limpo(" ".join(p.texto for p in antes))
-                tam = _ajustar_tamanho(f_med, t1, 150, int(W * 0.60), tr, esc, maius)
-                blocos.append(dict(texto=t1, fonte=f_med, tamanho=tam, inicio=antes[0].inicio, fim=fim,
-                                   pos=[0.93, 0.24], ancora="direita", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
+                if len(antes) <= 2:   # curta: no alto à direita, como "o que"
+                    tam = _ajustar_tamanho(f_med, t1, 160, int(W * 0.60), tr, esc, maius)
+                    blocos.append(dict(texto=t1, fonte=f_med, tamanho=tam, inicio=antes[0].inicio, fim=fim,
+                                       pos=[0.93, 0.24], ancora="direita", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
+                else:                 # longa: linha inteira centralizada acima da gigante
+                    tam = _ajustar_tamanho(f_med, t1, 150, largura_max, tr, esc, maius)
+                    blocos.append(dict(texto=t1, fonte=f_med, tamanho=tam, inicio=antes[0].inicio, fim=fim,
+                                       pos=[0.5, 0.22], ancora="centro", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
             tam = _ajustar_tamanho(f_gig, _limpo(chave.texto), 640, largura_max, tr, esc, maius)
             blocos.append(dict(texto=_limpo(chave.texto), fonte=f_gig, tamanho=tam, inicio=chave.inicio, fim=fim,
                                pos=[0.5, 0.34], ancora="centro", cor=cor, textura=textura, camada="atras", anim="pop", tracking=tr, maiusculas=maius))
@@ -332,34 +345,48 @@ def layout_automatico(cards: list[L.Card], preset: dict, W: int, H: int, chaves:
                 tam = _ajustar_tamanho(f_leve, t2, 160, largura_max, tr, esc, maius)
                 blocos.append(dict(texto=t2, fonte=f_leve, tamanho=tam, inicio=depois[0].inicio, fim=fim,
                                    pos=[0.5, 0.53], ancora="centro", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
-        elif tpl["nome"] == "rotina":      # ref. 2: empilhado à esquerda, gigante colorido sobrepondo pela direita
+        elif tpl["nome"] == "rotina":      # ref. 2: "Literalmente / na sua / ROTINA" — empilhado à esquerda, ordem de leitura
             y = 0.40
             x_esq = 0.06
+            texto_chave = _limpo(chave.texto)
+            if len(antes) == 1 and L._norm(antes[0].texto) in PALAVRAS_FUNCAO:
+                texto_chave = _limpo(antes[0].texto) + " " + texto_chave   # "A propriedade" em vez de "A" solto
+                antes = []
             if antes:
-                t1 = _limpo(" ".join(p.texto for p in antes))
-                base_tam = 230 if len(t1) > 3 else 170
-                tam = _ajustar_tamanho(f_med, t1, base_tam, int(W * (0.96 - x_esq)), tr, esc, maius)
-                blocos.append(dict(texto=t1, fonte=f_med, tamanho=tam, inicio=antes[0].inicio, fim=fim,
+                grande, resto = antes[:1] if len(antes) > 1 else antes, antes[1:]
+                t1 = _limpo(" ".join(p.texto for p in grande))
+                tam = _ajustar_tamanho(f_med, t1, 230 if len(t1) > 3 else 170, int(W * (0.96 - x_esq)), tr, esc, maius)
+                blocos.append(dict(texto=t1, fonte=f_med, tamanho=tam, inicio=grande[0].inicio, fim=fim,
                                    pos=[x_esq, y], ancora="esquerda", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
                 y += tam * 0.80 / 1920
-            if depois:
-                t2 = _limpo(" ".join(p.texto for p in depois))
-                tam2 = _ajustar_tamanho(f_med, t2, 130, int(W * (0.96 - x_esq - 0.06)), tr, esc, maius)
-                blocos.append(dict(texto=t2, fonte=f_med, tamanho=tam2, inicio=depois[0].inicio, fim=fim,
-                                   pos=[x_esq + 0.06, y], ancora="esquerda", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
-                y += tam2 * 0.55 / 1920
-            tam = _ajustar_tamanho(f_gig, _limpo(chave.texto), 300, int(W * 0.90), tr, esc, maius)
-            blocos.append(dict(texto=_limpo(chave.texto), fonte=f_gig, tamanho=tam, inicio=chave.inicio, fim=fim,
+                if resto:
+                    t2 = _limpo(" ".join(p.texto for p in resto))
+                    tam2 = _ajustar_tamanho(f_med, t2, 130, int(W * (0.96 - x_esq - 0.06)), tr, esc, maius)
+                    blocos.append(dict(texto=t2, fonte=f_med, tamanho=tam2, inicio=resto[0].inicio, fim=fim,
+                                       pos=[x_esq + 0.06, y], ancora="esquerda", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
+                    y += tam2 * 0.55 / 1920
+            tam = _ajustar_tamanho(f_gig, texto_chave, 300, int(W * 0.90), tr, esc, maius)
+            blocos.append(dict(texto=texto_chave, fonte=f_gig, tamanho=tam, inicio=chave.inicio, fim=fim,
                                pos=[0.95, y + tam * 0.45 / 1920], ancora="direita", cor=cor, textura=textura,
                                camada=tpl.get("camada_chave", "frente"), anim="pop", tracking=tr, maiusculas=maius))
+            y += tam * 0.95 / 1920
+            if depois:
+                t3 = _limpo(" ".join(p.texto for p in depois))
+                tam3 = _ajustar_tamanho(f_leve, t3, 140, int(W * 0.88), tr, esc, maius)
+                blocos.append(dict(texto=t3, fonte=f_leve, tamanho=tam3, inicio=depois[0].inicio, fim=fim,
+                                   pos=[0.95, y + tam3 * 0.3 / 1920], ancora="direita", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
         else:                              # ref. 3: linha grande branca + gigante com foto/textura abaixo
+            texto_chave = _limpo(chave.texto)
+            if len(antes) == 1 and L._norm(antes[0].texto) in PALAVRAS_FUNCAO:
+                texto_chave = _limpo(antes[0].texto) + " " + texto_chave
+                antes = []
             if antes:
                 t1 = _limpo(" ".join(p.texto for p in antes))
                 tam = _ajustar_tamanho(f_med, t1, 230 if len(t1) > 3 else 170, largura_max, tr, esc, maius)
                 blocos.append(dict(texto=t1, fonte=f_med, tamanho=tam, inicio=antes[0].inicio, fim=fim,
                                    pos=[0.5, 0.40], ancora="centro", cor="#FFFFFF", camada="atras", anim="pop", tracking=tr, maiusculas=maius))
-            tam = _ajustar_tamanho(f_gig, _limpo(chave.texto), 420, largura_max, tr, esc, maius)
-            blocos.append(dict(texto=_limpo(chave.texto), fonte=f_gig, tamanho=tam, inicio=chave.inicio, fim=fim,
+            tam = _ajustar_tamanho(f_gig, texto_chave, 420, largura_max, tr, esc, maius)
+            blocos.append(dict(texto=texto_chave, fonte=f_gig, tamanho=tam, inicio=chave.inicio, fim=fim,
                                pos=[0.5, 0.52], ancora="centro", cor=cor, textura=textura, camada="atras", anim="pop", tracking=tr, maiusculas=maius))
             if depois:
                 t2 = _limpo(" ".join(p.texto for p in depois))
@@ -410,6 +437,53 @@ def renderizar(entrada: Path, saida: Path, cenas: list[dict], orig: dict, textur
     print(f"   {i} frames renderizados" + " " * 20)
 
 
+def renderizar_av(entrada: Path, saida: Path, cenas: list[dict], orig: dict, texturas_dir: Path,
+                  crf: int, sem_mascara: bool):
+    """Render frame a frame com PyAV: cada frame sai com o MESMO pts do original (VFR preservado),
+    áudio copiado sem decodificar."""
+    import av
+    W, H = orig["video"]["largura"], orig["video"]["altura"]
+    n = orig["video"]["frames"]
+    inp = av.open(str(entrada))
+    vin = inp.streams.video[0]
+    vin.thread_type = "AUTO"
+    ain = inp.streams.audio[0] if inp.streams.audio else None
+    out = av.open(str(saida), "w", options={"movflags": "faststart"})
+    vout = out.add_stream("libx264", rate=None)
+    vout.width, vout.height = W, H
+    vout.pix_fmt = "yuv420p"
+    vout.time_base = vin.time_base
+    vout.options = {"crf": str(crf), "preset": "medium", "profile": "high", "level": "4.1"}
+    aout = out.add_stream_from_template(ain) if ain is not None else None
+    seg = None if sem_mascara else Segmentador()
+    R = Renderizador(W, H, orig["video"]["fps"], cenas, texturas_dir)
+    i = 0
+    streams = [vin] + ([ain] if ain is not None else [])
+    for packet in inp.demux(streams):
+        if packet.dts is None:
+            continue
+        if ain is not None and packet.stream is ain:
+            packet.stream = aout
+            out.mux(packet)
+            continue
+        for frame in packet.decode():
+            t = float(frame.pts * vin.time_base)
+            img = frame.to_ndarray(format="rgb24")
+            comp = R.frame(img, t, seg)
+            nf = av.VideoFrame.from_ndarray(np.ascontiguousarray(comp), format="rgb24").reformat(format="yuv420p")
+            nf.pts = frame.pts
+            nf.time_base = vin.time_base
+            for p in vout.encode(nf):
+                out.mux(p)
+            i += 1
+            if i % 60 == 0:
+                print(f"   frame {i}/{n} ({100 * i / max(1, n):.0f}%)  t={t:6.2f}s", end="\r", flush=True)
+    for p in vout.encode():
+        out.mux(p)
+    out.close(); inp.close()
+    print(f"   {i} frames renderizados" + " " * 30)
+
+
 def main():
     ap = argparse.ArgumentParser(description="Tipografia cinética atrás do sujeito, sem alterar a montagem.")
     ap.add_argument("entrada", type=Path)
@@ -426,6 +500,7 @@ def main():
     ap.add_argument("--so-cenas", action="store_true", help="gera só o .cenas.json")
     ap.add_argument("--sem-mascara", action="store_true", help="não segmenta a pessoa (texto na frente)")
     ap.add_argument("--preview", type=str, help="renderiza só frames nesses tempos (ex. '0.5,2,4') em PNG")
+    ap.add_argument("--motor", default="av", choices=["av", "ffmpeg"], help="av = PyAV (preserva VFR); ffmpeg = pipe CFR")
     a = ap.parse_args()
 
     entrada = a.entrada
@@ -478,8 +553,13 @@ def main():
             Image.fromarray(out).save(p); print("   ", p)
         return
 
-    print("4) Renderizando (segmentação + composição)…")
-    renderizar(entrada, saida, cenas, orig, saida_dir, a.cor_sutil, a.crf, a.sem_mascara)
+    print("4) Renderizando (segmentação + composição, timestamps originais)…")
+    if a.cor_sutil:
+        print("   aviso: --cor-sutil só está disponível no render por ffmpeg (--motor ffmpeg)")
+    if a.motor == "ffmpeg":
+        renderizar(entrada, saida, cenas, orig, saida_dir, a.cor_sutil, a.crf, a.sem_mascara)
+    else:
+        renderizar_av(entrada, saida, cenas, orig, saida_dir, a.crf, a.sem_mascara)
 
     print("5) Conferindo…")
     novo = L.probe(saida)
