@@ -461,12 +461,14 @@ def renderizar_av(entrada: Path, saida: Path, cenas: list[dict], orig: dict, tex
     i = 0
     streams = [vin] + ([ain] if ain is not None else [])
     for packet in inp.demux(streams):
-        if packet.dts is None:
-            continue
         if ain is not None and packet.stream is ain:
+            if packet.dts is None:      # pacote de flush do áudio: nada a copiar
+                continue
             packet.stream = aout
             out.mux(packet)
             continue
+        # no vídeo o pacote de flush (dts None) precisa ser decodificado: ele libera os últimos
+        # frames que o decoder segura (B-frames); sem isso faltam ~6 frames no fim
         for frame in packet.decode():
             t = float(frame.pts * vin.time_base)
             img = frame.to_ndarray(format="rgb24")
