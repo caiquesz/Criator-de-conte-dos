@@ -1,2 +1,5 @@
 sherpa-onnx>=1.12
 numpy
+onnxruntime
+opencv-python-headless
+pillow

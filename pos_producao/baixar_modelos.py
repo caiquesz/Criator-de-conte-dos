@@ -15,8 +15,13 @@ def baixar(url: str, destino: Path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--modelo", default="small", help="tiny | base | small | medium")
+    ap.add_argument("--segmentacao", action="store_true", help="também baixa u2net_human_seg (texto atrás da pessoa)")
     a = ap.parse_args()
     DEST.mkdir(parents=True, exist_ok=True)
+    if a.segmentacao:
+        seg = DEST / "u2net_human_seg.onnx"
+        if not seg.exists():
+            baixar("https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2net_human_seg.onnx", seg)
     vad = DEST / "silero_vad.onnx"
     if not vad.exists():
         baixar(BASE + "silero_vad.onnx", vad)
