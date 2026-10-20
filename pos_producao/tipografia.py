@@ -453,6 +453,7 @@ def renderizar_av(entrada: Path, saida: Path, cenas: list[dict], orig: dict, tex
     vout.width, vout.height = W, H
     vout.pix_fmt = "yuv420p"
     vout.time_base = vin.time_base
+    vout.codec_context.time_base = vin.time_base   # sem isso o x264 rescala os pts e o mux falha
     vout.options = {"crf": str(crf), "preset": "medium", "profile": "high", "level": "4.1"}
     aout = out.add_stream_from_template(ain) if ain is not None else None
     seg = None if sem_mascara else Segmentador()
