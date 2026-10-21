@@ -643,9 +643,13 @@ def mixar_audio(entrada: Path, trilha: np.ndarray, saida_wav: Path):
     if len(tr) < n:
         tr = np.pad(tr, (0, n - len(tr)))
     mix = voz + tr[:, None]
-    pico = np.abs(mix).max()
-    if pico > 0.98:  # só protege de clipping; a voz nunca é comprimida
-        mix = mix / pico * 0.98
+    # ganho da voz intocado. Só os picos acima de 0,95 (que já clipavam no original) passam por
+    # um soft-clip suave, para a soma com o SFX não estourar no codec.
+    lim = 0.95
+    acima = np.abs(mix) > lim
+    if acima.any():
+        exc = np.abs(mix[acima]) - lim
+        mix[acima] = np.sign(mix[acima]) * (lim + (1 - lim) * np.tanh(exc / (1 - lim)))
     import soundfile as sf
     sf.write(str(saida_wav), mix, SR_SFX, subtype="FLOAT")
     return n / SR_SFX
@@ -705,6 +709,7 @@ def main():
     ap.add_argument("--preview", type=str)
     ap.add_argument("--sem-sfx", action="store_true")
     ap.add_argument("--cor", type=str, help="força a cor de destaque (hex)")
+    ap.add_argument("--remix", type=Path, help="reaproveita o vídeo já renderizado (copia o stream de vídeo) e refaz só o áudio")
     a = ap.parse_args()
 
     entrada = a.entrada
@@ -768,10 +773,14 @@ def main():
             Image.fromarray(R.frame(img, ts, rec)).save(p); print("   ", p)
         return
 
-    print("6) Render de vídeo (recorte fino + composição)…")
     for c in cenas: c["_cor"] = preset["cor_destaque"]
     video_so = base.with_suffix(".video.mp4")
-    renderizar_video(entrada, video_so, cenas, orig, a.crf, Recorte(fino=True))
+    if a.remix:
+        print("6) Reaproveitando o vídeo renderizado:", a.remix)
+        subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(a.remix), "-map", "0:v:0", "-c:v", "copy", str(video_so)], check=True)
+    else:
+        print("6) Render de vídeo (recorte fino + composição)…")
+        renderizar_video(entrada, video_so, cenas, orig, a.crf, Recorte(fino=True))
     print("7) Áudio: voz original + efeitos sonoros…")
     if a.sem_sfx:
         subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(video_so), "-i", str(entrada), "-map", "0:v:0", "-map", "1:a:0",
