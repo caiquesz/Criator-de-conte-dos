@@ -354,7 +354,7 @@ class Render:
         w, h = xb - xa, yb - ya
         reg = base[ya:yb, xa:xb].astype(np.float32)
         # sombra suave (legibilidade sobre céu claro) — só em texto sólido
-        if b.sombra and b.estilo == "solido":
+        if b.sombra and b.estilo == "solido" and not getattr(self, "modo_camada", False):
             sh = cv2.GaussianBlur(a, (0, 0), 7 * self.esc + 1)
             oy, ox = int(6 * self.esc), int(2 * self.esc)
             shs = np.zeros_like(sh); shs[oy:, ox:] = sh[:h - oy, :w - ox]
@@ -367,7 +367,9 @@ class Render:
             aa = a * op
         base[ya:yb, xa:xb] = np.clip(reg * (1 - aa[..., None]) + tex * aa[..., None], 0, 255).astype(np.uint8)
 
-    def frame(self, frame: np.ndarray, t: float, rec: Recorte | None):
+    def frame(self, frame: np.ndarray, t: float, rec: Recorte | None, fundo: np.ndarray | None = None):
+        """fundo=None: compõe sobre o próprio frame (com recorte da pessoa).
+        fundo=canvas: compõe o texto sobre o canvas (ex.: verde para chroma key), sem recorte."""
         ativos = []
         for c in self.cenas:
             if c["inicio"] - 0.02 <= t <= c["fim"] + 0.02:
@@ -376,11 +378,11 @@ class Render:
                     if bb.inicio <= t <= c["fim"]:
                         ativos.append((bb, c["fim"], c.get("pessoa")))
         if not ativos:
-            return frame
-        base = frame.copy()
+            return frame if fundo is None else fundo.copy()
+        base = frame.copy() if fundo is None else fundo.copy()
         atras = [(b, f) for b, f, p in ativos if b.camada == "atras"]
         frente = [(b, f) for b, f, p in ativos if b.camada == "frente"]
-        precisa_mascara = any(p for _, _, p in ativos) and atras
+        precisa_mascara = any(p for _, _, p in ativos) and atras and fundo is None
         for b, f in atras:
             self.aplicar(base, frame, b, t, f)
         if precisa_mascara and rec is not None:
@@ -662,10 +664,13 @@ def cenas_cor(cenas):
     return cenas[0].get("_cor", "#9FB8C8") if cenas else "#9FB8C8"
 
 
-def renderizar_video(entrada: Path, saida_video: Path, cenas, orig, crf: int, rec: Recorte | None):
+def renderizar_video(entrada: Path, saida_video: Path, cenas, orig, crf: int, rec: Recorte | None, camada_verde: bool = False):
     import av
     W, H = orig["video"]["largura"], orig["video"]["altura"]
     n = orig["video"]["frames"]
+    fundo = np.zeros((H, W, 3), np.uint8) if camada_verde else None
+    if fundo is not None:
+        fundo[:, :, 1] = 255
     inp = av.open(str(entrada)); vin = inp.streams.video[0]; vin.thread_type = "AUTO"
     out = av.open(str(saida_video), "w")
     vout = out.add_stream("libx264", rate=None)
@@ -673,12 +678,13 @@ def renderizar_video(entrada: Path, saida_video: Path, cenas, orig, crf: int, re
     vout.time_base = vin.time_base; vout.codec_context.time_base = vin.time_base
     vout.options = {"crf": str(crf), "preset": "medium", "profile": "high", "level": "4.1"}
     R = Render(W, H, cenas, cor_vidro=cenas_cor(cenas))
+    R.modo_camada = camada_verde
     i = 0
     for packet in inp.demux([vin]):
         for fr in packet.decode():
             t = float(fr.pts * vin.time_base)
             img = fr.to_ndarray(format="rgb24")
-            comp = R.frame(img, t, rec)
+            comp = R.frame(img, t, rec, fundo)
             nf = av.VideoFrame.from_ndarray(np.ascontiguousarray(comp), format="rgb24").reformat(format="yuv420p")
             nf.pts = fr.pts; nf.time_base = vin.time_base
             for p in vout.encode(nf): out.mux(p)
@@ -710,6 +716,7 @@ def main():
     ap.add_argument("--sem-sfx", action="store_true")
     ap.add_argument("--cor", type=str, help="força a cor de destaque (hex)")
     ap.add_argument("--remix", type=Path, help="reaproveita o vídeo já renderizado (copia o stream de vídeo) e refaz só o áudio")
+    ap.add_argument("--camada-verde", action="store_true", help="exporta só a camada de texto sobre verde #00FF00 (chroma key no CapCut), com os SFX como áudio")
     a = ap.parse_args()
 
     entrada = a.entrada
@@ -775,6 +782,29 @@ def main():
 
     for c in cenas: c["_cor"] = preset["cor_destaque"]
     video_so = base.with_suffix(".video.mp4")
+    # SRT com as frases (para recriar textos em qualquer editor)
+    srt = []
+    for i, c in enumerate(cenas, 1):
+        def ts(x):
+            h = int(x // 3600); m = int(x % 3600 // 60); sec = x % 60
+            return f"{h:02d}:{m:02d}:{int(sec):02d},{int((sec - int(sec)) * 1000):03d}"
+        srt.append(f"{i}\n{ts(c['inicio'])} --> {ts(c['fim'])}\n{c['frase']}\n")
+    base.with_suffix(".srt").write_text("\n".join(srt), encoding="utf-8")
+    if a.camada_verde:
+        print("6) Camada de texto sobre verde (chroma key)…")
+        renderizar_video(entrada, video_so, cenas, orig, a.crf, None, camada_verde=True)
+        trilha, usados = trilha_sfx(cenas, orig["duracao_s"])
+        import soundfile as sf
+        wav = base.with_suffix(".sfx.wav")
+        n_amostras = int(round(orig["duracao_s"] * SR_SFX))
+        tr = np.pad(trilha, (0, max(0, n_amostras - len(trilha))))[:n_amostras]
+        sf.write(str(wav), np.stack([tr, tr], axis=1), SR_SFX, subtype="PCM_16")
+        muxar(video_so, wav, saida)
+        video_so.unlink(missing_ok=True)
+        novo = L.probe(saida)
+        print(f"   frames {orig['video']['frames']} → {novo['video']['frames']} · duração {orig['duracao_s']:.3f} → {novo['duracao_s']:.3f} · efeitos {usados}")
+        print("→", saida); print("→", wav); print("→", base.with_suffix('.srt'))
+        return
     if a.remix:
         print("6) Reaproveitando o vídeo renderizado:", a.remix)
         subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(a.remix), "-map", "0:v:0", "-c:v", "copy", str(video_so)], check=True)
