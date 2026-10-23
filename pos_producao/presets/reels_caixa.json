@@ -1,0 +1,20 @@
+{
+  "nome": "reels_caixa",
+  "descricao": "Texto branco sobre caixa preta translúcida (estilo CapCut/jornalístico), sem destaque de palavra, entrada em fade.",
+  "fonte": "Poppins ExtraBold",
+  "tamanho": 64,
+  "negrito": true,
+  "maiusculas": false,
+  "remover_pontuacao": false,
+  "cor_texto": "#FFFFFF",
+  "cor_destaque": "#FFFFFF",
+  "fundo": {"cor": "#000000", "opacidade": 0.65, "padding": 16},
+  "posicao_y": 0.74,
+  "margem_lateral": 90,
+  "max_palavras": 5,
+  "max_chars_linha": 22,
+  "max_linhas": 2,
+  "modo": "card",
+  "animacao": {"tipo": "fade", "duracao_ms": 90},
+  "palavras_chave": []
+}
