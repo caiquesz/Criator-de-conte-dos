@@ -1448,5 +1448,14 @@
    35.705,
    55.746
   ]
- ]
+ ],
+ "trilha": {
+  "src": "assets/musica/upbeat-forever-kevin-macleod.mp3",
+  "inicio_trilha": 0,
+  "abaixo_da_voz_db": 12,
+  "sobe_nas_pausas_db": 4,
+  "fade_in": 0.3,
+  "fade_out": 1.6,
+  "credito": "\"Upbeat Forever\" – Kevin MacLeod (incompetech.com), CC BY 4.0"
+ }
 }
