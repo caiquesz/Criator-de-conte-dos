@@ -321,23 +321,6 @@
    "sombra_forte": true
   },
   {
-   "id": "g10",
-   "y": 560,
-   "fim": 14.4,
-   "linhas": [
-    {
-     "estilo": "fina",
-     "palavras": [
-      {
-       "t": "sendo",
-       "s": 13.9
-      }
-     ]
-    }
-   ],
-   "sombra_forte": true
-  },
-  {
    "id": "g11",
    "y": 430,
    "fim": 17.85,
@@ -345,6 +328,10 @@
     {
      "estilo": "fina",
      "palavras": [
+      {
+       "t": "sendo",
+       "s": 15.96
+      },
       {
        "t": "esse",
        "s": 16.36
