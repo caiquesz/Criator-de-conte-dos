@@ -6,8 +6,9 @@
  "duracao": 55.746,
  "cores": {
   "texto": "#FFFFFF",
-  "destaque": "#E8C08E",
-  "destaque_escuro": "#E8C08E",
+  "destaque": "#FFFFFF",
+  "destaque_escuro": "#FFFFFF",
+  "brilho": false,
   "vazamento": "#FF9A4D"
  },
  "tracking": {
@@ -19,7 +20,7 @@
  "legendas": [
   {
    "id": "g01",
-   "y": 840,
+   "y": 920,
    "fim": 1.1,
    "linhas": [
     {
@@ -40,7 +41,7 @@
      ]
     },
     {
-     "estilo": "forte",
+     "estilo": "pesada",
      "palavras": [
       {
        "t": "duas",
@@ -57,7 +58,7 @@
   },
   {
    "id": "g02",
-   "y": 840,
+   "y": 920,
    "fim": 1.8,
    "linhas": [
     {
@@ -75,15 +76,14 @@
        "t": "lado",
        "s": 1.64
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
   },
   {
    "id": "g03",
-   "y": 840,
+   "y": 975,
    "fim": 3.02,
    "linhas": [
     {
@@ -112,7 +112,7 @@
   },
   {
    "id": "g04",
-   "y": 840,
+   "y": 920,
    "fim": 3.98,
    "linhas": [
     {
@@ -130,7 +130,8 @@
        "t": "você",
        "s": 3.48
       }
-     ]
+     ],
+     "dx": 170
     },
     {
      "estilo": "forte",
@@ -139,14 +140,15 @@
        "t": "faria",
        "s": 3.64
       }
-     ]
+     ],
+     "dx": 170
     }
    ],
    "sombra_forte": true
   },
   {
    "id": "g05",
-   "y": 840,
+   "y": 920,
    "fim": 5.76,
    "linhas": [
     {
@@ -181,16 +183,15 @@
        "t": "duas?",
        "s": 5.18
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
   },
   {
    "id": "g06",
-   "y": 300,
-   "fim": 6.48,
+   "y": 700,
+   "fim": 8.3,
    "linhas": [
     {
      "estilo": "fina",
@@ -201,7 +202,7 @@
       },
       {
        "t": "uma",
-       "s": 5.9
+       "s": 5.86
       },
       {
        "t": "só,",
@@ -212,21 +213,60 @@
        "s": 6.32
       }
      ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "2.800",
+       "s": 6.54
+      },
+      {
+       "t": "m²",
+       "s": 7.32
+      }
+     ]
     }
    ],
    "sombra_forte": true
   },
   {
    "id": "g07",
-   "y": 300,
-   "fim": 8.84,
+   "y": 700,
+   "fim": 10.24,
    "linhas": [
     {
      "estilo": "fina",
      "palavras": [
       {
        "t": "contendo",
-       "s": 8.608
+       "s": 8.61
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "30",
+       "s": 8.88
+      },
+      {
+       "t": "metros",
+       "s": 9.16
+      }
+     ]
+    },
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 9.56
+      },
+      {
+       "t": "frente.",
+       "s": 9.74
       }
      ]
     }
@@ -235,19 +275,19 @@
   },
   {
    "id": "g08",
-   "y": 300,
-   "fim": 11.36,
+   "y": 700,
+   "fim": 12.66,
    "linhas": [
     {
      "estilo": "fina",
      "palavras": [
       {
        "t": "Com",
-       "s": 10.432
+       "s": 10.43
       },
       {
        "t": "as",
-       "s": 10.492
+       "s": 10.45
       },
       {
        "t": "duas,",
@@ -256,6 +296,62 @@
       {
        "t": "são",
        "s": 11.04
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "60",
+       "s": 11.4
+      },
+      {
+       "t": "metros",
+       "s": 11.74
+      }
+     ]
+    },
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 12.16
+      },
+      {
+       "t": "frente,",
+       "s": 12.3
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g09",
+   "y": 700,
+   "fim": 15.7,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "aproximadamente",
+       "s": 12.96
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "5.300",
+       "s": 13.26
+      },
+      {
+       "t": "m²",
+       "s": 14.6
       }
      ]
     }
@@ -325,8 +421,7 @@
        "t": "padrão",
        "s": 17.06
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
@@ -450,8 +545,7 @@
        "t": "fundos",
        "s": 20.84
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
@@ -515,8 +609,7 @@
        "t": "pomar.",
        "s": 22.7
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
@@ -588,8 +681,7 @@
        "t": "condomínio.",
        "s": 24.86
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
@@ -828,8 +920,7 @@
        "t": "morar",
        "s": 33.08
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
@@ -863,8 +954,7 @@
        "t": "alugar.",
        "s": 33.94
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
@@ -1189,8 +1279,7 @@
        "t": "juntas.",
        "s": 51.7
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
@@ -1232,8 +1321,7 @@
        "t": "duas,",
        "s": 53.6
       }
-     ],
-     "cor": "texto"
+     ]
     }
    ],
    "sombra_forte": true
@@ -1285,7 +1373,7 @@
   {
    "id": "c1",
    "inicio": 44.14,
-   "fim": 48.3,
+   "fim": 45.5,
    "y": 190,
    "grande": "R$ 260",
    "unidade": "mil",
@@ -1294,7 +1382,7 @@
   {
    "id": "c2",
    "inicio": 48.42,
-   "fim": 52.25,
+   "fim": 49.86,
    "y": 190,
    "grande": "R$ 250",
    "unidade": "mil",
@@ -1323,122 +1411,6 @@
    "tipo": "corte"
   }
  ],
- "perspectivas": [
-  {
-   "id": "pv1",
-   "inicio": 6.54,
-   "fim": 10.24,
-   "tela": [
-    510,
-    340
-   ],
-   "linhas": [
-    {
-     "estilo": "serifa",
-     "palavras": [
-      {
-       "t": "2.800",
-       "s": 6.54
-      },
-      {
-       "t": "m²",
-       "s": 7.32
-      }
-     ],
-     "cor": "texto",
-     "tam": 150
-    },
-    {
-     "estilo": "rotulo",
-     "palavras": [
-      {
-       "t": "30",
-       "s": 8.88
-      },
-      {
-       "t": "m",
-       "s": 9.16
-      },
-      {
-       "t": "de",
-       "s": 9.56
-      },
-      {
-       "t": "frente",
-       "s": 9.74
-      }
-     ],
-     "tam": 34,
-     "entrelinha": 0.15
-    }
-   ],
-   "ancoras": [
-    "rastreios/chao-a.json"
-   ]
-  },
-  {
-   "id": "pv2",
-   "inicio": 11.4,
-   "fim": 15.85,
-   "tela": [
-    660,
-    470
-   ],
-   "linhas": [
-    {
-     "estilo": "fina",
-     "palavras": [
-      {
-       "t": "aproximadamente",
-       "s": 12.96
-      }
-     ],
-     "tam": 52
-    },
-    {
-     "estilo": "serifa",
-     "palavras": [
-      {
-       "t": "5.300",
-       "s": 13.26
-      },
-      {
-       "t": "m²",
-       "s": 14.6
-      }
-     ],
-     "cor": "texto",
-     "tam": 190
-    },
-    {
-     "estilo": "rotulo",
-     "palavras": [
-      {
-       "t": "60",
-       "s": 11.4
-      },
-      {
-       "t": "m",
-       "s": 11.74
-      },
-      {
-       "t": "de",
-       "s": 12.16
-      },
-      {
-       "t": "frente",
-       "s": 12.3
-      }
-     ],
-     "tam": 40,
-     "entrelinha": 0.15
-    }
-   ],
-   "ancoras": [
-    "rastreios/chao-b.json"
-   ]
-  }
- ],
  "recorte_janelas": [
   [
    0,
@@ -1450,12 +1422,12 @@
   ]
  ],
  "trilha": {
-  "src": "assets/musica/upbeat-forever-kevin-macleod.mp3",
+  "src": "assets/musica/movement-proposition-kevin-macleod.mp3",
   "inicio_trilha": 0,
   "abaixo_da_voz_db": 12,
   "sobe_nas_pausas_db": 4,
   "fade_in": 0.3,
   "fade_out": 1.6,
-  "credito": "\"Upbeat Forever\" – Kevin MacLeod (incompetech.com), CC BY 4.0"
+  "credito": "\"Movement Proposition\" – Kevin MacLeod (incompetech.com), CC BY 4.0"
  }
 }

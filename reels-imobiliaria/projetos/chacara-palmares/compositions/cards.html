@@ -39,14 +39,14 @@
       }
   </style>
   <div id="root" data-composition-id="cards" data-width="1080" data-height="1920">
-      <div id="c1" class="clip card" data-start="44.14" data-duration="4.16" style="top:190px">
+      <div id="c1" class="clip card" data-start="44.14" data-duration="1.36" style="top:190px">
         <div class="vidro" id="c1-v">
           <div class="vidro-brilho"></div>
           <div class="card-grande" id="c1-g">R$ 260<span class="card-unidade">mil</span></div>
           <div class="card-rotulo" id="c1-r">a primeira · 2.800 m²</div>
         </div>
       </div>
-      <div id="c2" class="clip card" data-start="48.42" data-duration="3.83" style="top:190px">
+      <div id="c2" class="clip card" data-start="48.42" data-duration="1.44" style="top:190px">
         <div class="vidro" id="c2-v">
           <div class="vidro-brilho"></div>
           <div class="card-grande" id="c2-g">R$ 250<span class="card-unidade">mil</span></div>
@@ -60,11 +60,11 @@
     tl.fromTo("#c1-v", {opacity:0, y:46, scale:0.88}, {opacity:1, y:0, scale:1, duration:0.55, ease:"expo.out"}, 44.14);
     tl.fromTo("#c1-g", {opacity:0, filter:"blur(14px)", y:12}, {opacity:1, filter:"blur(0px)", y:0, duration:0.4, ease:"power3.out"}, 44.26);
     tl.fromTo("#c1-r", {opacity:0, filter:"blur(8px)", y:10}, {opacity:1, filter:"blur(0px)", y:0, duration:0.5, ease:"power3.out"}, 44.36);
-    tl.to("#c1-v", {opacity:0, y:-24, scale:0.96, duration:0.3, ease:"power2.in"}, 47.98);
+    tl.to("#c1-v", {opacity:0, y:-24, scale:0.96, duration:0.3, ease:"power2.in"}, 45.18);
     tl.fromTo("#c2-v", {opacity:0, y:46, scale:0.88}, {opacity:1, y:0, scale:1, duration:0.55, ease:"expo.out"}, 48.42);
     tl.fromTo("#c2-g", {opacity:0, filter:"blur(14px)", y:12}, {opacity:1, filter:"blur(0px)", y:0, duration:0.4, ease:"power3.out"}, 48.54);
     tl.fromTo("#c2-r", {opacity:0, filter:"blur(8px)", y:10}, {opacity:1, filter:"blur(0px)", y:0, duration:0.5, ease:"power3.out"}, 48.64);
-    tl.to("#c2-v", {opacity:0, y:-24, scale:0.96, duration:0.3, ease:"power2.in"}, 51.93);
+    tl.to("#c2-v", {opacity:0, y:-24, scale:0.96, duration:0.3, ease:"power2.in"}, 49.54);
     window.__timelines["cards"] = tl;
   </script>
 </template>
