@@ -17,8 +17,10 @@ liquid glass, as transições e os efeitos sonoros. Nada de logo.
 | Saída | O grupo sai linha a linha, subindo e desfocando (0,26 s, 0,05 s entre linhas). |
 | Texto atrás da pessoa | Nos trechos em que a pessoa fala para a câmera, a legenda fica entre o fundo e a pessoa recortada (como na referência 1). |
 | Transições | Nas mudanças de ambiente: vazamento de luz quente com clarão, mergulho no preto ou flash branco, com um zoom de entrada no plano novo. Nos cortes rápidos dentro do mesmo ambiente, só um empurrão de câmera discreto (`corte`). |
-| Ambiente muito claro | Um véu escuro bem suave atrás do grupo (`"veu": true`) segura o texto branco sobre parede branca. |
-| Sons | Clique na entrada de cada grupo e nos destaques. Whoosh nas transições e na entrada dos cards. As tomadas se alternam para não repetir o mesmo som. |
+| Ambiente muito claro | Sombra mais firme nas próprias letras (`"sombra_forte": true`), nunca um bloco de sombra atrás do texto. |
+| Sons | Clique quando o texto volta depois de uma pausa e nos destaques. Whoosh nas transições e na entrada dos cards. As tomadas se alternam para não repetir o mesmo som. |
+| Voz | Intocada: sem normalizar, comprimir ou tirar ruído. O áudio final é o original com ganho 1,0 mais os efeitos (`scripts/mixar.py`). |
+| Tempo | Cada palavra entra no instante em que é dita, nunca antes (`scripts/sincronizar.py` corrige o adiantamento do Whisper). |
 | Área segura | Texto entre y=168 e y=1330 px (abaixo disso ficam a legenda e os botões do Instagram), dentro de 880 px de largura. |
 
 Medida certa: um grupo de legenda por frase, um card só quando há um número que vale
@@ -35,10 +37,14 @@ pip install faster-whisper pillow numpy
 scripts/novo_projeto.sh casa-x ~/Downloads/casa-x.mp4   # cria projetos/casa-x
 python3 scripts/analisar.py projetos/casa-x               # transcrição, cortes e paleta
 # monte projetos/casa-x/plano.json (formato abaixo) a partir de transcricao.txt
-scripts/recorte.sh projetos/casa-x                         # pessoa recortada, para o texto passar por trás
-python3 scripts/silhueta.py projetos/casa-x/assets/video/mascara540.webm --janelas projetos/casa-x/plano.json
+# monte projetos/casa-x/plano.json e acerte os tempos pela voz real
+python3 scripts/sincronizar.py projetos/casa-x
+scripts/recorte.sh projetos/casa-x                         # máscara da pessoa (texto atrás dela)
+python3 scripts/estabilizar.py projetos/casa-x             # estabiliza por cena, vídeo e máscara juntos
+python3 scripts/silhueta.py projetos/casa-x/assets/video/recorte.webm --janelas projetos/casa-x/plano.json
 python3 scripts/gerar.py projetos/casa-x
-cd projetos/casa-x && npx hyperframes check && npx hyperframes render -o renders/final.mp4 --quality delivery
+cd projetos/casa-x && npx hyperframes check && npx hyperframes render -o renders/render.mp4 --quality delivery
+cd ../.. && python3 scripts/mixar.py projetos/casa-x projetos/casa-x/renders/render.mp4 projetos/casa-x/renders/final.mp4
 ```
 
 ## Formato do `plano.json`
@@ -61,7 +67,7 @@ cd projetos/casa-x && npx hyperframes check && npx hyperframes render -o renders
         { "estilo": "forte", "palavras": [ {"t": "pé-direito", "s": 1.18} ] },
         { "estilo": "serifa", "cor": "texto", "palavras": [ {"t": "duplo.", "s": 1.75} ] }
       ],
-      "veu": false                                 // véu escuro suave atrás do grupo
+      "sombra_forte": false                        // sombra mais firme nas letras, para fundo claro
     }
   ],
   "cards": [ { "id": "c1", "inicio": 5.0, "fim": 7.5, "y": 1060, "grande": "256", "unidade": "m²", "rotulo": "área construída" } ],
@@ -78,7 +84,7 @@ linha mais larga que a área segura tem a fonte reduzida automaticamente.
 ## Pastas
 
 - `template/`: fontes (Poppins e Instrument Serif, licença OFL) e configuração do HyperFrames.
-- `scripts/`: `analisar.py`, `paleta.py`, `gerar.py`, `recorte.sh`, `silhueta.py`, `novo_projeto.sh`, `preparar_sfx.sh`.
+- `scripts/`: `analisar.py`, `sincronizar.py`, `paleta.py`, `gerar.py`, `recorte.sh`, `estabilizar.py`, `silhueta.py`, `mixar.py`, `novo_projeto.sh`, `preparar_sfx.sh`.
 - `teste-estilo/`: o teste de estilo feito sobre trechos de B-roll da referência (o vídeo não vai
   para o git).
 - `projetos/`: um projeto por vídeo. Os vídeos e renders ficam fora do git.

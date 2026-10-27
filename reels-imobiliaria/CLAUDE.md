@@ -15,3 +15,14 @@ com o briefing e a lista `partes`: ids de arquivos de até 19 MiB que, baixados 
 Atualize `status` (`editando`, `pronto`) e `nota` do documento para o cliente acompanhar.
 
 Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (padrão do gerador).
+
+## Regras do cliente
+
+- **Nunca alterar a voz.** Nada de normalizar, comprimir, limitar, tirar ruído ou mudar o tom do
+  áudio que vem no vídeo. O áudio final sai de `scripts/mixar.py`: o original com ganho 1,0 mais os
+  efeitos; a imagem do render é só copiada.
+- **Legenda só quando a pessoa fala.** Depois de montar o plano, rode `scripts/sincronizar.py`
+  (o Whisper adianta a primeira palavra depois de pausas).
+- **Sombra nas letras, nunca em bloco** atrás do texto (`sombra_forte` para fundos claros).
+- **Estabilizar** o vídeo por cena com `scripts/estabilizar.py` antes do recorte e do render.
+

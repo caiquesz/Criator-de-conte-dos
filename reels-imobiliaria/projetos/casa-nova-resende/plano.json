@@ -1,5 +1,5 @@
 {
- "video": "assets/video/video.mp4",
+ "video": "assets/video/video_estab.mp4",
  "video_tem_audio": true,
  "recorte": "assets/video/recorte.webm",
  "duracao": 80.86,
@@ -26,11 +26,11 @@
      "palavras": [
       {
        "t": "Uma",
-       "s": 0.12
+       "s": 0.352
       },
       {
        "t": "coisa",
-       "s": 0.4
+       "s": 0.412
       },
       {
        "t": "é",
@@ -156,11 +156,11 @@
      "palavras": [
       {
        "t": "Essa",
-       "s": 6.9
+       "s": 7.328
       },
       {
        "t": "casa",
-       "s": 7.38
+       "s": 7.388
       },
       {
        "t": "na",
@@ -186,7 +186,7 @@
   {
    "id": "g05",
    "y": 838,
-   "fim": 9.72,
+   "fim": 9.76,
    "linhas": [
     {
      "estilo": "fina-it",
@@ -247,15 +247,15 @@
      "palavras": [
       {
        "t": "E",
-       "s": 13.31
+       "s": 13.76
       },
       {
        "t": "aqui",
-       "s": 13.71
+       "s": 13.82
       },
       {
        "t": "dentro,",
-       "s": 13.85
+       "s": 13.88
       }
      ]
     },
@@ -281,14 +281,14 @@
      ]
     }
    ],
-   "veu": true,
    "alinhar": "direita",
-   "x": 70
+   "x": 70,
+   "sombra_forte": true
   },
   {
    "id": "g08",
    "y": 470,
-   "fim": 16.5,
+   "fim": 16.51,
    "linhas": [
     {
      "estilo": "serifa",
@@ -309,11 +309,11 @@
      "palavras": [
       {
        "t": "uma",
-       "s": 15.79
+       "s": 16.0
       },
       {
        "t": "para",
-       "s": 16.05
+       "s": 16.06
       },
       {
        "t": "receber",
@@ -322,9 +322,9 @@
      ]
     }
    ],
-   "veu": true,
    "alinhar": "direita",
-   "x": 70
+   "x": 70,
+   "sombra_forte": true
   },
   {
    "id": "g09",
@@ -374,21 +374,21 @@
      ]
     }
    ],
-   "veu": true,
    "alinhar": "direita",
-   "x": 70
+   "x": 70,
+   "sombra_forte": true
   },
   {
    "id": "g10",
    "y": 774,
-   "fim": 27.44,
+   "fim": 27.632,
    "linhas": [
     {
      "estilo": "fina",
      "palavras": [
       {
        "t": "São",
-       "s": 26.08
+       "s": 26.656
       }
      ],
      "dx": -150
@@ -398,7 +398,7 @@
      "palavras": [
       {
        "t": "três",
-       "s": 26.56
+       "s": 26.716
       },
       {
        "t": "quartos",
@@ -407,7 +407,7 @@
      ]
     }
    ],
-   "veu": true
+   "sombra_forte": true
   },
   {
    "id": "g11",
@@ -419,15 +419,15 @@
      "palavras": [
       {
        "t": "e",
-       "s": 27.52
+       "s": 27.712
       },
       {
        "t": "um",
-       "s": 27.66
+       "s": 27.772
       },
       {
        "t": "deles",
-       "s": 27.82
+       "s": 27.832
       },
       {
        "t": "conta",
@@ -465,11 +465,11 @@
      "palavras": [
       {
        "t": "E",
-       "s": 29.95
+       "s": 30.08
       },
       {
        "t": "detalhe,",
-       "s": 30.08
+       "s": 30.14
       }
      ],
      "dx": -120
@@ -541,11 +541,11 @@
      "palavras": [
       {
        "t": "Na",
-       "s": 36.33
+       "s": 36.864
       },
       {
        "t": "parte",
-       "s": 36.81
+       "s": 36.924
       },
       {
        "t": "íntima",
@@ -567,7 +567,7 @@
      ]
     }
    ],
-   "veu": true
+   "sombra_forte": true
   },
   {
    "id": "g15",
@@ -605,12 +605,12 @@
      ]
     }
    ],
-   "veu": true
+   "sombra_forte": true
   },
   {
    "id": "g16",
    "y": 380,
-   "fim": 41.35,
+   "fim": 41.488,
    "linhas": [
     {
      "estilo": "fina",
@@ -651,14 +651,14 @@
   {
    "id": "g17",
    "y": 380,
-   "fim": 42.61,
+   "fim": 42.8,
    "linhas": [
     {
      "estilo": "fina",
      "palavras": [
       {
        "t": "armário",
-       "s": 41.43
+       "s": 41.568
       }
      ],
      "dx": -90
@@ -678,14 +678,14 @@
   {
    "id": "g18",
    "y": 380,
-   "fim": 43.47,
+   "fim": 43.824,
    "linhas": [
     {
      "estilo": "fina",
      "palavras": [
       {
        "t": "fogão",
-       "s": 42.69
+       "s": 42.88
       },
       {
        "t": "a",
@@ -715,11 +715,11 @@
      "palavras": [
       {
        "t": "e",
-       "s": 43.55
+       "s": 43.904
       },
       {
        "t": "espaço",
-       "s": 43.79
+       "s": 43.964
       },
       {
        "t": "para",
@@ -756,11 +756,11 @@
      "palavras": [
       {
        "t": "E",
-       "s": 48.45
+       "s": 48.576
       },
       {
        "t": "tem",
-       "s": 48.52
+       "s": 48.636
       }
      ],
      "dx": -60
@@ -770,13 +770,13 @@
      "palavras": [
       {
        "t": "mais,",
-       "s": 48.62
+       "s": 48.696
       }
      ],
      "cor": "texto"
     }
    ],
-   "veu": true
+   "sombra_forte": true
   },
   {
    "id": "g21",
@@ -814,7 +814,7 @@
      ]
     }
    ],
-   "veu": true
+   "sombra_forte": true
   },
   {
    "id": "g22",
@@ -830,11 +830,11 @@
       },
       {
        "t": "pia,",
-       "s": 50.86
+       "s": 50.88
       },
       {
        "t": "agregando",
-       "s": 51.26
+       "s": 51.584
       }
      ]
     },
@@ -852,7 +852,7 @@
      ]
     }
    ],
-   "veu": true
+   "sombra_forte": true
   },
   {
    "id": "g23",
@@ -930,7 +930,7 @@
       },
       {
        "t": "aqui",
-       "s": 55.62
+       "s": 55.66
       },
       {
        "t": "nós",
@@ -1024,7 +1024,7 @@
   {
    "id": "g26",
    "y": 520,
-   "fim": 62.04,
+   "fim": 62.352,
    "linhas": [
     {
      "estilo": "fina",
@@ -1053,7 +1053,7 @@
      ]
     }
    ],
-   "veu": true
+   "sombra_forte": true
   },
   {
    "id": "g27",
@@ -1065,11 +1065,11 @@
      "palavras": [
       {
        "t": "A",
-       "s": 62.12
+       "s": 62.432
       },
       {
        "t": "casa",
-       "s": 62.32
+       "s": 62.492
       },
       {
        "t": "conta",
@@ -1174,7 +1174,7 @@
      "palavras": [
       {
        "t": "Aqui",
-       "s": 71.78
+       "s": 72.16
       },
       {
        "t": "na",
@@ -1225,7 +1225,7 @@
      "palavras": [
       {
        "t": "Chama",
-       "s": 75.66
+       "s": 75.968
       },
       {
        "t": "a",
@@ -1314,7 +1314,7 @@
   },
   {
    "id": "c5",
-   "inicio": 74.4,
+   "inicio": 74.9,
    "fim": 77.75,
    "y": 300,
    "grande": "R$ 500",
@@ -1415,5 +1415,6 @@
    "t": 77.8,
    "tipo": "preto"
   }
- ]
+ ],
+ "video_original": "assets/video/original.mp4"
 }

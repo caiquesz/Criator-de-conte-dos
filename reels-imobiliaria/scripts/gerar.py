@@ -109,7 +109,7 @@ def gerar_legendas(plano, duracao):
     for g in plano.get("legendas", []):
         gid = g["id"]
         palavras = [p for l in g["linhas"] for p in l["palavras"]]
-        inicio = min(p["s"] for p in palavras) - 0.08
+        inicio = min(p["s"] for p in palavras) - 0.02
         fim = g["fim"]
         alinhar = g.get("alinhar", "centro")
         estilo_bloco = f"top:{g['y']}px;"
@@ -135,7 +135,7 @@ def gerar_legendas(plano, duracao):
                 pid = f"{gid}-l{li}-p{pi}"
                 spans.append(f'<span class="p" id="{pid}">{esc(p["t"])}</span>')
                 js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
-                          f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"] - 0.04)});')
+                          f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"])});')
             classe = "linha brilho" if cor.startswith("destaque") else "linha"
             linhas_html.append(f'<div class="{classe}" id="{gid}-l{li}" style="{css}">{" ".join(spans)}</div>')
         # saída: linha a linha, subindo e desfocando (como na referência 2). Na fala
@@ -148,12 +148,9 @@ def gerar_legendas(plano, duracao):
         fim = max(fim, inicio_saida + saida + 0.05 * (n - 1) + 0.02)
         js.append(f'tl.to([{", ".join(chr(34) + "#" + gid + "-l" + str(i) + chr(34) for i in range(n))}], '
                   f'{{opacity:0, filter:"blur(12px)", y:-26, duration:{saida}, ease:"power2.in", stagger:0.05}}, {num(inicio_saida)});')
-        if g.get("veu"):  # sombra suave atrás do texto, para paredes e pisos muito claros
-            linhas_html.insert(0, f'<div class="veu" id="{gid}-veu"></div>')
-            js.append(f'tl.fromTo("#{gid}-veu", {{opacity:0}}, {{opacity:1, duration:0.35, ease:"power2.out"}}, {num(inicio)});')
-            js.append(f'tl.to("#{gid}-veu", {{opacity:0, duration:{saida + 0.05 * (n - 1)}, ease:"power2.in"}}, {num(inicio_saida)});')
+        classe_grupo = "clip grupo sombra-forte" if g.get("sombra_forte") else "clip grupo"
         grupos_html.append(
-            f'<div id="{gid}" class="clip grupo" data-start="{num(inicio)}" data-duration="{num(fim - inicio)}" '
+            f'<div id="{gid}" class="{classe_grupo}" data-start="{num(inicio)}" data-duration="{num(fim - inicio)}" '
             f'data-layout-allow-overlap style="{estilo_bloco}">\n        ' + "\n        ".join(linhas_html) + "\n      </div>")
 
     return f"""<template>
@@ -161,10 +158,11 @@ def gerar_legendas(plano, duracao):
       #root {{ position: absolute; inset: 0; overflow: visible; }}
       .grupo {{ position: absolute; left: 0; width: {LARGURA}px; text-align: center; overflow: visible; isolation: isolate; }}
       .linha {{ position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
-               text-shadow: 0 3px 24px rgba(0, 0, 0, 0.36), 0 0 2px rgba(0, 0, 0, 0.2); }}
-      .veu {{ position: absolute; left: 0; right: 0; top: -70px; bottom: -70px; z-index: -1; pointer-events: none;
-              background: radial-gradient(ellipse 52% 50% at 50% 50%, rgba(22, 15, 10, 0.42), rgba(22, 15, 10, 0.18) 55%, transparent 80%); }}
-      .linha.brilho {{ text-shadow: 0 4px 30px rgba(0, 0, 0, 0.42), 0 0 3px rgba(0, 0, 0, 0.20), 0 0 40px var(--destaque-brilho); }}
+               text-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 3px 18px rgba(0, 0, 0, 0.36); }}
+      .linha.brilho {{ text-shadow: 0 1px 3px rgba(0, 0, 0, 0.32), 0 4px 26px rgba(0, 0, 0, 0.40), 0 0 40px var(--destaque-brilho); }}
+      /* fundo muito claro: a sombra fica nas próprias letras, mais firme e mais justa */
+      .sombra-forte .linha, .sombra-forte .linha.brilho {{
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.45), 0 4px 22px rgba(0, 0, 0, 0.35); }}
       .p {{ display: inline-block; will-change: transform, filter, opacity; }}
   </style>
   <div id="root" data-composition-id="legendas" data-width="{LARGURA}" data-height="{ALTURA}">
