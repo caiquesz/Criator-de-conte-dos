@@ -1,0 +1,48 @@
+<template>
+  <style>
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: italic; src: url("assets/fonts/InstrumentSerif-400i.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }
+      #root { position: absolute; inset: 0; overflow: visible; }
+      .grupo { position: absolute; left: 0; width: 1080px; text-align: center; overflow: visible; }
+      .linha { display: block; white-space: nowrap; line-height: 1.0; color: #fff;
+               text-shadow: 0 3px 22px rgba(0, 0, 0, 0.30), 0 0 2px rgba(0, 0, 0, 0.18); }
+      .linha.brilho { text-shadow: 0 4px 30px rgba(0, 0, 0, 0.42), 0 0 3px rgba(0, 0, 0, 0.20), 0 0 40px var(--destaque-brilho); }
+      .p { display: inline-block; will-change: transform, filter, opacity; }
+  </style>
+  <div id="root" data-composition-id="legendas" data-width="1080" data-height="1920">
+      <div id="g1" class="clip grupo" data-start="0.22" data-duration="2.63" data-layout-allow-overlap style="top:560px;">
+        <div class="linha" id="g1-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);position:relative;left:-60px;"><span class="p" id="g1-l0-p0">uma</span> <span class="p" id="g1-l0-p1">sala</span> <span class="p" id="g1-l0-p2">de</span> <span class="p" id="g1-l0-p3">estar</span></div>
+        <div class="linha" id="g1-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:112px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g1-l1-p0">com</span> <span class="p" id="g1-l1-p1">pé-direito</span></div>
+        <div class="linha" id="g1-l2" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--texto);margin-top:-0.16em;position:relative;left:120px;"><span class="p" id="g1-l2-p0">duplo.</span></div>
+      </div>
+      <div id="g2" class="clip grupo" data-start="3.17" data-duration="2.28" data-layout-allow-overlap style="top:470px;">
+        <div class="linha" id="g2-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:italic;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g2-l0-p0">área</span> <span class="p" id="g2-l0-p1">de</span> <span class="p" id="g2-l0-p2">lazer</span> <span class="p" id="g2-l0-p3">com</span></div>
+        <div class="linha brilho" id="g2-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:120px;letter-spacing:-0.035em;color:var(--destaque);margin-top:-0.16em;"><span class="p" id="g2-l1-p0">piscina</span></div>
+      </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 5.55 }, 0);
+    tl.fromTo("#g1-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.26);
+    tl.fromTo("#g1-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.38);
+    tl.fromTo("#g1-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.52);
+    tl.fromTo("#g1-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.6);
+    tl.fromTo("#g1-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.96);
+    tl.fromTo("#g1-l1-p1", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 1.14);
+    tl.fromTo("#g1-l2-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 1.71);
+    tl.to(["#g1-l0", "#g1-l1", "#g1-l2"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 2.47);
+    tl.fromTo("#g2-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.21);
+    tl.fromTo("#g2-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.36);
+    tl.fromTo("#g2-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.44);
+    tl.fromTo("#g2-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.61);
+    tl.fromTo("#g2-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.91);
+    tl.to(["#g2-l0", "#g2-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 5.12);
+    window.__timelines["legendas"] = tl;
+  </script>
+</template>

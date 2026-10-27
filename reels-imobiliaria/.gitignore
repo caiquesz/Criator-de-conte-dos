@@ -1,0 +1,8 @@
+# vídeos, recortes e renders ficam fora do git
+**/assets/video/
+**/renders/
+**/.hyperframes/
+**/.media/
+**/assets/sfx/*.mp3
+node_modules/
+__pycache__/
