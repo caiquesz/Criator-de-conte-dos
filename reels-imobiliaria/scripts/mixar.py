@@ -44,8 +44,10 @@ def main():
         tem_efeito[a:b] = True
 
     pico = float(np.abs(mix).max())
-    if pico > 0.97:
-        print(f"atenção: pico {20 * np.log10(pico):.1f} dBFS; baixe o volume de algum efeito em vez de comprimir")
+    pico_original = float(np.abs(original).max())
+    if pico > max(0.97, pico_original * 1.001):
+        print(f"atenção: um efeito leva o pico a {20 * np.log10(pico):.1f} dBFS (original: "
+              f"{20 * np.log10(pico_original):.1f}); baixe o volume dele em vez de comprimir")
     wav = saida.with_suffix(".mix.wav")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(TAXA), "-ac", "2", "-i", "-",
                     "-c:a", "pcm_f32le", str(wav)], input=mix.astype(np.float32).tobytes(), check=True)
@@ -61,7 +63,7 @@ def main():
     dif = final[:n][livre] - original[:n][livre]
     sinal = np.sqrt(np.mean(original[:n][livre] ** 2))
     resto = np.sqrt(np.mean(dif ** 2))
-    print(f"pico do mix: {20 * np.log10(pico):.1f} dBFS")
+    print(f"pico do mix: {20 * np.log10(pico):.1f} dBFS (original: {20 * np.log10(pico_original):.1f} dBFS)")
     print(f"diferença para o original fora dos efeitos: {20 * np.log10(resto / sinal):.1f} dB abaixo da voz")
     print("ok:", saida)
 
