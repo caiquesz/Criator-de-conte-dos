@@ -20,6 +20,11 @@ grave no documento `entrega: {arquivo, tamanho, sha256, descricao, partes: [ids]
 mostra o botão "Baixar vídeo editado", junta as partes e salva um único .mp4. Pelo chat, arquivos
 grandes (>100 MB) não baixam no app: mande também uma versão leve (~50 MB).
 
+**Armazenamento da página:** 1 GB para tudo. Quando o cliente avisar que acabou, apague as partes
+brutas (`partes`) dos vídeos já entregues, depois de conferir que o original está em
+`assets/video/original.*` do projeto, e grave `partes: []` no documento. Ao reentregar uma versão,
+suba a nova, confira o sha256 das partes baixadas e só então apague as partes da anterior.
+
 Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (padrão do gerador).
 
 ## Regras do cliente
