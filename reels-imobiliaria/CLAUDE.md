@@ -37,3 +37,8 @@ Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (pa
 - **Cores:** quando o cliente pedir (ex.: casa rosa), destaques só em branco:
   `"cores": {"destaque": "#FFFFFF", "destaque_escuro": "#FFFFFF", "brilho": false}`.
 
+## Espaço em disco
+
+Cada render enche `/tmp/hyperframes-extract-cache-0` (dá 5–17 GB). Depois de renderizar e mixar,
+apague esse cache e os renders que já foram substituídos; o disco da sessão é limitado.
+
