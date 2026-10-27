@@ -44,13 +44,21 @@ Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (pa
   Depois de estabilizar de novo, refaça os rastreios.
 - **Cores:** quando o cliente pedir (ex.: casa rosa), destaques só em branco:
   `"cores": {"destaque": "#FFFFFF", "destaque_escuro": "#FFFFFF", "brilho": false}`.
-  O cliente acha o tom escuro do destaque (bege/terracota) escuro demais: deixe a maioria dos
-  destaques em branco e use a cor só às vezes, num tom claro e sobre fundo mais escuro.
+  O cliente acha o tom escuro do destaque (bege/terracota) escuro demais, e na Chácara Palmares
+  pediu todas as fontes brancas (inclusive a unidade dos cards): use branco em tudo, a menos que
+  ele peça cor.
 - **Música:** leve e animada, mas adulta: nada de ukulele, glockenspiel ou assobio ("Carefree"
   ficou infantil). Na dúvida, mande 2 ou 3 amostras de 20 s já por baixo da voz para o cliente
   escolher; trocar a música só refaz a mixagem. Licença sem NC (CC BY ou CC0) e crédito no post.
-- **Texto em perspectiva** (`perspectivas` no plano, `scripts/rastrear.py`): só na tomada em que o
-  André aparece; na troca para outra tomada ele sai antes do corte.
+- **Texto em perspectiva** (`perspectivas` no plano, `scripts/rastrear.py`): só quando o cliente
+  pedir ou quando valer muito a pena, e só na tomada em que o André aparece (sai antes do corte).
+  Nos números do terreno da Chácara Palmares ele preferiu legenda normal.
+- **Gancho:** o texto do começo fica atrás do André (ele passa na frente das letras): a linha
+  grande na altura da cabeça e dos ombros dele, medida com `scripts/silhueta.py`.
+- **Cards de preço:** cada card só enquanto o André fala daquele item; sai antes de ele começar o
+  próximo.
+- **Recorte:** em drone e paisagem o modelo marca o chão como pessoa e cobre a legenda; use
+  `recorte_janelas` com só as tomadas em que o André aparece.
 
 ## Espaço em disco
 
