@@ -60,6 +60,7 @@ cd ../.. && python3 scripts/mixar.py projetos/casa-x projetos/casa-x/renders/ren
   "video": "assets/video/video.mp4",
   "video_tem_audio": true,
   "recorte": "assets/video/recorte.webm",     // opcional: pessoa recortada por cima das legendas
+  "recorte_janelas": [[0, 5.8], [35.7, 55.7]],  // opcional: só nas tomadas com a pessoa (drone e paisagem dão falso recorte)
   "duracao": 42.5,
   "cores": { "texto": "#FFFFFF", "destaque": "#E8B880", "destaque_escuro": "#B5653C", "vazamento": "#FF9A4D" },
   "tracking": { "forte": -0.035, "fina": -0.01, "serifa": -0.01 },

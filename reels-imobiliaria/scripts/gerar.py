@@ -464,10 +464,16 @@ def gerar_index(plano, duracao):
 
     recorte_html = ""
     if recorte:
+        # o recorte só existe nas tomadas com a pessoa: em drone e paisagem o modelo de recorte
+        # costuma marcar pedaços do chão como "pessoa", e eles cobririam a legenda
+        janelas = plano.get("recorte_janelas", [[0, duracao]])
+        videos = "".join(
+            f"""
+        <video id="recorte{i + 1}" class="clip" src="{esc(recorte)}" data-start="{num(a)}" data-media-start="{num(a)}"
+          data-duration="{num(b - a)}" data-track-index="1" muted playsinline data-layout-allow-occlusion></video>"""
+            for i, (a, b) in enumerate(janelas))
         recorte_html = f"""
-      <div class="cam" id="cam-recorte" style="z-index: 3">
-        <video id="recorte" class="clip" src="{esc(recorte)}" data-start="0" data-media-start="0"
-          data-duration="{num(duracao)}" data-track-index="1" muted playsinline data-layout-allow-occlusion></video>
+      <div class="cam" id="cam-recorte" style="z-index: 3">{videos}
       </div>"""
 
     cores = plano["cores"]
