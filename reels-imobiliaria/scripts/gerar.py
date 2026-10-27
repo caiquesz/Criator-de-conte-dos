@@ -48,6 +48,15 @@ CLIQUES = ["click", "click-agudo", "click"]
 WHOOSH_TRANSICAO = ["whoosh-transicao", "whoosh-grave"]
 
 
+def sombra_da_cor(hexa, alfa):
+    """Tom bem escuro da própria cor (mesmo matiz), para sombrear sem cinza nem preto."""
+    import colorsys
+    r, g, b = (int(hexa[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    r, g, b = colorsys.hls_to_rgb(h, 0.2, min(1.0, s + 0.1))
+    return f"rgba({round(r * 255)}, {round(g * 255)}, {round(b * 255)}, {alfa})"
+
+
 def esc(t):
     return html.escape(str(t), quote=True)
 
@@ -136,7 +145,8 @@ def gerar_legendas(plano, duracao):
                 spans.append(f'<span class="p" id="{pid}">{esc(p["t"])}</span>')
                 js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
                           f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"])});')
-            classe = "linha brilho" if cor.startswith("destaque") else "linha"
+            classe = "linha" if not cor.startswith("destaque") else (
+                "linha brilho escuro" if cor == "destaque-escuro" else "linha brilho")
             linhas_html.append(f'<div class="{classe}" id="{gid}-l{li}" style="{css}">{" ".join(spans)}</div>')
         # saída: linha a linha, subindo e desfocando (como na referência 2). Na fala
         # corrida a última palavra fica pelo menos 0,32 s parada antes de sair, mesmo
@@ -159,10 +169,14 @@ def gerar_legendas(plano, duracao):
       .grupo {{ position: absolute; left: 0; width: {LARGURA}px; text-align: center; overflow: visible; isolation: isolate; }}
       .linha {{ position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 3px 18px rgba(0, 0, 0, 0.36); }}
-      .linha.brilho {{ text-shadow: 0 1px 3px rgba(0, 0, 0, 0.32), 0 4px 26px rgba(0, 0, 0, 0.40), 0 0 40px var(--destaque-brilho); }}
-      /* fundo muito claro: a sombra fica nas próprias letras, mais firme e mais justa */
-      .sombra-forte .linha, .sombra-forte .linha.brilho {{
+      /* palavra na cor de destaque: nada de sombra preta, só uma sombra no tom escuro da própria cor */
+      .linha.brilho {{ text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }}
+      .linha.brilho.escuro {{ text-shadow: 0 2px 12px var(--destaque-sombra-leve); }}
+      /* fundo muito claro: a sombra fica nas próprias letras brancas, mais firme e mais justa */
+      .sombra-forte .linha {{
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.45), 0 4px 22px rgba(0, 0, 0, 0.35); }}
+      .sombra-forte .linha.brilho {{ text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }}
+      .sombra-forte .linha.brilho.escuro {{ text-shadow: 0 2px 12px var(--destaque-sombra-leve); }}
       .p {{ display: inline-block; will-change: transform, filter, opacity; }}
   </style>
   <div id="root" data-composition-id="legendas" data-width="{LARGURA}" data-height="{ALTURA}">
@@ -226,7 +240,7 @@ def gerar_cards(plano, duracao):
         font-size: 150px; line-height: 0.95; letter-spacing: -0.01em; color: #fff;
         text-shadow: 0 2px 18px rgba(0, 0, 0, 0.18);
       }}
-      .card-unidade {{ color: var(--destaque); margin-left: 0.08em; }}
+      .card-unidade {{ color: var(--destaque); margin-left: 0.08em; text-shadow: 0 2px 12px var(--destaque-sombra-leve); }}
       .card-rotulo {{
         position: relative; margin-top: 6px; font-family: "Poppins Reels"; font-weight: 300;
         font-size: 28px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255, 255, 255, 0.92);
@@ -383,6 +397,8 @@ def gerar_index(plano, duracao):
         --texto: {cores.get("texto", "#FFFFFF")};
         --destaque: {cores["destaque"]};
         --destaque-brilho: {cores["destaque"]}59;
+        --destaque-sombra: {sombra_da_cor(cores["destaque"], 0.42)};
+        --destaque-sombra-leve: {sombra_da_cor(cores["destaque"], 0.22)};
         --destaque-escuro: {cores.get("destaque_escuro", cores["destaque"])};
         --vazamento: {cores.get("vazamento", "#FF9A4D")};
       }}

@@ -24,5 +24,6 @@ Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (pa
 - **Legenda só quando a pessoa fala.** Depois de montar o plano, rode `scripts/sincronizar.py`
   (o Whisper adianta a primeira palavra depois de pausas).
 - **Sombra nas letras, nunca em bloco** atrás do texto (`sombra_forte` para fundos claros).
+  Palavra na cor de destaque nunca leva sombra preta, só o tom escuro da própria cor.
 - **Estabilizar** o vídeo por cena com `scripts/estabilizar.py` antes do recorte e do render.
 

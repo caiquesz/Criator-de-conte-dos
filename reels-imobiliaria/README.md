@@ -17,7 +17,8 @@ liquid glass, as transições e os efeitos sonoros. Nada de logo.
 | Saída | O grupo sai linha a linha, subindo e desfocando (0,26 s, 0,05 s entre linhas). |
 | Texto atrás da pessoa | Nos trechos em que a pessoa fala para a câmera, a legenda fica entre o fundo e a pessoa recortada (como na referência 1). |
 | Transições | Nas mudanças de ambiente: vazamento de luz quente com clarão, mergulho no preto ou flash branco, com um zoom de entrada no plano novo. Nos cortes rápidos dentro do mesmo ambiente, só um empurrão de câmera discreto (`corte`). |
-| Ambiente muito claro | Sombra mais firme nas próprias letras (`"sombra_forte": true`), nunca um bloco de sombra atrás do texto. |
+| Ambiente muito claro | Sombra mais firme nas próprias letras brancas (`"sombra_forte": true`), nunca um bloco de sombra atrás do texto. |
+| Sombra da cor de destaque | Nunca preta: palavra colorida leva só uma sombra suave no tom escuro da própria cor (mesmo matiz). |
 | Sons | Clique quando o texto volta depois de uma pausa e nos destaques. Whoosh nas transições e na entrada dos cards. As tomadas se alternam para não repetir o mesmo som. |
 | Voz | Intocada: sem normalizar, comprimir ou tirar ruído. O áudio final é o original com ganho 1,0 mais os efeitos (`scripts/mixar.py`). |
 | Tempo | Cada palavra entra no instante em que é dita, nunca antes (`scripts/sincronizar.py` corrige o adiantamento do Whisper). |

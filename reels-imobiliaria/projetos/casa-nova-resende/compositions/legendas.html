@@ -12,10 +12,14 @@
       .grupo { position: absolute; left: 0; width: 1080px; text-align: center; overflow: visible; isolation: isolate; }
       .linha { position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 3px 18px rgba(0, 0, 0, 0.36); }
-      .linha.brilho { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.32), 0 4px 26px rgba(0, 0, 0, 0.40), 0 0 40px var(--destaque-brilho); }
-      /* fundo muito claro: a sombra fica nas próprias letras, mais firme e mais justa */
-      .sombra-forte .linha, .sombra-forte .linha.brilho {
+      /* palavra na cor de destaque: nada de sombra preta, só uma sombra no tom escuro da própria cor */
+      .linha.brilho { text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }
+      .linha.brilho.escuro { text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
+      /* fundo muito claro: a sombra fica nas próprias letras brancas, mais firme e mais justa */
+      .sombra-forte .linha {
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.45), 0 4px 22px rgba(0, 0, 0, 0.35); }
+      .sombra-forte .linha.brilho { text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }
+      .sombra-forte .linha.brilho.escuro { text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
       .p { display: inline-block; will-change: transform, filter, opacity; }
   </style>
   <div id="root" data-composition-id="legendas" data-width="1080" data-height="1920">
@@ -47,7 +51,7 @@
         <div class="linha" id="g07-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:102px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g07-l1-p0">a</span> <span class="p" id="g07-l1-p1">casa</span> <span class="p" id="g07-l1-p2">conta</span> <span class="p" id="g07-l1-p3">com</span></div>
       </div>
       <div id="g08" class="clip grupo sombra-forte" data-start="15.05" data-duration="1.85" data-layout-allow-overlap style="top:470px;text-align:right;padding-right:70px;">
-        <div class="linha brilho" id="g08-l0" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque-escuro);"><span class="p" id="g08-l0-p0">duas</span> <span class="p" id="g08-l0-p1">salas,</span></div>
+        <div class="linha brilho escuro" id="g08-l0" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque-escuro);"><span class="p" id="g08-l0-p0">duas</span> <span class="p" id="g08-l0-p1">salas,</span></div>
         <div class="linha" id="g08-l1" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g08-l1-p0">uma</span> <span class="p" id="g08-l1-p1">para</span> <span class="p" id="g08-l1-p2">receber</span></div>
       </div>
       <div id="g09" class="clip grupo sombra-forte" data-start="16.57" data-duration="2.01" data-layout-allow-overlap style="top:470px;text-align:right;padding-right:70px;">
@@ -114,7 +118,7 @@
       <div id="g24" class="clip grupo" data-start="55.58" data-duration="2.44" data-layout-allow-overlap style="top:420px;">
         <div class="linha" id="g24-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g24-l0-p0">E</span> <span class="p" id="g24-l0-p1">aqui</span> <span class="p" id="g24-l0-p2">nós</span> <span class="p" id="g24-l0-p3">temos</span> <span class="p" id="g24-l0-p4">essa</span></div>
         <div class="linha" id="g24-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:112px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g24-l1-p0">área</span> <span class="p" id="g24-l1-p1">de</span> <span class="p" id="g24-l1-p2">serviço</span></div>
-        <div class="linha brilho" id="g24-l2" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g24-l2-p0">espaçosa.</span></div>
+        <div class="linha brilho escuro" id="g24-l2" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g24-l2-p0">espaçosa.</span></div>
       </div>
       <div id="g25" class="clip grupo" data-start="57.94" data-duration="2.17" data-layout-allow-overlap style="top:380px;">
         <div class="linha" id="g25-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:60px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g25-l0-p0">Temos</span> <span class="p" id="g25-l0-p1">também</span> <span class="p" id="g25-l0-p2">um</span> <span class="p" id="g25-l0-p3">banheiro</span></div>
@@ -130,7 +134,7 @@
       </div>
       <div id="g28" class="clip grupo" data-start="63.8" data-duration="1.45" data-layout-allow-overlap style="top:430px;">
         <div class="linha" id="g28-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);position:relative;left:-80px;"><span class="p" id="g28-l0-p0">uma</span> <span class="p" id="g28-l0-p1">com</span></div>
-        <div class="linha brilho" id="g28-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:120px;letter-spacing:-0.035em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g28-l1-p0">quatro</span> <span class="p" id="g28-l1-p1">vagas,</span></div>
+        <div class="linha brilho escuro" id="g28-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:120px;letter-spacing:-0.035em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g28-l1-p0">quatro</span> <span class="p" id="g28-l1-p1">vagas,</span></div>
       </div>
       <div id="g29" class="clip grupo" data-start="65.08" data-duration="1.47" data-layout-allow-overlap style="top:430px;">
         <div class="linha" id="g29-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g29-l0-p0">coberta</span> <span class="p" id="g29-l0-p1">e</span> <span class="p" id="g29-l0-p2">uma</span></div>
