@@ -53,8 +53,9 @@ Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (pa
 - **Texto em perspectiva** (`perspectivas` no plano, `scripts/rastrear.py`): só quando o cliente
   pedir ou quando valer muito a pena, e só na tomada em que o André aparece (sai antes do corte).
   Nos números do terreno da Chácara Palmares ele preferiu legenda normal.
-- **Gancho:** o texto do começo fica atrás do André (ele passa na frente das letras): a linha
-  grande na altura da cabeça e dos ombros dele, medida com `scripts/silhueta.py`.
+- **Gancho:** na Chácara Palmares o cliente pediu o texto do gancho atrás do André, mas o recorte
+  falhou (bug visível na borda) e ele preferiu o texto acima da cabeça, sem passar atrás. Só ponha
+  texto atrás da pessoa quando o recorte estiver limpo naquela tomada; na dúvida, acima dela.
 - **Cards de preço:** cada card só enquanto o André fala daquele item; sai antes de ele começar o
   próximo.
 - **Recorte:** em drone e paisagem o modelo marca o chão como pessoa e cobre a legenda; use

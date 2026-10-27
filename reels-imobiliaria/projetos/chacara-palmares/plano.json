@@ -2,7 +2,6 @@
  "video": "assets/video/video_estab.mp4",
  "video_original": "assets/video/original.mov",
  "video_tem_audio": true,
- "recorte": "assets/video/recorte.webm",
  "duracao": 55.746,
  "cores": {
   "texto": "#FFFFFF",
@@ -20,7 +19,7 @@
  "legendas": [
   {
    "id": "g01",
-   "y": 920,
+   "y": 760,
    "fim": 1.1,
    "linhas": [
     {
@@ -58,7 +57,7 @@
   },
   {
    "id": "g02",
-   "y": 920,
+   "y": 760,
    "fim": 1.8,
    "linhas": [
     {
@@ -83,7 +82,7 @@
   },
   {
    "id": "g03",
-   "y": 975,
+   "y": 760,
    "fim": 3.02,
    "linhas": [
     {
@@ -112,7 +111,7 @@
   },
   {
    "id": "g04",
-   "y": 920,
+   "y": 760,
    "fim": 3.98,
    "linhas": [
     {
@@ -130,8 +129,7 @@
        "t": "você",
        "s": 3.48
       }
-     ],
-     "dx": 170
+     ]
     },
     {
      "estilo": "forte",
@@ -140,15 +138,14 @@
        "t": "faria",
        "s": 3.64
       }
-     ],
-     "dx": 170
+     ]
     }
    ],
    "sombra_forte": true
   },
   {
    "id": "g05",
-   "y": 920,
+   "y": 760,
    "fim": 5.76,
    "linhas": [
     {
@@ -1410,16 +1407,6 @@
    "t": 41.502,
    "tipo": "corte"
   }
- ],
- "recorte_janelas": [
-  [
-   0,
-   5.797
-  ],
-  [
-   35.705,
-   55.746
-  ]
  ],
  "trilha": {
   "src": "assets/musica/movement-proposition-kevin-macleod.mp3",
