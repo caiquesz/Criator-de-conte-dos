@@ -9,11 +9,11 @@
       html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
       :root {
         --texto: #FFFFFF;
-        --destaque: #D39269;
-        --destaque-brilho: #D3926959;
-        --destaque-sombra: rgba(84, 44, 18, 0.42);
-        --destaque-sombra-leve: rgba(84, 44, 18, 0.22);
-        --destaque-escuro: #A0532E;
+        --destaque: #E8B68A;
+        --destaque-brilho: #E8B68A59;
+        --destaque-sombra: rgba(90, 48, 12, 0.42);
+        --destaque-sombra-leve: rgba(90, 48, 12, 0.22);
+        --destaque-escuro: #E8B68A;
         --vazamento: #FF9A4D;
       }
       .cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
@@ -55,36 +55,36 @@
         data-start="0" data-duration="75.386" data-track-index="3" data-track-kind="graphics"
         data-width="1080" data-height="1920" style="z-index: 4"></div>
 
-      <div id="tr1" class="clip transicao luz" data-start="6.243" data-duration="0.8" data-track-index="5" data-layout-ignore>
-        <div class="vazamento ambar" id="tr1-a"></div>
-        <div class="vazamento quente" id="tr1-b"></div>
-        <div class="vazamento clarao" id="tr1-c"></div>
+      <div id="tr2" class="clip transicao luz" data-start="6.243" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr2-a"></div>
+        <div class="vazamento quente" id="tr2-b"></div>
+        <div class="vazamento clarao" id="tr2-c"></div>
       </div>
-      <div id="tr7" class="clip transicao luz" data-start="19.92" data-duration="0.8" data-track-index="5" data-layout-ignore>
-        <div class="vazamento ambar" id="tr7-a"></div>
-        <div class="vazamento quente" id="tr7-b"></div>
-        <div class="vazamento clarao" id="tr7-c"></div>
+      <div id="tr8" class="clip transicao luz" data-start="19.92" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr8-a"></div>
+        <div class="vazamento quente" id="tr8-b"></div>
+        <div class="vazamento clarao" id="tr8-c"></div>
       </div>
-      <div id="tr11" class="clip transicao luz" data-start="27.033" data-duration="0.8" data-track-index="5" data-layout-ignore>
-        <div class="vazamento ambar" id="tr11-a"></div>
-        <div class="vazamento quente" id="tr11-b"></div>
-        <div class="vazamento clarao" id="tr11-c"></div>
+      <div id="tr12" class="clip transicao luz" data-start="27.033" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr12-a"></div>
+        <div class="vazamento quente" id="tr12-b"></div>
+        <div class="vazamento clarao" id="tr12-c"></div>
       </div>
-      <div id="tr13" class="clip transicao luz" data-start="35.357" data-duration="0.8" data-track-index="5" data-layout-ignore>
-        <div class="vazamento ambar" id="tr13-a"></div>
-        <div class="vazamento quente" id="tr13-b"></div>
-        <div class="vazamento clarao" id="tr13-c"></div>
+      <div id="tr14" class="clip transicao luz" data-start="35.357" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr14-a"></div>
+        <div class="vazamento quente" id="tr14-b"></div>
+        <div class="vazamento clarao" id="tr14-c"></div>
       </div>
-      <div id="tr18" class="clip transicao luz" data-start="50.61" data-duration="0.8" data-track-index="5" data-layout-ignore>
-        <div class="vazamento ambar" id="tr18-a"></div>
-        <div class="vazamento quente" id="tr18-b"></div>
-        <div class="vazamento clarao" id="tr18-c"></div>
+      <div id="tr19" class="clip transicao luz" data-start="50.61" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr19-a"></div>
+        <div class="vazamento quente" id="tr19-b"></div>
+        <div class="vazamento clarao" id="tr19-c"></div>
       </div>
-      <div id="tr19" class="clip transicao flash" data-start="60.823" data-duration="0.36" data-track-index="5" data-layout-ignore><div class="cortina branca" id="tr19-a"></div></div>
-      <div id="tr20" class="clip transicao luz" data-start="65.753" data-duration="0.8" data-track-index="5" data-layout-ignore>
-        <div class="vazamento ambar" id="tr20-a"></div>
-        <div class="vazamento quente" id="tr20-b"></div>
-        <div class="vazamento clarao" id="tr20-c"></div>
+      <div id="tr20" class="clip transicao flash" data-start="60.823" data-duration="0.36" data-track-index="5" data-layout-ignore><div class="cortina branca" id="tr20-a"></div></div>
+      <div id="tr21" class="clip transicao luz" data-start="65.753" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr21-a"></div>
+        <div class="vazamento quente" id="tr21-b"></div>
+        <div class="vazamento clarao" id="tr21-c"></div>
       </div>
 
       <audio id="sfx1" src="assets/sfx/click.mp3" data-start="0.09" data-duration="0.366" data-track-index="10" data-volume="0.5"></audio>
@@ -127,63 +127,64 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
       tl.to({}, { duration: 75.386 }, 0);
-      tl.fromTo("#tr1-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 6.243);
-      tl.to("#tr1-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 6.663);
-      tl.fromTo("#tr1-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 6.303);
-      tl.to("#tr1-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 6.663);
-      tl.fromTo("#tr1-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 6.463);
-      tl.to("#tr1-c", {opacity:0, duration:0.3, ease:"power2.out"}, 6.583);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 5.39);
+      tl.fromTo("#tr2-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 6.243);
+      tl.to("#tr2-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 6.663);
+      tl.fromTo("#tr2-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 6.303);
+      tl.to("#tr2-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 6.663);
+      tl.fromTo("#tr2-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 6.463);
+      tl.to("#tr2-c", {opacity:0, duration:0.3, ease:"power2.out"}, 6.583);
       tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 6.563);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 10.67);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 12.357);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 14.41);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 15.877);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 18.553);
-      tl.fromTo("#tr7-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 19.92);
-      tl.to("#tr7-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 20.34);
-      tl.fromTo("#tr7-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 19.98);
-      tl.to("#tr7-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 20.34);
-      tl.fromTo("#tr7-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 20.14);
-      tl.to("#tr7-c", {opacity:0, duration:0.3, ease:"power2.out"}, 20.26);
+      tl.fromTo("#tr8-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 19.92);
+      tl.to("#tr8-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 20.34);
+      tl.fromTo("#tr8-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 19.98);
+      tl.to("#tr8-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 20.34);
+      tl.fromTo("#tr8-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 20.14);
+      tl.to("#tr8-c", {opacity:0, duration:0.3, ease:"power2.out"}, 20.26);
       tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 20.24);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 22.037);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 23.247);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 25.593);
-      tl.fromTo("#tr11-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 27.033);
-      tl.to("#tr11-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 27.453);
-      tl.fromTo("#tr11-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 27.093);
-      tl.to("#tr11-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 27.453);
-      tl.fromTo("#tr11-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 27.253);
-      tl.to("#tr11-c", {opacity:0, duration:0.3, ease:"power2.out"}, 27.373);
+      tl.fromTo("#tr12-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 27.033);
+      tl.to("#tr12-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 27.453);
+      tl.fromTo("#tr12-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 27.093);
+      tl.to("#tr12-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 27.453);
+      tl.fromTo("#tr12-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 27.253);
+      tl.to("#tr12-c", {opacity:0, duration:0.3, ease:"power2.out"}, 27.373);
       tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 27.353);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 31.277);
-      tl.fromTo("#tr13-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 35.357);
-      tl.to("#tr13-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 35.777);
-      tl.fromTo("#tr13-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 35.417);
-      tl.to("#tr13-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 35.777);
-      tl.fromTo("#tr13-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 35.577);
-      tl.to("#tr13-c", {opacity:0, duration:0.3, ease:"power2.out"}, 35.697);
+      tl.fromTo("#tr14-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 35.357);
+      tl.to("#tr14-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 35.777);
+      tl.fromTo("#tr14-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 35.417);
+      tl.to("#tr14-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 35.777);
+      tl.fromTo("#tr14-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 35.577);
+      tl.to("#tr14-c", {opacity:0, duration:0.3, ease:"power2.out"}, 35.697);
       tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 35.677);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 42.387);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 43.707);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 48.437);
       tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 49.683);
-      tl.fromTo("#tr18-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 50.61);
-      tl.to("#tr18-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 51.03);
-      tl.fromTo("#tr18-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 50.67);
-      tl.to("#tr18-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 51.03);
-      tl.fromTo("#tr18-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 50.83);
-      tl.to("#tr18-c", {opacity:0, duration:0.3, ease:"power2.out"}, 50.95);
+      tl.fromTo("#tr19-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 50.61);
+      tl.to("#tr19-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 51.03);
+      tl.fromTo("#tr19-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 50.67);
+      tl.to("#tr19-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 51.03);
+      tl.fromTo("#tr19-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 50.83);
+      tl.to("#tr19-c", {opacity:0, duration:0.3, ease:"power2.out"}, 50.95);
       tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 50.93);
-      tl.fromTo("#tr19-a", {opacity:0}, {opacity:0.9, duration:0.08, ease:"power2.in"}, 60.823);
-      tl.to("#tr19-a", {opacity:0, duration:0.24, ease:"power2.out"}, 60.923);
+      tl.fromTo("#tr20-a", {opacity:0}, {opacity:0.9, duration:0.08, ease:"power2.in"}, 60.823);
+      tl.to("#tr20-a", {opacity:0, duration:0.24, ease:"power2.out"}, 60.923);
       tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 60.903);
-      tl.fromTo("#tr20-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 65.753);
-      tl.to("#tr20-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 66.173);
-      tl.fromTo("#tr20-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 65.813);
-      tl.to("#tr20-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 66.173);
-      tl.fromTo("#tr20-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 65.973);
-      tl.to("#tr20-c", {opacity:0, duration:0.3, ease:"power2.out"}, 66.093);
+      tl.fromTo("#tr21-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 65.753);
+      tl.to("#tr21-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 66.173);
+      tl.fromTo("#tr21-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 65.813);
+      tl.to("#tr21-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 66.173);
+      tl.fromTo("#tr21-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 65.973);
+      tl.to("#tr21-c", {opacity:0, duration:0.3, ease:"power2.out"}, 66.093);
       tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 66.073);
       window.__timelines["main"] = tl;
     </script>

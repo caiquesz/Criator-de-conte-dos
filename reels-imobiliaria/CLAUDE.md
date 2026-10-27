@@ -41,6 +41,10 @@ Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (pa
   `scripts/conferir_sincronia.py` (tudo em +0 quadros), porque imagem fora da voz não volta.
 - **Cores:** quando o cliente pedir (ex.: casa rosa), destaques só em branco:
   `"cores": {"destaque": "#FFFFFF", "destaque_escuro": "#FFFFFF", "brilho": false}`.
+  O cliente acha o tom escuro do destaque (bege/terracota) escuro demais: deixe a maioria dos
+  destaques em branco e use a cor só às vezes, num tom claro e sobre fundo mais escuro.
+- **Texto em perspectiva** (`perspectivas` no plano, `scripts/rastrear.py`): só na tomada em que o
+  André aparece; na troca para outra tomada ele sai antes do corte.
 
 ## Espaço em disco
 

@@ -6,8 +6,8 @@
  "duracao": 75.386,
  "cores": {
   "texto": "#FFFFFF",
-  "destaque": "#D39269",
-  "destaque_escuro": "#A0532E",
+  "destaque": "#E8B68A",
+  "destaque_escuro": "#E8B68A",
   "vazamento": "#FF9A4D"
  },
  "tracking": {
@@ -104,7 +104,7 @@
        "s": 3.74
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -174,7 +174,7 @@
        "s": 6.96
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -277,7 +277,7 @@
        "s": 10.18
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -367,7 +367,7 @@
        "s": 17.1
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -402,7 +402,7 @@
        "s": 28.02
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -429,7 +429,7 @@
        "s": 28.6
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -456,7 +456,7 @@
        "s": 29.98
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -521,7 +521,7 @@
        "s": 37.08
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "destaque"
     }
    ],
    "sombra_forte": true
@@ -651,7 +651,7 @@
        "s": 41.4
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -733,7 +733,7 @@
        "s": 45.8
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -1052,7 +1052,7 @@
        "s": 70.06
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -1197,6 +1197,10 @@
  ],
  "transicoes": [
   {
+   "t": 5.39,
+   "tipo": "corte"
+  },
+  {
    "t": 6.563,
    "tipo": "luz"
   },
@@ -1281,7 +1285,7 @@
   {
    "id": "pv1",
    "inicio": 0.13,
-   "fim": 6.3,
+   "fim": 5.35,
    "linhas": [
     {
      "estilo": "fina",
@@ -1305,7 +1309,7 @@
        "s": 0.4
       }
      ],
-     "cor": "destaque",
+     "cor": "texto",
      "tam": 250
     },
     {
@@ -1333,8 +1337,7 @@
     }
    ],
    "ancoras": [
-    "rastreios/fachada-a.json",
-    "rastreios/fachada-b.json"
+    "rastreios/fachada-a.json"
    ],
    "tela": [
     650,
