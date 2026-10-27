@@ -65,7 +65,7 @@ def trilha(pasta, plano, original):
     sobe = 10 ** (t.get("sobe_nas_pausas_db", 4) / 20)
     rampa = int(0.4 * TAXA)
     for i, f in pausas:
-        a, b = int(i * TAXA), int(f * TAXA)
+        a, b = int(i * TAXA), min(int(f * TAXA), len(env))
         if b - a < 2 * rampa:
             continue
         env[a:a + rampa] = np.maximum(env[a:a + rampa], np.linspace(1, sobe, rampa))
