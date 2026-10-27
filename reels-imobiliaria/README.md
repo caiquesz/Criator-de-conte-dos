@@ -21,6 +21,7 @@ liquid glass, as transições e os efeitos sonoros. Nada de logo.
 | Sombra da cor de destaque | Nunca preta: palavra colorida leva só uma sombra suave no tom escuro da própria cor (mesmo matiz). |
 | Sons | Clique quando o texto volta depois de uma pausa e nos destaques. Whoosh nas transições e na entrada dos cards. As tomadas se alternam para não repetir o mesmo som. |
 | Voz | Intocada: sem normalizar, comprimir ou tirar ruído. O áudio final é o original com ganho 1,0 mais os efeitos (`scripts/mixar.py`). |
+| Música | Quando o vídeo vem sem trilha: leve e animada (referência: ~120 BPM, violão), cerca de 12 dB abaixo da fala e +4 dB nas pausas longas. Só a música é ajustada, nunca a voz. Licença livre (CC0 ou CC BY com crédito na legenda do post). |
 | Tempo | Cada palavra entra no instante em que é dita, nunca antes (`scripts/sincronizar.py` corrige o adiantamento do Whisper). |
 | Área segura | Texto entre y=168 e y=1330 px (abaixo disso ficam a legenda e os botões do Instagram), dentro de 880 px de largura. |
 
@@ -72,7 +73,10 @@ cd ../.. && python3 scripts/mixar.py projetos/casa-x projetos/casa-x/renders/ren
     }
   ],
   "cards": [ { "id": "c1", "inicio": 5.0, "fim": 7.5, "y": 1060, "grande": "256", "unidade": "m²", "rotulo": "área construída" } ],
+  // "grande": "Nossa Senhora|da Penha" quebra a linha no "|"; "tam": 118 troca o tamanho do texto grande
   "transicoes": [ { "t": 3.6, "tipo": "luz" } ],   // luz | preto | flash | corte; "zoom": false desliga o zoom
+  "trilha": { "src": "assets/musica/x.mp3", "inicio_trilha": 97.6,   // opcional: música por baixo da voz
+              "abaixo_da_voz_db": 12, "sobe_nas_pausas_db": 4, "fade_in": 0.3, "fade_out": 1.6 },
   "sfx_extra": [ { "t": 9.2, "som": "pop", "vol": 0.4 } ],
   "sfx_remover": [ { "t": 0.30 } ]
 }

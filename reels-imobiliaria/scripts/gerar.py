@@ -200,12 +200,15 @@ def gerar_cards(plano, duracao):
         cid = c["id"]
         ini, fim = c["inicio"], c["fim"]
         unidade = f'<span class="card-unidade">{esc(c["unidade"])}</span>' if c.get("unidade") else ""
+        # "|" quebra a linha do texto grande; "tam" troca o tamanho (padrão 150 px)
+        grande = "<br>".join(esc(parte) for parte in str(c["grande"]).split("|"))
+        estilo_grande = f' style="font-size:{c["tam"]}px"' if c.get("tam") else ""
         rotulo = f'<div class="card-rotulo" id="{cid}-r">{esc(c["rotulo"])}</div>' if c.get("rotulo") else ""
         cards_html.append(
             f'<div id="{cid}" class="clip card" data-start="{num(ini)}" data-duration="{num(fim - ini)}" style="top:{c["y"]}px">\n'
             f'        <div class="vidro" id="{cid}-v">\n'
             f'          <div class="vidro-brilho"></div>\n'
-            f'          <div class="card-grande" id="{cid}-g">{esc(c["grande"])}{unidade}</div>\n'
+            f'          <div class="card-grande" id="{cid}-g"{estilo_grande}>{grande}{unidade}</div>\n'
             f'          {rotulo}\n'
             f'        </div>\n      </div>')
         # o vidro entra sem filter (filter no ancestral desliga o backdrop-filter)
