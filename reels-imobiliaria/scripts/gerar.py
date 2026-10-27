@@ -4,7 +4,7 @@ Uso: python3 scripts/gerar.py PASTA_DO_PROJETO
 
 Lê PASTA/plano.json e escreve:
   index.html                  vídeo, recorte da pessoa, transições, efeitos sonoros
-  compositions/legendas.html  legendas palavra a palavra (trilha de legendas)
+  compositions/legendas.html  legendas palavra a palavra e textos em perspectiva
   compositions/cards.html     cards em liquid glass
 
 Formato do plano.json: veja o README.md da pasta reels-imobiliaria.
@@ -15,6 +15,7 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
 from PIL import ImageFont
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -33,6 +34,8 @@ ESTILOS = {
     "pesada":   {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 132, "arquivo": "Poppins-800.ttf"},
     "destaque": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 120, "arquivo": "Poppins-800.ttf", "cor": "destaque"},
     "serifa":   {"familia": "Instrument Serif", "peso": 400, "italico": True, "tam": 172, "arquivo": "InstrumentSerif-400i.ttf", "cor": "destaque"},
+    # rótulo pequeno em caixa alta e letras bem abertas (como nos cards)
+    "rotulo":   {"familia": "Poppins Reels", "peso": 400, "italico": False, "tam": 40,  "arquivo": "Poppins-400.ttf", "maiusculas": True},
 }
 
 # onde cai o pico de cada efeito sonoro (s), medido com `hyperframes audio`
@@ -71,11 +74,14 @@ def tracking_em(estilo, plano):
         return t.get("fina", -0.01)
     if estilo == "serifa":
         return t.get("serifa", -0.01)
+    if estilo == "rotulo":
+        return 0.32
     return t.get("forte", -0.035)
 
 
 def largura_linha(texto, estilo, tam, plano):
     e = ESTILOS[estilo]
+    texto = texto.upper() if e.get("maiusculas") else texto
     fonte = ImageFont.truetype(str(FONTES / e["arquivo"]), tam)
     return fonte.getlength(texto) + tracking_em(estilo, plano) * tam * len(texto)
 
@@ -113,6 +119,32 @@ def entrada_palavra(estilo):
     return {"opacity": 0, "filter": "blur(12px)", "y": 18}
 
 
+def montar_linha(gid, li, linha, plano, js):
+    """HTML de uma linha de palavras (e a entrada de cada palavra no tempo da fala)."""
+    estilo = linha.get("estilo", "fina")
+    e = ESTILOS[estilo]
+    tam = tamanho_linha(linha, plano)
+    cor = linha.get("cor", e.get("cor", "texto"))
+    css = (f"font-family:'{e['familia']}';font-weight:{e['peso']};"
+           f"font-style:{'italic' if e['italico'] else 'normal'};font-size:{tam}px;"
+           f"letter-spacing:{tracking_em(estilo, plano)}em;color:var(--{cor});")
+    if e.get("maiusculas"):
+        css += f"text-transform:uppercase;padding-left:{tracking_em(estilo, plano)}em;"
+    if li:
+        css += f"margin-top:{linha.get('entrelinha', plano.get('entrelinha', -0.16))}em;"
+    if linha.get("dx"):  # desloca a linha (layout escalonado da referência 1)
+        css += f"position:relative;left:{linha['dx']}px;"
+    spans = []
+    for pi, p in enumerate(linha["palavras"]):
+        pid = f"{gid}-l{li}-p{pi}"
+        spans.append(f'<span class="p" id="{pid}">{esc(p["t"])}</span>')
+        js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
+                  f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"])});')
+    classe = "linha" if not cor.startswith("destaque") else (
+        "linha brilho escuro" if cor == "destaque-escuro" else "linha brilho")
+    return f'<div class="{classe}" id="{gid}-l{li}" style="{css}">{" ".join(spans)}</div>'
+
+
 def gerar_legendas(plano, duracao):
     grupos_html, js = [], []
     for g in plano.get("legendas", []):
@@ -126,28 +158,7 @@ def gerar_legendas(plano, duracao):
             estilo_bloco += f"text-align:left;padding-left:{g.get('x', 110)}px;"
         elif alinhar == "direita":
             estilo_bloco += f"text-align:right;padding-right:{g.get('x', 110)}px;"
-        linhas_html = []
-        for li, linha in enumerate(g["linhas"]):
-            estilo = linha.get("estilo", "fina")
-            e = ESTILOS[estilo]
-            tam = tamanho_linha(linha, plano)
-            cor = linha.get("cor", e.get("cor", "texto"))
-            css = (f"font-family:'{e['familia']}';font-weight:{e['peso']};"
-                   f"font-style:{'italic' if e['italico'] else 'normal'};font-size:{tam}px;"
-                   f"letter-spacing:{tracking_em(estilo, plano)}em;color:var(--{cor});")
-            if li:
-                css += f"margin-top:{plano.get('entrelinha', -0.16)}em;"
-            if linha.get("dx"):  # desloca a linha (layout escalonado da referência 1)
-                css += f"position:relative;left:{linha['dx']}px;"
-            spans = []
-            for pi, p in enumerate(linha["palavras"]):
-                pid = f"{gid}-l{li}-p{pi}"
-                spans.append(f'<span class="p" id="{pid}">{esc(p["t"])}</span>')
-                js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
-                          f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"])});')
-            classe = "linha" if not cor.startswith("destaque") else (
-                "linha brilho escuro" if cor == "destaque-escuro" else "linha brilho")
-            linhas_html.append(f'<div class="{classe}" id="{gid}-l{li}" style="{css}">{" ".join(spans)}</div>')
+        linhas_html = [montar_linha(gid, li, linha, plano, js) for li, linha in enumerate(g["linhas"])]
         # saída: linha a linha, subindo e desfocando (como na referência 2). Na fala
         # corrida a última palavra fica pelo menos 0,32 s parada antes de sair, mesmo
         # que a saída invada o começo do grupo seguinte (como na referência 2)
@@ -162,6 +173,10 @@ def gerar_legendas(plano, duracao):
         grupos_html.append(
             f'<div id="{gid}" class="{classe_grupo}" data-start="{num(inicio)}" data-duration="{num(fim - inicio)}" '
             f'data-layout-allow-overlap style="{estilo_bloco}">\n        ' + "\n        ".join(linhas_html) + "\n      </div>")
+
+    pers_html, pers_js = gerar_perspectivas(plano)
+    grupos_html += pers_html
+    js += pers_js
 
     return f"""<template>
   <style>{font_faces()}
@@ -178,6 +193,10 @@ def gerar_legendas(plano, duracao):
       .sombra-forte .linha.brilho {{ text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }}
       .sombra-forte .linha.brilho.escuro {{ text-shadow: 0 2px 12px var(--destaque-sombra-leve); }}
       .p {{ display: inline-block; will-change: transform, filter, opacity; }}
+      /* texto em perspectiva: um plano do tamanho da "tela" levado para a superfície rastreada */
+      .perspectiva {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; height: {ALTURA}px; overflow: visible; }}
+      .plano {{ position: absolute; left: 0; top: 0; transform-origin: 0 0; display: flex; flex-direction: column;
+                align-items: center; justify-content: center; text-align: center; overflow: visible; }}
   </style>
   <div id="root" data-composition-id="legendas" data-width="{LARGURA}" data-height="{ALTURA}">
       {chr(10).join("      " + h for h in grupos_html).strip()}
@@ -190,6 +209,68 @@ def gerar_legendas(plano, duracao):
   </script>
 </template>
 """
+
+
+# ── texto em perspectiva ────────────────────────────────────────────────────
+
+def homografia(de, para):
+    """Homografia 3×3 que leva os 4 pontos `de` nos 4 pontos `para`."""
+    A, b = [], []
+    for (x, y), (u, v) in zip(de, para):
+        A += [[x, y, 1, 0, 0, 0, -u * x, -u * y], [0, 0, 0, x, y, 1, -v * x, -v * y]]
+        b += [u, v]
+    return np.append(np.linalg.solve(np.array(A, float), np.array(b, float)), 1).reshape(3, 3)
+
+
+def matrix3d(h):
+    """A homografia como transform CSS (matrix3d é por colunas; z fica de fora)."""
+    h = h / h[2, 2]
+    v = [h[0, 0], h[1, 0], 0, h[2, 0], h[0, 1], h[1, 1], 0, h[2, 1], 0, 0, 1, 0, h[0, 2], h[1, 2], 0, 1]
+    return "matrix3d(" + ",".join(f"{x:.7g}" for x in v) + ")"
+
+
+def gerar_perspectivas(plano):
+    """Textos presos a uma superfície do vídeo (fachada, parede, chão), quadro a quadro.
+
+    Cada âncora é um arquivo de scripts/rastrear.py com os cantos da superfície em cada
+    quadro do vídeo. O quadro n da composição (30 fps) mostra o quadro ⌊n·fps/30⌋ do
+    vídeo (é assim que o HyperFrames amostra), então a matriz de cada quadro da
+    composição sai do quadro de vídeo que ele mostra.
+    """
+    html_, js = [], []
+    pasta = Path(plano["_pasta"])
+    for pv in plano.get("perspectivas", []):
+        pid = pv["id"]
+        largura, altura = pv["tela"]
+        tela = [(0, 0), (largura, 0), (largura, altura), (0, altura)]
+        cantos = {}
+        for arq in pv["ancoras"]:
+            r = json.loads((pasta / arq).read_text())
+            num_, den_ = r["fps"]
+            cantos.update({int(k): v for k, v in r["cantos"].items()})
+        n0, n1 = int(np.ceil(pv["inicio"] * FPS - 1e-6)), int(np.floor(pv["fim"] * FPS + 1e-6))
+        mats = []
+        for n in range(n0, n1 + 1):
+            k = (n * num_) // (FPS * den_)
+            k = min(cantos, key=lambda c: abs(c - k)) if k not in cantos else k
+            mats.append(matrix3d(homografia(tela, cantos[k])))
+        linhas = [montar_linha(pid, li, linha, plano, js) for li, linha in enumerate(pv["linhas"])]
+        html_.append(
+            f'<div id="{pid}" class="clip perspectiva{" sombra-forte" if pv.get("sombra_forte", True) else ""}" '
+            f'data-start="{num(n0 / FPS)}" data-duration="{num((n1 - n0 + 1) / FPS)}" data-layout-allow-overlap '
+            f'data-layout-allow-overflow>\n        <div class="plano" id="{pid}-plano" '
+            f'style="width:{largura}px;height:{altura}px;transform:{mats[0]}">\n          '
+            + "\n          ".join(linhas) + "\n        </div>\n      </div>")
+        js.append(f'const {pid}M = {json.dumps(mats)};')
+        js.append(f'const {pid}E = {{ n: 0 }};')
+        js.append(f'const {pid}P = document.getElementById("{pid}-plano");')
+        js.append(f'tl.to({pid}E, {{ n: {n1 - n0}, duration: {num((n1 - n0) / FPS)}, ease: "none", '
+                  f'onUpdate: () => {{ {pid}P.style.transform = {pid}M[Math.round({pid}E.n)]; }} }}, {num(n0 / FPS)});')
+        saida = pv.get("saida", 0.3)
+        ids = ", ".join(f'"#{pid}-l{i}"' for i in range(len(pv["linhas"])))
+        js.append(f'tl.to([{ids}], {{opacity:0, filter:"blur(12px)", duration:{saida}, ease:"power2.in", stagger:0.04}}, '
+                  f'{num((n1 + 1) / FPS - saida - 0.04 * (len(pv["linhas"]) - 1) - 0.02)});')
+    return html_, js
 
 
 # ── cards em liquid glass ───────────────────────────────────────────────────
@@ -269,7 +350,9 @@ def eventos_sfx(plano):
     """Efeitos sonoros automáticos (clique nas legendas e cards, whoosh nas transições)."""
     ev = []
     fim_anterior, n_cliques = -10.0, 0
-    for g in plano.get("legendas", []):
+    primeira_palavra = lambda g: min(p["s"] for l in g["linhas"] for p in l["palavras"])
+    # os textos em perspectiva soam como as legendas (clique na entrada, clique agudo no destaque)
+    for g in sorted(plano.get("legendas", []) + plano.get("perspectivas", []), key=primeira_palavra):
         primeira = min(p["s"] for l in g["linhas"] for p in l["palavras"])
         destaques = [l["palavras"][0]["s"] for l in g["linhas"]
                      if l.get("estilo", "fina") in ("serifa", "destaque")]
@@ -279,7 +362,8 @@ def eventos_sfx(plano):
             n_cliques += 1
         for d in destaques:
             ev.append((d, "click-agudo", 0.6))
-        fim_anterior = g["fim"]
+        # o texto em perspectiva fica na tela depois da fala; conta só até a última palavra
+        fim_anterior = g["fim"] if "ancoras" not in g else max(p["s"] for l in g["linhas"] for p in l["palavras"]) + 0.4
     for c in plano.get("cards", []):
         ev.append((c["inicio"] + 0.08, "whoosh-rapido", 0.45))
         ev.append((c["inicio"] + 0.3, "click", 0.55))
@@ -460,6 +544,7 @@ def gerar_index(plano, duracao):
 def main():
     pasta = Path(sys.argv[1]).resolve()
     plano = json.loads((pasta / "plano.json").read_text())
+    plano["_pasta"] = str(pasta)
     duracao = plano["duracao"]
     (pasta / "compositions").mkdir(exist_ok=True)
     (pasta / "index.html").write_text(gerar_index(plano, duracao))

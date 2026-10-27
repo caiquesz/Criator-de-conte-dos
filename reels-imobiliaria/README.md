@@ -16,6 +16,7 @@ liquid glass, as transições e os efeitos sonoros. Nada de logo.
 | Entrada | Cada palavra entra saindo do desfoque (blur 12–16 px → 0) com um leve deslize: a fina sobe, a forte vem da esquerda, a serifada encolhe até o lugar. 0,34 s, `power3.out`. |
 | Saída | O grupo sai linha a linha, subindo e desfocando (0,26 s, 0,05 s entre linhas). |
 | Texto atrás da pessoa | Nos trechos em que a pessoa fala para a câmera, a legenda fica entre o fundo e a pessoa recortada (como na referência 1). |
+| Texto em perspectiva | Quando o cliente pede, uma palavra de destaque do começo fica presa a uma superfície da cena (fachada, parede), na perspectiva dela e acompanhando a câmera quadro a quadro, atrás da pessoa. Mesmas fontes e estilos das legendas. |
 | Transições | Nas mudanças de ambiente: vazamento de luz quente com clarão, mergulho no preto ou flash branco, com um zoom de entrada no plano novo. Nos cortes rápidos dentro do mesmo ambiente, só um empurrão de câmera discreto (`corte`). |
 | Ambiente muito claro | Sombra mais firme nas próprias letras brancas (`"sombra_forte": true`), nunca um bloco de sombra atrás do texto. |
 | Sombra da cor de destaque | Nunca preta: palavra colorida leva só uma sombra suave no tom escuro da própria cor (mesmo matiz). |
@@ -44,6 +45,9 @@ python3 scripts/sincronizar.py projetos/casa-x
 scripts/recorte.sh projetos/casa-x                         # máscara da pessoa (texto atrás dela)
 python3 scripts/estabilizar.py projetos/casa-x             # estabiliza por cena, vídeo e máscara juntos
 python3 scripts/silhueta.py projetos/casa-x/assets/video/recorte.webm --janelas projetos/casa-x/plano.json
+# texto em perspectiva (opcional): rastreia a superfície no vídeo já estabilizado
+python3 scripts/rastrear.py projetos/casa-x projetos/casa-x/assets/video/rastreio-a.json \
+  --de 0 --ate 5.3 --ref 2.0 --quad "140,800 1060,800 1060,1160 140,1160" --roi "0,250 1080,250 1080,1300 0,1300"
 python3 scripts/gerar.py projetos/casa-x
 cd projetos/casa-x && npx hyperframes check && npx hyperframes render -o renders/render.mp4 --quality delivery
 cd ../.. && python3 scripts/mixar.py projetos/casa-x projetos/casa-x/renders/render.mp4 projetos/casa-x/renders/final.mp4
@@ -75,6 +79,11 @@ cd ../.. && python3 scripts/mixar.py projetos/casa-x projetos/casa-x/renders/ren
   "cards": [ { "id": "c1", "inicio": 5.0, "fim": 7.5, "y": 1060, "grande": "256", "unidade": "m²", "rotulo": "área construída" } ],
   // "grande": "Nossa Senhora|da Penha" quebra a linha no "|"; "tam": 118 troca o tamanho do texto grande
   "transicoes": [ { "t": 3.6, "tipo": "luz" } ],   // luz | preto | flash | corte; "zoom": false desliga o zoom
+  "perspectivas": [ {                         // opcional: texto preso a uma superfície da cena
+    "id": "pv1", "inicio": 0.13, "fim": 6.3, "tela": [920, 360],    // a tela (px) vai para o quad rastreado
+    "ancoras": ["assets/video/rastreio-a.json", "assets/video/rastreio-b.json"],  // uma por tomada
+    "linhas": [ { "estilo": "fina", "palavras": [ {"t": "Casa", "s": 0.13} ] } ]  // como nas legendas
+  } ],
   "trilha": { "src": "assets/musica/x.mp3", "inicio_trilha": 97.6,   // opcional: música por baixo da voz
               "abaixo_da_voz_db": 12, "sobe_nas_pausas_db": 4, "fade_in": 0.3, "fade_out": 1.6 },
   "sfx_extra": [ { "t": 9.2, "som": "pop", "vol": 0.4 } ],
@@ -83,13 +92,13 @@ cd ../.. && python3 scripts/mixar.py projetos/casa-x projetos/casa-x/renders/ren
 ```
 
 Estilos de linha: `fina`, `fina-it`, `media`, `forte`, `pesada`, `destaque` (ExtraBold na cor de
-destaque) e `serifa`. `s` é o instante em que a palavra é dita (vem de `transcricao.txt`). Uma
+destaque), `serifa` e `rotulo` (caixa alta pequena, letras bem abertas). `s` é o instante em que a palavra é dita (vem de `transcricao.txt`). Uma
 linha mais larga que a área segura tem a fonte reduzida automaticamente.
 
 ## Pastas
 
 - `template/`: fontes (Poppins e Instrument Serif, licença OFL) e configuração do HyperFrames.
-- `scripts/`: `analisar.py`, `sincronizar.py`, `paleta.py`, `gerar.py`, `recorte.sh`, `estabilizar.py`, `silhueta.py`, `mixar.py`, `novo_projeto.sh`, `preparar_sfx.sh`.
+- `scripts/`: `analisar.py`, `sincronizar.py`, `paleta.py`, `gerar.py`, `recorte.sh`, `estabilizar.py`, `rastrear.py`, `silhueta.py`, `mixar.py`, `novo_projeto.sh`, `preparar_sfx.sh`.
 - `teste-estilo/`: o teste de estilo feito sobre trechos de B-roll da referência (o vídeo não vai
   para o git).
 - `projetos/`: um projeto por vídeo. Os vídeos e renders ficam fora do git.
