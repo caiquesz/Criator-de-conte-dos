@@ -19,7 +19,7 @@
  "legendas": [
   {
    "id": "g01",
-   "y": 780,
+   "y": 300,
    "fim": 2.64,
    "linhas": [
     {
@@ -54,7 +54,7 @@
   },
   {
    "id": "g02",
-   "y": 780,
+   "y": 300,
    "fim": 3.6,
    "linhas": [
     {
@@ -84,7 +84,7 @@
   },
   {
    "id": "g03",
-   "y": 780,
+   "y": 300,
    "fim": 4.06,
    "linhas": [
     {
@@ -111,7 +111,7 @@
   },
   {
    "id": "g04",
-   "y": 780,
+   "y": 300,
    "fim": 5.15,
    "linhas": [
     {
@@ -339,7 +339,7 @@
   },
   {
    "id": "g11",
-   "y": 560,
+   "y": 430,
    "fim": 17.85,
    "linhas": [
     {
@@ -401,7 +401,8 @@
        "t": "ampla",
        "s": 28.02
       }
-     ]
+     ],
+     "cor": "destaque-escuro"
     }
    ],
    "sombra_forte": true
@@ -454,14 +455,15 @@
        "t": "despensa.",
        "s": 29.98
       }
-     ]
+     ],
+     "cor": "destaque-escuro"
     }
    ],
    "sombra_forte": true
   },
   {
    "id": "g15",
-   "y": 560,
+   "y": 700,
    "fim": 36.52,
    "linhas": [
     {
@@ -495,7 +497,7 @@
   },
   {
    "id": "g16",
-   "y": 560,
+   "y": 700,
    "fim": 37.54,
    "linhas": [
     {
@@ -916,7 +918,7 @@
        "s": 54.87
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "texto"
     }
    ],
    "sombra_forte": true
@@ -1195,10 +1197,6 @@
  ],
  "transicoes": [
   {
-   "t": 5.39,
-   "tipo": "corte"
-  },
-  {
    "t": 6.563,
    "tipo": "luz"
   },
@@ -1296,7 +1294,8 @@
        "t": "no",
        "s": 0.2
       }
-     ]
+     ],
+     "tam": 104
     },
     {
      "estilo": "serifa",
@@ -1306,7 +1305,8 @@
        "s": 0.4
       }
      ],
-     "cor": "destaque-escuro"
+     "cor": "destaque",
+     "tam": 250
     },
     {
      "estilo": "rotulo",
@@ -1327,10 +1327,19 @@
        "t": "MG",
        "s": 1.04
       }
-     ]
+     ],
+     "tam": 34,
+     "entrelinha": 0.1
     }
    ],
-   "ancoras": []
+   "ancoras": [
+    "assets/video/rastreio-fachada-a.json",
+    "assets/video/rastreio-fachada-b.json"
+   ],
+   "tela": [
+    650,
+    340
+   ]
   }
  ],
  "trilha": {
