@@ -136,14 +136,22 @@ def gerar_legendas(plano, duracao):
                 spans.append(f'<span class="p" id="{pid}">{esc(p["t"])}</span>')
                 js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
                           f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"] - 0.04)});')
-            classe = "linha brilho" if cor == "destaque" else "linha"
+            classe = "linha brilho" if cor.startswith("destaque") else "linha"
             linhas_html.append(f'<div class="{classe}" id="{gid}-l{li}" style="{css}">{" ".join(spans)}</div>')
-        # saída: linha a linha, subindo e desfocando (como na referência 2)
+        # saída: linha a linha, subindo e desfocando (como na referência 2). Na fala
+        # corrida a última palavra fica pelo menos 0,32 s parada antes de sair, mesmo
+        # que a saída invada o começo do grupo seguinte (como na referência 2)
         n = len(g["linhas"])
         saida = 0.26
-        inicio_saida = fim - saida - 0.05 * (n - 1) - 0.02
+        ultima = max(p["s"] for p in palavras)
+        inicio_saida = max(fim - saida - 0.05 * (n - 1) - 0.02, ultima + 0.32)
+        fim = max(fim, inicio_saida + saida + 0.05 * (n - 1) + 0.02)
         js.append(f'tl.to([{", ".join(chr(34) + "#" + gid + "-l" + str(i) + chr(34) for i in range(n))}], '
                   f'{{opacity:0, filter:"blur(12px)", y:-26, duration:{saida}, ease:"power2.in", stagger:0.05}}, {num(inicio_saida)});')
+        if g.get("veu"):  # sombra suave atrás do texto, para paredes e pisos muito claros
+            linhas_html.insert(0, f'<div class="veu" id="{gid}-veu"></div>')
+            js.append(f'tl.fromTo("#{gid}-veu", {{opacity:0}}, {{opacity:1, duration:0.35, ease:"power2.out"}}, {num(inicio)});')
+            js.append(f'tl.to("#{gid}-veu", {{opacity:0, duration:{saida + 0.05 * (n - 1)}, ease:"power2.in"}}, {num(inicio_saida)});')
         grupos_html.append(
             f'<div id="{gid}" class="clip grupo" data-start="{num(inicio)}" data-duration="{num(fim - inicio)}" '
             f'data-layout-allow-overlap style="{estilo_bloco}">\n        ' + "\n        ".join(linhas_html) + "\n      </div>")
@@ -151,9 +159,11 @@ def gerar_legendas(plano, duracao):
     return f"""<template>
   <style>{font_faces()}
       #root {{ position: absolute; inset: 0; overflow: visible; }}
-      .grupo {{ position: absolute; left: 0; width: {LARGURA}px; text-align: center; overflow: visible; }}
-      .linha {{ display: block; white-space: nowrap; line-height: 1.0; color: #fff;
-               text-shadow: 0 3px 22px rgba(0, 0, 0, 0.30), 0 0 2px rgba(0, 0, 0, 0.18); }}
+      .grupo {{ position: absolute; left: 0; width: {LARGURA}px; text-align: center; overflow: visible; isolation: isolate; }}
+      .linha {{ position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
+               text-shadow: 0 3px 24px rgba(0, 0, 0, 0.36), 0 0 2px rgba(0, 0, 0, 0.2); }}
+      .veu {{ position: absolute; left: 0; right: 0; top: -70px; bottom: -70px; z-index: -1; pointer-events: none;
+              background: radial-gradient(ellipse 52% 50% at 50% 50%, rgba(22, 15, 10, 0.42), rgba(22, 15, 10, 0.18) 55%, transparent 80%); }}
       .linha.brilho {{ text-shadow: 0 4px 30px rgba(0, 0, 0, 0.42), 0 0 3px rgba(0, 0, 0, 0.20), 0 0 40px var(--destaque-brilho); }}
       .p {{ display: inline-block; will-change: transform, filter, opacity; }}
   </style>
@@ -243,25 +253,46 @@ def gerar_cards(plano, duracao):
 def eventos_sfx(plano):
     """Efeitos sonoros automáticos (clique nas legendas e cards, whoosh nas transições)."""
     ev = []
-    for i, g in enumerate(plano.get("legendas", [])):
+    fim_anterior, n_cliques = -10.0, 0
+    for g in plano.get("legendas", []):
         primeira = min(p["s"] for l in g["linhas"] for p in l["palavras"])
-        ev.append((primeira, CLIQUES[i % len(CLIQUES)], 0.5))
-        for l in g["linhas"]:
-            estilo = l.get("estilo", "fina")
-            if estilo in ("serifa", "destaque") and l["palavras"][0]["s"] - primeira > 0.15:
-                ev.append((l["palavras"][0]["s"], "click-agudo", 0.6))
+        destaques = [l["palavras"][0]["s"] for l in g["linhas"]
+                     if l.get("estilo", "fina") in ("serifa", "destaque")]
+        # clique quando o texto volta depois de uma pausa; na fala corrida, só nos destaques
+        if primeira - fim_anterior > 0.3 and not any(abs(d - primeira) < 0.15 for d in destaques):
+            ev.append((primeira, CLIQUES[n_cliques % len(CLIQUES)], 0.5))
+            n_cliques += 1
+        for d in destaques:
+            ev.append((d, "click-agudo", 0.6))
+        fim_anterior = g["fim"]
     for c in plano.get("cards", []):
         ev.append((c["inicio"] + 0.08, "whoosh-rapido", 0.45))
         ev.append((c["inicio"] + 0.3, "click", 0.55))
-    for i, t in enumerate(plano.get("transicoes", [])):
-        if t.get("tipo", "luz") == "preto":
+    grandes = [t for t in plano.get("transicoes", []) if t.get("tipo", "luz") != "corte"]
+    for i, t in enumerate(grandes):
+        tipo = t.get("tipo", "luz")
+        if tipo == "preto":
             ev.append((t["t"], "whoosh-grave", 0.5))
+        elif tipo == "flash":
+            ev.append((t["t"], "whoosh-rapido", 0.5))
         else:
             ev.append((t["t"], WHOOSH_TRANSICAO[i % len(WHOOSH_TRANSICAO)], 0.6))
     for s in plano.get("sfx_extra", []):
         ev.append((s["t"], s["som"], s.get("vol", 0.5)))
     remover = {round(s["t"], 2) for s in plano.get("sfx_remover", [])}
-    return sorted(e for e in ev if round(e[0], 2) not in remover)
+    ev = sorted(e for e in ev if round(e[0], 2) not in remover)
+    # sem amontoado: logo depois de um whoosh de transição não entra outro whoosh nem
+    # um clique colado, e dois cliques a menos de 0,2 s viram um só
+    limpo = []
+    for t, som, vol in ev:
+        ultimo_whoosh = max((x[0] for x in limpo if x[1].startswith("whoosh")), default=-10)
+        ultimo_clique = max((x[0] for x in limpo if x[1].startswith("click")), default=-10)
+        if som.startswith("whoosh") and t - ultimo_whoosh < 0.5:
+            continue
+        if som.startswith("click") and (t - ultimo_whoosh < 0.2 or t - ultimo_clique < 0.2):
+            continue
+        limpo.append((t, som, vol))
+    return limpo
 
 
 def gerar_index(plano, duracao):
@@ -275,6 +306,10 @@ def gerar_index(plano, duracao):
         tid = f"tr{i + 1}"
         tipo = t.get("tipo", "luz")
         corte = t["t"]
+        if tipo == "corte":  # corte seco com um empurrão de câmera discreto
+            escala = t.get("escala", 1.045)
+            js.append(f'tl.fromTo(".cam", {{scale:{escala}}}, {{scale:1, duration:0.45, ease:"expo.out", immediateRender:false}}, {num(corte)});')
+            continue
         if tipo == "luz":
             ini, dur = corte - 0.32, 0.8
             transicoes_html.append(
@@ -310,7 +345,7 @@ def gerar_index(plano, duracao):
                 f'tl.to("#{tid}-a", {{opacity:0, duration:0.24, ease:"power2.out"}}, {num(corte + 0.02)});',
             ]
         if t.get("zoom", True):
-            js.append(f'tl.fromTo(".cam", {{scale:1.09}}, {{scale:1, duration:0.6, ease:"expo.out"}}, {num(corte)});')
+            js.append(f'tl.fromTo(".cam", {{scale:1.09}}, {{scale:1, duration:0.6, ease:"expo.out", immediateRender:false}}, {num(corte)});')
 
     audios, fim_trilha = [], []
     for i, (t, som, vol) in enumerate(eventos_sfx(plano)):
@@ -350,6 +385,7 @@ def gerar_index(plano, duracao):
         --texto: {cores.get("texto", "#FFFFFF")};
         --destaque: {cores["destaque"]};
         --destaque-brilho: {cores["destaque"]}59;
+        --destaque-escuro: {cores.get("destaque_escuro", cores["destaque"])};
         --vazamento: {cores.get("vazamento", "#FF9A4D")};
       }}
       .cam {{ position: absolute; inset: 0; transform-origin: 50% 45%; }}

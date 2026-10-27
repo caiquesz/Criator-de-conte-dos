@@ -6,3 +6,4 @@
 **/assets/sfx/*.mp3
 node_modules/
 __pycache__/
+**/.transcode-cache/

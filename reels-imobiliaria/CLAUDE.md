@@ -11,7 +11,7 @@ ou o gerador, não o HTML gerado. Depois de gerar: `npx hyperframes check`, olha
 Pela página "Envio de Reels" (https://claude.ai/artifact/5q94sQub5Nb3pA9opnRcfR, fonte em
 `envio/envio-reels.html`). Cada envio é um documento da coleção `envios` (ler com ArtifactData)
 com o briefing e a lista `partes`: ids de arquivos de até 19 MiB que, baixados na ordem
-(`Artifact` action `read` com `path` = id) e concatenados com `cat`, refazem o vídeo original.
+(`Artifact` action `read` com `path` = id, um por chamada: `paths` não acha ids de arquivo) e concatenados com `cat`, refazem o vídeo original.
 Atualize `status` (`editando`, `pronto`) e `nota` do documento para o cliente acompanhar.
 
 Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (padrão do gerador).
