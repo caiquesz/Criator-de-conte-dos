@@ -46,7 +46,7 @@ scripts/recorte.sh projetos/casa-x                         # máscara da pessoa 
 python3 scripts/estabilizar.py projetos/casa-x             # estabiliza por cena, vídeo e máscara juntos
 python3 scripts/silhueta.py projetos/casa-x/assets/video/recorte.webm --janelas projetos/casa-x/plano.json
 # texto em perspectiva (opcional): rastreia a superfície no vídeo já estabilizado
-python3 scripts/rastrear.py projetos/casa-x projetos/casa-x/assets/video/rastreio-a.json \
+python3 scripts/rastrear.py projetos/casa-x projetos/casa-x/rastreios/fachada-a.json \
   --de 0 --ate 5.3 --ref 2.0 --quad "140,800 1060,800 1060,1160 140,1160" --roi "0,250 1080,250 1080,1300 0,1300"
 python3 scripts/gerar.py projetos/casa-x
 cd projetos/casa-x && npx hyperframes check && npx hyperframes render -o renders/render.mp4 --quality delivery
@@ -81,7 +81,7 @@ cd ../.. && python3 scripts/mixar.py projetos/casa-x projetos/casa-x/renders/ren
   "transicoes": [ { "t": 3.6, "tipo": "luz" } ],   // luz | preto | flash | corte; "zoom": false desliga o zoom
   "perspectivas": [ {                         // opcional: texto preso a uma superfície da cena
     "id": "pv1", "inicio": 0.13, "fim": 6.3, "tela": [920, 360],    // a tela (px) vai para o quad rastreado
-    "ancoras": ["assets/video/rastreio-a.json", "assets/video/rastreio-b.json"],  // uma por tomada
+    "ancoras": ["rastreios/fachada-a.json", "rastreios/fachada-b.json"],  // uma por tomada
     "linhas": [ { "estilo": "fina", "palavras": [ {"t": "Casa", "s": 0.13} ] } ]  // como nas legendas
   } ],
   "trilha": { "src": "assets/musica/x.mp3", "inicio_trilha": 97.6,   // opcional: música por baixo da voz

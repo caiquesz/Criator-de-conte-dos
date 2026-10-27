@@ -1333,8 +1333,8 @@
     }
    ],
    "ancoras": [
-    "assets/video/rastreio-fachada-a.json",
-    "assets/video/rastreio-fachada-b.json"
+    "rastreios/fachada-a.json",
+    "rastreios/fachada-b.json"
    ],
    "tela": [
     650,
