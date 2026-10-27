@@ -143,6 +143,11 @@
   .chip.pronto { color: var(--ok); }
   .chip.erro { color: var(--err); }
   .empty { color: var(--muted); font-size: 14px; margin: 0; }
+  .entrega { grid-column: 1 / -1; display: grid; gap: 8px; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .entrega .btn { justify-self: start; padding: 11px 20px; font-size: 14px; }
+  .entrega .aviso-baixar { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .entrega .aviso-baixar.err { color: var(--err); }
+  .entrega .aviso-baixar.ok { color: var(--ok); }
 
   @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
 </style>
@@ -393,12 +398,65 @@
         v.status === "enviando" ? `${partes} parte(s) recebida(s)` : ""].filter(Boolean).join(" · ");
       item.append(nome, chip, meta);
       if (v.nota) { const m = document.createElement("div"); m.className = "msg"; m.textContent = v.nota; item.append(m); }
+      const ent = v.entrega;
+      if (ent && Array.isArray(ent.partes) && ent.partes.length && ent.arquivo) {
+        const caixa = document.createElement("div"); caixa.className = "entrega";
+        const botao = document.createElement("button"); botao.type = "button"; botao.className = "btn";
+        botao.id = "baixar-" + d.id;
+        botao.textContent = `Baixar vídeo editado${ent.tamanho ? " · " + fmtMB(ent.tamanho) : ""}`;
+        const aviso = document.createElement("p"); aviso.className = "aviso-baixar"; aviso.id = "aviso-" + d.id;
+        aviso.setAttribute("role", "status"); aviso.setAttribute("aria-live", "polite");
+        const est = estadoBaixar[d.id];
+        if (est) { aviso.textContent = est.texto; if (est.tipo) aviso.classList.add(est.tipo); botao.disabled = est.ocupado; }
+        else aviso.textContent = ent.descricao || "";
+        botao.addEventListener("click", () => baixarEntrega(d.id, ent));
+        caixa.append(botao, aviso); item.append(caixa);
+      }
       els.items.append(item);
     });
   }
 
+  // download do vídeo editado: junta as partes guardadas e entrega um único .mp4
+  const estadoBaixar = {};
+  function mostrarBaixar(id, texto, tipo, ocupado) {
+    estadoBaixar[id] = { texto, tipo, ocupado };
+    const aviso = document.getElementById("aviso-" + id), botao = document.getElementById("baixar-" + id);
+    if (aviso) { aviso.textContent = texto; aviso.className = "aviso-baixar" + (tipo ? " " + tipo : ""); }
+    if (botao) botao.disabled = ocupado;
+  }
+  async function baixarEntrega(id, ent) {
+    if (estadoBaixar[id] && estadoBaixar[id].ocupado) return;
+    const downloads = await usar("downloads");
+    if (!downloads) {
+      mostrarBaixar(id, "Este aplicativo não deixa baixar arquivos por aqui. Abra este link no navegador (Chrome ou Safari), logado no claude.ai.", "err", false);
+      return;
+    }
+    mostrarBaixar(id, "Preparando o vídeo…", "", true);
+    try {
+      const pedacos = []; let recebido = 0;
+      for (let i = 0; i < ent.partes.length; i++) {
+        mostrarBaixar(id, `Preparando o vídeo: parte ${i + 1} de ${ent.partes.length} · ${fmtMB(recebido)} de ${fmtMB(ent.tamanho || 0)}`, "", true);
+        const r = await fetch("/_blob/" + ent.partes[i]);
+        if (!r.ok) throw { code: "parte", status: r.status };
+        const b = await r.blob(); pedacos.push(b); recebido += b.size;
+      }
+      if (ent.tamanho && recebido !== ent.tamanho) throw { code: "tamanho" };
+      mostrarBaixar(id, "Confirme o download na janela que abriu.", "", true);
+      await downloads.save({ filename: ent.arquivo, data: new Blob(pedacos, { type: "video/mp4" }) });
+      mostrarBaixar(id, "Vídeo salvo. Confira na pasta de downloads ou na galeria.", "ok", false);
+    } catch (e) {
+      const c = e && e.code;
+      const msg = c === "declined" ? "Download cancelado. Toque de novo quando quiser."
+        : c === "too_large" ? "Este aparelho recusou um arquivo desse tamanho. Peça a versão leve no chat."
+        : c === "rate_limited" ? "Já existe uma janela de download aberta. Feche-a e toque de novo."
+        : c === "parte" || c === "tamanho" ? "A conexão falhou no meio. Toque de novo para tentar outra vez."
+        : "Este aplicativo não deixa baixar arquivos por aqui. Abra este link no navegador (Chrome ou Safari), logado no claude.ai.";
+      mostrarBaixar(id, msg, c === "declined" ? "" : "err", false);
+    }
+  }
+
+  const usar = (n) => (window.claude && window.claude.use ? window.claude.use(n) : Promise.resolve(null));
   (async () => {
-    const usar = (n) => (window.claude && window.claude.use ? window.claude.use(n) : Promise.resolve(null));
     const [a, d] = await Promise.all([usar("assets"), usar("db")]);
     assets = a; db = d;
     if (!assets || !db) {

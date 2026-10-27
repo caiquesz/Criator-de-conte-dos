@@ -14,6 +14,12 @@ com o briefing e a lista `partes`: ids de arquivos de até 19 MiB que, baixados 
 (`Artifact` action `read` com `path` = id, um por chamada: `paths` não acha ids de arquivo) e concatenados com `cat`, refazem o vídeo original.
 Atualize `status` (`editando`, `pronto`) e `nota` do documento para o cliente acompanhar.
 
+**Entrega:** o vídeo final vai para o cliente pela mesma página. Corte o .mp4 em partes de até
+19 MiB (nenhuma começando com `<`), suba com `Artifact` publish `asset: true` + `file_paths` e
+grave no documento `entrega: {arquivo, tamanho, sha256, descricao, partes: [ids]}`; a página
+mostra o botão "Baixar vídeo editado", junta as partes e salva um único .mp4. Pelo chat, arquivos
+grandes (>100 MB) não baixam no app: mande também uma versão leve (~50 MB).
+
 Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (padrão do gerador).
 
 ## Regras do cliente
