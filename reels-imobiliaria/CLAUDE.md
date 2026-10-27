@@ -31,5 +31,9 @@ Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (pa
   (o Whisper adianta a primeira palavra depois de pausas).
 - **Sombra nas letras, nunca em bloco** atrás do texto (`sombra_forte` para fundos claros).
   Palavra na cor de destaque nunca leva sombra preta, só o tom escuro da própria cor.
-- **Estabilizar** o vídeo por cena com `scripts/estabilizar.py` antes do recorte e do render.
+- **Estabilizar** o vídeo por cena com `scripts/estabilizar.py` antes do render. O script confere
+  que o resultado tem os mesmos quadros do original; confira também com
+  `scripts/conferir_sincronia.py` (tudo em +0 quadros), porque imagem fora da voz não volta.
+- **Cores:** quando o cliente pedir (ex.: casa rosa), destaques só em branco:
+  `"cores": {"destaque": "#FFFFFF", "destaque_escuro": "#FFFFFF", "brilho": false}`.
 

@@ -399,7 +399,7 @@ def gerar_index(plano, duracao):
       :root {{
         --texto: {cores.get("texto", "#FFFFFF")};
         --destaque: {cores["destaque"]};
-        --destaque-brilho: {cores["destaque"]}59;
+        --destaque-brilho: {cores["destaque"] + "59" if cores.get("brilho", True) else "transparent"};
         --destaque-sombra: {sombra_da_cor(cores["destaque"], 0.42)};
         --destaque-sombra-leve: {sombra_da_cor(cores["destaque"], 0.22)};
         --destaque-escuro: {cores.get("destaque_escuro", cores["destaque"])};
