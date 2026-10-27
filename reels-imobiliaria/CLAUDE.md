@@ -36,13 +36,19 @@ Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (pa
   (o Whisper adianta a primeira palavra depois de pausas).
 - **Sombra nas letras, nunca em bloco** atrás do texto (`sombra_forte` para fundos claros).
   Palavra na cor de destaque nunca leva sombra preta, só o tom escuro da própria cor.
-- **Estabilizar** o vídeo por cena com `scripts/estabilizar.py` antes do render. O script confere
-  que o resultado tem os mesmos quadros do original; confira também com
-  `scripts/conferir_sincronia.py` (tudo em +0 quadros), porque imagem fora da voz não volta.
+- **Estabilizar** o vídeo por cena com `scripts/estabilizar.py` antes do render. O cliente quer
+  estabilização forte (reclamou de "muita balançada" com a versão antiga, que corrigia no máximo
+  40 px): o script suaviza a trajetória em até 1 s e corta até 20% de zoom a partir do original em
+  4K. Panorâmicas rápidas intencionais continuam se movendo. O script confere que o resultado tem
+  os mesmos quadros do original; confira também que os cortes (`scdet`) caem nos mesmos instantes,
+  porque imagem fora da voz não volta. Depois de estabilizar de novo, refaça os rastreios.
 - **Cores:** quando o cliente pedir (ex.: casa rosa), destaques só em branco:
   `"cores": {"destaque": "#FFFFFF", "destaque_escuro": "#FFFFFF", "brilho": false}`.
   O cliente acha o tom escuro do destaque (bege/terracota) escuro demais: deixe a maioria dos
   destaques em branco e use a cor só às vezes, num tom claro e sobre fundo mais escuro.
+- **Música:** leve e animada, mas adulta: nada de ukulele, glockenspiel ou assobio ("Carefree"
+  ficou infantil). Na dúvida, mande 2 ou 3 amostras de 20 s já por baixo da voz para o cliente
+  escolher; trocar a música só refaz a mixagem. Licença sem NC (CC BY ou CC0) e crédito no post.
 - **Texto em perspectiva** (`perspectivas` no plano, `scripts/rastrear.py`): só na tomada em que o
   André aparece; na troca para outra tomada ele sai antes do corte.
 
