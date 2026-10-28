@@ -1,0 +1,1344 @@
+{
+ "video": "assets/video/video_estab.mp4",
+ "video_original": "assets/video/original.mov",
+ "video_tem_audio": true,
+ "recorte": "assets/video/recorte.webm",
+ "duracao": 75.386,
+ "cores": {
+  "texto": "#FFFFFF",
+  "destaque": "#E8B68A",
+  "destaque_escuro": "#E8B68A",
+  "vazamento": "#FF9A4D"
+ },
+ "tracking": {
+  "forte": -0.035,
+  "fina": -0.01,
+  "serifa": -0.01
+ },
+ "entrelinha": -0.16,
+ "legendas": [
+  {
+   "id": "g01",
+   "y": 300,
+   "fim": 2.64,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 1.5
+      },
+      {
+       "t": "pé",
+       "s": 1.64
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 1.9
+      },
+      {
+       "t": "tudo,",
+       "s": 2.0
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g02",
+   "y": 300,
+   "fim": 3.6,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 2.72
+      },
+      {
+       "t": "com",
+       "s": 2.78
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "quintal,",
+       "s": 2.84
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g03",
+   "y": 300,
+   "fim": 4.06,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "quase",
+       "s": 3.68
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "nenhuma",
+       "s": 3.74
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g04",
+   "y": 300,
+   "fim": 5.15,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "aqui",
+       "s": 4.14
+      },
+      {
+       "t": "no",
+       "s": 4.36
+      },
+      {
+       "t": "centro",
+       "s": 4.48
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "tem.",
+       "s": 4.68
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g05",
+   "y": 560,
+   "fim": 7.52,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Tem",
+       "s": 6.69
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "duas",
+       "s": 6.8
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "salas,",
+       "s": 6.96
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g06",
+   "y": 560,
+   "fim": 8.76,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 7.6
+      },
+      {
+       "t": "que",
+       "s": 7.78
+      },
+      {
+       "t": "permite",
+       "s": 7.88
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "organizar",
+       "s": 8.26
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g07",
+   "y": 560,
+   "fim": 9.82,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 8.84
+      },
+      {
+       "t": "ambiente",
+       "s": 8.9
+      },
+      {
+       "t": "com",
+       "s": 9.16
+      },
+      {
+       "t": "a",
+       "s": 9.5
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "rotina",
+       "s": 9.56
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g08",
+   "y": 560,
+   "fim": 10.62,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 9.9
+      },
+      {
+       "t": "quem",
+       "s": 10.04
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "mora.",
+       "s": 10.18
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g09",
+   "y": 560,
+   "fim": 13.82,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "A",
+       "s": 12.544
+      },
+      {
+       "t": "casa",
+       "s": 12.604
+      },
+      {
+       "t": "contém",
+       "s": 12.664
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "três",
+       "s": 12.98
+      },
+      {
+       "t": "quartos,",
+       "s": 13.22
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g11",
+   "y": 430,
+   "fim": 17.85,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "sendo",
+       "s": 15.96
+      },
+      {
+       "t": "esse",
+       "s": 16.36
+      },
+      {
+       "t": "aqui",
+       "s": 16.58
+      },
+      {
+       "t": "a",
+       "s": 16.82
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "suíte.",
+       "s": 17.1
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g12",
+   "y": 560,
+   "fim": 28.38,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Temos",
+       "s": 27.392
+      },
+      {
+       "t": "essa",
+       "s": 27.48
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "cozinha",
+       "s": 27.62
+      },
+      {
+       "t": "ampla",
+       "s": 28.02
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g13",
+   "y": 560,
+   "fim": 29.84,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 28.46
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "arejada,",
+       "s": 28.6
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g14",
+   "y": 560,
+   "fim": 30.7,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 29.92
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "despensa.",
+       "s": 29.98
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g15",
+   "y": 700,
+   "fim": 36.52,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 35.97
+      },
+      {
+       "t": "a",
+       "s": 36.03
+      },
+      {
+       "t": "área",
+       "s": 36.09
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "externa",
+       "s": 36.2
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g16",
+   "y": 700,
+   "fim": 37.54,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "merece",
+       "s": 36.6
+      },
+      {
+       "t": "um",
+       "s": 37.0
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "destaque.",
+       "s": 37.08
+      }
+     ],
+     "cor": "destaque"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g17",
+   "y": 560,
+   "fim": 38.9,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Temos",
+       "s": 37.62
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "churrasqueira,",
+       "s": 37.96
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g18",
+   "y": 560,
+   "fim": 39.7,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "fogão",
+       "s": 38.98
+      },
+      {
+       "t": "a",
+       "s": 39.34
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "lenha",
+       "s": 39.4
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g19",
+   "y": 560,
+   "fim": 40.44,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 39.78
+      },
+      {
+       "t": "forno",
+       "s": 39.86
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 40.24
+      },
+      {
+       "t": "lata",
+       "s": 40.3
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g20",
+   "y": 560,
+   "fim": 42.0,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 40.52
+      },
+      {
+       "t": "esse",
+       "s": 40.82
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "quintal",
+       "s": 41.0
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "amplo.",
+       "s": 41.4
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g21",
+   "y": 560,
+   "fim": 44.66,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Um",
+       "s": 43.84
+      },
+      {
+       "t": "conjunto",
+       "s": 43.9
+      },
+      {
+       "t": "que",
+       "s": 44.02
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "abre",
+       "s": 44.24
+      },
+      {
+       "t": "espaço",
+       "s": 44.46
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g22",
+   "y": 560,
+   "fim": 46.1,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "para",
+       "s": 44.74
+      },
+      {
+       "t": "reunir",
+       "s": 45.12
+      }
+     ]
+    },
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "quem",
+       "s": 45.48
+      },
+      {
+       "t": "você",
+       "s": 45.6
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "gosta",
+       "s": 45.8
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g23",
+   "y": 560,
+   "fim": 48.3,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 46.18
+      },
+      {
+       "t": "aproveitar",
+       "s": 46.44
+      },
+      {
+       "t": "os",
+       "s": 47.04
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "momentos",
+       "s": 47.2
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "em",
+       "s": 47.48
+      },
+      {
+       "t": "casa.",
+       "s": 47.7
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g24",
+   "y": 560,
+   "fim": 51.53,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Temos",
+       "s": 51.072
+      },
+      {
+       "t": "um",
+       "s": 51.17
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "terraço",
+       "s": 51.25
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g25",
+   "y": 560,
+   "fim": 52.57,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 51.61
+      },
+      {
+       "t": "quarto",
+       "s": 51.77
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 52.01
+      },
+      {
+       "t": "despejo",
+       "s": 52.23
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g26",
+   "y": 560,
+   "fim": 54.33,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "para",
+       "s": 52.65
+      },
+      {
+       "t": "guardar",
+       "s": 52.95
+      },
+      {
+       "t": "o",
+       "s": 53.92
+      },
+      {
+       "t": "que",
+       "s": 53.98
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "não",
+       "s": 54.04
+      },
+      {
+       "t": "cabe",
+       "s": 54.13
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g27",
+   "y": 560,
+   "fim": 55.5,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "dentro",
+       "s": 54.41
+      },
+      {
+       "t": "da",
+       "s": 54.61
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "casa.",
+       "s": 54.87
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g28",
+   "y": 560,
+   "fim": 67.1,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "A",
+       "s": 66.24
+      },
+      {
+       "t": "casa",
+       "s": 66.3
+      },
+      {
+       "t": "fica",
+       "s": 66.5
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "no",
+       "s": 66.74
+      },
+      {
+       "t": "centro",
+       "s": 66.92
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g29",
+   "y": 560,
+   "fim": 67.84,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 67.18
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "Resende",
+       "s": 67.34
+      },
+      {
+       "t": "Costa,",
+       "s": 67.5
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g30",
+   "y": 560,
+   "fim": 69.48,
+   "linhas": [
+    {
+     "estilo": "media",
+     "palavras": [
+      {
+       "t": "comércio,",
+       "s": 67.92
+      }
+     ]
+    },
+    {
+     "estilo": "media",
+     "palavras": [
+      {
+       "t": "banco,",
+       "s": 68.44
+      }
+     ]
+    },
+    {
+     "estilo": "media",
+     "palavras": [
+      {
+       "t": "escola,",
+       "s": 68.94
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g31",
+   "y": 560,
+   "fim": 70.6,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "tudo",
+       "s": 69.56
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 69.9
+      },
+      {
+       "t": "pé.",
+       "s": 70.06
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g32",
+   "y": 560,
+   "fim": 71.58,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 71.14
+      },
+      {
+       "t": "o",
+       "s": 71.2
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "valor?",
+       "s": 71.26
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g33",
+   "y": 900,
+   "fim": 73.8,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Agende",
+       "s": 72.94
+      },
+      {
+       "t": "sua",
+       "s": 73.36
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "visita",
+       "s": 73.52
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g34",
+   "y": 900,
+   "fim": 75.3,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 73.88
+      },
+      {
+       "t": "a",
+       "s": 73.96
+      },
+      {
+       "t": "gente",
+       "s": 74.04
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "no",
+       "s": 74.24
+      },
+      {
+       "t": "WhatsApp",
+       "s": 74.4
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  }
+ ],
+ "cards": [
+  {
+   "id": "c1",
+   "inicio": 18.65,
+   "fim": 21.0,
+   "y": 1000,
+   "grande": "3",
+   "unidade": "quartos",
+   "rotulo": "um deles suíte"
+  },
+  {
+   "id": "c2",
+   "inicio": 61.09,
+   "fim": 63.55,
+   "y": 380,
+   "grande": "150",
+   "unidade": "m²",
+   "rotulo": "área construída"
+  },
+  {
+   "id": "c3",
+   "inicio": 63.74,
+   "fim": 65.95,
+   "y": 380,
+   "grande": "260",
+   "unidade": "m²",
+   "rotulo": "de terreno"
+  },
+  {
+   "id": "c4",
+   "inicio": 71.62,
+   "fim": 74.3,
+   "y": 330,
+   "grande": "R$ 750",
+   "unidade": "mil",
+   "rotulo": "valor do imóvel"
+  }
+ ],
+ "transicoes": [
+  {
+   "t": 5.39,
+   "tipo": "corte"
+  },
+  {
+   "t": 6.563,
+   "tipo": "luz"
+  },
+  {
+   "t": 10.67,
+   "tipo": "corte"
+  },
+  {
+   "t": 12.357,
+   "tipo": "corte"
+  },
+  {
+   "t": 14.41,
+   "tipo": "corte"
+  },
+  {
+   "t": 15.877,
+   "tipo": "corte"
+  },
+  {
+   "t": 18.553,
+   "tipo": "corte"
+  },
+  {
+   "t": 20.24,
+   "tipo": "luz"
+  },
+  {
+   "t": 22.037,
+   "tipo": "corte"
+  },
+  {
+   "t": 23.247,
+   "tipo": "corte"
+  },
+  {
+   "t": 25.593,
+   "tipo": "corte"
+  },
+  {
+   "t": 27.353,
+   "tipo": "luz"
+  },
+  {
+   "t": 31.277,
+   "tipo": "corte"
+  },
+  {
+   "t": 35.677,
+   "tipo": "luz"
+  },
+  {
+   "t": 42.387,
+   "tipo": "corte"
+  },
+  {
+   "t": 43.707,
+   "tipo": "corte"
+  },
+  {
+   "t": 48.437,
+   "tipo": "corte"
+  },
+  {
+   "t": 49.683,
+   "tipo": "corte"
+  },
+  {
+   "t": 50.93,
+   "tipo": "luz"
+  },
+  {
+   "t": 60.903,
+   "tipo": "flash"
+  },
+  {
+   "t": 66.073,
+   "tipo": "luz"
+  }
+ ],
+ "perspectivas": [
+  {
+   "id": "pv1",
+   "inicio": 0.13,
+   "fim": 5.35,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Casa",
+       "s": 0.13
+      },
+      {
+       "t": "no",
+       "s": 0.2
+      }
+     ],
+     "tam": 104
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "Centro",
+       "s": 0.4
+      }
+     ],
+     "cor": "texto",
+     "tam": 250
+    },
+    {
+     "estilo": "rotulo",
+     "palavras": [
+      {
+       "t": "Resende",
+       "s": 0.82
+      },
+      {
+       "t": "Costa",
+       "s": 0.84
+      },
+      {
+       "t": "·",
+       "s": 1.04
+      },
+      {
+       "t": "MG",
+       "s": 1.04
+      }
+     ],
+     "tam": 34,
+     "entrelinha": 0.1
+    }
+   ],
+   "ancoras": [
+    "rastreios/fachada-a.json"
+   ],
+   "tela": [
+    650,
+    340
+   ]
+  }
+ ],
+ "trilha": {
+  "src": "assets/musica/easy-lemon-kevin-macleod.mp3",
+  "inicio_trilha": 0,
+  "abaixo_da_voz_db": 12,
+  "sobe_nas_pausas_db": 4,
+  "fade_in": 0.3,
+  "fade_out": 1.6,
+  "credito": "\"Easy Lemon\" – Kevin MacLeod (incompetech.com), CC BY 4.0"
+ }
+}

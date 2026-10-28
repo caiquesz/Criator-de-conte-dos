@@ -1,0 +1,478 @@
+<title>Envio de Reels</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+  /* Layout: uma coluna de trabalho; no desktop o quadro 9:16 fica ao lado do formulário */
+  :root {
+    --bg: #EEEFEC;
+    --surface: #FAFAF8;
+    --fg: #1B1C1E;
+    --muted: #5E6066;
+    --line: #D5D6D2;
+    --accent: #A8692F;
+    --accent-ink: #FFFFFF;
+    --ok: #2F7D4F;
+    --warn: #A35D12;
+    --err: #B3362B;
+    --frame: #17181A;
+    --font-ui: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131416; --surface: #1C1D20; --fg: #ECEBE7; --muted: #A2A3A8; --line: #2E3034;
+      --accent: #E8B880; --accent-ink: #1B1407; --ok: #6FC48F; --warn: #E3A35A; --err: #F08A7E;
+      --frame: #0B0B0C; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #131416; --surface: #1C1D20; --fg: #ECEBE7; --muted: #A2A3A8; --line: #2E3034;
+    --accent: #E8B880; --accent-ink: #1B1407; --ok: #6FC48F; --warn: #E3A35A; --err: #F08A7E;
+    --frame: #0B0B0C; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: var(--font-ui); font-size: 15px; line-height: 1.55;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 56px;
+  }
+  .page { max-width: 1040px; margin: 0 auto; display: grid; gap: 28px; }
+
+  header { display: grid; gap: 6px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin: 0; }
+  h1 {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(40px, 7vw, 64px); line-height: 0.95; letter-spacing: -0.01em; margin: 0; text-wrap: balance;
+  }
+  .lead { margin: 4px 0 0; color: var(--muted); max-width: 60ch; }
+
+  .work { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 28px; align-items: start; }
+  @media (max-width: 760px) { .work { grid-template-columns: minmax(0, 1fr); } }
+
+  /* quadro 9:16 com as faixas que o Instagram cobre */
+  .phone { display: grid; gap: 10px; }
+  .frame {
+    position: relative; width: 100%; max-width: 300px; aspect-ratio: 9 / 16; margin: 0 auto;
+    background: var(--frame); border-radius: 22px; overflow: hidden; border: 1px solid var(--line);
+  }
+  .frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .zone {
+    position: absolute; left: 0; right: 0; pointer-events: none;
+    background: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 6px, transparent 6px 12px);
+    border-color: rgba(255,255,255,0.35); border-style: dashed; border-width: 0;
+  }
+  .zone.top { top: 0; height: 8.75%; border-bottom-width: 1px; }
+  .zone.bottom { bottom: 0; height: 30.7%; border-top-width: 1px; }
+  .zone span {
+    position: absolute; left: 10px; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+  .zone.top span { bottom: 6px; }
+  .zone.bottom span { top: 6px; }
+  .drop {
+    position: absolute; inset: 8.75% 0 30.7%; display: grid; place-content: center; gap: 10px; text-align: center;
+    color: #F1F0EC; padding: 16px; cursor: pointer;
+  }
+  .drop strong { font-weight: 500; font-size: 15px; }
+  .drop small { color: rgba(241,240,236,0.7); font-size: 12px; }
+  .frame.dragging { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .specs { font-size: 12px; color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; margin: 0; }
+  .specs .bad { color: var(--warn); }
+
+  form { display: grid; gap: 22px; min-width: 0; }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 12px; min-width: 0; }
+  legend { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding: 0; margin-bottom: 12px; }
+  .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .row.nums { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  @media (max-width: 560px) { .row, .row.nums { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); min-width: 0; }
+  input[type="text"], textarea {
+    font: inherit; font-size: 15px; color: var(--fg); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; min-width: 0;
+  }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus-visible, textarea:focus-visible, button:focus-visible, .choice input:focus-visible + span {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  @media (max-width: 460px) { .choices { grid-template-columns: minmax(0, 1fr); } }
+  .choice { position: relative; display: block; cursor: pointer; }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice span {
+    display: grid; gap: 2px; height: 100%; padding: 12px 14px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--fg); font-size: 14px;
+  }
+  .choice span em { font-style: normal; font-size: 12px; color: var(--muted); }
+  .choice span b { font-weight: 600; }
+  .choice input:checked + span { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  .sample-a { letter-spacing: -0.035em; font-weight: 600; }
+  .sample-b { letter-spacing: 0.08em; font-weight: 600; }
+
+  .send { display: grid; gap: 10px; }
+  .btn {
+    font: inherit; font-weight: 500; font-size: 15px; border: 0; border-radius: 999px; padding: 13px 22px;
+    background: var(--accent); color: var(--accent-ink); cursor: pointer; justify-self: start;
+  }
+  .btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+  .bar { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.3s ease; }
+  .status { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .status.err { color: var(--err); }
+  .status.ok { color: var(--ok); }
+  .note { font-size: 13px; color: var(--muted); margin: 0; }
+
+  section.list { display: grid; gap: 12px; }
+  h2 { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; color: var(--muted); margin: 0; }
+  .items { display: grid; gap: 10px; }
+  .item {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  }
+  .item .name { font-weight: 500; overflow-wrap: anywhere; min-width: 0; }
+  .item .meta { grid-column: 1 / -1; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .item .msg { grid-column: 1 / -1; font-size: 14px; }
+  .chip { font-size: 12px; font-weight: 500; border-radius: 999px; padding: 3px 10px; border: 1px solid currentColor; white-space: nowrap; }
+  .chip.enviando { color: var(--warn); }
+  .chip.enviado { color: var(--muted); }
+  .chip.editando { color: var(--accent); }
+  .chip.pronto { color: var(--ok); }
+  .chip.erro { color: var(--err); }
+  .empty { color: var(--muted); font-size: 14px; margin: 0; }
+  .entrega { grid-column: 1 / -1; display: grid; gap: 8px; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .entrega .btn { justify-self: start; padding: 11px 20px; font-size: 14px; }
+  .entrega .aviso-baixar { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .entrega .aviso-baixar.err { color: var(--err); }
+  .entrega .aviso-baixar.ok { color: var(--ok); }
+
+  @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<div class="page">
+  <header>
+    <p class="eyebrow">Reels da imobiliária · 1080 × 1920</p>
+    <h1>Envio para edição</h1>
+    <p class="lead">Mande o vídeo já cortado. Eu coloco as legendas no ritmo da fala, os destaques, os cards de vidro, as transições e os sons, no estilo das referências.</p>
+  </header>
+
+  <div class="work">
+    <div class="phone">
+      <div class="frame" id="frame">
+        <video id="preview" muted playsinline controls hidden></video>
+        <div class="zone top"><span>barra do app</span></div>
+        <div class="drop" id="drop" role="button" tabindex="0" aria-label="Escolher o vídeo">
+          <strong>Arraste o vídeo aqui</strong>
+          <small>ou toque para escolher<br>MP4 ou MOV, vertical</small>
+        </div>
+        <div class="zone bottom"><span>legenda e botões do Instagram</span></div>
+      </div>
+      <input type="file" id="file" accept="video/*" hidden>
+      <p class="specs" id="specs">Nenhum vídeo escolhido</p>
+    </div>
+
+    <form id="form" novalidate>
+      <fieldset>
+        <legend>Imóvel</legend>
+        <div class="row">
+          <label for="imovel">Nome do imóvel ou condomínio
+            <input type="text" id="imovel" name="imovel" placeholder="ex.: Vivendas da Mata">
+          </label>
+          <label for="local">Bairro e cidade
+            <input type="text" id="local" name="local" placeholder="ex.: Centro, São João del-Rei">
+          </label>
+        </div>
+        <div class="row nums">
+          <label for="metragem">Área (m²)<input type="text" id="metragem" name="metragem" inputmode="decimal" placeholder="256"></label>
+          <label for="terreno">Terreno (m²)<input type="text" id="terreno" name="terreno" inputmode="decimal" placeholder="300"></label>
+          <label for="suites">Suítes<input type="text" id="suites" name="suites" inputmode="numeric" placeholder="3"></label>
+          <label for="vagas">Vagas<input type="text" id="vagas" name="vagas" inputmode="numeric" placeholder="2"></label>
+          <label for="preco">Preço<input type="text" id="preco" name="preco" placeholder="R$ 1,2 mi"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Edição</legend>
+        <label for="destaques">Palavras que devem aparecer em destaque
+          <input type="text" id="destaques" name="destaques" placeholder="ex.: pé-direito duplo, piscina aquecida">
+        </label>
+        <label for="observacoes">Observações
+          <textarea id="observacoes" name="observacoes" placeholder="Algo que eu deva saber: um trecho sem legenda, um card que você quer, o tom do vídeo."></textarea>
+        </label>
+        <div class="choices" role="radiogroup" aria-label="Espaçamento das letras">
+          <label class="choice"><input type="radio" name="espacamento" value="A" checked><span><b class="sample-a">Letras juntas</b><em>A · como nas referências</em></span></label>
+          <label class="choice"><input type="radio" name="espacamento" value="B"><span><b class="sample-b">Espaçadas</b><em>B · mais abertas</em></span></label>
+        </div>
+        <div class="choices" role="radiogroup" aria-label="Música">
+          <label class="choice"><input type="radio" name="musica" value="tem" checked><span><b>Já tem música</b><em>mantenho a trilha do vídeo</em></span></label>
+          <label class="choice"><input type="radio" name="musica" value="nao-tem"><span><b>Sem música</b><em>só a voz e os efeitos</em></span></label>
+        </div>
+      </fieldset>
+
+      <div class="send">
+        <button class="btn" type="submit" id="enviar" disabled>Enviar para edição</button>
+        <div class="bar" id="bar" hidden><i id="barFill"></i></div>
+        <p class="status" id="status" role="status" aria-live="polite">Escolha o vídeo para liberar o envio.</p>
+        <button class="btn ghost" type="button" id="retomar" hidden>Continuar de onde parou</button>
+        <p class="note" id="aviso">Depois de enviar, me avise no chat que eu começo a edição.</p>
+      </div>
+    </form>
+  </div>
+
+  <section class="list" aria-labelledby="titulo-envios">
+    <h2 id="titulo-envios">Seus envios</h2>
+    <div class="items" id="items"><p class="empty">Os vídeos que você enviar aparecem aqui, com o andamento da edição.</p></div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const PARTE = 19 * 1024 * 1024; // limite do armazenamento: 20 MiB por arquivo
+  const $ = (id) => document.getElementById(id);
+  const els = {
+    frame: $("frame"), drop: $("drop"), file: $("file"), preview: $("preview"), specs: $("specs"),
+    form: $("form"), enviar: $("enviar"), bar: $("bar"), barFill: $("barFill"), status: $("status"),
+    retomar: $("retomar"), items: $("items"), aviso: $("aviso"),
+  };
+  const CAMPOS = ["imovel", "local", "metragem", "terreno", "suites", "vagas", "preco", "destaques", "observacoes"];
+  const ROTULO = { enviando: "Enviando", enviado: "Na fila", editando: "Editando", pronto: "Pronto", erro: "Com problema" };
+
+  let arquivo = null, info = null, envio = null, ocupado = false;
+  let assets = null, db = null;
+
+  const fmtMB = (b) => (b / 1048576).toLocaleString("pt-BR", { maximumFractionDigits: b > 1e8 ? 0 : 1 }) + " MB";
+  const fmtDur = (s) => { s = Math.round(s); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+  function setStatus(texto, tipo) { els.status.textContent = texto; els.status.className = "status" + (tipo ? " " + tipo : ""); }
+  function progresso(frac) { els.bar.hidden = false; els.barFill.style.width = Math.round(frac * 100) + "%"; }
+
+  // rascunho do formulário só neste navegador
+  try {
+    const salvo = JSON.parse(localStorage.getItem("envio-reels-rascunho") || "{}");
+    CAMPOS.forEach((c) => { if (salvo[c]) $(c).value = salvo[c]; });
+    ["espacamento", "musica"].forEach((n) => {
+      if (salvo[n]) { const r = els.form.querySelector(`input[name="${n}"][value="${salvo[n]}"]`); if (r) r.checked = true; }
+    });
+  } catch (e) {}
+  let rascunhoTimer = null;
+  els.form.addEventListener("input", () => {
+    clearTimeout(rascunhoTimer);
+    rascunhoTimer = setTimeout(() => { try { localStorage.setItem("envio-reels-rascunho", JSON.stringify(briefing())); } catch (e) {} }, 400);
+  });
+
+  function briefing() {
+    const b = {};
+    CAMPOS.forEach((c) => { b[c] = $(c).value.trim(); });
+    b.espacamento = els.form.querySelector('input[name="espacamento"]:checked').value;
+    b.musica = els.form.querySelector('input[name="musica"]:checked').value;
+    return b;
+  }
+
+  // escolha do vídeo
+  function escolher(f) {
+    if (!f || ocupado) return;
+    if (!f.type.startsWith("video/") && !/\.(mp4|mov|m4v|webm)$/i.test(f.name)) {
+      setStatus("Esse arquivo não parece um vídeo. Escolha um MP4 ou MOV.", "err"); return;
+    }
+    arquivo = f; envio = null; els.retomar.hidden = true; els.bar.hidden = true;
+    const url = URL.createObjectURL(f);
+    els.preview.src = url; els.preview.hidden = false; els.drop.hidden = true;
+    els.specs.textContent = f.name + " · " + fmtMB(f.size);
+    info = { nome: f.name, tamanho: f.size, tipo: f.type || "", duracao: null, largura: null, altura: null };
+    els.preview.onloadedmetadata = () => {
+      info.duracao = Math.round(els.preview.duration * 100) / 100;
+      info.largura = els.preview.videoWidth; info.altura = els.preview.videoHeight;
+      const vertical = info.altura && Math.abs(info.largura / info.altura - 9 / 16) < 0.02;
+      els.specs.innerHTML = "";
+      const t = document.createElement("span");
+      t.textContent = `${f.name} · ${fmtMB(f.size)} · ${fmtDur(info.duracao)} · ${info.largura}×${info.altura}`;
+      els.specs.append(t);
+      if (!vertical) {
+        const w = document.createElement("span"); w.className = "bad";
+        w.textContent = " · não está em 9:16, confira o corte"; els.specs.append(w);
+      }
+    };
+    atualizarBotao();
+    setStatus(assets ? "Pronto para enviar." : els.status.textContent);
+  }
+  els.drop.addEventListener("click", () => els.file.click());
+  els.drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); els.file.click(); } });
+  els.file.addEventListener("change", () => escolher(els.file.files[0]));
+  ["dragenter", "dragover"].forEach((ev) => els.frame.addEventListener(ev, (e) => { e.preventDefault(); els.frame.classList.add("dragging"); }));
+  ["dragleave", "drop"].forEach((ev) => els.frame.addEventListener(ev, () => els.frame.classList.remove("dragging")));
+  els.frame.addEventListener("drop", (e) => { e.preventDefault(); escolher(e.dataTransfer.files[0]); });
+
+  function atualizarBotao() { els.enviar.disabled = !(arquivo && assets && db) || ocupado; }
+
+  // um pedaço que começa com "<" seria recusado como marcação: recua o corte
+  async function fimDaParte(inicio) {
+    let fim = Math.min(inicio + PARTE, arquivo.size);
+    while (fim < arquivo.size) {
+      const bytes = new Uint8Array(await arquivo.slice(fim, fim + 64).arrayBuffer());
+      const k = bytes.findIndex((b) => ![0x20, 0x09, 0x0a, 0x0d, 0x0c].includes(b));
+      if (k === -1 || bytes[k] !== 0x3c) break;
+      fim -= 1;
+    }
+    return fim;
+  }
+
+  async function subir(parte) {
+    try { return await assets.upload(parte, { type: "video/mp4" }); }
+    catch (e) {
+      if (e && e.code === "store_unavailable") { await new Promise((r) => setTimeout(r, 1500)); return assets.upload(parte, { type: "video/mp4" }); }
+      throw e;
+    }
+  }
+
+  function mensagemErro(e) {
+    const c = e && e.code;
+    if (c === "quota_or_state") return "O espaço de armazenamento desta página acabou. Me avise no chat que eu libero espaço apagando os vídeos já editados.";
+    if (c === "rate_limited") return "Muitos envios seguidos. Espere um minuto e toque em Continuar.";
+    if (c === "upstream_auth") return "Sua sessão expirou. Recarregue a página, entre de novo no claude.ai e toque em Continuar.";
+    if (c === "not_granted" || c === "capability_disabled") return "Esta visualização não permite enviar arquivos. Abra o link logado na sua conta.";
+    return "O envio parou no meio. Toque em Continuar para retomar da parte que falhou.";
+  }
+
+  async function enviar() {
+    if (ocupado || !arquivo) return;
+    ocupado = true; atualizarBotao(); els.retomar.hidden = true;
+    try {
+      if (!envio) {
+        const uso = await assets.list().then((r) => r.usage).catch(() => null);
+        if (uso && uso.maxBytes && uso.bytes + arquivo.size > uso.maxBytes) {
+          throw { code: "quota_or_state" };
+        }
+        const ref = db.collection("envios").doc();
+        envio = { ref, partes: [], pos: 0 };
+        await ref.set({
+          arquivo: info, partes: [], tamanhoParte: PARTE, status: "enviando",
+          criadoEm: new Date().toISOString(), briefing: briefing(), nota: "",
+        });
+      }
+      const total = Math.max(1, Math.ceil(arquivo.size / PARTE));
+      while (envio.pos < arquivo.size) {
+        const n = envio.partes.length + 1;
+        setStatus(`Enviando parte ${n} de cerca de ${total} · ${fmtMB(envio.pos)} de ${fmtMB(arquivo.size)}`);
+        progresso(envio.pos / arquivo.size);
+        const fim = await fimDaParte(envio.pos);
+        const r = await subir(arquivo.slice(envio.pos, fim));
+        envio.partes.push(r.id); envio.pos = fim;
+        await envio.ref.update({ partes: envio.partes.slice() });
+      }
+      await envio.ref.update({ status: "enviado", briefing: briefing(), enviadoEm: new Date().toISOString() });
+      progresso(1);
+      setStatus(`Vídeo enviado (${fmtMB(arquivo.size)}). Agora me avise no chat que eu começo a edição.`, "ok");
+      arquivo = null; envio = null;
+      try { localStorage.removeItem("envio-reels-rascunho"); } catch (e) {}
+    } catch (e) {
+      setStatus(mensagemErro(e), "err");
+      if (envio && (!e || e.code !== "quota_or_state")) els.retomar.hidden = false;
+    } finally {
+      ocupado = false; atualizarBotao();
+    }
+  }
+  els.form.addEventListener("submit", (e) => { e.preventDefault(); enviar(); });
+  els.retomar.addEventListener("click", enviar);
+
+  // lista de envios, ao vivo
+  function render(snap) {
+    els.items.innerHTML = "";
+    if (snap.empty) {
+      const p = document.createElement("p"); p.className = "empty";
+      p.textContent = "Os vídeos que você enviar aparecem aqui, com o andamento da edição.";
+      els.items.append(p); return;
+    }
+    snap.docs.forEach((d) => {
+      const v = d.data() || {}; const a = v.arquivo || {}; const b = v.briefing || {};
+      const item = document.createElement("div"); item.className = "item";
+      const nome = document.createElement("div"); nome.className = "name";
+      nome.textContent = b.imovel ? `${b.imovel} · ${a.nome || "vídeo"}` : (a.nome || "vídeo");
+      const chip = document.createElement("span"); const st = ROTULO[v.status] ? v.status : "enviado";
+      chip.className = "chip " + st; chip.textContent = ROTULO[st];
+      const meta = document.createElement("div"); meta.className = "meta";
+      const quando = v.criadoEm ? new Date(v.criadoEm).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : "";
+      const partes = Array.isArray(v.partes) ? v.partes.length : 0;
+      meta.textContent = [quando, a.tamanho ? fmtMB(a.tamanho) : "", a.duracao ? fmtDur(a.duracao) : "",
+        v.status === "enviando" ? `${partes} parte(s) recebida(s)` : ""].filter(Boolean).join(" · ");
+      item.append(nome, chip, meta);
+      if (v.nota) { const m = document.createElement("div"); m.className = "msg"; m.textContent = v.nota; item.append(m); }
+      const ent = v.entrega;
+      if (ent && Array.isArray(ent.partes) && ent.partes.length && ent.arquivo) {
+        const caixa = document.createElement("div"); caixa.className = "entrega";
+        const botao = document.createElement("button"); botao.type = "button"; botao.className = "btn";
+        botao.id = "baixar-" + d.id;
+        botao.textContent = `Baixar vídeo editado${ent.tamanho ? " · " + fmtMB(ent.tamanho) : ""}`;
+        const aviso = document.createElement("p"); aviso.className = "aviso-baixar"; aviso.id = "aviso-" + d.id;
+        aviso.setAttribute("role", "status"); aviso.setAttribute("aria-live", "polite");
+        const est = estadoBaixar[d.id];
+        if (est) { aviso.textContent = est.texto; if (est.tipo) aviso.classList.add(est.tipo); botao.disabled = est.ocupado; }
+        else aviso.textContent = ent.descricao || "";
+        botao.addEventListener("click", () => baixarEntrega(d.id, ent));
+        caixa.append(botao, aviso); item.append(caixa);
+      }
+      els.items.append(item);
+    });
+  }
+
+  // download do vídeo editado: junta as partes guardadas e entrega um único .mp4
+  const estadoBaixar = {};
+  function mostrarBaixar(id, texto, tipo, ocupado) {
+    estadoBaixar[id] = { texto, tipo, ocupado };
+    const aviso = document.getElementById("aviso-" + id), botao = document.getElementById("baixar-" + id);
+    if (aviso) { aviso.textContent = texto; aviso.className = "aviso-baixar" + (tipo ? " " + tipo : ""); }
+    if (botao) botao.disabled = ocupado;
+  }
+  async function baixarEntrega(id, ent) {
+    if (estadoBaixar[id] && estadoBaixar[id].ocupado) return;
+    const downloads = await usar("downloads");
+    if (!downloads) {
+      mostrarBaixar(id, "Este aplicativo não deixa baixar arquivos por aqui. Abra este link no navegador (Chrome ou Safari), logado no claude.ai.", "err", false);
+      return;
+    }
+    mostrarBaixar(id, "Preparando o vídeo…", "", true);
+    try {
+      const pedacos = []; let recebido = 0;
+      for (let i = 0; i < ent.partes.length; i++) {
+        mostrarBaixar(id, `Preparando o vídeo: parte ${i + 1} de ${ent.partes.length} · ${fmtMB(recebido)} de ${fmtMB(ent.tamanho || 0)}`, "", true);
+        const r = await fetch("/_blob/" + ent.partes[i]);
+        if (!r.ok) throw { code: "parte", status: r.status };
+        const b = await r.blob(); pedacos.push(b); recebido += b.size;
+      }
+      if (ent.tamanho && recebido !== ent.tamanho) throw { code: "tamanho" };
+      mostrarBaixar(id, "Confirme o download na janela que abriu.", "", true);
+      await downloads.save({ filename: ent.arquivo, data: new Blob(pedacos, { type: "video/mp4" }) });
+      mostrarBaixar(id, "Vídeo salvo. Confira na pasta de downloads ou na galeria.", "ok", false);
+    } catch (e) {
+      const c = e && e.code;
+      const msg = c === "declined" ? "Download cancelado. Toque de novo quando quiser."
+        : c === "too_large" ? "Este aparelho recusou um arquivo desse tamanho. Peça a versão leve no chat."
+        : c === "rate_limited" ? "Já existe uma janela de download aberta. Feche-a e toque de novo."
+        : c === "parte" || c === "tamanho" ? "A conexão falhou no meio. Toque de novo para tentar outra vez."
+        : "Este aplicativo não deixa baixar arquivos por aqui. Abra este link no navegador (Chrome ou Safari), logado no claude.ai.";
+      mostrarBaixar(id, msg, c === "declined" ? "" : "err", false);
+    }
+  }
+
+  const usar = (n) => (window.claude && window.claude.use ? window.claude.use(n) : Promise.resolve(null));
+  (async () => {
+    const [a, d] = await Promise.all([usar("assets"), usar("db")]);
+    assets = a; db = d;
+    if (!assets || !db) {
+      setStatus("Para enviar, abra este link logado na sua conta do claude.ai.", "err");
+      els.aviso.hidden = true;
+    } else if (!arquivo) {
+      setStatus("Escolha o vídeo para liberar o envio.");
+    }
+    atualizarBotao();
+    if (db) {
+      db.collection("envios").orderBy("criadoEm", "desc").limit(30).onSnapshot(render, () => {
+        const p = document.createElement("p"); p.className = "empty";
+        p.textContent = "Não consegui carregar a lista agora. Recarregue a página.";
+        els.items.replaceChildren(p);
+      });
+    }
+  })();
+})();
+</script>
