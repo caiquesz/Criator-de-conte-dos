@@ -1,0 +1,117 @@
+<template>
+  <style>
+      @font-face { font-family: "Poppins"; font-weight: 500; src: url("assets/fonts/Poppins-500.woff2") format("woff2"); }
+      @font-face { font-family: "Poppins"; font-weight: 600; src: url("assets/fonts/Poppins-600.woff2") format("woff2"); }
+      @font-face { font-family: "Poppins"; font-weight: 700; src: url("assets/fonts/Poppins-700.woff2") format("woff2"); }
+      @font-face { font-family: "Poppins"; font-weight: 800; src: url("assets/fonts/Poppins-800.woff2") format("woff2"); }
+      @font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 400 900; src: url("assets/fonts/PlayfairDisplay-VF.woff2") format("woff2"); }
+      @font-face { font-family: "Playfair Display"; font-style: italic; font-weight: 400 900; src: url("assets/fonts/PlayfairDisplay-Italic-VF.woff2") format("woff2"); }
+      #root { position: absolute; inset: 0; overflow: visible; }
+      .title { position: absolute; inset: 0; }
+      .title-in { position: absolute; left: 0; right: 0; }
+      .tl-line { display: flex; align-items: baseline; white-space: nowrap; }
+      .tk { display: inline-block; position: relative; color: #fff; opacity: 0; will-change: transform, filter, opacity;
+            text-shadow: 0 4px 28px rgba(0, 0, 0, 0.22); }
+      .tk + .tk { margin-left: 0.24em; }
+      .ch { opacity: 0; }
+      .sans { font-family: "Poppins", sans-serif; font-weight: 700; letter-spacing: -0.055em; line-height: 0.86; }
+      .sans.sm { font-weight: 600; letter-spacing: -0.03em; }
+      .serif { font-family: "Playfair Display", serif; font-style: italic; font-weight: 400; letter-spacing: -0.035em; line-height: 0.82;
+               color: rgba(255, 255, 255, var(--tk-o, 0.94)); }
+      .serif.up { font-style: normal; letter-spacing: -0.045em; }
+  </style>
+  <div id="root" data-composition-id="titles" data-width="1080" data-height="1920">
+      <div id="hook" class="clip title" data-start="0.05" data-duration="2.2" data-track-index="0" data-layout-allow-overlap>
+        <div class="title-in" id="hook-in" style="top:690px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk sans sm" id="hook-0-0" style="font-size:60px">Chegaram</span><span class="tk sans sm" id="hook-0-1" style="font-size:60px">nossas</span></div>
+          <div class="tl-line" style="justify-content:flex-end;margin-top:-4px"><span class="tk sans" id="hook-1-0" style="font-size:134px">mantas</span></div>
+          <div class="tl-line" style="justify-content:flex-end;margin-top:-30px"><span class="tk serif" id="hook-2-0" style="font-size:136px">natalinas</span></div>
+        </div>
+      </div>
+      <div id="paleta" class="clip title" data-start="13.23" data-duration="1.17" data-track-index="1" data-layout-allow-overlap>
+        <div class="title-in" id="paleta-in" style="top:900px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk sans" id="paleta-0-0" style="font-size:112px">paleta</span></div>
+          <div class="tl-line" style="justify-content:flex-end;margin-top:-26px"><span class="tk serif" id="paleta-1-0" style="font-size:140px">natalina</span></div>
+        </div>
+      </div>
+      <div id="sec-algodao" class="clip title" data-start="14.93" data-duration="2.47" data-track-index="2" data-layout-allow-overlap>
+        <div class="title-in" id="sec-algodao-in" style="top:1000px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="sec-algodao-0-0" style="font-size:104px">1. Algodão</span></div>
+        </div>
+      </div>
+      <div id="sem-peso" class="clip title" data-start="19.75" data-duration="1.1" data-track-index="3" data-layout-allow-overlap>
+        <div class="title-in" id="sem-peso-in" style="top:880px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk sans" id="sem-peso-0-0" style="font-size:112px">e sem</span></div>
+          <div class="tl-line" style="justify-content:flex-end;margin-top:-26px"><span class="tk serif" id="sem-peso-1-0" style="font-size:176px">peso</span></div>
+        </div>
+      </div>
+      <div id="sec-lurex" class="clip title" data-start="24.25" data-duration="1.8" data-track-index="0" data-layout-allow-overlap>
+        <div class="title-in" id="sec-lurex-in" style="top:1000px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="sec-lurex-0-0" style="font-size:104px">2. Lurex</span></div>
+        </div>
+      </div>
+      <div id="brilho" class="clip title" data-start="26.17" data-duration="1.49" data-track-index="1" data-layout-allow-overlap>
+        <div class="title-in" id="brilho-in" style="top:880px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk sans" id="brilho-0-0" style="font-size:112px">charme e</span></div>
+          <div class="tl-line" style="justify-content:flex-end;margin-top:-26px"><span class="tk serif" id="brilho-1-0" style="font-size:176px">brilho</span></div>
+        </div>
+      </div>
+      <div id="sec-escama" class="clip title" data-start="31.19" data-duration="2.41" data-track-index="2" data-layout-allow-overlap>
+        <div class="title-in" id="sec-escama-in" style="top:1000px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="sec-escama-0-0" style="font-size:104px">3. Escama</span></div>
+        </div>
+      </div>
+      <div id="sofisticado" class="clip title" data-start="36.45" data-duration="1.86" data-track-index="3" data-layout-allow-overlap>
+        <div class="title-in" id="sofisticado-in" style="top:900px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk sans" id="sofisticado-0-0" style="font-size:96px">um ar mais</span></div>
+          <div class="tl-line" style="justify-content:flex-end;margin-top:-22px"><span class="tk serif" id="sofisticado-1-0" style="font-size:128px">sofisticado</span></div>
+        </div>
+      </div>
+      <div id="whatsapp" class="clip title" data-start="48.75" data-duration="1.97" data-track-index="0" data-layout-allow-overlap>
+        <div class="title-in" id="whatsapp-in" style="top:840px;padding:0 70px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk sans" id="whatsapp-0-0" style="font-size:96px">já me chama</span></div>
+          <div class="tl-line" style="justify-content:flex-end;margin-top:-20px"><span class="tk sans sm" id="whatsapp-1-0" style="font-size:60px">no</span><span class="tk serif" id="whatsapp-1-1" style="font-size:124px">WhatsApp</span></div>
+        </div>
+      </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // hook
+      tl.fromTo("#hook-0-0", { opacity: 0, y: 19, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 0.05);
+      tl.fromTo("#hook-0-1", { opacity: 0, y: 19, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 0.56);
+      tl.fromTo("#hook-1-0", { opacity: 0, y: 43, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 0.84);
+      tl.fromTo("#hook-2-0", { opacity: 0, y: 44, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 1.36);
+      tl.to("#hook-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 2.07);
+      // paleta
+      tl.fromTo("#paleta-0-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 13.23);
+      tl.fromTo("#paleta-1-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 13.65);
+      // sec-algodao
+      tl.set("#sec-algodao-0-0", { opacity: 1 }, 14.93);
+      tl.to("#sec-algodao-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 17.22);
+      // sem-peso
+      tl.fromTo("#sem-peso-0-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 19.75);
+      tl.fromTo("#sem-peso-1-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 20.13);
+      // sec-lurex
+      tl.set("#sec-lurex-0-0", { opacity: 1 }, 24.25);
+      tl.to("#sec-lurex-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 25.87);
+      // brilho
+      tl.fromTo("#brilho-0-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 26.17);
+      tl.fromTo("#brilho-1-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 26.85);
+      tl.to("#brilho-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 27.48);
+      // sec-escama
+      tl.set("#sec-escama-0-0", { opacity: 1 }, 31.19);
+      tl.to("#sec-escama-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 33.42);
+      // sofisticado
+      tl.fromTo("#sofisticado-0-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 36.45);
+      tl.fromTo("#sofisticado-1-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 37.09);
+      tl.to("#sofisticado-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 38.13);
+      // whatsapp
+      tl.fromTo("#whatsapp-0-0", { opacity: 0, y: 31, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 48.75);
+      tl.fromTo("#whatsapp-1-0", { opacity: 0, y: 19, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 49.87);
+      tl.fromTo("#whatsapp-1-1", { opacity: 0, y: 40, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 49.87);
+      tl.to("#whatsapp-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 50.54);
+      window.__timelines["titles"] = tl;
+    })();
+  </script>
+</template>

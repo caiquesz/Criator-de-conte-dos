@@ -7,3 +7,4 @@ renders/
 .hyperframes/
 .media/
 node_modules/
+.transcode-cache/
