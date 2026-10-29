@@ -9,10 +9,26 @@
     "w65": "A de escama"
   },
   "captions": {
-    "y": 1190,
-    "size": 44,
+    "y": 1080,
+    "size": 46,
     "maxWords": 5,
-    "maxChars": 26
+    "maxChars": 26,
+    "yAt": [
+      {
+        "from": 0,
+        "to": 6.6,
+        "y": 1010
+      }
+    ],
+    "emph": [
+      "w15",
+      "w20",
+      "w25",
+      "w37",
+      "w72",
+      "w94",
+      "w102"
+    ]
   },
   "breakBefore": [
     "w14",
@@ -22,16 +38,62 @@
     "w125"
   ],
   "cutout": {
-    "src": "assets/cutout/hook.webm",
-    "end": 2.25
+    "src": "assets/cutout/intro.webm",
+    "dur": 6.8,
+    "windows": [
+      [
+        0,
+        2.25
+      ]
+    ]
   },
+  "cards": [
+    {
+      "id": "card-algodao",
+      "start": 14.49,
+      "end": 17.9,
+      "mediaStart": 20.9,
+      "rate": 0.59,
+      "x": 200,
+      "y": 330,
+      "w": 680,
+      "h": 400,
+      "focus": "50% 60%"
+    },
+    {
+      "id": "card-lurex",
+      "start": 22.93,
+      "end": 26.0,
+      "mediaStart": 29.06,
+      "rate": 0.65,
+      "x": 200,
+      "y": 330,
+      "w": 680,
+      "h": 400,
+      "focus": "50% 62%"
+    },
+    {
+      "id": "card-escama",
+      "start": 31.19,
+      "end": 34.6,
+      "mediaStart": 39.33,
+      "rate": 0.56,
+      "x": 200,
+      "y": 330,
+      "w": 680,
+      "h": 400,
+      "focus": "50% 55%"
+    }
+  ],
   "titles": [
     {
       "id": "hook",
       "from": "w0",
       "to": "w3",
       "enter": "blur-rise",
-      "y": 690,
+      "y": 600,
+      "align": "center",
+      "padX": 40,
       "end": 2.25,
       "exit": "blur",
       "lines": [
@@ -41,57 +103,57 @@
               "w": "w0",
               "t": "Chegaram",
               "s": "sans-sm",
-              "size": 60
+              "size": 64
             },
             {
               "w": "w1",
               "t": "nossas",
               "s": "sans-sm",
-              "size": 60
+              "size": 64
             }
           ]
         },
         {
-          "gap": -4,
+          "gap": -6,
           "tokens": [
             {
               "w": "w2",
               "t": "mantas",
               "s": "sans",
-              "size": 134
+              "size": 210
             }
           ]
         },
         {
-          "gap": -30,
+          "gap": -56,
           "tokens": [
             {
               "w": "w3",
               "t": "natalinas",
               "s": "serif",
-              "size": 136
+              "size": 196
             }
           ]
         }
-      ],
-      "align": "flex-end",
-      "padX": 70
+      ]
     },
     {
       "id": "paleta",
-      "from": "w29",
+      "from": "w28",
       "to": "w30",
-      "enter": "blur",
+      "enter": "type",
+      "typeSpeed": 0.04,
       "y": 900,
       "align": "flex-end",
+      "padX": 70,
       "end": 14.4,
       "exit": "cut",
       "lines": [
         {
           "tokens": [
             {
-              "w": "w29",
-              "t": "paleta",
+              "w": "w28",
+              "t": "a paleta",
               "s": "sans",
               "size": 112
             }
@@ -108,29 +170,32 @@
             }
           ]
         }
-      ],
-      "padX": 70
+      ]
     },
     {
       "id": "sec-algodao",
+      "from": "w31",
+      "to": "w33",
+      "captions": "after-speech",
       "enter": "cut",
       "sfx": "first",
-      "y": 1000,
-      "align": "flex-end",
-      "end": 17.4,
+      "y": 236,
+      "align": "flex-start",
+      "padX": 226,
+      "end": 17.9,
+      "exit": "cut",
       "lines": [
         {
           "tokens": [
             {
-              "w": "w33",
+              "at": 14.49,
               "t": "1. Algodão",
               "s": "serif",
-              "size": 104
+              "size": 108
             }
           ]
         }
-      ],
-      "padX": 70
+      ]
     },
     {
       "id": "sem-peso",
@@ -139,6 +204,7 @@
       "enter": "blur",
       "y": 880,
       "align": "flex-end",
+      "padX": 70,
       "end": 20.85,
       "exit": "cut",
       "lines": [
@@ -163,37 +229,41 @@
             }
           ]
         }
-      ],
-      "padX": 70
+      ]
     },
     {
       "id": "sec-lurex",
+      "from": "w48",
+      "to": "w52",
+      "captions": "after-speech",
       "enter": "cut",
       "sfx": "first",
-      "y": 1000,
-      "align": "flex-end",
-      "end": 26.05,
+      "y": 236,
+      "align": "flex-start",
+      "padX": 226,
+      "end": 26.0,
+      "exit": "cut",
       "lines": [
         {
           "tokens": [
             {
-              "w": "w52",
+              "at": 22.93,
               "t": "2. Lurex",
               "s": "serif",
-              "size": 104
+              "size": 108
             }
           ]
         }
-      ],
-      "padX": 70
+      ]
     },
     {
       "id": "brilho",
       "from": "w57",
       "to": "w59",
-      "enter": "blur",
+      "enter": "blur-rise",
       "y": 880,
       "align": "flex-end",
+      "padX": 70,
       "hold": 0.35,
       "lines": [
         {
@@ -217,37 +287,43 @@
             }
           ]
         }
-      ],
-      "padX": 70
+      ]
     },
     {
       "id": "sec-escama",
+      "from": "w65",
+      "to": "w65",
+      "captions": "after-speech",
       "enter": "cut",
       "sfx": "first",
-      "y": 1000,
-      "align": "flex-end",
-      "end": 33.6,
+      "y": 236,
+      "align": "flex-start",
+      "padX": 226,
+      "end": 34.6,
+      "exit": "cut",
       "lines": [
         {
           "tokens": [
             {
-              "w": "w65",
+              "at": 31.19,
               "t": "3. Escama",
               "s": "serif",
-              "size": 104
+              "size": 108
             }
           ]
         }
-      ],
-      "padX": 70
+      ]
     },
     {
       "id": "sofisticado",
       "from": "w81",
       "to": "w84",
-      "enter": "blur",
+      "enter": "type",
+      "typeSpeed": 0.035,
       "y": 900,
-      "hold": 0.3,
+      "align": "flex-end",
+      "padX": 70,
+      "hold": 0.35,
       "lines": [
         {
           "tokens": [
@@ -270,16 +346,16 @@
             }
           ]
         }
-      ],
-      "align": "flex-end",
-      "padX": 70
+      ]
     },
     {
       "id": "whatsapp",
       "from": "w110",
       "to": "w114",
-      "enter": "blur-rise",
+      "enter": "blur",
       "y": 840,
+      "align": "flex-end",
+      "padX": 70,
       "hold": 0.35,
       "lines": [
         {
@@ -309,9 +385,41 @@
             }
           ]
         }
-      ],
+      ]
+    },
+    {
+      "id": "natal",
+      "from": "w125",
+      "to": "w129",
+      "enter": "blur-rise",
+      "y": 820,
       "align": "flex-end",
-      "padX": 70
+      "padX": 70,
+      "end": 54.86,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w125",
+              "t": "e para o seu",
+              "s": "sans",
+              "size": 96
+            }
+          ]
+        },
+        {
+          "gap": -8,
+          "tokens": [
+            {
+              "w": "w129",
+              "t": "Natal",
+              "s": "serif",
+              "size": 196
+            }
+          ]
+        }
+      ]
     }
   ],
   "zooms": [
@@ -325,12 +433,23 @@
     },
     {
       "t": 6.6,
-      "scale": 1.0
+      "scale": 1.0,
+      "origin": "50% 50%"
     },
     {
-      "t": 13.23,
-      "scale": 1.1,
+      "t": 6.6,
+      "scale": 1.09,
+      "dur": 2.0,
+      "ease": "none"
+    },
+    {
+      "t": 8.63,
+      "scale": 1.0,
       "origin": "30% 42%"
+    },
+    {
+      "t": 13.15,
+      "scale": 1.1
     },
     {
       "t": 14.43,
@@ -338,45 +457,89 @@
     },
     {
       "t": 19.75,
-      "scale": 1.1,
-      "origin": "30% 42%"
+      "scale": 1.1
     },
     {
       "t": 20.87,
-      "scale": 1.0
+      "scale": 1.0,
+      "origin": "50% 50%"
     },
     {
-      "t": 26.13,
-      "scale": 1.1,
+      "t": 20.87,
+      "scale": 1.09,
+      "dur": 2.0,
+      "ease": "none"
+    },
+    {
+      "t": 22.9,
+      "scale": 1.0,
       "origin": "35% 40%"
     },
     {
-      "t": 29.03,
-      "scale": 1.0
+      "t": 26.13,
+      "scale": 1.1
     },
     {
-      "t": 36.45,
-      "scale": 1.1,
+      "t": 29.03,
+      "scale": 1.0,
+      "origin": "50% 50%"
+    },
+    {
+      "t": 29.03,
+      "scale": 1.09,
+      "dur": 2.07,
+      "ease": "none"
+    },
+    {
+      "t": 31.13,
+      "scale": 1.0,
       "origin": "40% 42%"
     },
     {
+      "t": 36.45,
+      "scale": 1.1
+    },
+    {
       "t": 39.3,
+      "scale": 1.0,
+      "origin": "50% 50%"
+    },
+    {
+      "t": 39.3,
+      "scale": 1.09,
+      "dur": 1.95,
+      "ease": "none"
+    },
+    {
+      "t": 41.27,
+      "scale": 1.0,
+      "origin": "45% 45%"
+    },
+    {
+      "t": 42.9,
+      "scale": 1.08
+    },
+    {
+      "t": 44.3,
       "scale": 1.0
     },
     {
       "t": 48.75,
-      "scale": 1.1,
-      "origin": "45% 45%"
+      "scale": 1.1
     },
     {
       "t": 51.4,
       "scale": 1.0
+    },
+    {
+      "t": 53.17,
+      "scale": 1.12
     }
   ],
   "transitions": [
     {
       "t": 6.6,
-      "type": "flash"
+      "type": "silhouette"
     },
     {
       "t": 29.033,

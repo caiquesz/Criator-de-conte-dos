@@ -117,6 +117,12 @@ for (const ti of titles) {
 
 const titleMarkup = [];
 const titleScript = [];
+for (const c of edit.cards || []) {
+  const pos = `left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;object-position:${c.focus || "50% 50%"}`;
+  titleMarkup.push(
+    `      <video id="${c.id}" class="clip card" src="${c.src || edit.video.src}" data-start="${r3(c.start)}" data-duration="${r3(c.end - c.start)}" data-media-start="${r3(c.mediaStart)}" data-playback-rate="${c.rate || 1}" data-track-index="5" data-hf-media-start-basis="local" muted playsinline style="${pos}"></video>`,
+  );
+}
 titles.forEach((ti, n) => {
   const lines = ti.lines
     .map((line, li) => {
@@ -180,22 +186,29 @@ ${lines}
 });
 
 // ---------- legendas ----------
-const C = { y: 1210, size: 44, maxWords: 4, maxChars: 24, pause: 0.25, ...(edit.captions || {}) };
-// só títulos que substituem a fala (com from/to) tiram a legenda; rótulos de seção convivem com ela
-// a janela vai só até a última palavra falada do título: o que vem depois já pode virar legenda
-const titleWindows = titles.filter((t) => t.from).map((t) => [t.start, Math.min(t.end, wordAt(t.to).end)]);
-const insideTitle = (t) => titleWindows.some(([a, b]) => t >= a - 0.05 && t < b);
+const C = { y: 1210, size: 44, maxWords: 4, maxChars: 24, pause: 0.25, yAt: [], emph: [], ...(edit.captions || {}) };
+// Enquanto um título que substitui a fala (from/to) está na tela, não há legenda: as palavras dele somem
+// da legenda e o que for dito depois espera o título sair. Rótulo de seção com "captions": "after-speech"
+// tira só a fala dele e deixa a legenda continuar embaixo.
+const blockWindows = titles
+  .filter((t) => t.from)
+  .map((t) => [t.start, t.captions === "after-speech" ? Math.min(t.end, wordAt(t.to).end) : t.end]);
+const windowOf = (t) => blockWindows.findIndex(([a, b]) => t >= a - 0.05 && t < b);
 // 1) frases: quebram em pontuação, pausa, título ou breakBefore
 const phrases = [];
 let phrase = null;
 words.forEach((raw, i) => {
   const w = wordAt(raw.id);
-  if (suppressed.has(raw.id) || insideTitle(w.start)) {
+  if (suppressed.has(raw.id)) {
     phrase = null;
     return;
   }
+  w.win = windowOf(w.start);
   const prev = i > 0 ? wordAt(words[i - 1].id) : null;
-  if (!phrase || /[.,!?;:…]$/.test(prev?.text || "") || w.start - prev.end >= C.pause || (edit.breakBefore || []).includes(raw.id)) {
+  // palavra dita durante um título entra junto com a frase que vem depois dele
+  const entering = w.win >= 0 && prev && prev.win !== w.win;
+  const gap = w.win >= 0 || (prev && prev.win >= 0) ? 0 : w.start - (prev ? prev.end : 0);
+  if (!phrase || /[.,!?;:…]$/.test(prev?.text || "") || gap >= C.pause || entering || (edit.breakBefore || []).includes(raw.id)) {
     phrase = [];
     phrases.push(phrase);
   }
@@ -227,28 +240,36 @@ function splitPhrase(ws) {
   return cuts.map(([i, j]) => ({ words: ws.slice(i, j), text: ws.slice(i, j).map((w) => w.text).join(" ") }));
 }
 const groups = phrases.flatMap(splitPhrase);
+const startOf = (g) => {
+  const t = Math.max(0.1, g.words[0].start - 0.03);
+  const w = g.words[0].win;
+  return w >= 0 ? Math.max(t, blockWindows[w][1]) : t; // fala durante o título entra quando ele sai
+};
 groups.forEach((g, i) => {
-  g.start = Math.max(0.1, g.words[0].start - 0.03);
+  g.start = startOf(g);
   const lastEnd = g.words[g.words.length - 1].end;
   const next = groups[i + 1];
-  let end = lastEnd + 0.35;
-  if (next && next.words[0].start - lastEnd < 0.7) end = next.words[0].start - 0.03; // emenda sem buraco
-  const nextTitle = titles.find((t) => t.from && t.start > g.start);
-  if (nextTitle) end = Math.min(end, nextTitle.start);
+  let end = Math.max(lastEnd + 0.35, g.start + 0.5);
+  if (next && startOf(next) - lastEnd < 0.7) end = startOf(next) - 0.03; // emenda sem buraco
+  const nextBlock = blockWindows.find(([a]) => a > g.start);
+  if (nextBlock) end = Math.min(end, nextBlock[0]);
   g.end = clampEnd(end);
 });
 const capGroups = groups.filter((g) => g.end - g.start > 0.06);
+const emph = new Set(C.emph);
+const capY = (t) => (C.yAt.find((r) => t >= r.from && t < r.to) || C).y;
 const captionMarkup = capGroups
-  .map(
-    (g, i) =>
-      `      <div id="cap-${i}" class="clip cap" data-start="${r3(g.start)}" data-duration="${r3(g.end - g.start)}" data-track-index="${i % 2}"><span class="cap-t">${esc(g.text)}</span></div>`,
-  )
+  .map((g, i) => {
+    const html = g.words.map((w) => (emph.has(w.id) ? `<span class="em">${esc(w.text)}</span>` : esc(w.text))).join(" ");
+    return `      <div id="cap-${i}" class="clip cap" data-start="${r3(g.start)}" data-duration="${r3(g.end - g.start)}" data-track-index="${i % 2}" style="top:${capY(g.start)}px"><span class="cap-t">${html}</span></div>`;
+  })
   .join("\n");
 
 // ---------- transições ----------
 const fxMarkup = [];
 const fxScript = [];
 const camScript = [];
+const cutWindows = [...((edit.cutout && edit.cutout.windows) || [])];
 (edit.transitions || []).forEach((tr, i) => {
   const t = tr.t; // instante do corte no vídeo
   const id = `fx-${i}`;
@@ -262,6 +283,7 @@ const camScript = [];
     fxScript.push(`      tl.set("#${id}-f", { opacity: 0 }, ${r3(t + F)});`);
     if (tr.type === "silhouette") {
       // ref 3: a pessoa vira silhueta branca por 1 frame antes do flash
+      cutWindows.push([s, r3(t - F)]);
       camScript.push(`      tl.set("#cam-cut", { filter: "brightness(0) invert(1)" }, ${s});`);
       camScript.push(`      tl.set("#cam-cut", { filter: "none" }, ${r3(t - F)});`);
     }
@@ -286,6 +308,14 @@ for (const z of edit.zooms || []) {
   const props = `{ scale: ${z.scale}${z.x ? `, x: ${z.x}` : ""}${z.y ? `, y: ${z.y}` : ""}${z.origin ? `, transformOrigin: "${z.origin}"` : ""}`;
   if (z.dur) camScript.push(`      tl.to(["#cam", "#cam-cut"], ${props}, duration: ${z.dur}, ease: "${z.ease || "power2.inOut"}" }, ${r3(z.t)});`);
   else camScript.push(`      tl.set(["#cam", "#cam-cut"], ${props} }, ${r3(z.t)});`);
+}
+
+if (edit.cutout) {
+  // começa invisível pelo CSS: dois sets no tempo 0 se anulam quando o runtime busca o quadro
+  for (const [a, b] of cutWindows) {
+    camScript.push(`      tl.set("#cam-cut", { opacity: 1 }, ${r3(a)});`);
+    camScript.push(`      tl.set("#cam-cut", { opacity: 0 }, ${r3(b)});`);
+  }
 }
 
 for (const s of edit.sfx || []) cue(s.name, s.t, s.vol);
@@ -315,7 +345,7 @@ const index = `<!doctype html>
       html, body { width: ${W}px; height: ${H}px; overflow: hidden; background: #000; }
       #cam, #cam-cut { position: absolute; inset: 0; overflow: hidden; }
       #cam { z-index: 1; }
-      #cam-cut { z-index: 3; }
+      #cam-cut { z-index: 3;${edit.cutout ? " opacity: 0;" : ""} }
       #main-video, #cutout { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; object-fit: cover; }
     </style>
   </head>
@@ -329,7 +359,7 @@ const index = `<!doctype html>
       <div id="cam-cut">${
         cut
           ? `
-        <video id="cutout" class="clip" src="${cut.src}" data-start="0" data-media-start="0" data-duration="${r3(cut.end)}" data-track-index="2" muted playsinline data-layout-allow-occlusion></video>
+        <video id="cutout" class="clip" src="${cut.src}" data-start="0" data-media-start="0" data-duration="${r3(cut.dur ?? cut.end)}" data-track-index="2" muted playsinline data-layout-allow-occlusion></video>
       `
           : ""
       }</div>
@@ -350,7 +380,8 @@ ${camScript.join("\n")}
 const titlesHtml = `<template>
   <style>${FONT_FACES}
       #root { position: absolute; inset: 0; overflow: visible; }
-      .title { position: absolute; inset: 0; }
+      .title { position: absolute; inset: 0; z-index: 2; }
+      .card { position: absolute; z-index: 1; object-fit: cover; }
       .title-in { position: absolute; left: 0; right: 0; }
       .tl-line { display: flex; align-items: baseline; white-space: nowrap; }
       .tk { display: inline-block; position: relative; color: #fff; opacity: 0; will-change: transform, filter, opacity;
@@ -379,10 +410,11 @@ ${titleScript.join("\n")}
 const captionsHtml = `<template>
   <style>${FONT_FACES}
       #root { position: absolute; inset: 0; }
-      .cap { position: absolute; left: 0; right: 0; top: ${C.y}px; padding: 0 ${Math.round(W * 0.1)}px; text-align: center; }
+      .cap { position: absolute; left: 0; right: 0; padding: 0 ${Math.round(W * 0.1)}px; text-align: center; }
       .cap-t { display: inline-block; font-family: "Poppins", sans-serif; font-weight: 600; font-size: ${C.size}px; line-height: 1.04;
-               letter-spacing: -0.02em; color: #fff;
-               text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.42), 0 0 22px rgba(0, 0, 0, 0.22); }
+               letter-spacing: -0.045em; color: #fff; }
+      .cap-t .em { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500; font-size: 1.3em; line-height: 0.8;
+                   letter-spacing: -0.03em; }
   </style>
   <div id="root" data-composition-id="captions" data-width="${W}" data-height="${H}">
 ${captionMarkup}

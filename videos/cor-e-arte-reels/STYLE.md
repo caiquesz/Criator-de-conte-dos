@@ -8,16 +8,21 @@ O vídeo chega já cortado: nada aqui altera tempo, só adiciona camadas por cim
 
 | | Valor | De onde vem |
 | --- | --- | --- |
-| Fonte | Poppins SemiBold (600), 44 px em 1080×1920 | refs usam sans médio pequeno; Poppins por preferência |
-| Espaçamento | letras −0,02 em, entrelinha 1,04 | pedido: letras e linhas juntas, mas legíveis |
-| Cor | branco, sombra suave (0 2 6 px 38% + halo 22 px 20%) | refs 2 e 3 |
-| Posição | centralizada, topo em y = 1215 (≈ 63% da altura, altura do peito) | refs 1, 2 e 3 |
-| Tamanho do bloco | 2–4 palavras, até 24 caracteres, 1 linha | refs |
+| Fonte | Poppins SemiBold (600), 46 px em 1080×1920 | Poppins por preferência |
+| Espaçamento | letras −0,045 em, entrelinha 1,04 | pedido: letras bem juntas, mas legíveis |
+| Cor | branco, **sem sombra** | pedido |
+| Posição | centralizada, altura do peito da pessoa (y ≈ 1010–1210, por plano) | refs 1, 2 e 3 |
+| Tamanho do bloco | 2–5 palavras, até 26 caracteres, 1 linha, nunca terminando em palavra fraca (de, a, com…) | refs |
 | Quebra | pontuação, pausa ≥ 250 ms | refs |
 | Animação | **nenhuma**: entra e sai no corte seco | as três refs |
 | Texto | como foi falado, com vírgula e ponto | refs |
 
-Quando um título ou destaque está na tela, a legenda daquelas palavras some (o título é a fala).
+Quando um título ou destaque está na tela, não há legenda: as palavras dele não viram legenda e o que for
+dito enquanto ele está na tela entra na legenda seguinte. Nos tópicos ("1. Algodão"), a frase que anuncia
+o tópico ("A de algodão") sai da legenda, e a legenda volta logo depois dela.
+
+Palavras-chave dentro da legenda (o adjetivo ou o substantivo que vende: "leve", "relevo", "diferença")
+aparecem em Playfair Display Italic, 1,3× maior. No máximo uma por bloco e só onde ajuda.
 
 ## Títulos e destaques
 
@@ -33,10 +38,16 @@ Quando um título ou destaque está na tela, a legenda daquelas palavras some (o
 - Saída: desfoque 10 px + fade em 0,16 s, ou corte seco junto com a transição.
 - **Gancho** (primeiros 2–4 s): o título fica **atrás da pessoa** (recorte do vídeo por cima), 30–55% coberto.
 
+## Cards de B-roll (ref 1)
+
+No tópico de cada produto, um trecho do próprio B-roll daquele produto entra num retângulo sem borda
+(680×400) acima da pessoa, em câmera lenta (≈0,6×), com o título do tópico encostado no topo.
+Entra e sai no corte seco, com um clique.
+
 ## Zoom
 
-Punch-in seco (sem animação) de 1,0 → 1,12–1,15 junto com a entrada do título, voltando a 1,0 no próximo
-corte (ref 3). Ponto de foco no rosto (≈ 50% 32%).
+Punch-in seco (sem animação) de 1,0 → 1,08–1,12 junto com a entrada do título, voltando a 1,0 no próximo
+corte (ref 3). Ponto de foco no rosto. Nos B-rolls, aproximação lenta e contínua (1,0 → 1,09 durante o plano).
 
 ## Transições (só nos cortes que já existem no vídeo)
 
