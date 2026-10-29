@@ -47,44 +47,6 @@
       ]
     ]
   },
-  "cards": [
-    {
-      "id": "card-algodao",
-      "start": 14.49,
-      "end": 17.9,
-      "mediaStart": 20.9,
-      "rate": 0.59,
-      "x": 200,
-      "y": 330,
-      "w": 680,
-      "h": 400,
-      "focus": "50% 60%"
-    },
-    {
-      "id": "card-lurex",
-      "start": 22.93,
-      "end": 26.0,
-      "mediaStart": 29.06,
-      "rate": 0.65,
-      "x": 200,
-      "y": 330,
-      "w": 680,
-      "h": 400,
-      "focus": "50% 62%"
-    },
-    {
-      "id": "card-escama",
-      "start": 31.19,
-      "end": 34.6,
-      "mediaStart": 39.33,
-      "rate": 0.56,
-      "x": 200,
-      "y": 330,
-      "w": 680,
-      "h": 400,
-      "focus": "50% 55%"
-    }
-  ],
   "titles": [
     {
       "id": "hook",
@@ -179,9 +141,9 @@
       "captions": "after-speech",
       "enter": "cut",
       "sfx": "first",
-      "y": 236,
-      "align": "flex-start",
-      "padX": 226,
+      "y": 1000,
+      "align": "flex-end",
+      "padX": 70,
       "end": 17.9,
       "exit": "cut",
       "lines": [
@@ -238,9 +200,9 @@
       "captions": "after-speech",
       "enter": "cut",
       "sfx": "first",
-      "y": 236,
-      "align": "flex-start",
-      "padX": 226,
+      "y": 1000,
+      "align": "flex-end",
+      "padX": 70,
       "end": 26.0,
       "exit": "cut",
       "lines": [
@@ -296,9 +258,9 @@
       "captions": "after-speech",
       "enter": "cut",
       "sfx": "first",
-      "y": 236,
-      "align": "flex-start",
-      "padX": 226,
+      "y": 1000,
+      "align": "flex-end",
+      "padX": 70,
       "end": 34.6,
       "exit": "cut",
       "lines": [

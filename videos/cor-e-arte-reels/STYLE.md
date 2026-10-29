@@ -38,11 +38,10 @@ aparecem em Playfair Display Italic, 1,3× maior. No máximo uma por bloco e só
 - Saída: desfoque 10 px + fade em 0,16 s, ou corte seco junto com a transição.
 - **Gancho** (primeiros 2–4 s): o título fica **atrás da pessoa** (recorte do vídeo por cima), 30–55% coberto.
 
-## Cards de B-roll (ref 1)
+## Tópicos
 
-No tópico de cada produto, um trecho do próprio B-roll daquele produto entra num retângulo sem borda
-(680×400) acima da pessoa, em câmera lenta (≈0,6×), com o título do tópico encostado no topo.
-Entra e sai no corte seco, com um clique.
+"1. Algodão", "2. Lurex", "3. Escama": Playfair Display Italic sozinho, à direita, acima do produto,
+no corte seco com um clique. **Sem cards de B-roll** (pedido do cliente).
 
 ## Zoom
 
