@@ -15,7 +15,8 @@ import { execFileSync } from "node:child_process";
 
 const dir = path.resolve(process.argv[2] || ".");
 const edit = JSON.parse(fs.readFileSync(path.join(dir, "edit.json"), "utf8"));
-const words = JSON.parse(fs.readFileSync(path.join(dir, edit.transcript), "utf8"));
+// "fix": { "w12": "" } apaga uma palavra que a transcrição inventou
+const words = JSON.parse(fs.readFileSync(path.join(dir, edit.transcript), "utf8")).filter((w) => (edit.fix || {})[w.id] !== "");
 
 const W = 1080;
 const H = 1920;
@@ -180,40 +181,59 @@ ${lines}
 
 // ---------- legendas ----------
 const C = { y: 1210, size: 44, maxWords: 4, maxChars: 24, pause: 0.25, ...(edit.captions || {}) };
-const titleWindows = titles.map((t) => [t.start, t.end]);
+// só títulos que substituem a fala (com from/to) tiram a legenda; rótulos de seção convivem com ela
+// a janela vai só até a última palavra falada do título: o que vem depois já pode virar legenda
+const titleWindows = titles.filter((t) => t.from).map((t) => [t.start, Math.min(t.end, wordAt(t.to).end)]);
 const insideTitle = (t) => titleWindows.some(([a, b]) => t >= a - 0.05 && t < b);
-const groups = [];
-let cur = null;
+// 1) frases: quebram em pontuação, pausa, título ou breakBefore
+const phrases = [];
+let phrase = null;
 words.forEach((raw, i) => {
   const w = wordAt(raw.id);
   if (suppressed.has(raw.id) || insideTitle(w.start)) {
-    cur = null;
+    phrase = null;
     return;
   }
   const prev = i > 0 ? wordAt(words[i - 1].id) : null;
-  const text = cur ? `${cur.text} ${w.text}` : w.text;
-  const breakHere =
-    !cur ||
-    cur.words.length >= C.maxWords ||
-    text.length > C.maxChars ||
-    /[.,!?;:…]$/.test(prev?.text || "") ||
-    w.start - prev.end >= C.pause ||
-    (edit.breakBefore || []).includes(raw.id);
-  if (breakHere) {
-    cur = { words: [w], text: w.text };
-    groups.push(cur);
-  } else {
-    cur.words.push(w);
-    cur.text = text;
+  if (!phrase || /[.,!?;:…]$/.test(prev?.text || "") || w.start - prev.end >= C.pause || (edit.breakBefore || []).includes(raw.id)) {
+    phrase = [];
+    phrases.push(phrase);
   }
+  phrase.push(w);
 });
+// 2) cada frase vira blocos equilibrados, sem terminar bloco em palavra fraca ("de", "a", "com"…)
+const WEAK = new Set("a o as os e de da do das dos na no nas nos em um uma com para pra por que se sua seu suas seus te me".split(" "));
+const clean = (t) => t.toLowerCase().replace(/[.,!?;:…"]/g, "");
+function splitPhrase(ws) {
+  const n = ws.length;
+  const best = new Array(n + 1).fill(Infinity);
+  const from = new Array(n + 1).fill(0);
+  best[0] = 0;
+  for (let j = 1; j <= n; j++) {
+    for (let i = Math.max(0, j - C.maxWords); i < j; i++) {
+      const size = j - i;
+      if (size > 1 && ws.slice(i, j).map((w) => w.text).join(" ").length > C.maxChars) continue;
+      let cost = 1 + Math.abs(size - 3) * 0.3;
+      if (j < n && WEAK.has(clean(ws[j - 1].text))) cost += 2.5;
+      if (size === 1 && n > 1) cost += 1.5;
+      if (best[i] + cost < best[j]) {
+        best[j] = best[i] + cost;
+        from[j] = i;
+      }
+    }
+  }
+  const cuts = [];
+  for (let j = n; j > 0; j = from[j]) cuts.unshift([from[j], j]);
+  return cuts.map(([i, j]) => ({ words: ws.slice(i, j), text: ws.slice(i, j).map((w) => w.text).join(" ") }));
+}
+const groups = phrases.flatMap(splitPhrase);
 groups.forEach((g, i) => {
   g.start = Math.max(0.1, g.words[0].start - 0.03);
   const lastEnd = g.words[g.words.length - 1].end;
   const next = groups[i + 1];
   let end = lastEnd + 0.35;
   if (next && next.words[0].start - lastEnd < 0.7) end = next.words[0].start - 0.03; // emenda sem buraco
-  const nextTitle = titles.find((t) => t.start > g.start);
+  const nextTitle = titles.find((t) => t.from && t.start > g.start);
   if (nextTitle) end = Math.min(end, nextTitle.start);
   g.end = clampEnd(end);
 });
@@ -332,9 +352,10 @@ const titlesHtml = `<template>
       #root { position: absolute; inset: 0; overflow: visible; }
       .title { position: absolute; inset: 0; }
       .title-in { position: absolute; left: 0; right: 0; }
-      .tl-line { display: flex; align-items: baseline; white-space: nowrap; gap: 0.18em; }
+      .tl-line { display: flex; align-items: baseline; white-space: nowrap; }
       .tk { display: inline-block; position: relative; color: #fff; opacity: 0; will-change: transform, filter, opacity;
             text-shadow: 0 4px 28px rgba(0, 0, 0, 0.22); }
+      .tk + .tk { margin-left: 0.24em; }
       .ch { opacity: 0; }
       .sans { font-family: "Poppins", sans-serif; font-weight: 700; letter-spacing: -0.055em; line-height: 0.86; }
       .sans.sm { font-weight: 600; letter-spacing: -0.03em; }
@@ -361,7 +382,7 @@ const captionsHtml = `<template>
       .cap { position: absolute; left: 0; right: 0; top: ${C.y}px; padding: 0 ${Math.round(W * 0.1)}px; text-align: center; }
       .cap-t { display: inline-block; font-family: "Poppins", sans-serif; font-weight: 600; font-size: ${C.size}px; line-height: 1.04;
                letter-spacing: -0.02em; color: #fff;
-               text-shadow: 0 2px 6px rgba(0, 0, 0, 0.38), 0 0 22px rgba(0, 0, 0, 0.2); }
+               text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.42), 0 0 22px rgba(0, 0, 0, 0.22); }
   </style>
   <div id="root" data-composition-id="captions" data-width="${W}" data-height="${H}">
 ${captionMarkup}

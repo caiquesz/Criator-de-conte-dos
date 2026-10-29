@@ -1,0 +1,390 @@
+{
+  "video": {
+    "src": "assets/video/main.mp4",
+    "focus": "38% 38%"
+  },
+  "transcript": "assets/transcript.json",
+  "fix": {
+    "w64": "",
+    "w65": "A de escama"
+  },
+  "captions": {
+    "y": 1190,
+    "size": 44,
+    "maxWords": 5,
+    "maxChars": 26
+  },
+  "breakBefore": [
+    "w14",
+    "w19",
+    "w21",
+    "w34",
+    "w125"
+  ],
+  "cutout": {
+    "src": "assets/cutout/hook.webm",
+    "end": 2.25
+  },
+  "titles": [
+    {
+      "id": "hook",
+      "from": "w0",
+      "to": "w3",
+      "enter": "blur-rise",
+      "y": 690,
+      "end": 2.25,
+      "exit": "blur",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w0",
+              "t": "Chegaram",
+              "s": "sans-sm",
+              "size": 60
+            },
+            {
+              "w": "w1",
+              "t": "nossas",
+              "s": "sans-sm",
+              "size": 60
+            }
+          ]
+        },
+        {
+          "gap": -4,
+          "tokens": [
+            {
+              "w": "w2",
+              "t": "mantas",
+              "s": "sans",
+              "size": 134
+            }
+          ]
+        },
+        {
+          "gap": -30,
+          "tokens": [
+            {
+              "w": "w3",
+              "t": "natalinas",
+              "s": "serif",
+              "size": 136
+            }
+          ]
+        }
+      ],
+      "align": "flex-end",
+      "padX": 70
+    },
+    {
+      "id": "paleta",
+      "from": "w29",
+      "to": "w30",
+      "enter": "blur",
+      "y": 900,
+      "align": "flex-end",
+      "end": 14.4,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w29",
+              "t": "paleta",
+              "s": "sans",
+              "size": 112
+            }
+          ]
+        },
+        {
+          "gap": -26,
+          "tokens": [
+            {
+              "w": "w30",
+              "t": "natalina",
+              "s": "serif",
+              "size": 140
+            }
+          ]
+        }
+      ],
+      "padX": 70
+    },
+    {
+      "id": "sec-algodao",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 1000,
+      "align": "flex-end",
+      "end": 17.4,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w33",
+              "t": "1. Algodão",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ],
+      "padX": 70
+    },
+    {
+      "id": "sem-peso",
+      "from": "w45",
+      "to": "w47",
+      "enter": "blur",
+      "y": 880,
+      "align": "flex-end",
+      "end": 20.85,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w45",
+              "t": "e sem",
+              "s": "sans",
+              "size": 112
+            }
+          ]
+        },
+        {
+          "gap": -26,
+          "tokens": [
+            {
+              "w": "w47",
+              "t": "peso",
+              "s": "serif",
+              "size": 176
+            }
+          ]
+        }
+      ],
+      "padX": 70
+    },
+    {
+      "id": "sec-lurex",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 1000,
+      "align": "flex-end",
+      "end": 26.05,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w52",
+              "t": "2. Lurex",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ],
+      "padX": 70
+    },
+    {
+      "id": "brilho",
+      "from": "w57",
+      "to": "w59",
+      "enter": "blur",
+      "y": 880,
+      "align": "flex-end",
+      "hold": 0.35,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w57",
+              "t": "charme e",
+              "s": "sans",
+              "size": 112
+            }
+          ]
+        },
+        {
+          "gap": -26,
+          "tokens": [
+            {
+              "w": "w59",
+              "t": "brilho",
+              "s": "serif",
+              "size": 176
+            }
+          ]
+        }
+      ],
+      "padX": 70
+    },
+    {
+      "id": "sec-escama",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 1000,
+      "align": "flex-end",
+      "end": 33.6,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w65",
+              "t": "3. Escama",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ],
+      "padX": 70
+    },
+    {
+      "id": "sofisticado",
+      "from": "w81",
+      "to": "w84",
+      "enter": "blur",
+      "y": 900,
+      "hold": 0.3,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w81",
+              "t": "um ar mais",
+              "s": "sans",
+              "size": 96
+            }
+          ]
+        },
+        {
+          "gap": -22,
+          "tokens": [
+            {
+              "w": "w84",
+              "t": "sofisticado",
+              "s": "serif",
+              "size": 128
+            }
+          ]
+        }
+      ],
+      "align": "flex-end",
+      "padX": 70
+    },
+    {
+      "id": "whatsapp",
+      "from": "w110",
+      "to": "w114",
+      "enter": "blur-rise",
+      "y": 840,
+      "hold": 0.35,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w110",
+              "t": "já me chama",
+              "s": "sans",
+              "size": 96
+            }
+          ]
+        },
+        {
+          "gap": -20,
+          "tokens": [
+            {
+              "w": "w114",
+              "t": "no",
+              "s": "sans-sm",
+              "size": 60
+            },
+            {
+              "w": "w114",
+              "t": "WhatsApp",
+              "s": "serif",
+              "size": 124
+            }
+          ]
+        }
+      ],
+      "align": "flex-end",
+      "padX": 70
+    }
+  ],
+  "zooms": [
+    {
+      "t": 0.0,
+      "scale": 1.0
+    },
+    {
+      "t": 0.84,
+      "scale": 1.12
+    },
+    {
+      "t": 6.6,
+      "scale": 1.0
+    },
+    {
+      "t": 13.23,
+      "scale": 1.1,
+      "origin": "30% 42%"
+    },
+    {
+      "t": 14.43,
+      "scale": 1.0
+    },
+    {
+      "t": 19.75,
+      "scale": 1.1,
+      "origin": "30% 42%"
+    },
+    {
+      "t": 20.87,
+      "scale": 1.0
+    },
+    {
+      "t": 26.13,
+      "scale": 1.1,
+      "origin": "35% 40%"
+    },
+    {
+      "t": 29.03,
+      "scale": 1.0
+    },
+    {
+      "t": 36.45,
+      "scale": 1.1,
+      "origin": "40% 42%"
+    },
+    {
+      "t": 39.3,
+      "scale": 1.0
+    },
+    {
+      "t": 48.75,
+      "scale": 1.1,
+      "origin": "45% 45%"
+    },
+    {
+      "t": 51.4,
+      "scale": 1.0
+    }
+  ],
+  "transitions": [
+    {
+      "t": 6.6,
+      "type": "flash"
+    },
+    {
+      "t": 29.033,
+      "type": "leak"
+    },
+    {
+      "t": 46.6,
+      "type": "flash"
+    }
+  ]
+}
