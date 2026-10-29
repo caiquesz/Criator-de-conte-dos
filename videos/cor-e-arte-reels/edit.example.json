@@ -1,0 +1,113 @@
+{
+  "video": {
+    "src": "assets/video/main.mp4",
+    "focus": "50% 34%"
+  },
+  "transcript": "assets/transcript.json",
+  "fix": {},
+  "captions": {
+    "y": 1215,
+    "size": 44
+  },
+  "cutout": {
+    "src": "assets/cutout/hook.webm",
+    "end": 1.62
+  },
+  "titles": [
+    {
+      "id": "hook",
+      "from": "w0",
+      "to": "w3",
+      "enter": "blur-rise",
+      "y": 376,
+      "end": 1.62,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w0",
+              "t": "Nós temos",
+              "s": "sans",
+              "size": 132
+            }
+          ]
+        },
+        {
+          "gap": -26,
+          "tokens": [
+            {
+              "w": "w2",
+              "t": "duas opções",
+              "s": "serif",
+              "size": 168
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "destaque-1",
+      "from": "w18",
+      "to": "w20",
+      "enter": "blur",
+      "y": 1080,
+      "hold": 0.3,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w18",
+              "t": "à pronta",
+              "s": "sans",
+              "size": 96
+            }
+          ]
+        },
+        {
+          "gap": -20,
+          "tokens": [
+            {
+              "w": "w20",
+              "t": "entrega",
+              "s": "serif",
+              "size": 150
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "zooms": [
+    {
+      "t": 0.0,
+      "scale": 1.0
+    },
+    {
+      "t": 0.28,
+      "scale": 1.14
+    },
+    {
+      "t": 1.62,
+      "scale": 1.0
+    },
+    {
+      "t": 5.42,
+      "scale": 1.12
+    },
+    {
+      "t": 7.0,
+      "scale": 1.0
+    }
+  ],
+  "transitions": [
+    {
+      "t": 1.62,
+      "type": "silhouette"
+    },
+    {
+      "t": 8.3,
+      "type": "leak"
+    }
+  ]
+}
