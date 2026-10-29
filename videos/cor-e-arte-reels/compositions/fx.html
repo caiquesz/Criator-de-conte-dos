@@ -1,0 +1,33 @@
+<template>
+  <style>
+      #root { position: absolute; inset: 0; pointer-events: none; }
+      .fx-flash, .fx-leak { position: absolute; inset: 0; }
+      .fx-fill { position: absolute; inset: 0; background: #f7f3ef; opacity: 0; }
+      .fx-glow { position: absolute; inset: 0; opacity: 0; mix-blend-mode: screen;
+                 background: radial-gradient(120% 80% at 70% 30%, rgba(255, 214, 140, 1) 0%, rgba(255, 170, 80, 0.85) 45%, rgba(255, 140, 60, 0.35) 100%); }
+      .fx-core { position: absolute; inset: 0; opacity: 0; background: #fff6e4; }
+  </style>
+  <div id="root" data-composition-id="fx" data-width="1080" data-height="1920">
+      <div id="fx-0" class="clip fx-flash" data-start="6.533" data-duration="0.133" data-track-index="0"><div class="fx-fill" id="fx-0-f"></div></div>
+      <div id="fx-1" class="clip fx-leak" data-start="28.873" data-duration="0.42" data-track-index="1"><div class="fx-glow" id="fx-1-g"></div><div class="fx-core" id="fx-1-c"></div></div>
+      <div id="fx-2" class="clip fx-flash" data-start="46.533" data-duration="0.133" data-track-index="0"><div class="fx-fill" id="fx-2-f"></div></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#fx-0-f", { opacity: 0 }, 6.533);
+      tl.set("#fx-0-f", { opacity: 1 }, 6.567);
+      tl.set("#fx-0-f", { opacity: 0.45 }, 6.6);
+      tl.set("#fx-0-f", { opacity: 0 }, 6.633);
+      tl.fromTo("#fx-1-g", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power2.in" }, 28.873);
+      tl.fromTo("#fx-1-c", { opacity: 0 }, { opacity: 0.85, duration: 0.08, ease: "power2.in" }, 28.953);
+      tl.to("#fx-1-c", { opacity: 0, duration: 0.12, ease: "power2.out" }, 29.053);
+      tl.to("#fx-1-g", { opacity: 0, duration: 0.22, ease: "power2.out" }, 29.073);
+      tl.set("#fx-2-f", { opacity: 0.55 }, 46.533);
+      tl.set("#fx-2-f", { opacity: 1 }, 46.567);
+      tl.set("#fx-2-f", { opacity: 0.45 }, 46.6);
+      tl.set("#fx-2-f", { opacity: 0 }, 46.633);
+      window.__timelines["fx"] = tl;
+    })();
+  </script>
+</template>
