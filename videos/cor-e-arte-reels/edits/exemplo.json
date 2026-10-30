@@ -1,17 +1,23 @@
 {
   "video": {
-    "src": "assets/video/main.mp4",
+    "src": "assets/video/<nome>.mp4",
     "focus": "50% 34%"
   },
-  "transcript": "assets/transcript.json",
+  "transcript": "assets/transcripts/<nome>.json",
   "fix": {},
   "captions": {
     "y": 1215,
     "size": 44
   },
   "cutout": {
-    "src": "assets/cutout/hook.webm",
-    "end": 1.62
+    "src": "assets/cutout/<nome>.webm",
+    "dur": 4.5,
+    "windows": [
+      [
+        0,
+        2.0
+      ]
+    ]
   },
   "titles": [
     {

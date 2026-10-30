@@ -1,8 +1,8 @@
 # mídia pesada e saídas de render ficam fora do git
 assets/video/
 assets/cutout/
-assets/transcript.json
-assets/cuts.txt
+assets/transcripts/
+assets/cuts/
 renders/
 .hyperframes/
 .media/

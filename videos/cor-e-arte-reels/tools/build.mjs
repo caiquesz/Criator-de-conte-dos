@@ -1,5 +1,5 @@
-// Gera a edição HyperFrames a partir de edit.json + transcrição por palavra.
-//   node tools/build.mjs [pasta-do-projeto]
+// Gera a edição HyperFrames a partir de um plano de edição + transcrição por palavra.
+//   node tools/build.mjs edits/<video>.json
 // Escreve: index.html, compositions/titles.html, compositions/captions.html, compositions/fx.html
 //
 // Estilo medido nas referências (ver STYLE.md):
@@ -13,8 +13,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 
-const dir = path.resolve(process.argv[2] || ".");
-const edit = JSON.parse(fs.readFileSync(path.join(dir, "edit.json"), "utf8"));
+const dir = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
+const editFile = process.argv[2];
+if (!editFile) throw new Error("uso: node tools/build.mjs edits/<video>.json");
+const edit = JSON.parse(fs.readFileSync(path.resolve(editFile), "utf8"));
 // "fix": { "w12": "" } apaga uma palavra que a transcrição inventou
 const words = JSON.parse(fs.readFileSync(path.join(dir, edit.transcript), "utf8")).filter((w) => (edit.fix || {})[w.id] !== "");
 
@@ -136,7 +138,7 @@ titles.forEach((ti, n) => {
           if (tk.opacity) style.push(`--tk-o:${tk.opacity}`);
           const text = tk.t ?? wordAt(tk.w).text;
           const inner =
-            ti.enter === "type"
+            (tk.enter || ti.enter) === "type"
               ? [...text].map((ch, ci) => `<span class="ch" id="${t.kid}-c${ci}">${ch === " " ? "&nbsp;" : esc(ch)}</span>`).join("")
               : esc(text);
           return `<span class="tk ${cls}" id="${t.kid}" style="${style.join(";")}">${inner}</span>`;
@@ -160,7 +162,8 @@ ${lines}
   const appearTimes = [];
   for (const tk of ti.tokens) {
     const sel = `"#${tk.kid}"`;
-    if (ti.enter === "type") {
+    const enter = tk.enter || ti.enter;
+    if (enter === "type") {
       const text = tk.t ?? wordAt(tk.w).text;
       const per = ti.typeSpeed ?? 0.045;
       titleScript.push(`      tl.set("#${tk.kid}", { opacity: 1 }, ${r3(tk.appear)});`);
@@ -168,7 +171,7 @@ ${lines}
         titleScript.push(`      tl.set("#${tk.kid}-c${ci}", { opacity: 1 }, ${r3(tk.appear + ci * per)});`),
       );
     } else {
-      titleScript.push(`      ${ENTER[ti.enter](sel, tk.appear, tk.size)}`);
+      titleScript.push(`      ${ENTER[enter](sel, tk.appear, tk.size)}`);
     }
     appearTimes.push(tk.appear);
   }
@@ -350,7 +353,7 @@ const index = `<!doctype html>
     </style>
   </head>
   <body>
-    <!-- gerado por tools/build.mjs a partir de edit.json -->
+    <!-- gerado por tools/build.mjs a partir de ${path.relative(dir, path.resolve(editFile))} -->
     <div id="root" data-composition-id="main" data-start="0" data-duration="${r3(D)}" data-width="${W}" data-height="${H}">
       <div id="cam">
         <video id="main-video" class="clip" src="${edit.video.src}" data-start="0" data-duration="${r3(D)}" data-track-index="0" data-has-audio="true" playsinline></video>

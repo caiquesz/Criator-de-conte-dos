@@ -1,9 +1,9 @@
 {
   "video": {
-    "src": "assets/video/main.mp4",
+    "src": "assets/video/mantas-natalinas.mp4",
     "focus": "38% 38%"
   },
-  "transcript": "assets/transcript.json",
+  "transcript": "assets/transcripts/mantas-natalinas.json",
   "fix": {
     "w64": "",
     "w65": "A de escama"
@@ -38,7 +38,7 @@
     "w125"
   ],
   "cutout": {
-    "src": "assets/cutout/intro.webm",
+    "src": "assets/cutout/mantas-natalinas.webm",
     "dur": 6.8,
     "windows": [
       [
