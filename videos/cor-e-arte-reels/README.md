@@ -51,7 +51,7 @@ de 2,4–4,3 kHz e compressão 2,2:1. É cerca de metade da diferença medida co
 | `breakBefore` | força quebra de legenda antes dessas palavras |
 | `cutout` | recorte da pessoa: `src`, `dur` e `windows` (trechos em que ela fica na frente do texto; para o vídeo inteiro, `prepare.sh` com o fim do gancho igual à duração) |
 | `motionBlur` | `true` liga o desfoque de movimento do HyperFrames (chicotes e zooms) |
-| `titles[]` | gancho, destaques e tópicos: `from`/`to` (palavras que saem da legenda), `y`, `align`, `padX`, `enter` (`blur-rise`, `blur`, `type`, `cut`, `pop`), `exit` (`blur`, `cut`), `end` ou `hold`, `sfx` (`each`, `first`, `whoosh`, `none`), `captions: "after-speech"` (legenda volta logo depois da fala), `dim` (escurece o fundo, ex. 0.3) e `lines[]` com `gap`, `justify` e `tokens[]` (`w` palavra que dispara, `t` texto, `s` estilo `sans`/`sans-sm`/`serif`/`serif-up`/`badge`, `size`, `enter` próprio) |
+| `titles[]` | gancho, destaques e tópicos: `from`/`to` (palavras que saem da legenda), `y`, `align`, `padX`, `enter` (`blur-rise`, `blur`, `type`, `cut`, `pop`), `exit` (`blur`, `cut`), `end` ou `hold`, `sfx` (`each`, `first`, `whoosh`, `none`), `captions: "after-speech"` (legenda volta logo depois da fala), `dim` (escurece o fundo; não usar, o cliente não gosta) e `lines[]` com `gap`, `justify` e `tokens[]` (`w` palavra que dispara, `t` texto, `s` estilo `sans`/`sans-sm`/`serif`/`serif-up`/`badge`, `size`, `enter` próprio) |
 | `cards[]` | trecho do vídeo num retângulo (não usado: o cliente não quer cards de B-roll) |
 | `zooms[]` | `{ t, scale, origin }` punch-in seco; com `dur` vira zoom suave |
 | `transitions[]` | `{ t, type }` com `flash`, `silhouette`, `leak`, `whip` (com `dir`: `left`/`right`) ou `zoom`, no instante do corte |

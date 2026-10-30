@@ -36,10 +36,14 @@ aparecem em Playfair Display Italic, 1,3× maior. No máximo uma por bloco e só
   - `type` (ref 1): letra a letra, 45 ms por letra;
   - `cut`: aparece seco (títulos de seção da ref 1, "1. Buffet").
 - Saída: desfoque 10 px + fade em 0,16 s, ou corte seco junto com a transição.
-- **Títulos sempre atrás da pessoa** (pedido do cliente): a pessoa é recortada no vídeo inteiro e fica por cima
-  de todo título que cruzar com ela. A legenda continua na frente, como nas referências.
-- Títulos grandes, ocupando a largura da tela (palavra de destaque em serifada a 250–380 px).
-- Enquanto um título está na tela, o fundo escurece 25–30% e a pessoa recortada continua clara (profundidade).
+- **Nunca texto no rosto** (pedido do cliente): título nenhum encosta na cabeça da pessoa. Cada título vai para
+  uma área livre do plano (acima da cabeça ou ao lado dela), medida no recorte da pessoa antes de posicionar.
+- **Se o título cruzar o corpo, fica atrás da pessoa**: ela é recortada no vídeo inteiro e fica por cima.
+  O recorte automático falha em pessoa pequena ao fundo, então lá vale ainda mais deixar o texto de lado.
+  A legenda continua na frente, como nas referências.
+- **Nunca escurecer a imagem** para destacar título (pedido do cliente).
+- Tamanho: sans 100–210 px e serifada de destaque 140–230 px; maior que isso cobre a cena.
+- Datas por extenso ("dia 9 / de novembro"), nunca "9/11".
 - Selo "ao vivo" (Poppins Bold em pílula vermelha com bolinha branca) quando a fala anuncia uma live; entra
   crescendo com leve rebote e um "pop".
 
