@@ -89,8 +89,11 @@ const ENTER = {
   blur: (sel, t) =>
     `tl.fromTo(${sel}, { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, ${r3(t)});`,
   cut: (sel, t) => `tl.set(${sel}, { opacity: 1 }, ${r3(t)});`,
+  // selo (AO VIVO): cresce de 60% com um leve rebote
+  pop: (sel, t) =>
+    `tl.fromTo(${sel}, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, ${r3(t)});`,
 };
-const STYLE_CLASS = { sans: "sans", "sans-sm": "sans sm", serif: "serif", "serif-up": "serif up" };
+const STYLE_CLASS = { sans: "sans", "sans-sm": "sans sm", serif: "serif", "serif-up": "serif up", badge: "badge" };
 
 const titles = (edit.titles || []).map((ti, n) => {
   const id = ti.id || `t${n}`;
@@ -183,7 +186,8 @@ ${lines}
   // sons: clique em cada entrada (refs 2 e 3) ou só na primeira (ref 1)
   const mode = ti.sfx ?? "each";
   const uniq = [...new Set(appearTimes.map((t) => r3(t)))].sort((a, b) => a - b);
-  if (mode === "each") uniq.forEach((t) => cue("click", t));
+  if (ti.tokens.some((tk) => (tk.enter || ti.enter) === "pop")) cue("pop", uniq[0]);
+  else if (mode === "each") uniq.forEach((t) => cue("click", t));
   else if (mode === "first") cue("click", uniq[0]);
   else if (mode === "whoosh") cue("whoosh", uniq[0]);
 });
@@ -256,6 +260,8 @@ groups.forEach((g, i) => {
   if (next && startOf(next) - lastEnd < 0.7) end = startOf(next) - 0.03; // emenda sem buraco
   const nextBlock = blockWindows.find(([a]) => a > g.start);
   if (nextBlock) end = Math.min(end, nextBlock[0]);
+  // a legenda não atravessa uma transição se a fala dela já acabou antes do corte
+  for (const tr of edit.transitions || []) if (tr.t > g.start && tr.t < end && lastEnd <= tr.t + 0.05) end = tr.t;
   g.end = clampEnd(end);
 });
 const capGroups = groups.filter((g) => g.end - g.start > 0.06);
@@ -301,16 +307,43 @@ const cutWindows = [...((edit.cutout && edit.cutout.windows) || [])];
     fxScript.push(`      tl.to("#${id}-c", { opacity: 0, duration: 0.12, ease: "power2.out" }, ${r3(t + 0.02)});`);
     fxScript.push(`      tl.to("#${id}-g", { opacity: 0, duration: 0.22, ease: "power2.out" }, ${r3(t + 0.04)});`);
     cue("whoosh", t - 0.04);
+  } else if (tr.type === "whip") {
+    // chicote: o quadro dispara para o lado (ampliado para não mostrar borda) e o próximo chega do outro lado
+    const dx = Math.round(W * 0.18) * (tr.dir === "right" ? 1 : -1);
+    camScript.push(`      tl.fromTo(["#cam", "#cam-cut"], { x: 0, scale: 1 }, { x: ${dx}, scale: 1.4, duration: 0.14, ease: "power3.in", immediateRender: false }, ${r3(t - 0.14)});`);
+    camScript.push(`      tl.fromTo(["#cam", "#cam-cut"], { x: ${-dx}, scale: 1.4 }, { x: 0, scale: 1, duration: 0.24, ease: "power3.out", immediateRender: false }, ${r3(t)});`);
+    cue("whoosh", t - 0.03);
+  } else if (tr.type === "zoom") {
+    // zoom que atravessa o corte: entra no quadro e o próximo plano chega ampliado e assenta
+    camScript.push(`      tl.fromTo(["#cam", "#cam-cut"], { scale: 1 }, { scale: 1.32, duration: 0.16, ease: "power3.in", immediateRender: false }, ${r3(t - 0.16)});`);
+    camScript.push(`      tl.fromTo(["#cam", "#cam-cut"], { scale: 1.32 }, { scale: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, ${r3(t)});`);
+    cue("whoosh", t - 0.03);
   }
 });
 
+// ---------- fundo escurece enquanto um título está na tela (a pessoa recortada continua clara) ----------
+const dimWins = titles
+  .filter((t) => t.dim)
+  .map((t) => ({ a: t.start, b: t.end, v: t.dim }))
+  .sort((p, q) => p.a - q.a)
+  .reduce((acc, w) => {
+    const last = acc[acc.length - 1];
+    if (last && w.a - last.b < 0.35) { last.b = Math.max(last.b, w.b); last.v = Math.max(last.v, w.v); }
+    else acc.push({ ...w });
+    return acc;
+  }, []);
+for (const w of dimWins) {
+  camScript.push(`      tl.fromTo("#dim", { opacity: 0 }, { opacity: ${w.v}, duration: 0.25, ease: "power2.out", immediateRender: false }, ${r3(w.a)});`);
+  camScript.push(`      tl.to("#dim", { opacity: 0, duration: 0.2, ease: "power2.in" }, ${r3(w.b - 0.2)});`);
+}
+
 // ---------- zoom (punch-in seco, como na ref 3) ----------
 const focus = edit.video.focus || "50% 30%";
-camScript.unshift(`      tl.set(["#cam", "#cam-cut"], { scale: 1, transformOrigin: "${focus}" }, 0);`);
+camScript.unshift(`      tl.set(["#camz", "#cutz"], { scale: 1, transformOrigin: "${focus}" }, 0);`);
 for (const z of edit.zooms || []) {
   const props = `{ scale: ${z.scale}${z.x ? `, x: ${z.x}` : ""}${z.y ? `, y: ${z.y}` : ""}${z.origin ? `, transformOrigin: "${z.origin}"` : ""}`;
-  if (z.dur) camScript.push(`      tl.to(["#cam", "#cam-cut"], ${props}, duration: ${z.dur}, ease: "${z.ease || "power2.inOut"}" }, ${r3(z.t)});`);
-  else camScript.push(`      tl.set(["#cam", "#cam-cut"], ${props} }, ${r3(z.t)});`);
+  if (z.dur) camScript.push(`      tl.to(["#camz", "#cutz"], ${props}, duration: ${z.dur}, ease: "${z.ease || "power2.inOut"}" }, ${r3(z.t)});`);
+  else camScript.push(`      tl.set(["#camz", "#cutz"], ${props} }, ${r3(z.t)});`);
 }
 
 if (edit.cutout) {
@@ -346,28 +379,31 @@ const index = `<!doctype html>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { width: ${W}px; height: ${H}px; overflow: hidden; background: #000; }
-      #cam, #cam-cut { position: absolute; inset: 0; overflow: hidden; }
+      #cam, #cam-cut, #camz, #cutz, #dim { position: absolute; inset: 0; }
+      #cam, #cam-cut { overflow: hidden; }
       #cam { z-index: 1; }
-      #cam-cut { z-index: 3;${edit.cutout ? " opacity: 0;" : ""} }
+      #dim { z-index: 2; background: #000; opacity: 0; pointer-events: none; }
+      #cam-cut { z-index: 4;${edit.cutout ? " opacity: 0;" : ""} }
       #main-video, #cutout { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; object-fit: cover; }
     </style>
   </head>
   <body>
     <!-- gerado por tools/build.mjs a partir de ${path.relative(dir, path.resolve(editFile))} -->
-    <div id="root" data-composition-id="main" data-start="0" data-duration="${r3(D)}" data-width="${W}" data-height="${H}">
-      <div id="cam">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="${r3(D)}" data-width="${W}" data-height="${H}"${edit.motionBlur ? ' data-motion-blur="on"' : ""}>
+      <div id="cam"><div id="camz">
         <video id="main-video" class="clip" src="${edit.video.src}" data-start="0" data-duration="${r3(D)}" data-track-index="0" data-has-audio="true" playsinline></video>
-      </div>
-      <div id="titles" data-composition-id="titles" data-composition-src="compositions/titles.html" data-start="0" data-duration="${r3(D)}" data-track-index="1" data-track-kind="graphics" data-width="${W}" data-height="${H}" style="z-index: 2"></div>
-      <div id="cam-cut">${
+      </div></div>
+      <div id="dim"></div>
+      <div id="titles" data-composition-id="titles" data-composition-src="compositions/titles.html" data-start="0" data-duration="${r3(D)}" data-track-index="1" data-track-kind="graphics" data-width="${W}" data-height="${H}" style="z-index: 3"></div>
+      <div id="cam-cut"><div id="cutz">${
         cut
           ? `
         <video id="cutout" class="clip" src="${cut.src}" data-start="0" data-media-start="0" data-duration="${r3(cut.dur ?? cut.end)}" data-track-index="2" muted playsinline data-layout-allow-occlusion></video>
       `
           : ""
-      }</div>
-      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="${r3(D)}" data-track-index="3" data-track-kind="captions" data-width="${W}" data-height="${H}" style="z-index: 4"></div>
-      <div id="fx" data-composition-id="fx" data-composition-src="compositions/fx.html" data-start="0" data-duration="${r3(D)}" data-track-index="4" data-track-kind="graphics" data-width="${W}" data-height="${H}" style="z-index: 5"></div>
+      }</div></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="${r3(D)}" data-track-index="3" data-track-kind="captions" data-width="${W}" data-height="${H}" style="z-index: 5"></div>
+      <div id="fx" data-composition-id="fx" data-composition-src="compositions/fx.html" data-start="0" data-duration="${r3(D)}" data-track-index="4" data-track-kind="graphics" data-width="${W}" data-height="${H}" style="z-index: 6"></div>
 ${audioMarkup}
     </div>
     <script>
@@ -396,6 +432,10 @@ const titlesHtml = `<template>
       .serif { font-family: "Playfair Display", serif; font-style: italic; font-weight: 400; letter-spacing: -0.035em; line-height: 0.82;
                color: rgba(255, 255, 255, var(--tk-o, 0.94)); }
       .serif.up { font-style: normal; letter-spacing: -0.045em; }
+      .badge { font-family: "Poppins", sans-serif; font-weight: 700; letter-spacing: 0.01em; line-height: 1; color: #fff;
+               display: inline-flex; align-items: center; gap: 0.36em; padding: 0.34em 0.7em 0.3em; border-radius: 999px;
+               background: #e3264a; text-shadow: none; }
+      .badge::before { content: ""; width: 0.46em; height: 0.46em; border-radius: 50%; background: #fff; }
   </style>
   <div id="root" data-composition-id="titles" data-width="${W}" data-height="${H}">
 ${titleMarkup.join("\n")}

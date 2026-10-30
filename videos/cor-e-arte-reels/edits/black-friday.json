@@ -4,6 +4,7 @@
     "focus": "40% 40%"
   },
   "transcript": "assets/transcripts/black-friday.json",
+  "motionBlur": true,
   "fix": {
     "w4": "Cor e Arte"
   },
@@ -40,19 +41,17 @@
       }
     ],
     "emph": [
-      "w21",
-      "w31",
       "w45",
       "w55"
     ]
   },
   "cutout": {
-    "src": "assets/cutout/black-friday.webm",
-    "dur": 4.5,
+    "src": "assets/cutout/black-friday-full.webm",
+    "dur": 37.967,
     "windows": [
       [
         0,
-        2.45
+        37.967
       ]
     ]
   },
@@ -62,10 +61,11 @@
       "from": "w0",
       "to": "w4",
       "enter": "blur-rise",
-      "y": 420,
-      "padX": 40,
+      "y": 380,
+      "padX": 30,
       "end": 2.45,
       "exit": "blur",
+      "dim": 0.28,
       "lines": [
         {
           "tokens": [
@@ -73,32 +73,32 @@
               "w": "w1",
               "t": "Black",
               "s": "sans",
-              "size": 230
+              "size": 300
             }
           ]
         },
         {
-          "gap": -62,
+          "gap": -86,
           "tokens": [
             {
               "w": "w2",
               "t": "Friday",
               "s": "serif",
-              "size": 220
+              "size": 286
             }
           ]
         },
         {
-          "gap": 4,
+          "gap": -4,
+          "justify": "flex-end",
           "tokens": [
             {
               "w": "w3",
               "t": "da Cor e Arte",
               "s": "sans-sm",
-              "size": 62
+              "size": 64
             }
-          ],
-          "justify": "flex-end"
+          ]
         }
       ]
     },
@@ -107,9 +107,10 @@
       "from": "w11",
       "to": "w15",
       "enter": "blur",
-      "y": 470,
-      "padX": 60,
+      "y": 420,
+      "padX": 30,
       "hold": 0.4,
+      "dim": 0.3,
       "lines": [
         {
           "tokens": [
@@ -117,18 +118,37 @@
               "w": "w12",
               "t": "será dia",
               "s": "sans",
-              "size": 96
+              "size": 100
             }
           ]
         },
         {
-          "gap": -40,
+          "gap": -70,
           "tokens": [
             {
               "w": "w13",
               "t": "9/11",
               "s": "serif",
-              "size": 250
+              "size": 380
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ao-vivo",
+      "enter": "pop",
+      "y": 560,
+      "end": 8.33,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w20",
+              "t": "ao vivo",
+              "s": "badge",
+              "size": 44
             }
           ]
         }
@@ -140,10 +160,11 @@
       "to": "w27",
       "enter": "type",
       "typeSpeed": 0.05,
-      "y": 270,
-      "padX": 60,
+      "y": 300,
+      "padX": 30,
       "end": 10.6,
       "exit": "cut",
+      "dim": 0.25,
       "lines": [
         {
           "tokens": [
@@ -151,18 +172,52 @@
               "w": "w25",
               "t": "às",
               "s": "sans-sm",
-              "size": 72
+              "size": 80
             }
           ]
         },
         {
-          "gap": -22,
+          "gap": -40,
           "tokens": [
             {
               "w": "w26",
               "t": "18 horas",
               "s": "serif",
-              "size": 200
+              "size": 250
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "loja",
+      "from": "w28",
+      "to": "w33",
+      "enter": "blur-rise",
+      "y": 470,
+      "padX": 30,
+      "end": 12.5,
+      "exit": "cut",
+      "dim": 0.25,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w29",
+              "t": "a loja",
+              "s": "sans",
+              "size": 150
+            }
+          ]
+        },
+        {
+          "gap": -64,
+          "tokens": [
+            {
+              "w": "w31",
+              "t": "inteira",
+              "s": "serif",
+              "size": 290
             }
           ]
         }
@@ -173,11 +228,11 @@
       "from": "w34",
       "to": "w34",
       "enter": "blur",
-      "y": 830,
-      "align": "flex-start",
-      "padX": 64,
+      "y": 760,
+      "padX": 30,
       "end": 13.5,
       "exit": "blur",
+      "dim": 0.25,
       "lines": [
         {
           "tokens": [
@@ -185,7 +240,7 @@
               "w": "w34",
               "t": "Tapetes",
               "s": "serif",
-              "size": 150
+              "size": 250
             }
           ]
         }
@@ -196,19 +251,19 @@
       "from": "w35",
       "to": "w35",
       "enter": "blur",
-      "y": 830,
-      "align": "flex-start",
-      "padX": 64,
+      "y": 790,
+      "padX": 30,
       "end": 15.06,
       "exit": "blur",
+      "dim": 0.25,
       "lines": [
         {
           "tokens": [
             {
               "w": "w35",
               "t": "almofadas",
-              "s": "serif",
-              "size": 128
+              "s": "sans",
+              "size": 170
             }
           ]
         }
@@ -219,11 +274,11 @@
       "from": "w36",
       "to": "w36",
       "enter": "blur",
-      "y": 830,
-      "align": "flex-start",
-      "padX": 64,
+      "y": 760,
+      "padX": 30,
       "end": 16.12,
       "exit": "blur",
+      "dim": 0.25,
       "lines": [
         {
           "tokens": [
@@ -231,7 +286,7 @@
               "w": "w36",
               "t": "mantas",
               "s": "serif",
-              "size": 146
+              "size": 270
             }
           ]
         }
@@ -242,11 +297,11 @@
       "from": "w37",
       "to": "w38",
       "enter": "blur",
-      "y": 830,
-      "align": "flex-start",
-      "padX": 64,
+      "y": 740,
+      "padX": 30,
       "end": 17.24,
       "exit": "blur",
+      "dim": 0.25,
       "lines": [
         {
           "tokens": [
@@ -254,18 +309,18 @@
               "w": "w37",
               "t": "kits",
               "s": "sans",
-              "size": 88
+              "size": 150
             }
           ]
         },
         {
-          "gap": -30,
+          "gap": -60,
           "tokens": [
             {
               "w": "w38",
               "t": "americanos",
               "s": "serif",
-              "size": 124
+              "size": 200
             }
           ]
         }
@@ -276,11 +331,11 @@
       "from": "w39",
       "to": "w41",
       "enter": "blur",
-      "y": 830,
-      "align": "flex-start",
-      "padX": 64,
+      "y": 740,
+      "padX": 30,
       "end": 18.65,
       "exit": "blur",
+      "dim": 0.25,
       "lines": [
         {
           "tokens": [
@@ -288,18 +343,18 @@
               "w": "w40",
               "t": "e muito",
               "s": "sans",
-              "size": 88
+              "size": 150
             }
           ]
         },
         {
-          "gap": -30,
+          "gap": -66,
           "tokens": [
             {
               "w": "w41",
               "t": "mais",
               "s": "serif",
-              "size": 156
+              "size": 290
             }
           ]
         }
@@ -310,11 +365,11 @@
       "from": "w59",
       "to": "w63",
       "enter": "blur-rise",
-      "y": 700,
-      "align": "flex-start",
-      "padX": 64,
+      "y": 560,
+      "padX": 30,
       "end": 27.13,
       "exit": "cut",
+      "dim": 0.3,
       "lines": [
         {
           "tokens": [
@@ -322,24 +377,24 @@
               "w": "w59",
               "t": "nem antes",
               "s": "sans",
-              "size": 108
+              "size": 150
             }
           ]
         },
         {
-          "gap": -24,
+          "gap": -50,
           "tokens": [
             {
               "w": "w61",
               "t": "e nem",
               "s": "sans-sm",
-              "size": 64
+              "size": 72
             },
             {
               "w": "w63",
               "t": "depois",
               "s": "serif",
-              "size": 176
+              "size": 250
             }
           ]
         }
@@ -350,11 +405,11 @@
       "from": "w79",
       "to": "w82",
       "enter": "blur",
-      "y": 520,
-      "align": "flex-end",
-      "padX": 70,
+      "y": 400,
+      "padX": 30,
       "end": 33.6,
       "exit": "cut",
+      "dim": 0.3,
       "lines": [
         {
           "tokens": [
@@ -362,18 +417,37 @@
               "w": "w79",
               "t": "é sua grande",
               "s": "sans",
-              "size": 92
+              "size": 112
             }
           ]
         },
         {
-          "gap": -24,
+          "gap": -60,
           "tokens": [
             {
               "w": "w82",
               "t": "chance",
               "s": "serif",
-              "size": 196
+              "size": 310
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "final-selo",
+      "enter": "pop",
+      "y": 330,
+      "end": 37.96,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 33.62,
+              "t": "ao vivo",
+              "s": "badge",
+              "size": 44
             }
           ]
         }
@@ -384,10 +458,11 @@
       "from": "w83",
       "to": "w92",
       "enter": "blur-rise",
-      "y": 420,
-      "padX": 60,
+      "y": 430,
+      "padX": 30,
       "end": 37.96,
       "exit": "cut",
+      "dim": 0.25,
       "lines": [
         {
           "tokens": [
@@ -395,29 +470,29 @@
               "w": "w83",
               "t": "Dia 9",
               "s": "serif",
-              "size": 230
+              "size": 330
             }
           ]
         },
         {
-          "gap": 6,
+          "gap": -6,
           "tokens": [
             {
               "w": "w85",
               "t": "às 18 horas",
               "s": "sans",
-              "size": 100
+              "size": 124
             }
           ]
         },
         {
-          "gap": 18,
+          "gap": 22,
           "tokens": [
             {
               "w": "w88",
               "t": "já anota na sua agenda",
               "s": "sans-sm",
-              "size": 52,
+              "size": 54,
               "enter": "type"
             }
           ]
@@ -432,7 +507,9 @@
     },
     {
       "t": 0.32,
-      "scale": 1.1
+      "scale": 1.1,
+      "dur": 0.45,
+      "ease": "power3.out"
     },
     {
       "t": 4.3,
@@ -440,8 +517,10 @@
       "origin": "55% 48%"
     },
     {
-      "t": 4.96,
-      "scale": 1.12
+      "t": 4.92,
+      "scale": 1.13,
+      "dur": 0.4,
+      "ease": "power3.out"
     },
     {
       "t": 8.33,
@@ -449,13 +528,21 @@
       "origin": "50% 38%"
     },
     {
-      "t": 9.64,
-      "scale": 1.08
+      "t": 9.42,
+      "scale": 1.09,
+      "dur": 0.5,
+      "ease": "power3.out"
     },
     {
       "t": 10.6,
       "scale": 1.0,
-      "origin": "62% 50%"
+      "origin": "62% 45%"
+    },
+    {
+      "t": 10.62,
+      "scale": 1.1,
+      "dur": 1.8,
+      "ease": "power2.out"
     },
     {
       "t": 12.5,
@@ -464,13 +551,13 @@
     },
     {
       "t": 12.5,
-      "scale": 1.07,
+      "scale": 1.08,
       "dur": 6.1,
       "ease": "none"
     },
     {
       "t": 18.65,
-      "scale": 1.07
+      "scale": 1.08
     },
     {
       "t": 20.23,
@@ -479,7 +566,9 @@
     },
     {
       "t": 25.32,
-      "scale": 1.1
+      "scale": 1.1,
+      "dur": 0.4,
+      "ease": "power3.out"
     },
     {
       "t": 27.13,
@@ -487,8 +576,16 @@
       "origin": "40% 38%"
     },
     {
-      "t": 32.06,
-      "scale": 1.1
+      "t": 27.13,
+      "scale": 1.05,
+      "dur": 4.8,
+      "ease": "none"
+    },
+    {
+      "t": 32.02,
+      "scale": 1.14,
+      "dur": 0.4,
+      "ease": "power3.out"
     },
     {
       "t": 33.6,
@@ -497,7 +594,7 @@
     },
     {
       "t": 33.6,
-      "scale": 1.06,
+      "scale": 1.07,
       "dur": 4.36,
       "ease": "none"
     }
@@ -508,12 +605,26 @@
       "type": "silhouette"
     },
     {
+      "t": 8.333,
+      "type": "whip",
+      "dir": "left"
+    },
+    {
+      "t": 10.6,
+      "type": "zoom"
+    },
+    {
       "t": 12.5,
       "type": "flash"
     },
     {
       "t": 20.233,
       "type": "leak"
+    },
+    {
+      "t": 27.133,
+      "type": "whip",
+      "dir": "right"
     },
     {
       "t": 33.6,

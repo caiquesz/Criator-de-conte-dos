@@ -36,7 +36,12 @@ aparecem em Playfair Display Italic, 1,3× maior. No máximo uma por bloco e só
   - `type` (ref 1): letra a letra, 45 ms por letra;
   - `cut`: aparece seco (títulos de seção da ref 1, "1. Buffet").
 - Saída: desfoque 10 px + fade em 0,16 s, ou corte seco junto com a transição.
-- **Gancho** (primeiros 2–4 s): o título fica **atrás da pessoa** (recorte do vídeo por cima), 30–55% coberto.
+- **Títulos sempre atrás da pessoa** (pedido do cliente): a pessoa é recortada no vídeo inteiro e fica por cima
+  de todo título que cruzar com ela. A legenda continua na frente, como nas referências.
+- Títulos grandes, ocupando a largura da tela (palavra de destaque em serifada a 250–380 px).
+- Enquanto um título está na tela, o fundo escurece 25–30% e a pessoa recortada continua clara (profundidade).
+- Selo "ao vivo" (Poppins Bold em pílula vermelha com bolinha branca) quando a fala anuncia uma live; entra
+  crescendo com leve rebote e um "pop".
 
 ## Tópicos
 
@@ -55,6 +60,11 @@ corte (ref 3). Ponto de foco no rosto. Nos B-rolls, aproximação lenta e contí
 | `flash` | 1 frame branco cheio antes do corte, 1 frame a 45% depois | 2 |
 | `silhouette` | a pessoa vira silhueta branca por 1 frame, depois o flash | 3 (fim do gancho) |
 | `leak` | estouro de luz quente (~0,4 s) atravessando o corte | 1 |
+| `whip` | chicote: o quadro dispara para o lado (0,14 s) e o próximo chega do outro (0,24 s), com desfoque de movimento | edição mais elaborada |
+| `zoom` | zoom que atravessa o corte: entra 1,32× (0,16 s) e o próximo plano chega ampliado e assenta (0,3 s) | edição mais elaborada |
+
+Toda passagem entre planos ganha uma transição (variando os tipos); os zooms dentro do plano são suaves
+(0,4–0,5 s, `power3.out`) em vez de saltos secos.
 
 Os demais cortes ficam secos, como nas referências.
 
