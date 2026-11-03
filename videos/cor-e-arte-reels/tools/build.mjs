@@ -267,10 +267,32 @@ groups.forEach((g, i) => {
 const capGroups = groups.filter((g) => g.end - g.start > 0.06);
 const emph = new Set(C.emph);
 const capY = (t) => (C.yAt.find((r) => t >= r.from && t < r.to) || C).y;
+
+// Cor da legenda por plano (a legenda não tem sombra): branca sobre fundo médio/escuro, marrom-escura sobre
+// tapete ou parede clara. Mede o brilho médio da faixa da legenda em cada plano (entre cortes) no vídeo base.
+const shotCuts = [0, ...(edit.transitions || []).map((tr) => tr.t), D].sort((a, b) => a - b);
+const shotOf = (t) => Math.max(0, shotCuts.findIndex((c, k) => t >= c && t < (shotCuts[k + 1] ?? Infinity)));
+const bandLuma = (t, y) => {
+  const raw = execFileSync("ffmpeg", ["-v", "error", "-ss", String(t), "-i", path.join(dir, edit.video.src), "-frames:v", "1",
+    "-vf", `crop=${Math.round(W * 0.6)}:60:${Math.round(W * 0.2)}:${Math.round(y)},scale=64:8,format=gray`, "-f", "rawvideo", "-"]);
+  return raw.reduce((a, v) => a + v, 0) / raw.length;
+};
+const shotColor = new Map();
+const capColor = (g) => {
+  if (C.color) return C.color;
+  const k = shotOf((g.start + g.end) / 2); // pelo meio: legenda que começa um quadro antes do corte é do plano seguinte
+  if (!shotColor.has(k)) {
+    const a = shotCuts[k], b = shotCuts[k + 1];
+    const samples = [0.2, 0.4, 0.6, 0.8].map((f) => bandLuma(a + (b - a) * f, capY(g.start)));
+    const luma = samples.reduce((x, y) => x + y, 0) / samples.length;
+    shotColor.set(k, luma > (C.lightAbove ?? 145) ? (C.darkColor || "#2a1f17") : "#fff");
+  }
+  return shotColor.get(k);
+};
 const captionMarkup = capGroups
   .map((g, i) => {
     const html = g.words.map((w) => (emph.has(w.id) ? `<span class="em">${esc(w.text)}</span>` : esc(w.text))).join(" ");
-    return `      <div id="cap-${i}" class="clip cap" data-start="${r3(g.start)}" data-duration="${r3(g.end - g.start)}" data-track-index="${i % 2}" style="top:${capY(g.start)}px"><span class="cap-t">${html}</span></div>`;
+    return `      <div id="cap-${i}" class="clip cap" data-start="${r3(g.start)}" data-duration="${r3(g.end - g.start)}" data-track-index="${i % 2}" style="top:${capY(g.start)}px"><span class="cap-t" style="color:${capColor(g)}">${html}</span></div>`;
   })
   .join("\n");
 

@@ -8,6 +8,7 @@ Cada vídeo tem o seu plano em `edits/<nome>.json`; os vídeos e renders ficam f
 | --- | --- |
 | Mantas natalinas | `edits/mantas-natalinas.json` |
 | Live de Black Friday | `edits/black-friday.json` (voz tratada com `eq`) |
+| Tapetes de porta | `edits/tapetes-porta.json` (voz tratada com `eq`) |
 
 ## Fluxo
 
@@ -20,14 +21,17 @@ tools/prepare.sh ~/Downloads/video-cortado.mp4 black-friday 4.5 eq
 # 2. plano de edição: copie edits/exemplo.json para edits/<nome>.json e preencha
 #    (palavras pelo id da transcrição: w0, w1, …; transições nos tempos de assets/cuts/<nome>.txt)
 
-# 3. gera a composição (index.html + compositions/)
+# 3. confere a folga entre títulos e a cabeça (com --fix sobe o título que encosta)
+python tools/headroom.py edits/black-friday.json --fix
+
+# 4. gera a composição (index.html + compositions/)
 node tools/build.mjs edits/black-friday.json
 
-# 4. confere
+# 5. confere
 npx hyperframes check
 npx hyperframes snapshot --at 0.5,1.5,8
 
-# 5. renderiza e normaliza o áudio para Reels
+# 6. renderiza e normaliza o áudio para Reels
 npx hyperframes render --quality delivery --output renders/black-friday-render.mp4
 tools/finish.sh renders/black-friday-render.mp4 renders/black-friday-final.mp4
 ```
@@ -47,7 +51,7 @@ de 2,4–4,3 kHz e compressão 2,2:1. É cerca de metade da diferença medida co
 | --- | --- |
 | `video.src`, `video.focus` | vídeo base e ponto de foco do zoom (rosto) |
 | `fix` | correções de palavras da transcrição: `{ "w4": "Cor e Arte" }`; `""` apaga a palavra |
-| `captions` | `y`, `size`, `maxWords`, `maxChars`; `yAt` muda a altura por trecho; `emph` põe palavras em serifada |
+| `captions` | `y`, `size`, `maxWords`, `maxChars`; `yAt` muda a altura por trecho; `emph` põe palavras em serifada; a cor é automática por plano (branca ou `darkColor` acima de `lightAbove`), ou fixa com `color` |
 | `breakBefore` | força quebra de legenda antes dessas palavras |
 | `cutout` | recorte da pessoa: `src`, `dur` e `windows` (trechos em que ela fica na frente do texto; para o vídeo inteiro, `prepare.sh` com o fim do gancho igual à duração) |
 | `motionBlur` | `true` liga o desfoque de movimento do HyperFrames (chicotes e zooms) |

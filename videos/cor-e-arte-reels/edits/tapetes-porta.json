@@ -1,0 +1,633 @@
+{
+  "video": {
+    "src": "assets/video/tapetes-porta.mp4",
+    "focus": "50% 38%"
+  },
+  "transcript": "assets/transcripts/tapetes-porta.json",
+  "motionBlur": true,
+  "fix": {
+    "w26": "Cor e Arte",
+    "w41": "atoalhado,",
+    "w68": "Cravo",
+    "w94": "malha",
+    "w121": "Ondara,",
+    "w142": "Artesão,",
+    "w161": "Dominó,"
+  },
+  "captions": {
+    "y": 1120,
+    "size": 46,
+    "maxWords": 5,
+    "maxChars": 26,
+    "emph": [
+      "w11",
+      "w55",
+      "w87",
+      "w100",
+      "w148",
+      "w171"
+    ]
+  },
+  "breakBefore": [
+    "w12",
+    "w56",
+    "w82",
+    "w133"
+  ],
+  "cutout": {
+    "src": "assets/cutout/tapetes-porta.webm",
+    "dur": 86.6,
+    "windows": [
+      [
+        0,
+        86.6
+      ]
+    ]
+  },
+  "titles": [
+    {
+      "id": "hook",
+      "from": "w0",
+      "to": "w2",
+      "enter": "blur-rise",
+      "y": 300,
+      "padX": 40,
+      "end": 2.3,
+      "exit": "blur",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w0",
+              "t": "Tapete",
+              "s": "sans",
+              "size": 200
+            }
+          ]
+        },
+        {
+          "gap": -54,
+          "tokens": [
+            {
+              "w": "w1",
+              "t": "de porta",
+              "s": "serif",
+              "size": 190
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sete",
+      "from": "w27",
+      "to": "w29",
+      "enter": "blur",
+      "y": 320,
+      "padX": 40,
+      "end": 10.6,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w27",
+              "t": "temos",
+              "s": "sans-sm",
+              "size": 70
+            }
+          ]
+        },
+        {
+          "gap": -26,
+          "tokens": [
+            {
+              "w": "w28",
+              "t": "sete modelos",
+              "s": "serif",
+              "size": 170
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t1",
+      "from": "w39",
+      "to": "w41",
+      "captions": "after-speech",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 330,
+      "align": "flex-end",
+      "padX": 60,
+      "end": 17.4,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w39",
+              "t": "1. Atoalhado",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "macio",
+      "from": "w47",
+      "to": "w48",
+      "enter": "blur",
+      "y": 229,
+      "padX": 40,
+      "hold": 0.4,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w47",
+              "t": "toque",
+              "s": "sans",
+              "size": 104
+            }
+          ]
+        },
+        {
+          "gap": -36,
+          "tokens": [
+            {
+              "w": "w48",
+              "t": "macio",
+              "s": "serif",
+              "size": 170
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "from": "w64",
+      "to": "w70",
+      "captions": "after-speech",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 330,
+      "align": "flex-end",
+      "padX": 60,
+      "end": 28.9,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 24.6,
+              "t": "2. Cravo e Canela",
+              "s": "serif",
+              "size": 96
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chique",
+      "from": "w74",
+      "to": "w76",
+      "enter": "blur-rise",
+      "y": 268,
+      "padX": 40,
+      "hold": 0.4,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w74",
+              "t": "chique e",
+              "s": "sans",
+              "size": 100
+            }
+          ]
+        },
+        {
+          "gap": -34,
+          "tokens": [
+            {
+              "w": "w76",
+              "t": "sofisticado",
+              "s": "serif",
+              "size": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t3",
+      "from": "w91",
+      "to": "w94",
+      "captions": "after-speech",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 330,
+      "align": "flex-end",
+      "padX": 60,
+      "end": 42.13,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 37.43,
+              "t": "3. Malha",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t4",
+      "from": "w102",
+      "to": "w105",
+      "captions": "after-speech",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 330,
+      "align": "flex-end",
+      "padX": 60,
+      "end": 46.3,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 42.16,
+              "t": "4. Cairo",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "from": "w117",
+      "to": "w119",
+      "enter": "type",
+      "typeSpeed": 0.04,
+      "y": 300,
+      "padX": 40,
+      "end": 50.0,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w117",
+              "t": "um design",
+              "s": "sans",
+              "size": 100
+            }
+          ]
+        },
+        {
+          "gap": -34,
+          "tokens": [
+            {
+              "w": "w119",
+              "t": "diferente",
+              "s": "serif",
+              "size": 160
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t5",
+      "from": "w120",
+      "to": "w121",
+      "captions": "after-speech",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 330,
+      "align": "flex-end",
+      "padX": 60,
+      "end": 53.1,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 50.03,
+              "t": "5. Ondara",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classico",
+      "from": "w126",
+      "to": "w128",
+      "enter": "blur",
+      "y": 297,
+      "padX": 40,
+      "hold": 0.4,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w126",
+              "t": "clássico e",
+              "s": "sans",
+              "size": 100
+            }
+          ]
+        },
+        {
+          "gap": -34,
+          "tokens": [
+            {
+              "w": "w128",
+              "t": "elegante",
+              "s": "serif",
+              "size": 160
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t6",
+      "from": "w140",
+      "to": "w142",
+      "captions": "after-speech",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 330,
+      "align": "flex-end",
+      "padX": 60,
+      "end": 64.5,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 60.2,
+              "t": "6. Artesão",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t7",
+      "from": "w156",
+      "to": "w161",
+      "captions": "after-speech",
+      "enter": "cut",
+      "sfx": "first",
+      "y": 330,
+      "align": "flex-end",
+      "padX": 60,
+      "end": 71.6,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 67.13,
+              "t": "7. Dominó",
+              "s": "serif",
+              "size": 104
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cores",
+      "from": "w172",
+      "to": "w177",
+      "enter": "blur-rise",
+      "y": 235,
+      "padX": 40,
+      "hold": 0.4,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 74.1,
+              "t": "sete modelos",
+              "s": "sans",
+              "size": 96
+            }
+          ]
+        },
+        {
+          "gap": -32,
+          "tokens": [
+            {
+              "w": "w174",
+              "t": "e muitas cores",
+              "s": "serif",
+              "size": 140
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "whatsapp",
+      "from": "w190",
+      "to": "w195",
+      "enter": "blur",
+      "y": 269,
+      "padX": 40,
+      "hold": 0.5,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w190",
+              "t": "já me chama",
+              "s": "sans",
+              "size": 96
+            }
+          ]
+        },
+        {
+          "gap": -24,
+          "tokens": [
+            {
+              "w": "w194",
+              "t": "no",
+              "s": "sans-sm",
+              "size": 60
+            },
+            {
+              "w": "w195",
+              "t": "WhatsApp",
+              "s": "serif",
+              "size": 150
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "zooms": [
+    {
+      "t": 0.0,
+      "scale": 1.0
+    },
+    {
+      "t": 0.0,
+      "scale": 1.06,
+      "dur": 10.6,
+      "ease": "none"
+    },
+    {
+      "t": 10.63,
+      "scale": 1.0
+    },
+    {
+      "t": 17.58,
+      "scale": 1.09,
+      "dur": 0.45,
+      "ease": "power3.out"
+    },
+    {
+      "t": 24.57,
+      "scale": 1.0
+    },
+    {
+      "t": 29.14,
+      "scale": 1.09,
+      "dur": 0.45,
+      "ease": "power3.out"
+    },
+    {
+      "t": 37.4,
+      "scale": 1.0
+    },
+    {
+      "t": 37.4,
+      "scale": 1.06,
+      "dur": 4.7,
+      "ease": "none"
+    },
+    {
+      "t": 42.13,
+      "scale": 1.0
+    },
+    {
+      "t": 48.8,
+      "scale": 1.09,
+      "dur": 0.45,
+      "ease": "power3.out"
+    },
+    {
+      "t": 50.0,
+      "scale": 1.0
+    },
+    {
+      "t": 53.28,
+      "scale": 1.09,
+      "dur": 0.45,
+      "ease": "power3.out"
+    },
+    {
+      "t": 60.17,
+      "scale": 1.0
+    },
+    {
+      "t": 60.17,
+      "scale": 1.06,
+      "dur": 6.9,
+      "ease": "none"
+    },
+    {
+      "t": 67.1,
+      "scale": 1.0
+    },
+    {
+      "t": 67.1,
+      "scale": 1.06,
+      "dur": 6.9,
+      "ease": "none"
+    },
+    {
+      "t": 74.07,
+      "scale": 1.0
+    },
+    {
+      "t": 74.1,
+      "scale": 1.08,
+      "dur": 0.45,
+      "ease": "power3.out"
+    },
+    {
+      "t": 79.97,
+      "scale": 1.0
+    },
+    {
+      "t": 82.1,
+      "scale": 1.1,
+      "dur": 0.45,
+      "ease": "power3.out"
+    }
+  ],
+  "transitions": [
+    {
+      "t": 10.633,
+      "type": "silhouette"
+    },
+    {
+      "t": 24.567,
+      "type": "whip",
+      "dir": "left"
+    },
+    {
+      "t": 37.4,
+      "type": "zoom"
+    },
+    {
+      "t": 42.133,
+      "type": "flash"
+    },
+    {
+      "t": 50.0,
+      "type": "whip",
+      "dir": "right"
+    },
+    {
+      "t": 60.167,
+      "type": "leak"
+    },
+    {
+      "t": 67.1,
+      "type": "zoom"
+    },
+    {
+      "t": 74.067,
+      "type": "flash"
+    },
+    {
+      "t": 79.967,
+      "type": "whip",
+      "dir": "left"
+    }
+  ]
+}

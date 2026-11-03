@@ -10,7 +10,7 @@ O vídeo chega já cortado: nada aqui altera tempo, só adiciona camadas por cim
 | --- | --- | --- |
 | Fonte | Poppins SemiBold (600), 46 px em 1080×1920 | Poppins por preferência |
 | Espaçamento | letras −0,045 em, entrelinha 1,04 | pedido: letras bem juntas, mas legíveis |
-| Cor | branco, **sem sombra** | pedido |
+| Cor | branco, **sem sombra**; sobre tapete/parede clara (brilho > 145 na faixa da legenda) vira marrom-escuro #2a1f17, escolhido por plano | pedido + legibilidade (vídeo dos tapetes) |
 | Posição | centralizada, altura do peito da pessoa (y ≈ 1010–1210, por plano) | refs 1, 2 e 3 |
 | Tamanho do bloco | 2–5 palavras, até 26 caracteres, 1 linha, nunca terminando em palavra fraca (de, a, com…) | refs |
 | Quebra | pontuação, pausa ≥ 250 ms | refs |
@@ -38,6 +38,8 @@ aparecem em Playfair Display Italic, 1,3× maior. No máximo uma por bloco e só
 - Saída: desfoque 10 px + fade em 0,16 s, ou corte seco junto com a transição.
 - **Nunca texto no rosto** (pedido do cliente): título nenhum encosta na cabeça da pessoa. Cada título vai para
   uma área livre do plano (acima da cabeça ou ao lado dela), medida no recorte da pessoa antes de posicionar.
+  `python tools/headroom.py edits/<video>.json --fix` mede a cabeça na janela de cada título e sobe o título para
+  ficar 40 px acima dela; quando não cabe, reduza o tamanho do destaque.
 - **Se o título cruzar o corpo, fica atrás da pessoa**: ela é recortada no vídeo inteiro e fica por cima.
   O recorte automático falha em pessoa pequena ao fundo, então lá vale ainda mais deixar o texto de lado.
   A legenda continua na frente, como nas referências.
