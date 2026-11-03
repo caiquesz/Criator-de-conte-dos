@@ -1,138 +1,195 @@
 {
  "olhos_alvo": [
-  540.0,
-  729.6
+  540,
+  806
  ],
- "entre_olhos_alvo": 153.7,
+ "folga": [
+  12,
+  30
+ ],
+ "entre_olhos_alvo": [
+  132.3,
+  140.3
+ ],
  "takes": [
   {
    "take": "01-IMG_8151.mov",
    "quadros": 191,
-   "zoom": 1.294,
-   "zoom_minimo": 1.091,
+   "zoom": 1.114,
+   "zoom_minimo": 1.054,
    "olhos_antes": [
-    566,
-    781
+    565,
+    799
+   ],
+   "olhos_depois": [
+    540,
+    806
    ],
    "entre_olhos_antes": 119,
-   "camera_mexia_px": 47,
+   "entre_olhos_depois": 132,
+   "camera_mexia_px": 30,
    "tremor_px": 0.8
   },
   {
    "take": "02-IMG_8156.mov",
    "quadros": 163,
-   "zoom": 1.224,
-   "zoom_minimo": 1.084,
+   "zoom": 1.053,
+   "zoom_minimo": 1.048,
    "olhos_antes": [
-    565,
+    566,
+    808
+   ],
+   "olhos_depois": [
+    550,
     806
    ],
    "entre_olhos_antes": 126,
-   "camera_mexia_px": 14,
+   "entre_olhos_depois": 132,
+   "camera_mexia_px": 12,
    "tremor_px": 1.0
   },
   {
    "take": "03-IMG_8158.mov",
    "quadros": 173,
-   "zoom": 1.202,
-   "zoom_minimo": 1.03,
+   "zoom": 1.052,
+   "zoom_minimo": 1.052,
    "olhos_antes": [
-    547,
+    542,
     746
    ],
+   "olhos_depois": [
+    540,
+    776
+   ],
    "entre_olhos_antes": 128,
-   "camera_mexia_px": 19,
+   "entre_olhos_depois": 135,
+   "camera_mexia_px": 14,
    "tremor_px": 0.7
   },
   {
    "take": "04-IMG_8162.mov",
    "quadros": 221,
-   "zoom": 1.21,
-   "zoom_minimo": 1.209,
+   "zoom": 1.102,
+   "zoom_minimo": 1.102,
    "olhos_antes": [
+    538,
+    887
+   ],
+   "olhos_depois": [
     540,
-    918
+    836
    ],
    "entre_olhos_antes": 127,
-   "camera_mexia_px": 80,
+   "entre_olhos_depois": 140,
+   "camera_mexia_px": 49,
    "tremor_px": 0.7
   },
   {
    "take": "05-IMG_8166.mov",
    "quadros": 253,
-   "zoom": 1.138,
-   "zoom_minimo": 1.138,
+   "zoom": 1.039,
+   "zoom_minimo": 1.039,
    "olhos_antes": [
-    551,
-    862
+    545,
+    859
+   ],
+   "olhos_depois": [
+    540,
+    836
    ],
    "entre_olhos_antes": 135,
-   "camera_mexia_px": 16,
+   "entre_olhos_depois": 140,
+   "camera_mexia_px": 13,
    "tremor_px": 0.7
   },
   {
    "take": "06-IMG_8167.mov",
    "quadros": 117,
-   "zoom": 1.309,
-   "zoom_minimo": 1.121,
+   "zoom": 1.127,
+   "zoom_minimo": 1.044,
    "olhos_antes": [
     513,
     849
    ],
+   "olhos_depois": [
+    540,
+    806
+   ],
    "entre_olhos_antes": 117,
-   "camera_mexia_px": 9,
+   "entre_olhos_depois": 132,
+   "camera_mexia_px": 8,
    "tremor_px": 0.7
   },
   {
    "take": "07-IMG_8171.mov",
    "quadros": 191,
-   "zoom": 1.273,
-   "zoom_minimo": 1.058,
+   "zoom": 1.096,
+   "zoom_minimo": 1.042,
    "olhos_antes": [
-    538,
-    773
+    531,
+    762
+   ],
+   "olhos_depois": [
+    540,
+    806
    ],
    "entre_olhos_antes": 121,
-   "camera_mexia_px": 26,
+   "entre_olhos_depois": 132,
+   "camera_mexia_px": 19,
    "tremor_px": 0.7
   },
   {
    "take": "08-IMG_8172.mov",
    "quadros": 145,
-   "zoom": 1.174,
-   "zoom_minimo": 1.066,
+   "zoom": 1.052,
+   "zoom_minimo": 1.052,
    "olhos_antes": [
-    525,
-    765
+    528,
+    769
+   ],
+   "olhos_depois": [
+    540,
+    776
    ],
    "entre_olhos_antes": 131,
-   "camera_mexia_px": 35,
+   "entre_olhos_depois": 138,
+   "camera_mexia_px": 31,
    "tremor_px": 0.9
   },
   {
    "take": "09-IMG_8174.mov",
    "quadros": 196,
-   "zoom": 1.213,
-   "zoom_minimo": 1.088,
+   "zoom": 1.044,
+   "zoom_minimo": 1.042,
    "olhos_antes": [
-    537,
-    799
+    526,
+    804
+   ],
+   "olhos_depois": [
+    528,
+    806
    ],
    "entre_olhos_antes": 127,
-   "camera_mexia_px": 31,
+   "entre_olhos_depois": 132,
+   "camera_mexia_px": 20,
    "tremor_px": 1.0
   },
   {
    "take": "10-IMG_8176.mov",
    "quadros": 221,
-   "zoom": 1.203,
-   "zoom_minimo": 1.137,
+   "zoom": 1.051,
+   "zoom_minimo": 1.051,
    "olhos_antes": [
-    534,
-    865
+    528,
+    866
+   ],
+   "olhos_depois": [
+    528,
+    826
    ],
    "entre_olhos_antes": 128,
-   "camera_mexia_px": 29,
+   "entre_olhos_depois": 134,
+   "camera_mexia_px": 23,
    "tremor_px": 0.7
   }
  ]
