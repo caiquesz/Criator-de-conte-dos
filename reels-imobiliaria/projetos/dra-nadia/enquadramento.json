@@ -1,0 +1,139 @@
+{
+ "olhos_alvo": [
+  540.0,
+  729.6
+ ],
+ "entre_olhos_alvo": 153.7,
+ "takes": [
+  {
+   "take": "01-IMG_8151.mov",
+   "quadros": 191,
+   "zoom": 1.294,
+   "zoom_minimo": 1.091,
+   "olhos_antes": [
+    566,
+    781
+   ],
+   "entre_olhos_antes": 119,
+   "camera_mexia_px": 47,
+   "tremor_px": 0.8
+  },
+  {
+   "take": "02-IMG_8156.mov",
+   "quadros": 163,
+   "zoom": 1.224,
+   "zoom_minimo": 1.084,
+   "olhos_antes": [
+    565,
+    806
+   ],
+   "entre_olhos_antes": 126,
+   "camera_mexia_px": 14,
+   "tremor_px": 1.0
+  },
+  {
+   "take": "03-IMG_8158.mov",
+   "quadros": 173,
+   "zoom": 1.202,
+   "zoom_minimo": 1.03,
+   "olhos_antes": [
+    547,
+    746
+   ],
+   "entre_olhos_antes": 128,
+   "camera_mexia_px": 19,
+   "tremor_px": 0.7
+  },
+  {
+   "take": "04-IMG_8162.mov",
+   "quadros": 221,
+   "zoom": 1.21,
+   "zoom_minimo": 1.209,
+   "olhos_antes": [
+    540,
+    918
+   ],
+   "entre_olhos_antes": 127,
+   "camera_mexia_px": 80,
+   "tremor_px": 0.7
+  },
+  {
+   "take": "05-IMG_8166.mov",
+   "quadros": 253,
+   "zoom": 1.138,
+   "zoom_minimo": 1.138,
+   "olhos_antes": [
+    551,
+    862
+   ],
+   "entre_olhos_antes": 135,
+   "camera_mexia_px": 16,
+   "tremor_px": 0.7
+  },
+  {
+   "take": "06-IMG_8167.mov",
+   "quadros": 117,
+   "zoom": 1.309,
+   "zoom_minimo": 1.121,
+   "olhos_antes": [
+    513,
+    849
+   ],
+   "entre_olhos_antes": 117,
+   "camera_mexia_px": 9,
+   "tremor_px": 0.7
+  },
+  {
+   "take": "07-IMG_8171.mov",
+   "quadros": 191,
+   "zoom": 1.273,
+   "zoom_minimo": 1.058,
+   "olhos_antes": [
+    538,
+    773
+   ],
+   "entre_olhos_antes": 121,
+   "camera_mexia_px": 26,
+   "tremor_px": 0.7
+  },
+  {
+   "take": "08-IMG_8172.mov",
+   "quadros": 145,
+   "zoom": 1.174,
+   "zoom_minimo": 1.066,
+   "olhos_antes": [
+    525,
+    765
+   ],
+   "entre_olhos_antes": 131,
+   "camera_mexia_px": 35,
+   "tremor_px": 0.9
+  },
+  {
+   "take": "09-IMG_8174.mov",
+   "quadros": 196,
+   "zoom": 1.213,
+   "zoom_minimo": 1.088,
+   "olhos_antes": [
+    537,
+    799
+   ],
+   "entre_olhos_antes": 127,
+   "camera_mexia_px": 31,
+   "tremor_px": 1.0
+  },
+  {
+   "take": "10-IMG_8176.mov",
+   "quadros": 221,
+   "zoom": 1.203,
+   "zoom_minimo": 1.137,
+   "olhos_antes": [
+    534,
+    865
+   ],
+   "entre_olhos_antes": 128,
+   "camera_mexia_px": 29,
+   "tremor_px": 0.7
+  }
+ ]
+}
