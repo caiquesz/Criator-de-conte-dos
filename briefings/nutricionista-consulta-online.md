@@ -54,7 +54,7 @@ Amostra: os 30 reels mais recentes, de 19/07 a 02/11/2026.
 **2. ⭐ Se uma paciente sua contasse para uma amiga como foi a consulta, o que ela diria que não acontece com outras nutricionistas?**
 → É o diferencial nas palavras da paciente. Vale muito mais do que "atendimento humanizado".
 
-**3. ⭐ Você já usa #nutrionline nos posts. Já atende pessoas de fora da cidade? Quantas, de quais estados, e como elas te encontraram?**
+**3. Você já usa #nutrionline nos posts. Já atende pessoas de fora da cidade? Quantas, de quais estados, e como elas te encontraram?**
 → Prova real ("já atendo pacientes de X estados") e pista do caminho que já funciona.
 
 **4. Quais dúvidas e receios as pessoas têm sobre a consulta online?** (ex.: "online funciona mesmo?", "como você me avalia sem me pesar?", "e se eu não conseguir seguir?")
@@ -73,7 +73,7 @@ Amostra: os 30 reels mais recentes, de 19/07 a 02/11/2026.
 
 ## Bloco 2 | Intestino: a especialidade que ela está construindo
 
-**8. ⭐ Sobre o curso de nutrição intestinal: qual é, quando começa, quanto tempo dura e quando você termina?**
+**8. Sobre o curso de nutrição intestinal: qual é, quando começa, quanto tempo dura e quando você termina?**
 → Define o cronograma: até quando falamos como "nutricionista que está se especializando" e a partir de quando o intestino vira o carro-chefe do perfil.
 
 **9. ⭐ Até terminar o curso, como você quer se apresentar?** (ex.: "nutricionista com foco em saúde intestinal", "estou me especializando em intestino") **Você sabe o que o CRN permite falar antes do certificado?**
@@ -114,7 +114,7 @@ Amostra: os 30 reels mais recentes, de 19/07 a 02/11/2026.
 **18. Sua história e sua autoridade:** por que nutrição, a virada na carreira, o consultório novo como marco. E os números que você assina embaixo: anos de atuação, formação, pacientes atendidos.
 → Vídeos de história criam confiança com quem não te conhece. Só usamos números reais que ela confirmar.
 
-**19. ⭐ Sobre o que você NÃO quer falar ou se posicionar?** (marcas, suplementos, canetas emagrecedoras, corpo de outras pessoas, polêmicas)
+**19. Sobre o que você NÃO quer falar ou se posicionar?** (marcas, suplementos, canetas emagrecedoras, corpo de outras pessoas, polêmicas)
 → Limite claro desde o início evita retrabalho.
 
 **20. ⭐ O que você segue das regras do CRN/CFN para divulgação?** (antes e depois, depoimento de paciente, divulgar preço, sorteio, indicar marca de suplemento)
@@ -143,7 +143,7 @@ Amostra: os 30 reels mais recentes, de 19/07 a 02/11/2026.
 **25. O que eu posso filmar da consulta online sem expor o paciente?** (você em atendimento, a tela do plano, você montando o cardápio, a entrega do material)
 → Cenas de prova sem ferir o sigilo.
 
-**26. ⭐ Consultório novo: quais ambientes temos** (recepção, sala, cozinha, área externa)**? Qual horário tem a melhor luz? Dá para gravar fora do horário de atendimento? Onde mais podemos gravar?** (casa, cozinha, mercado, feira, academia, restaurante)
+**26. Consultório novo: quais ambientes temos** (recepção, sala, cozinha, área externa)**? Qual horário tem a melhor luz? Dá para gravar fora do horário de atendimento? Onde mais podemos gravar?** (casa, cozinha, mercado, feira, academia, restaurante)
 → Variedade de cenário e planejamento dos dias de gravação. Mercado e cozinha são cenas que qualquer brasileiro reconhece.
 
 ---
@@ -153,7 +153,7 @@ Amostra: os 30 reels mais recentes, de 19/07 a 02/11/2026.
 **27. ⭐ Publis: quantas por mês, em qual formato (feed, reels, stories), com quanta antecedência você fica sabendo, tem exclusividade de categoria e quem cuida disso (você ou assessoria)? As parcerias com marcas da cidade (as permutas da obra, por exemplo) continuam no mesmo ritmo?**
 → O calendário é montado em volta das publis, sem bater data nem formato.
 
-**28. ⭐ Tem alguma marca ou categoria de publi que você vai deixar de aceitar agora que o foco é a consulta online?**
+**28. Tem alguma marca ou categoria de publi que você vai deixar de aceitar agora que o foco é a consulta online?**
 → Uma publi que contradiz o que ela fala nos vídeos derruba a credibilidade com quem ainda não a conhece.
 
 **29. ⭐ Pautas: quando você vir um tema em alta, por onde e como você me manda?** (usar a proposta da seção abaixo)
