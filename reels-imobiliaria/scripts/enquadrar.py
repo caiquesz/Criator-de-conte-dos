@@ -1,20 +1,28 @@
 """Corrige o enquadramento de takes gravados sem tripé e emenda tudo, como se a câmera estivesse parada.
 
-Uso: python3 scripts/enquadrar.py PASTA [--olhos-y 0.38] [--zoom-max 1.6] [--modelo yunet.onnx]
+Uso: python3 scripts/enquadrar.py PASTA [--analise] [--olhos-y 0.42] [--folga-x 12] [--folga-y 30]
+                                         [--folga-tamanho 0.06] [--zoom-max 1.6]
 
 Lê PASTA/takes/*.mov (na ordem do nome) e escreve PASTA/renders/enquadrado.mp4.
+A medição de cada take fica em PASTA/analise/ (refazer o enquadramento não mede de novo);
+--analise só mostra o zoom de cada take, sem renderizar.
 
 Para cada take:
   1. a posição da câmera é medida em cada quadro contra um quadro de referência do take
-     (alinhamento ECC do fundo, fora da pessoa) e o movimento é removido por inteiro: o fundo fica parado, como num tripé; o movimento da própria
-     pessoa continua natural;
+     (alinhamento ECC do fundo, fora da pessoa) e o movimento é removido por inteiro: o
+     fundo fica parado, como num tripé (na posição do meio do caminho da câmera, que pede a
+     menor correção); o movimento da própria pessoa continua natural;
   2. o rosto é achado em todos os quadros (YuNet) e, já no quadro estabilizado, vale a
      mediana do ponto entre os olhos e da distância entre os olhos.
-Depois, um enquadramento só para todos os takes: o ponto entre os olhos no centro da
-largura e a --olhos-y da altura, e a mesma distância entre os olhos em todos (o mesmo
-tamanho de rosto). Só se aproxima (nunca se afasta), com o menor zoom que cobre todos os
-takes sem borda; a imagem vem do original em 4K, então zoom até 2× não perde resolução em
-1080×1920. Sem distorção: só escala uniforme, giro e deslocamento.
+Depois, um enquadramento comum: o ponto entre os olhos no centro da largura e na altura em
+que os olhos já costumam estar nos takes (a mediana, ou --olhos-y), e o rosto do mesmo
+tamanho em todos. Para não fechar demais, cada take pode fugir um pouco disso (--folga-x e
+--folga-y em px, --folga-tamanho na distância entre os olhos) quando assim pede menos zoom.
+Só se aproxima (nunca se afasta), com o menor zoom sem borda. Na Dra Nádia, olhos subidos
+a 38% da altura e o rosto igualado ao maior deram zoom de até 1,31 e a cliente achou forte
+demais; com a altura natural e as folgas o zoom ficou em 1,04–1,13. A imagem vem do
+original em 4K, então não perde resolução em 1080×1920. Sem distorção: só escala uniforme,
+giro e deslocamento.
 
 O áudio de cada take entra como está (só 4 ms de rampa nas emendas, para não estalar) e
 cada take mantém a duração, a velocidade e a ordem.
@@ -146,21 +154,75 @@ def cabe(M):
     return bool((p[0] >= -0.5).all() and (p[0] <= W + 0.5).all() and (p[1] >= -0.5).all() and (p[1] <= H + 0.5).all())
 
 
-def zoom_minimo(Ss, E, alvo):
+def inversas(Ss):
+    """Inversas das estabilizações, (n, 2, 3), para conferir bordas de todos os quadros de uma vez."""
+    return np.array([np.linalg.inv(np.vstack([S, [0, 0, 1]]))[:2] for S in Ss])
+
+
+def cabem(Si, z, E, alvo):
+    """True se, com zoom z e o ponto E levado ao alvo, nenhum quadro do take mostra borda."""
+    q = np.array([[0, 0], [W, 0], [W, H], [0, H]], float)
+    u = np.asarray(E) + (q - np.asarray(alvo)) / z                    # cantos da saída no quadro estabilizado
+    p = np.einsum("nij,kj->nki", Si[:, :, :2], u) + Si[:, None, :, 2]  # e no quadro original
+    return bool((p[..., 0] >= -0.5).all() and (p[..., 0] <= W + 0.5).all()
+                and (p[..., 1] >= -0.5).all() and (p[..., 1] <= H + 0.5).all())
+
+
+def zoom_minimo(Si, E, alvo):
     lo, hi = 1.0, 4.0
-    for _ in range(40):
+    if cabem(Si, lo, E, alvo):
+        return lo
+    for _ in range(30):
         z = (lo + hi) / 2
-        if all(cabe(compor(enquadra(z, E, alvo), S)) for S in Ss):
+        if cabem(Si, z, E, alvo):
             hi = z
         else:
             lo = z
     return hi
 
 
+def melhor_alvo(Si, E, alvo, folga_x, folga_y):
+    """Dentro da folga em volta do alvo comum, o ponto para os olhos que pede menos zoom
+    (o mais perto possível de onde eles já estão)."""
+    xs = np.linspace(alvo[0] - folga_x, alvo[0] + folga_x, 2 * int(folga_x // 5) + 1) if folga_x else [alvo[0]]
+    ys = np.linspace(alvo[1] - folga_y, alvo[1] + folga_y, 2 * int(folga_y // 5) + 1) if folga_y else [alvo[1]]
+    melhor = None
+    for x in xs:
+        for y in ys:
+            z = zoom_minimo(Si, E, (x, y))
+            chave = (round(z, 4), np.hypot(x - alvo[0], y - alvo[1]))
+            if melhor is None or chave < melhor[0]:
+                melhor = (chave, (float(x), float(y)), z)
+    return melhor[1], melhor[2]
+
+
+def analisar_guardado(take, detector, pasta):
+    """analisar(), guardando o resultado em PASTA/analise/ para refazer o enquadramento sem medir de novo."""
+    arq = pasta / "analise" / f"{take.stem}.npz"
+    if arq.exists() and arq.stat().st_mtime >= take.stat().st_mtime:
+        d = np.load(arq)
+        return d["olhos"], d["dist"], d["caixas"], d["pos"], float(d["qualidade"]), int(d["area"])
+    r = analisar(take, detector)
+    arq.parent.mkdir(exist_ok=True)
+    np.savez(arq, olhos=r[0], dist=r[1], caixas=r[2], pos=r[3], qualidade=r[4], area=r[5])
+    return r
+
+
+def alvo_mais_perto(Si, E, alvo, z, folga_x, folga_y):
+    """Com o zoom já decidido, o ponto da folga mais perto do alvo comum que ainda não mostra borda."""
+    xs = np.linspace(alvo[0] - folga_x, alvo[0] + folga_x, 2 * int(folga_x // 2) + 1) if folga_x else [alvo[0]]
+    ys = np.linspace(alvo[1] - folga_y, alvo[1] + folga_y, 2 * int(folga_y // 2) + 1) if folga_y else [alvo[1]]
+    pontos = sorted(((float(x), float(y)) for x in xs for y in ys), key=lambda q: np.hypot(q[0] - alvo[0], q[1] - alvo[1]))
+    return next(q for q in pontos if cabem(Si, z, E, q))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("pasta")
-    ap.add_argument("--olhos-y", type=float, default=0.38, help="altura dos olhos na tela (fração da altura)")
+    ap.add_argument("--olhos-y", type=float, help="altura dos olhos na tela (fração da altura); padrão: a mediana dos takes")
+    ap.add_argument("--folga-x", type=float, default=12, help="px que os olhos podem fugir do centro, take a take, para pedir menos zoom")
+    ap.add_argument("--folga-y", type=float, default=30, help="o mesmo, na altura")
+    ap.add_argument("--folga-tamanho", type=float, default=0.06, help="diferença aceita no tamanho do rosto entre takes (fração)")
     ap.add_argument("--zoom-max", type=float, default=1.6)
     ap.add_argument("--analise", action="store_true", help="só mede e mostra o zoom de cada take, sem renderizar")
     ap.add_argument("--modelo", default=str(Path(__file__).parent / "modelos" / "face_detection_yunet_2023mar.onnx"))
@@ -169,14 +231,14 @@ def main():
     pasta = Path(a.pasta).resolve()
     takes = sorted((pasta / "takes").glob("*.mov"))
     detector = cv2.FaceDetectorYN.create(a.modelo, "", (AW, AH), 0.6, 0.3, 50)
-    alvo = (W / 2, a.olhos_y * H)
 
     dados = []
     for t in takes:
-        olhos, dist, caixas, pos, qualidade, area = analisar(t, detector)
+        olhos, dist, caixas, pos, qualidade, area = analisar_guardado(t, detector, pasta)
         n = len(pos)
         traj = suavizar(pos, 1.5)                                # posição da câmera (sem o ruído da medida)
-        corr = np.median(traj, 0) - traj                         # tripé: devolve cada quadro à posição mediana
+        # tripé: cada quadro volta a uma posição fixa, a do meio do caminho da câmera (pede a menor correção)
+        corr = (traj.max(0) + traj.min(0)) / 2 - traj
         Ss = [estab(c) for c in corr]
         ok = ~np.isnan(dist)
         if ok.sum() < n * 0.5:
@@ -185,23 +247,30 @@ def main():
         E = np.array([S[:, :2] @ o + S[:, 2] for S, o, v in zip(Ss, olhos, ok) if v])
         D = np.array([d * np.exp(c[3]) for d, c, v in zip(dist, corr, ok) if v])
         Em, Dm = np.median(E, 0), np.median(D)
-        zmin = zoom_minimo(Ss, Em, alvo)
         bal = np.hypot(*(pos - suavizar(pos, 8))[:, :2].T).mean()
-        dados.append(dict(take=t, n=n, Ss=Ss, E=Em, D=Dm, zmin=zmin, deriva=float(np.abs(corr[:, :2]).max()),
+        dados.append(dict(take=t, n=n, Ss=Ss, Si=inversas(Ss), E=Em, D=Dm, deriva=float(np.abs(corr[:, :2]).max()),
                           tremor=float(bal), rosto=float(ok.mean())))
         print(f"{t.name}: {n} quadros, rosto em {ok.mean() * 100:.0f}%, olhos em ({Em[0]:.0f}, {Em[1]:.0f}), "
-              f"entre os olhos {Dm:.0f}px, câmera mexe até {dados[-1]['deriva']:.0f}px (tremor {bal:.1f}px), "
-              f"zoom mínimo {zmin:.3f} (alinhamento {qualidade:.3f}, fundo {area}% do quadro)", flush=True)
+              f"entre os olhos {Dm:.0f}px, câmera mexe até {dados[-1]['deriva']:.0f}px (tremor {bal:.1f}px) "
+              f"(alinhamento {qualidade:.3f}, fundo {area}% do quadro)", flush=True)
 
-    # um tamanho de rosto para todos: o menor que todos os takes alcançam sem borda
-    Dalvo = max(d["D"] * d["zmin"] for d in dados)
-    zs = [Dalvo / d["D"] for d in dados]
-    if max(zs) > a.zoom_max:
-        # um take muito longe puxaria todos para perto demais: limita e deixa esse um pouco menor
-        Dalvo = max(d["D"] * d["zmin"] for d in dados if d["D"] * a.zoom_max >= d["D"] * d["zmin"])
-        zs = [min(max(Dalvo / d["D"], d["zmin"]), a.zoom_max) for d in dados]
-    print(f"rosto padrão: {Dalvo:.0f}px entre os olhos; olhos em ({alvo[0]:.0f}, {alvo[1]:.0f})")
-    print("zoom por take:", " ".join(f"{z:.3f}" for z in zs))
+    # olhos no centro da largura e na altura em que já costumam estar (sem subir o rosto à força,
+    # o que pediria zoom); cada take pode fugir um pouco disso se assim precisar de menos zoom
+    ay = a.olhos_y * H if a.olhos_y else float(np.median([d["E"][1] for d in dados]))
+    alvo = (W / 2, ay)
+    for d in dados:
+        _, d["zmin"] = melhor_alvo(d["Si"], d["E"], alvo, a.folga_x, a.folga_y)
+    # tamanho do rosto: todos dentro de uma faixa estreita, cada take com o menor zoom que a alcança
+    Dalvo = max(d["D"] * d["zmin"] for d in dados) / (1 + a.folga_tamanho)
+    zs = [min(max(d["zmin"], Dalvo / d["D"]), a.zoom_max) for d in dados]
+    for d, z in zip(dados, zs):
+        d["alvo"] = alvo_mais_perto(d["Si"], d["E"], alvo, z, a.folga_x, a.folga_y)
+    print(f"rosto padrão: {Dalvo:.0f}–{Dalvo * (1 + a.folga_tamanho):.0f}px entre os olhos; "
+          f"olhos em ({alvo[0]:.0f}, {alvo[1]:.0f}) ± ({a.folga_x:.0f}, {a.folga_y:.0f})")
+    for d, z in zip(dados, zs):
+        print(f"  {d['take'].name}: zoom {z:.3f} (mínimo {d['zmin']:.3f}), rosto {d['D'] * z:.0f}px, "
+              f"olhos em ({d['alvo'][0]:.0f}, {d['alvo'][1]:.0f})")
+    print(f"zoom: média {np.mean(zs):.3f}, maior {max(zs):.3f}")
     if a.analise:
         return
 
@@ -209,7 +278,7 @@ def main():
     renders.mkdir(exist_ok=True)
     partes, audios, relatorio = [], [], []
     for d, z in zip(dados, zs):
-        F = enquadra(z, d["E"], alvo)
+        F = enquadra(z, d["E"], d["alvo"])
         saida = renders / f"take-{d['take'].stem}.mp4"
         enc = subprocess.Popen(
             ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-framerate", str(FPS),
@@ -238,7 +307,8 @@ def main():
         x[:r] *= np.linspace(0, 1, r); x[-r:] *= np.linspace(1, 0, r)
         audios.append(x)
         relatorio.append({"take": d["take"].name, "quadros": n, "zoom": round(z, 3), "zoom_minimo": round(d["zmin"], 3),
-                          "olhos_antes": [round(v) for v in d["E"]], "entre_olhos_antes": round(d["D"]),
+                          "olhos_antes": [round(v) for v in d["E"]], "olhos_depois": [round(v) for v in d["alvo"]],
+                          "entre_olhos_antes": round(d["D"]), "entre_olhos_depois": round(d["D"] * z),
                           "camera_mexia_px": round(d["deriva"]), "tremor_px": round(d["tremor"], 1)})
         print(f"{d['take'].name}: zoom {z:.3f}, {n} quadros", flush=True)
 
@@ -254,7 +324,8 @@ def main():
     wav.unlink(); lista.unlink()
     for p in partes:
         p.unlink()
-    (pasta / "enquadramento.json").write_text(json.dumps({"olhos_alvo": alvo, "entre_olhos_alvo": round(Dalvo, 1),
+    (pasta / "enquadramento.json").write_text(json.dumps({"olhos_alvo": [round(v) for v in alvo], "folga": [a.folga_x, a.folga_y],
+                                                          "entre_olhos_alvo": [round(Dalvo, 1), round(Dalvo * (1 + a.folga_tamanho), 1)],
                                                           "takes": relatorio}, ensure_ascii=False, indent=1))
     print("ok:", final)
 

@@ -9,3 +9,4 @@ __pycache__/
 **/.transcode-cache/
 **/assets/musica/*.mp3
 **/takes/
+**/analise/

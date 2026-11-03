@@ -68,6 +68,16 @@ Espaçamento confirmado pelo cliente: A, letras juntas como nas referências (pa
 - **Recorte:** em drone e paisagem o modelo marca o chão como pessoa e cobre a legenda; use
   `recorte_janelas` com só as tomadas em que o André aparece.
 
+## Edição técnica de enquadramento (takes soltos)
+
+Quando o cliente manda vários takes de uma pessoa falando e pede só enquadramento,
+padronização e estabilização (Dra Nádia), use `scripts/enquadrar.py` nos `.mov` originais
+(4K), em `PASTA/takes/` na ordem do envio: trava a câmera como num tripé, centraliza e iguala o
+rosto entre os takes, sem mexer no áudio nem na duração. **Zoom leve:** na primeira versão o
+rosto subiu a 38% da altura e foi igualado ao maior take (zoom até 1,31) e o cliente achou o
+zoom forte demais. O padrão agora deixa os olhos na altura em que já estavam e aceita pequenas
+diferenças entre takes (zoom 1,04–1,13). Confira com `--analise` antes de renderizar.
+
 ## Espaço em disco
 
 Cada render enche `/tmp/hyperframes-extract-cache-0` (dá 5–17 GB). Depois de renderizar e mixar,
