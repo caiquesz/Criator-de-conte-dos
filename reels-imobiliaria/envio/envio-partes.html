@@ -1,0 +1,557 @@
+<title>Envio em Partes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+  /* Layout: à esquerda a fila de partes na ordem em que serão juntadas; à direita o briefing e o envio */
+  :root {
+    --bg: #EEEFEC;
+    --surface: #FAFAF8;
+    --fg: #1B1C1E;
+    --muted: #5E6066;
+    --line: #D5D6D2;
+    --accent: #A8692F;
+    --accent-ink: #FFFFFF;
+    --ok: #2F7D4F;
+    --warn: #A35D12;
+    --err: #B3362B;
+    --frame: #17181A;
+    --font-ui: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131416; --surface: #1C1D20; --fg: #ECEBE7; --muted: #A2A3A8; --line: #2E3034;
+      --accent: #E8B880; --accent-ink: #1B1407; --ok: #6FC48F; --warn: #E3A35A; --err: #F08A7E;
+      --frame: #0B0B0C; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #131416; --surface: #1C1D20; --fg: #ECEBE7; --muted: #A2A3A8; --line: #2E3034;
+    --accent: #E8B880; --accent-ink: #1B1407; --ok: #6FC48F; --warn: #E3A35A; --err: #F08A7E;
+    --frame: #0B0B0C; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: var(--font-ui); font-size: 15px; line-height: 1.55;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 56px;
+  }
+  .page { max-width: 1040px; margin: 0 auto; display: grid; gap: 28px; }
+
+  header { display: grid; gap: 6px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin: 0; }
+  h1 {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(40px, 7vw, 64px); line-height: 0.95; letter-spacing: -0.01em; margin: 0; text-wrap: balance;
+  }
+  .lead { margin: 4px 0 0; color: var(--muted); max-width: 60ch; }
+
+  .work { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  @media (max-width: 800px) { .work { grid-template-columns: minmax(0, 1fr); } }
+
+  h2 { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; color: var(--muted); margin: 0; }
+
+  /* fila de partes */
+  .partes { display: grid; gap: 12px; min-width: 0; }
+  .drop {
+    display: grid; justify-items: center; gap: 8px; text-align: center; padding: 22px 16px;
+    border: 1.5px dashed var(--line); border-radius: 16px; background: var(--surface); cursor: pointer;
+  }
+  .drop strong { font-weight: 500; }
+  .drop small { color: var(--muted); font-size: 13px; }
+  .drop.dragging { border-color: var(--accent); }
+  .drop[aria-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
+  .fila { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: parte; }
+  .fila li {
+    display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 8px 10px 8px 8px;
+  }
+  .thumb {
+    width: 54px; aspect-ratio: 9 / 16; border-radius: 8px; overflow: hidden; background: var(--frame);
+    position: relative; display: grid; place-items: center;
+  }
+  .thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .thumb b {
+    position: relative; z-index: 1; font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: 26px; color: #F1F0EC; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  }
+  .parte-info { display: grid; gap: 1px; min-width: 0; }
+  .parte-info .rot { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .parte-info .nome { font-weight: 500; overflow-wrap: anywhere; }
+  .parte-info .meta { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .parte-info .meta .bad { color: var(--warn); }
+  .parte-info .meta .ok { color: var(--ok); }
+  .acoes { display: flex; gap: 4px; }
+  .icone {
+    font: inherit; font-size: 16px; line-height: 1; width: 36px; height: 36px; border-radius: 10px;
+    border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer;
+  }
+  .icone[disabled] { opacity: 0.3; cursor: not-allowed; }
+  .total { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .vazio { color: var(--muted); font-size: 14px; margin: 0; }
+
+  /* briefing */
+  form { display: grid; gap: 22px; min-width: 0; }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 12px; min-width: 0; }
+  legend { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding: 0; margin-bottom: 12px; }
+  .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 520px) { .row { grid-template-columns: minmax(0, 1fr); } }
+  label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); min-width: 0; }
+  input[type="text"], textarea {
+    font: inherit; font-size: 15px; color: var(--fg); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; min-width: 0;
+  }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus-visible, textarea:focus-visible, button:focus-visible, .drop:focus-visible, .choice input:focus-visible + span {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  @media (max-width: 460px) { .choices { grid-template-columns: minmax(0, 1fr); } }
+  .choice { position: relative; display: block; cursor: pointer; }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice span {
+    display: grid; gap: 2px; height: 100%; padding: 12px 14px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--fg); font-size: 14px;
+  }
+  .choice span em { font-style: normal; font-size: 12px; color: var(--muted); }
+  .choice span b { font-weight: 600; }
+  .choice input:checked + span { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+
+  .send { display: grid; gap: 10px; }
+  .btn {
+    font: inherit; font-weight: 500; font-size: 15px; border: 0; border-radius: 999px; padding: 13px 22px;
+    background: var(--accent); color: var(--accent-ink); cursor: pointer; justify-self: start;
+  }
+  .btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+  .bar { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.3s ease; }
+  .status { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .status.err { color: var(--err); }
+  .status.ok { color: var(--ok); }
+  .note { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* envios */
+  section.list { display: grid; gap: 12px; }
+  .items { display: grid; gap: 10px; }
+  .item {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  }
+  .item .name { font-weight: 500; overflow-wrap: anywhere; min-width: 0; }
+  .item .meta { grid-column: 1 / -1; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .item .msg { grid-column: 1 / -1; font-size: 14px; }
+  .chip { font-size: 12px; font-weight: 500; border-radius: 999px; padding: 3px 10px; border: 1px solid currentColor; white-space: nowrap; }
+  .chip.enviando { color: var(--warn); }
+  .chip.enviado { color: var(--muted); }
+  .chip.editando { color: var(--accent); }
+  .chip.pronto { color: var(--ok); }
+  .chip.erro { color: var(--err); }
+  .empty { color: var(--muted); font-size: 14px; margin: 0; }
+  .entrega { grid-column: 1 / -1; display: grid; gap: 8px; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .entrega .btn { padding: 11px 20px; font-size: 14px; }
+  .entrega .aviso-baixar { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .entrega .aviso-baixar.err { color: var(--err); }
+  .entrega .aviso-baixar.ok { color: var(--ok); }
+
+  @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<div class="page">
+  <header>
+    <p class="eyebrow">Reels da imobiliária · vídeo em vários arquivos</p>
+    <h1>Envio em partes</h1>
+    <p class="lead">Mande o vídeo dividido em quantos arquivos precisar: parte 1, parte 2, parte 3. Deixe na ordem certa; eu junto tudo nessa ordem antes de editar. Arquivos grandes também passam, cada um vai em pedaços e o envio continua de onde parou se a internet cair.</p>
+  </header>
+
+  <div class="work">
+    <section class="partes" aria-labelledby="titulo-partes">
+      <h2 id="titulo-partes">Partes do vídeo</h2>
+      <div class="drop" id="drop" role="button" tabindex="0" aria-label="Adicionar arquivos de vídeo">
+        <strong>Adicionar arquivos</strong>
+        <small>Toque para escolher na galeria ou arraste aqui.<br>Pode escolher vários de uma vez, MP4 ou MOV.</small>
+      </div>
+      <input type="file" id="file" accept="video/*" multiple hidden>
+      <ol class="fila" id="fila" aria-label="Ordem das partes"></ol>
+      <p class="vazio" id="vazio">Nenhuma parte ainda. Elas aparecem aqui na ordem em que vão ser juntadas, e as setas mudam a ordem.</p>
+      <p class="total" id="total" hidden></p>
+    </section>
+
+    <form id="form" novalidate>
+      <fieldset>
+        <legend>Imóvel</legend>
+        <div class="row">
+          <label for="imovel">Nome do imóvel ou condomínio
+            <input type="text" id="imovel" name="imovel" placeholder="ex.: Chácara Palmares">
+          </label>
+          <label for="local">Bairro e cidade
+            <input type="text" id="local" name="local" placeholder="ex.: Centro, Resende Costa">
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Edição</legend>
+        <label for="destaques">Palavras que devem aparecer em destaque
+          <input type="text" id="destaques" name="destaques" placeholder="ex.: piscina, área gourmet">
+        </label>
+        <label for="observacoes">Observações
+          <textarea id="observacoes" name="observacoes" placeholder="Algo que eu deva saber: um trecho de uma parte que sai, a música que você quer, o tom do vídeo."></textarea>
+        </label>
+        <div class="choices" role="radiogroup" aria-label="Música">
+          <label class="choice"><input type="radio" name="musica" value="tem" checked><span><b>Já tem música</b><em>mantenho a trilha do vídeo</em></span></label>
+          <label class="choice"><input type="radio" name="musica" value="nao-tem"><span><b>Sem música</b><em>eu escolho uma e mando opções</em></span></label>
+        </div>
+      </fieldset>
+
+      <div class="send">
+        <button class="btn" type="submit" id="enviar" disabled>Enviar as partes</button>
+        <div class="bar" id="bar" hidden><i id="barFill"></i></div>
+        <p class="status" id="status" role="status" aria-live="polite">Adicione as partes do vídeo para liberar o envio.</p>
+        <button class="btn ghost" type="button" id="retomar" hidden>Continuar de onde parou</button>
+        <p class="note" id="aviso">Depois de enviar, me avise no chat que eu começo a edição.</p>
+      </div>
+    </form>
+  </div>
+
+  <section class="list" aria-labelledby="titulo-envios">
+    <h2 id="titulo-envios">Seus envios</h2>
+    <div class="items" id="items"><p class="empty">Os vídeos que você enviar aparecem aqui, com o andamento da edição e o botão para baixar quando ficar pronto.</p></div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const PARTE = 19 * 1024 * 1024; // limite do armazenamento: 20 MiB por arquivo guardado
+  const $ = (id) => document.getElementById(id);
+  const els = {
+    drop: $("drop"), file: $("file"), fila: $("fila"), vazio: $("vazio"), total: $("total"),
+    form: $("form"), enviar: $("enviar"), bar: $("bar"), barFill: $("barFill"), status: $("status"),
+    retomar: $("retomar"), items: $("items"), aviso: $("aviso"),
+  };
+  const CAMPOS = ["imovel", "local", "destaques", "observacoes"];
+  const ROTULO = { enviando: "Enviando", enviado: "Na fila", editando: "Editando", pronto: "Pronto", erro: "Com problema" };
+
+  let lista = [];          // partes escolhidas, na ordem: {id, file, url, info}
+  let envio = null;        // envio em andamento (para retomar): {ref, idx, pos, arquivos, files}
+  let ocupado = false, assets = null, db = null, seq = 0;
+
+  const fmtMB = (b) => (b / 1048576).toLocaleString("pt-BR", { maximumFractionDigits: b > 1e8 ? 0 : 1 }) + " MB";
+  const fmtDur = (s) => { s = Math.round(s); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+  function setStatus(texto, tipo) { els.status.textContent = texto; els.status.className = "status" + (tipo ? " " + tipo : ""); }
+  function progresso(frac) { els.bar.hidden = false; els.barFill.style.width = Math.round(frac * 100) + "%"; }
+  const travado = () => ocupado || !!envio;
+
+  // rascunho do briefing só neste navegador
+  try {
+    const salvo = JSON.parse(localStorage.getItem("envio-partes-rascunho") || "{}");
+    CAMPOS.forEach((c) => { if (salvo[c]) $(c).value = salvo[c]; });
+    if (salvo.musica) { const r = els.form.querySelector(`input[name="musica"][value="${salvo.musica}"]`); if (r) r.checked = true; }
+  } catch (e) {}
+  let rascunhoTimer = null;
+  els.form.addEventListener("input", () => {
+    clearTimeout(rascunhoTimer);
+    rascunhoTimer = setTimeout(() => { try { localStorage.setItem("envio-partes-rascunho", JSON.stringify(briefing())); } catch (e) {} }, 400);
+  });
+  function briefing() {
+    const b = {};
+    CAMPOS.forEach((c) => { b[c] = $(c).value.trim(); });
+    b.musica = els.form.querySelector('input[name="musica"]:checked').value;
+    b.espacamento = "A";
+    return b;
+  }
+
+  // escolha das partes
+  function ehVideo(f) { return f.type.startsWith("video/") || /\.(mp4|mov|m4v|webm)$/i.test(f.name); }
+  function adicionar(files) {
+    if (travado()) return;
+    const novos = Array.from(files || []);
+    const ruins = novos.filter((f) => !ehVideo(f));
+    novos.filter(ehVideo).forEach((f) => {
+      const p = { id: "p" + (++seq), file: f, url: URL.createObjectURL(f),
+                  info: { nome: f.name, tamanho: f.size, tipo: f.type || "", duracao: null, largura: null, altura: null } };
+      lista.push(p);
+      const v = document.createElement("video");
+      v.preload = "metadata"; v.muted = true; v.src = p.url;
+      v.onloadedmetadata = () => {
+        p.info.duracao = Math.round(v.duration * 100) / 100;
+        p.info.largura = v.videoWidth; p.info.altura = v.videoHeight;
+        renderFila();
+      };
+    });
+    if (ruins.length) setStatus(ruins.length === 1 ? `"${ruins[0].name}" não parece um vídeo e ficou de fora.` : `${ruins.length} arquivos não pareciam vídeo e ficaram de fora.`, "err");
+    else if (lista.length) setStatus(assets && db ? "Confira a ordem e toque em Enviar as partes." : els.status.textContent);
+    renderFila();
+  }
+  function mover(i, d) {
+    if (travado()) return;
+    const j = i + d; if (j < 0 || j >= lista.length) return;
+    [lista[i], lista[j]] = [lista[j], lista[i]];
+    renderFila();
+  }
+  function remover(i) {
+    if (travado()) return;
+    URL.revokeObjectURL(lista[i].url);
+    lista.splice(i, 1);
+    renderFila();
+  }
+
+  function renderFila() {
+    els.fila.replaceChildren();
+    const trava = travado();
+    els.drop.setAttribute("aria-disabled", trava ? "true" : "false");
+    lista.forEach((p, i) => {
+      const li = document.createElement("li");
+      const th = document.createElement("div"); th.className = "thumb";
+      const v = document.createElement("video");
+      v.muted = true; v.playsInline = true; v.preload = "metadata"; v.src = p.url + "#t=0.1";
+      const n = document.createElement("b"); n.textContent = String(i + 1);
+      th.append(v, n);
+
+      const info = document.createElement("div"); info.className = "parte-info";
+      const rot = document.createElement("span"); rot.className = "rot"; rot.textContent = `Parte ${i + 1}`;
+      const nome = document.createElement("span"); nome.className = "nome"; nome.textContent = p.info.nome;
+      const meta = document.createElement("span"); meta.className = "meta";
+      const partes = [fmtMB(p.info.tamanho)];
+      if (p.info.duracao) partes.push(fmtDur(p.info.duracao));
+      if (p.info.largura) partes.push(`${p.info.largura}×${p.info.altura}`);
+      meta.textContent = partes.join(" · ");
+      if (p.info.altura && Math.abs(p.info.largura / p.info.altura - 9 / 16) > 0.02) {
+        const w = document.createElement("span"); w.className = "bad"; w.textContent = " · não está em 9:16"; meta.append(w);
+      }
+      if (envio && envio.arquivos[i]) {
+        const feito = i < envio.idx || (i === envio.idx && envio.pos >= p.info.tamanho);
+        if (feito) { const ok = document.createElement("span"); ok.className = "ok"; ok.textContent = " · enviada"; meta.append(ok); }
+      }
+      info.append(rot, nome, meta);
+
+      const acoes = document.createElement("div"); acoes.className = "acoes";
+      const b = (txt, rotulo, desab, fn) => {
+        const x = document.createElement("button"); x.type = "button"; x.className = "icone"; x.textContent = txt;
+        x.setAttribute("aria-label", rotulo); x.disabled = desab; x.addEventListener("click", fn); return x;
+      };
+      acoes.append(
+        b("↑", `Subir a parte ${i + 1}`, trava || i === 0, () => mover(i, -1)),
+        b("↓", `Descer a parte ${i + 1}`, trava || i === lista.length - 1, () => mover(i, 1)),
+        b("✕", `Tirar a parte ${i + 1}`, trava, () => remover(i)),
+      );
+      li.append(th, info, acoes);
+      els.fila.append(li);
+    });
+    els.vazio.hidden = lista.length > 0;
+    els.total.hidden = lista.length === 0;
+    if (lista.length) {
+      const tam = lista.reduce((s, p) => s + p.info.tamanho, 0);
+      const dur = lista.every((p) => p.info.duracao) ? lista.reduce((s, p) => s + p.info.duracao, 0) : null;
+      els.total.textContent = `${lista.length} ${lista.length === 1 ? "parte" : "partes"} · ${fmtMB(tam)}` + (dur ? ` · ${fmtDur(dur)} no total` : "");
+    }
+    atualizarBotao();
+  }
+
+  els.drop.addEventListener("click", () => { if (!travado()) els.file.click(); });
+  els.drop.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && !travado()) { e.preventDefault(); els.file.click(); } });
+  els.file.addEventListener("change", () => { adicionar(els.file.files); els.file.value = ""; });
+  ["dragenter", "dragover"].forEach((ev) => els.drop.addEventListener(ev, (e) => { e.preventDefault(); els.drop.classList.add("dragging"); }));
+  ["dragleave", "drop"].forEach((ev) => els.drop.addEventListener(ev, () => els.drop.classList.remove("dragging")));
+  els.drop.addEventListener("drop", (e) => { e.preventDefault(); adicionar(e.dataTransfer.files); });
+
+  function atualizarBotao() { els.enviar.disabled = !(lista.length && assets && db) || ocupado || !!envio; }
+
+  // um pedaço que começa com "<" seria recusado como marcação: recua o corte
+  async function fimDaParte(f, inicio) {
+    let fim = Math.min(inicio + PARTE, f.size);
+    while (fim < f.size) {
+      const bytes = new Uint8Array(await f.slice(fim, fim + 64).arrayBuffer());
+      const k = bytes.findIndex((x) => ![0x20, 0x09, 0x0a, 0x0d, 0x0c].includes(x));
+      if (k === -1 || bytes[k] !== 0x3c) break;
+      fim -= 1;
+    }
+    return fim;
+  }
+  async function subir(pedaco) {
+    try { return await assets.upload(pedaco, { type: "video/mp4" }); }
+    catch (e) {
+      if (e && e.code === "store_unavailable") { await new Promise((r) => setTimeout(r, 1500)); return assets.upload(pedaco, { type: "video/mp4" }); }
+      throw e;
+    }
+  }
+  function mensagemErro(e) {
+    const c = e && e.code;
+    if (c === "quota_or_state") return "O espaço de armazenamento desta página acabou. Me avise no chat que eu libero espaço apagando os vídeos já editados.";
+    if (c === "rate_limited") return "Muitos envios seguidos. Espere um minuto e toque em Continuar.";
+    if (c === "upstream_auth") return "Sua sessão expirou. Recarregue a página, entre de novo no claude.ai e toque em Continuar.";
+    if (c === "not_granted" || c === "capability_disabled") return "Esta visualização não permite enviar arquivos. Abra o link logado na sua conta.";
+    return "O envio parou no meio. Toque em Continuar para retomar do pedaço que falhou.";
+  }
+  const copiaArquivos = () => envio.arquivos.map((a) => ({ ...a, partes: a.partes.slice() }));
+
+  async function enviar() {
+    if (ocupado || !lista.length) return;
+    ocupado = true; atualizarBotao(); els.retomar.hidden = true;
+    try {
+      if (!envio) {
+        const tamTotal = lista.reduce((s, p) => s + p.info.tamanho, 0);
+        const uso = await assets.list().then((r) => r.usage).catch(() => null);
+        if (uso && uso.maxBytes && uso.bytes + tamTotal > uso.maxBytes) throw { code: "quota_or_state" };
+        const ref = db.collection("envios").doc();
+        envio = { ref, idx: 0, pos: 0, files: lista.map((p) => p.file), arquivos: lista.map((p) => ({ ...p.info, partes: [] })) };
+        const durs = lista.map((p) => p.info.duracao);
+        await ref.set({
+          tipo: "partes", arquivos: copiaArquivos(), tamanhoParte: PARTE, status: "enviando",
+          tamanhoTotal: tamTotal, duracaoTotal: durs.every(Boolean) ? Math.round(durs.reduce((s, d) => s + d, 0) * 100) / 100 : null,
+          criadoEm: new Date().toISOString(), briefing: briefing(), nota: "",
+        });
+        renderFila();
+      }
+      const tamTotal = envio.files.reduce((s, f) => s + f.size, 0);
+      while (envio.idx < envio.files.length) {
+        const f = envio.files[envio.idx];
+        while (envio.pos < f.size) {
+          const feito = envio.files.slice(0, envio.idx).reduce((s, x) => s + x.size, 0) + envio.pos;
+          setStatus(`Enviando a parte ${envio.idx + 1} de ${envio.files.length} · ${fmtMB(feito)} de ${fmtMB(tamTotal)}`);
+          progresso(feito / tamTotal);
+          const fim = await fimDaParte(f, envio.pos);
+          const r = await subir(f.slice(envio.pos, fim));
+          envio.arquivos[envio.idx].partes.push(r.id); envio.pos = fim;
+          await envio.ref.update({ arquivos: copiaArquivos() });
+        }
+        envio.idx += 1; envio.pos = 0;
+        renderFila();
+      }
+      await envio.ref.update({ status: "enviado", briefing: briefing(), enviadoEm: new Date().toISOString() });
+      progresso(1);
+      const n = envio.files.length;
+      setStatus(`${n} ${n === 1 ? "parte enviada" : "partes enviadas"} (${fmtMB(tamTotal)}). Agora me avise no chat que eu começo a edição.`, "ok");
+      lista.forEach((p) => URL.revokeObjectURL(p.url));
+      lista = []; envio = null;
+      try { localStorage.removeItem("envio-partes-rascunho"); } catch (e) {}
+    } catch (e) {
+      setStatus(mensagemErro(e), "err");
+      if (envio && (!e || e.code !== "quota_or_state")) els.retomar.hidden = false;
+      if (envio && e && e.code === "quota_or_state" && !envio.arquivos.some((a) => a.partes.length)) envio = null;
+    } finally {
+      ocupado = false; renderFila();
+    }
+  }
+  els.form.addEventListener("submit", (e) => { e.preventDefault(); enviar(); });
+  els.retomar.addEventListener("click", enviar);
+
+  // lista de envios, ao vivo
+  function render(snap) {
+    els.items.replaceChildren();
+    if (snap.empty) {
+      const p = document.createElement("p"); p.className = "empty";
+      p.textContent = "Os vídeos que você enviar aparecem aqui, com o andamento da edição e o botão para baixar quando ficar pronto.";
+      els.items.append(p); return;
+    }
+    snap.docs.forEach((d) => {
+      const v = d.data() || {}; const b = v.briefing || {};
+      const arqs = Array.isArray(v.arquivos) ? v.arquivos : [];
+      const item = document.createElement("div"); item.className = "item";
+      const nome = document.createElement("div"); nome.className = "name";
+      nome.textContent = b.imovel || (arqs[0] && arqs[0].nome) || "Vídeo em partes";
+      const chip = document.createElement("span"); const st = ROTULO[v.status] ? v.status : "enviado";
+      chip.className = "chip " + st; chip.textContent = ROTULO[st];
+      const meta = document.createElement("div"); meta.className = "meta";
+      const quando = v.criadoEm ? new Date(v.criadoEm).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : "";
+      let andamento = "";
+      if (v.status === "enviando") {
+        const completas = arqs.filter((a) => a.partes && a.tamanho && a.partes.length && Math.ceil(a.tamanho / (v.tamanhoParte || PARTE)) <= a.partes.length).length;
+        andamento = `${completas} de ${arqs.length} recebidas`;
+      }
+      meta.textContent = [quando, arqs.length ? `${arqs.length} ${arqs.length === 1 ? "parte" : "partes"}` : "",
+        v.tamanhoTotal ? fmtMB(v.tamanhoTotal) : "", v.duracaoTotal ? fmtDur(v.duracaoTotal) : "", andamento].filter(Boolean).join(" · ");
+      item.append(nome, chip, meta);
+      if (v.nota) { const m = document.createElement("div"); m.className = "msg"; m.textContent = v.nota; item.append(m); }
+      const ent = v.entrega;
+      if (ent && Array.isArray(ent.partes) && ent.partes.length && ent.arquivo) {
+        const caixa = document.createElement("div"); caixa.className = "entrega";
+        const botao = document.createElement("button"); botao.type = "button"; botao.className = "btn";
+        botao.id = "baixar-" + d.id;
+        botao.textContent = `Baixar vídeo editado${ent.tamanho ? " · " + fmtMB(ent.tamanho) : ""}`;
+        const aviso = document.createElement("p"); aviso.className = "aviso-baixar"; aviso.id = "aviso-" + d.id;
+        aviso.setAttribute("role", "status"); aviso.setAttribute("aria-live", "polite");
+        const est = estadoBaixar[d.id];
+        if (est) { aviso.textContent = est.texto; if (est.tipo) aviso.classList.add(est.tipo); botao.disabled = est.ocupado; }
+        else aviso.textContent = ent.descricao || "";
+        botao.addEventListener("click", () => baixarEntrega(d.id, ent));
+        caixa.append(botao, aviso); item.append(caixa);
+      }
+      els.items.append(item);
+    });
+  }
+
+  // download do vídeo editado: junta os pedaços guardados e entrega um único .mp4
+  const estadoBaixar = {};
+  function mostrarBaixar(id, texto, tipo, ocup) {
+    estadoBaixar[id] = { texto, tipo, ocupado: ocup };
+    const aviso = document.getElementById("aviso-" + id), botao = document.getElementById("baixar-" + id);
+    if (aviso) { aviso.textContent = texto; aviso.className = "aviso-baixar" + (tipo ? " " + tipo : ""); }
+    if (botao) botao.disabled = ocup;
+  }
+  async function baixarEntrega(id, ent) {
+    if (estadoBaixar[id] && estadoBaixar[id].ocupado) return;
+    const downloads = await usar("downloads");
+    if (!downloads) {
+      mostrarBaixar(id, "Este aplicativo não deixa baixar arquivos por aqui. Abra este link no navegador (Chrome ou Safari), logado no claude.ai.", "err", false);
+      return;
+    }
+    mostrarBaixar(id, "Preparando o vídeo…", "", true);
+    try {
+      const pedacos = []; let recebido = 0;
+      for (let i = 0; i < ent.partes.length; i++) {
+        mostrarBaixar(id, `Preparando o vídeo: pedaço ${i + 1} de ${ent.partes.length} · ${fmtMB(recebido)} de ${fmtMB(ent.tamanho || 0)}`, "", true);
+        const r = await fetch("/_blob/" + ent.partes[i]);
+        if (!r.ok) throw { code: "parte", status: r.status };
+        const blob = await r.blob(); pedacos.push(blob); recebido += blob.size;
+      }
+      if (ent.tamanho && recebido !== ent.tamanho) throw { code: "tamanho" };
+      mostrarBaixar(id, "Confirme o download na janela que abriu.", "", true);
+      await downloads.save({ filename: ent.arquivo, data: new Blob(pedacos, { type: "video/mp4" }) });
+      mostrarBaixar(id, "Vídeo salvo. Confira na pasta de downloads ou na galeria.", "ok", false);
+    } catch (e) {
+      const c = e && e.code;
+      const msg = c === "declined" ? "Download cancelado. Toque de novo quando quiser."
+        : c === "too_large" ? "Este aparelho recusou um arquivo desse tamanho. Peça a versão leve no chat."
+        : c === "rate_limited" ? "Já existe uma janela de download aberta. Feche-a e toque de novo."
+        : c === "parte" || c === "tamanho" ? "A conexão falhou no meio. Toque de novo para tentar outra vez."
+        : "Este aplicativo não deixa baixar arquivos por aqui. Abra este link no navegador (Chrome ou Safari), logado no claude.ai.";
+      mostrarBaixar(id, msg, c === "declined" ? "" : "err", false);
+    }
+  }
+
+  const usar = (n) => (window.claude && window.claude.use ? window.claude.use(n) : Promise.resolve(null));
+  renderFila();
+  (async () => {
+    const [a, d] = await Promise.all([usar("assets"), usar("db")]);
+    assets = a; db = d;
+    if (!assets || !db) {
+      setStatus("Para enviar, abra este link logado na sua conta do claude.ai.", "err");
+      els.aviso.hidden = true;
+    } else if (!lista.length) {
+      setStatus("Adicione as partes do vídeo para liberar o envio.");
+    } else {
+      setStatus("Confira a ordem e toque em Enviar as partes.");
+    }
+    atualizarBotao();
+    if (db) {
+      const falha = setTimeout(() => {
+        if (els.items.querySelector(".item")) return;
+        const p = document.createElement("p"); p.className = "empty";
+        p.textContent = "A lista está demorando para carregar. Recarregue a página se não aparecer.";
+        els.items.replaceChildren(p);
+      }, 10000);
+      db.collection("envios").orderBy("criadoEm", "desc").limit(30).onSnapshot((snap) => { clearTimeout(falha); render(snap); }, () => {
+        clearTimeout(falha);
+        const p = document.createElement("p"); p.className = "empty";
+        p.textContent = "Não consegui carregar a lista agora. Recarregue a página.";
+        els.items.replaceChildren(p);
+      });
+    }
+  })();
+})();
+</script>

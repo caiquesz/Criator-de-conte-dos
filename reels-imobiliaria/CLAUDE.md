@@ -14,6 +14,13 @@ com o briefing e a lista `partes`: ids de arquivos de até 19 MiB que, baixados 
 (`Artifact` action `read` com `path` = id, um por chamada: `paths` não acha ids de arquivo) e concatenados com `cat`, refazem o vídeo original.
 Atualize `status` (`editando`, `pronto`) e `nota` do documento para o cliente acompanhar.
 
+**Vídeo em vários arquivos:** a página "Envio em Partes" (https://claude.ai/artifact/5cdMsPkVQoR4TJ37i11TBH,
+fonte em `envio/envio-partes.html`, armazenamento próprio de 1 GB) recebe um vídeo dividido em
+arquivos. O documento em `envios` tem `tipo: "partes"` e `arquivos: [{nome, tamanho, duracao,
+partes: [ids]}]` na ordem escolhida pelo cliente: baixe as partes de cada arquivo, junte cada
+arquivo com `cat` e emende os arquivos nessa ordem (ffmpeg concat) antes de editar. A entrega
+volta pela mesma página, no mesmo formato `entrega` da outra.
+
 **Entrega:** o vídeo final vai para o cliente pela mesma página. Corte o .mp4 em partes de até
 19 MiB (nenhuma começando com `<`), suba com `Artifact` publish `asset: true` + `file_paths` e
 grave no documento `entrega: {arquivo, tamanho, sha256, descricao, partes: [ids]}`; a página
