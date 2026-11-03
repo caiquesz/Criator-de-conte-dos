@@ -102,8 +102,8 @@ Para vários takes de uma pessoa falando, só com enquadramento, padronização 
 (sem legendas): ponha os `.mov` originais em `projetos/x/takes/`, na ordem, e rode
 `python3 scripts/enquadrar.py projetos/x --analise` (mostra o zoom de cada take) e depois sem
 `--analise` para gerar `renders/enquadrado.mp4`. A câmera fica travada como num tripé, o rosto
-centralizado e do mesmo tamanho em todos os takes, com o menor zoom possível; o áudio, a
-duração e a ordem não mudam.
+centralizado e do mesmo tamanho em todos os takes, com o menor zoom possível, e a luz e a cor
+iguais entre os takes; o áudio, a duração e a ordem não mudam.
 
 ## Pastas
 

@@ -1,7 +1,7 @@
 """Corrige o enquadramento de takes gravados sem tripé e emenda tudo, como se a câmera estivesse parada.
 
 Uso: python3 scripts/enquadrar.py PASTA [--analise] [--olhos-y 0.42] [--folga-x 12] [--folga-y 30]
-                                         [--folga-tamanho 0.06] [--zoom-max 1.6]
+                                         [--folga-tamanho 0.06] [--zoom-max 1.6] [--brilho-rosto 70] [--sem-cor]
 
 Lê PASTA/takes/*.mov (na ordem do nome) e escreve PASTA/renders/enquadrado.mp4.
 A medição de cada take fica em PASTA/analise/ (refazer o enquadramento não mede de novo);
@@ -23,6 +23,13 @@ a 38% da altura e o rosto igualado ao maior deram zoom de até 1,31 e a cliente 
 demais; com a altura natural e as folgas o zoom ficou em 1,04–1,13. A imagem vem do
 original em 4K, então não perde resolução em 1080×1920. Sem distorção: só escala uniforme,
 giro e deslocamento.
+
+A luz e a cor também são igualadas entre os takes (o celular muda exposição e balanço de
+branco a cada take): balanço de branco pela parede, que é a mesma em todos; o rosto no
+brilho do take no percentil --brilho-rosto e a parede no brilho mediano, com o ganho
+aplicado pela luminância (não muda a cor da pele) e um ombro suave para nada estourar no
+branco. Cada take recebe um ajuste fixo: a luz natural dentro dele continua como foi
+gravada. --sem-cor desliga.
 
 O áudio de cada take entra como está (só 4 ms de rampa nas emendas, para não estalar) e
 cada take mantém a duração, a velocidade e a ordem.
@@ -208,6 +215,93 @@ def analisar_guardado(take, detector, pasta):
     return r
 
 
+LUM = np.array([0.2126, 0.7152, 0.0722], np.float32)   # luminância (Rec. 709), em luz linear
+LIN = ((np.arange(256) / 255.0) ** 2.2).astype(np.float32)
+CODIF_MAX, CODIF_N = 1.5, 65536
+
+
+def medir_cor(take, caixas):
+    """Cor de cada quadro: mediana do rosto (bochechas, nariz e boca) e da parede atrás (fundo, no
+    terço de cima), em valores de 8 bits."""
+    sw, sh = AW // 2, AH // 2
+    rosto, parede = [], []
+    for k, rgb in enumerate(quadros(take, sw, sh)):
+        bg = mascara_fundo(caixas[k], 1, sw, sh) > 0
+        bg[int(0.36 * sh):] = False
+        x, y, w, h = caixas[k] * (sw / W)
+        face = np.zeros((sh, sw), bool)
+        if not np.isnan(x):
+            face[int(y + 0.3 * h):int(y + 0.75 * h), int(x + 0.25 * w):int(x + 0.75 * w)] = True
+        rosto.append(np.median(rgb[face], 0) if face.any() else [np.nan] * 3)
+        parede.append(np.median(rgb[bg], 0))
+    return np.array(rosto, float), np.array(parede, float)
+
+
+def medir_cor_guardado(take, caixas, pasta):
+    arq = pasta / "analise" / f"{take.stem}-cor.npz"
+    if arq.exists() and arq.stat().st_mtime >= take.stat().st_mtime:
+        d = np.load(arq)
+        return d["rosto"], d["parede"]
+    rosto, parede = medir_cor(take, caixas)
+    arq.parent.mkdir(exist_ok=True)
+    np.savez(arq, rosto=rosto, parede=parede)
+    return rosto, parede
+
+
+def ajustes_cor(medidas, brilho_pct):
+    """Um ajuste por take para todos ficarem com a mesma luz:
+    1. balanço de branco pela parede (a mesma parede branca em todos): ganhos por canal, verde = 1;
+    2. saturação pela pele (o celular deixa a pele mais ou menos quente de um take para outro);
+    3. luz: o rosto vai ao brilho do take no percentil brilho_pct (os mais escuros sobem, os mais
+       claros descem) e a parede à mediana dos takes, com transição suave entre os dois tons.
+    Cada take recebe um ajuste fixo: a luz natural dentro do take continua como foi gravada."""
+    lin = lambda v: (np.asarray(v, float) / 255) ** 2.2
+    m = [(lin(np.nanmedian(r, 0)), lin(np.nanmedian(pa, 0))) for r, pa in medidas]
+    crom = lambda v: np.log(v / v[1])
+    alvo_wb = np.median([crom(pa) for _, pa in m], 0)
+    wbs = [np.exp(alvo_wb - crom(pa)) for _, pa in m]
+    # saturação: a cor da pele (já com o balanço) em relação à luminância
+    rel = [r * wb / ((r * wb) @ LUM) - 1 for (r, _), wb in zip(m, wbs)]
+    alvo_rel = np.median(rel, 0)
+    sats = [float(np.clip((alvo_rel @ v) / (v @ v), 0.8, 1.2)) for v in rel]
+    F = [float((r * wb) @ LUM) for (r, _), wb in zip(m, wbs)]
+    Wp = [float((pa * wb) @ LUM) for (_, pa), wb in zip(m, wbs)]
+    Ft, Wt = np.percentile(F, brilho_pct), np.median(Wp)
+    return [dict(wb=[float(v) for v in wb], sat=sa, ganho_rosto=float(np.clip(Ft / f, 0.7, 1.4)),
+                 ganho_parede=float(np.clip(Wt / w, 0.7, 1.4)), tom_rosto=f, tom_parede=w)
+            for wb, sa, f, w in zip(wbs, sats, F, Wp)]
+
+
+def preparar_cor(aj):
+    """Tabelas do ajuste de cor de um take para aplicar rápido em cada quadro."""
+    s = aj["sat"]
+    Ms = s * np.eye(3) + (1 - s) * np.outer(np.ones(3), LUM)      # c' = Y + s·(c − Y)
+    M = (Ms @ np.diag(aj["wb"])).T.astype(np.float32)               # pixels em linha: x @ M
+    Yq = np.linspace(1e-5, CODIF_MAX, 8192)
+    lf, lw = np.log(aj["tom_rosto"]), np.log(aj["tom_parede"])
+    t = np.clip((np.log(Yq) - lf) / (lw - lf), 0, 1) if lw > lf else (np.log(Yq) >= lf).astype(float)
+    t = t * t * (3 - 2 * t)
+    ganho = np.exp((1 - t) * np.log(aj["ganho_rosto"]) + t * np.log(aj["ganho_parede"])).astype(np.float32)
+    y = np.linspace(0, CODIF_MAX, CODIF_N)
+    k = 0.9                                                          # ombro suave: nada estoura no branco
+    y = np.where(y > k, k + (1 - k) * np.tanh((y - k) / (1 - k)), y)
+    codif = np.round(255 * np.clip(y, 0, 1) ** (1 / 2.2)).astype(np.uint8)
+    return M, ganho, codif
+
+
+def corrigir_cor(rgb, prep):
+    M, ganho, codif = prep
+    x = cv2.LUT(rgb, LIN)                              # luz linear
+    x = cv2.transform(x, M.T)                          # balanço de branco e saturação
+    np.maximum(x, 0, out=x)
+    gi = (cv2.transform(x, LUM[None, :]) * ((len(ganho) - 1) / CODIF_MAX)).astype(np.int32)
+    np.clip(gi, 0, len(ganho) - 1, out=gi)
+    x *= ganho[gi][..., None]                          # luz, pela luminância (não muda a cor)
+    ci = (x * ((CODIF_N - 1) / CODIF_MAX)).astype(np.int32)
+    np.clip(ci, 0, CODIF_N - 1, out=ci)
+    return codif[ci]
+
+
 def alvo_mais_perto(Si, E, alvo, z, folga_x, folga_y):
     """Com o zoom já decidido, o ponto da folga mais perto do alvo comum que ainda não mostra borda."""
     xs = np.linspace(alvo[0] - folga_x, alvo[0] + folga_x, 2 * int(folga_x // 2) + 1) if folga_x else [alvo[0]]
@@ -224,6 +318,9 @@ def main():
     ap.add_argument("--folga-y", type=float, default=30, help="o mesmo, na altura")
     ap.add_argument("--folga-tamanho", type=float, default=0.06, help="diferença aceita no tamanho do rosto entre takes (fração)")
     ap.add_argument("--zoom-max", type=float, default=1.6)
+    ap.add_argument("--sem-cor", action="store_true", help="não iguala a luz e a cor entre os takes")
+    ap.add_argument("--brilho-rosto", type=float, default=70,
+                    help="brilho do rosto em todos: o do take neste percentil (50 = o take do meio)")
     ap.add_argument("--analise", action="store_true", help="só mede e mostra o zoom de cada take, sem renderizar")
     ap.add_argument("--modelo", default=str(Path(__file__).parent / "modelos" / "face_detection_yunet_2023mar.onnx"))
     a = ap.parse_args()
@@ -249,7 +346,7 @@ def main():
         Em, Dm = np.median(E, 0), np.median(D)
         bal = np.hypot(*(pos - suavizar(pos, 8))[:, :2].T).mean()
         dados.append(dict(take=t, n=n, Ss=Ss, Si=inversas(Ss), E=Em, D=Dm, deriva=float(np.abs(corr[:, :2]).max()),
-                          tremor=float(bal), rosto=float(ok.mean())))
+                          tremor=float(bal), rosto=float(ok.mean()), caixas=caixas))
         print(f"{t.name}: {n} quadros, rosto em {ok.mean() * 100:.0f}%, olhos em ({Em[0]:.0f}, {Em[1]:.0f}), "
               f"entre os olhos {Dm:.0f}px, câmera mexe até {dados[-1]['deriva']:.0f}px (tremor {bal:.1f}px) "
               f"(alinhamento {qualidade:.3f}, fundo {area}% do quadro)", flush=True)
@@ -271,6 +368,13 @@ def main():
         print(f"  {d['take'].name}: zoom {z:.3f} (mínimo {d['zmin']:.3f}), rosto {d['D'] * z:.0f}px, "
               f"olhos em ({d['alvo'][0]:.0f}, {d['alvo'][1]:.0f})")
     print(f"zoom: média {np.mean(zs):.3f}, maior {max(zs):.3f}")
+
+    if not a.sem_cor:
+        ajs = ajustes_cor([medir_cor_guardado(d["take"], d["caixas"], pasta) for d in dados], a.brilho_rosto)
+        for d, aj in zip(dados, ajs):
+            d["cor"] = aj
+            print(f"  {d['take'].name}: balanço de branco R {aj['wb'][0]:.3f} B {aj['wb'][2]:.3f}, saturação {aj['sat']:.2f}, "
+                  f"rosto {np.log2(aj['ganho_rosto']):+.2f} EV, parede {np.log2(aj['ganho_parede']):+.2f} EV")
     if a.analise:
         return
 
@@ -286,12 +390,14 @@ def main():
              "-crf", "15", "-preset", "slow", "-g", "30", "-color_primaries", "bt709", "-color_trc", "bt709",
              "-colorspace", "bt709", "-color_range", "tv", "-video_track_timescale", "15360", str(saida)],
             stdin=subprocess.PIPE)
+        prep = preparar_cor(d["cor"]) if "cor" in d else None
         n = 0
         for rgb, S in zip(quadros(d["take"], 2 * W, 2 * H), d["Ss"]):
             M = compor(F, S)[:2].copy()
             M[:, 2] *= 2                                   # em 4K: mesma transformação, coordenadas ×2
             grande = cv2.warpAffine(rgb, M, (2 * W, 2 * H), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
-            enc.stdin.write(cv2.resize(grande, (W, H), interpolation=cv2.INTER_AREA).tobytes())
+            q = cv2.resize(grande, (W, H), interpolation=cv2.INTER_AREA)
+            enc.stdin.write((corrigir_cor(q, prep) if prep else q).tobytes())
             n += 1
         enc.stdin.close(); enc.wait()
         if n != d["n"]:
@@ -309,7 +415,9 @@ def main():
         relatorio.append({"take": d["take"].name, "quadros": n, "zoom": round(z, 3), "zoom_minimo": round(d["zmin"], 3),
                           "olhos_antes": [round(v) for v in d["E"]], "olhos_depois": [round(v) for v in d["alvo"]],
                           "entre_olhos_antes": round(d["D"]), "entre_olhos_depois": round(d["D"] * z),
-                          "camera_mexia_px": round(d["deriva"]), "tremor_px": round(d["tremor"], 1)})
+                          "camera_mexia_px": round(d["deriva"]), "tremor_px": round(d["tremor"], 1),
+                          "cor": {k: (round(v, 4) if isinstance(v, float) else [round(x, 4) for x in v])
+                                  for k, v in d["cor"].items()} if "cor" in d else None})
         print(f"{d['take'].name}: zoom {z:.3f}, {n} quadros", flush=True)
 
     lista = renders / "takes.txt"

@@ -77,6 +77,9 @@ rosto entre os takes, sem mexer no áudio nem na duração. **Zoom leve:** na pr
 rosto subiu a 38% da altura e foi igualado ao maior take (zoom até 1,31) e o cliente achou o
 zoom forte demais. O padrão agora deixa os olhos na altura em que já estavam e aceita pequenas
 diferenças entre takes (zoom 1,04–1,13). Confira com `--analise` antes de renderizar.
+**Luz igual entre takes:** o cliente notou o primeiro take mais claro que os outros; o script
+iguala balanço de branco, brilho do rosto e da parede por take (padrão ligado). Confira numa
+grade antes/depois com o quadro do meio de cada take.
 
 ## Espaço em disco
 
