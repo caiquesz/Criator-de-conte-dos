@@ -268,8 +268,8 @@ const capGroups = groups.filter((g) => g.end - g.start > 0.06);
 const emph = new Set(C.emph);
 const capY = (t) => (C.yAt.find((r) => t >= r.from && t < r.to) || C).y;
 
-// Cor da legenda por plano (a legenda não tem sombra): branca sobre fundo médio/escuro, marrom-escura sobre
-// tapete ou parede clara. Mede o brilho médio da faixa da legenda em cada plano (entre cortes) no vídeo base.
+// Cor da legenda: branca (pedido do cliente). Com "captions.color": "auto", escolhe por plano: branca sobre fundo
+// médio/escuro, marrom-escura sobre tapete ou parede clara (mede o brilho da faixa da legenda entre os cortes).
 const shotCuts = [0, ...(edit.transitions || []).map((tr) => tr.t), D].sort((a, b) => a - b);
 const shotOf = (t) => Math.max(0, shotCuts.findIndex((c, k) => t >= c && t < (shotCuts[k + 1] ?? Infinity)));
 const bandLuma = (t, y) => {
@@ -279,7 +279,7 @@ const bandLuma = (t, y) => {
 };
 const shotColor = new Map();
 const capColor = (g) => {
-  if (C.color) return C.color;
+  if (C.color !== "auto") return C.color || "#fff";
   const k = shotOf((g.start + g.end) / 2); // pelo meio: legenda que começa um quadro antes do corte é do plano seguinte
   if (!shotColor.has(k)) {
     const a = shotCuts[k], b = shotCuts[k + 1];

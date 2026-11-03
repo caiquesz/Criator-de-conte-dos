@@ -10,7 +10,7 @@ O vídeo chega já cortado: nada aqui altera tempo, só adiciona camadas por cim
 | --- | --- | --- |
 | Fonte | Poppins SemiBold (600), 46 px em 1080×1920 | Poppins por preferência |
 | Espaçamento | letras −0,045 em, entrelinha 1,04 | pedido: letras bem juntas, mas legíveis |
-| Cor | branco, **sem sombra**; sobre tapete/parede clara (brilho > 145 na faixa da legenda) vira marrom-escuro #2a1f17, escolhido por plano | pedido + legibilidade (vídeo dos tapetes) |
+| Cor | **sempre branco**, **sem sombra** (pedido do cliente, inclusive sobre tapete claro) | pedido |
 | Posição | centralizada, altura do peito da pessoa (y ≈ 1010–1210, por plano) | refs 1, 2 e 3 |
 | Tamanho do bloco | 2–5 palavras, até 26 caracteres, 1 linha, nunca terminando em palavra fraca (de, a, com…) | refs |
 | Quebra | pontuação, pausa ≥ 250 ms | refs |

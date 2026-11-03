@@ -51,7 +51,7 @@ de 2,4–4,3 kHz e compressão 2,2:1. É cerca de metade da diferença medida co
 | --- | --- |
 | `video.src`, `video.focus` | vídeo base e ponto de foco do zoom (rosto) |
 | `fix` | correções de palavras da transcrição: `{ "w4": "Cor e Arte" }`; `""` apaga a palavra |
-| `captions` | `y`, `size`, `maxWords`, `maxChars`; `yAt` muda a altura por trecho; `emph` põe palavras em serifada; a cor é automática por plano (branca ou `darkColor` acima de `lightAbove`), ou fixa com `color` |
+| `captions` | `y`, `size`, `maxWords`, `maxChars`; `yAt` muda a altura por trecho; `emph` põe palavras em serifada; cor branca; `color` troca, e `"auto"` escolhe por plano (branca ou `darkColor` acima de `lightAbove`; o cliente prefere branca) |
 | `breakBefore` | força quebra de legenda antes dessas palavras |
 | `cutout` | recorte da pessoa: `src`, `dur` e `windows` (trechos em que ela fica na frente do texto; para o vídeo inteiro, `prepare.sh` com o fim do gancho igual à duração) |
 | `motionBlur` | `true` liga o desfoque de movimento do HyperFrames (chicotes e zooms) |
