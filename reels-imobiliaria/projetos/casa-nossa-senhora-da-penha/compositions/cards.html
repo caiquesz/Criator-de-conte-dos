@@ -1,0 +1,81 @@
+<template>
+  <style>
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: italic; src: url("assets/fonts/InstrumentSerif-400i.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }
+      #root { position: absolute; inset: 0; }
+      .card { position: absolute; left: 0; width: 1080px; display: flex; justify-content: center; }
+      .vidro {
+        position: relative; overflow: hidden; text-align: center;
+        padding: 30px 64px 36px; border-radius: 48px;
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.07) 48%, rgba(255, 255, 255, 0.14)),
+                    rgba(18, 18, 22, 0.14);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1.5px solid rgba(255, 255, 255, 0.42);
+        box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.7), inset 0 -2px 0 rgba(255, 255, 255, 0.14),
+                    inset 0 -22px 44px rgba(255, 255, 255, 0.08), 0 26px 70px rgba(0, 0, 0, 0.30);
+      }
+      .vidro-brilho {
+        position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+        background: radial-gradient(130% 70% at 18% -10%, rgba(255, 255, 255, 0.42), transparent 58%),
+                    radial-gradient(90% 60% at 100% 120%, rgba(255, 255, 255, 0.16), transparent 60%);
+      }
+      .card-grande {
+        position: relative; font-family: "Instrument Serif"; font-style: italic; font-weight: 400;
+        font-size: 150px; line-height: 0.95; letter-spacing: -0.01em; color: #fff;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.18);
+      }
+      .card-unidade { color: var(--destaque); margin-left: 0.08em; text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
+      .card-rotulo {
+        position: relative; margin-top: 6px; font-family: "Poppins Reels"; font-weight: 300;
+        font-size: 28px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255, 255, 255, 0.92);
+        padding-left: 0.32em;
+      }
+  </style>
+  <div id="root" data-composition-id="cards" data-width="1080" data-height="1920">
+      <div id="c1" class="clip card" data-start="5.95" data-duration="2.5" style="top:980px">
+        <div class="vidro" id="c1-v">
+          <div class="vidro-brilho"></div>
+          <div class="card-grande" id="c1-g" style="font-size:118px">Nossa Senhora<br>da Penha</div>
+          <div class="card-rotulo" id="c1-r">bairro</div>
+        </div>
+      </div>
+      <div id="c2" class="clip card" data-start="24.95" data-duration="3.25" style="top:1020px">
+        <div class="vidro" id="c2-v">
+          <div class="vidro-brilho"></div>
+          <div class="card-grande" id="c2-g">2<span class="card-unidade">quartos</span></div>
+          <div class="card-rotulo" id="c2-r">um deles suíte</div>
+        </div>
+      </div>
+      <div id="c3" class="clip card" data-start="40.35" data-duration="2.27" style="top:420px">
+        <div class="vidro" id="c3-v">
+          <div class="vidro-brilho"></div>
+          <div class="card-grande" id="c3-g">116<span class="card-unidade">m²</span></div>
+          <div class="card-rotulo" id="c3-r">área construída</div>
+        </div>
+      </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 48.36 }, 0);
+    tl.fromTo("#c1-v", {opacity:0, y:46, scale:0.88}, {opacity:1, y:0, scale:1, duration:0.55, ease:"expo.out"}, 5.95);
+    tl.fromTo("#c1-g", {opacity:0, filter:"blur(14px)", y:12}, {opacity:1, filter:"blur(0px)", y:0, duration:0.4, ease:"power3.out"}, 6.07);
+    tl.fromTo("#c1-r", {opacity:0, filter:"blur(8px)", y:10}, {opacity:1, filter:"blur(0px)", y:0, duration:0.5, ease:"power3.out"}, 6.17);
+    tl.to("#c1-v", {opacity:0, y:-24, scale:0.96, duration:0.3, ease:"power2.in"}, 8.13);
+    tl.fromTo("#c2-v", {opacity:0, y:46, scale:0.88}, {opacity:1, y:0, scale:1, duration:0.55, ease:"expo.out"}, 24.95);
+    tl.fromTo("#c2-g", {opacity:0, filter:"blur(14px)", y:12}, {opacity:1, filter:"blur(0px)", y:0, duration:0.4, ease:"power3.out"}, 25.07);
+    tl.fromTo("#c2-r", {opacity:0, filter:"blur(8px)", y:10}, {opacity:1, filter:"blur(0px)", y:0, duration:0.5, ease:"power3.out"}, 25.17);
+    tl.to("#c2-v", {opacity:0, y:-24, scale:0.96, duration:0.3, ease:"power2.in"}, 27.88);
+    tl.fromTo("#c3-v", {opacity:0, y:46, scale:0.88}, {opacity:1, y:0, scale:1, duration:0.55, ease:"expo.out"}, 40.35);
+    tl.fromTo("#c3-g", {opacity:0, filter:"blur(14px)", y:12}, {opacity:1, filter:"blur(0px)", y:0, duration:0.4, ease:"power3.out"}, 40.47);
+    tl.fromTo("#c3-r", {opacity:0, filter:"blur(8px)", y:10}, {opacity:1, filter:"blur(0px)", y:0, duration:0.5, ease:"power3.out"}, 40.57);
+    tl.to("#c3-v", {opacity:0, y:-24, scale:0.96, duration:0.3, ease:"power2.in"}, 42.3);
+    window.__timelines["cards"] = tl;
+  </script>
+</template>
