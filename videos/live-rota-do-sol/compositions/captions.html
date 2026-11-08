@@ -30,6 +30,20 @@
       font-size: 54px;
       letter-spacing: -0.015em;
     }
+    #root .cap.prod {
+      top: 1170px;
+    }
+    #root .cap.prod .w {
+      font-family: "League Gothic", sans-serif;
+      font-weight: 400;
+      font-size: 120px;
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: var(--product-color, #fff4c8);
+      text-shadow: 0 0 34px rgba(20, 12, 10, 0.55), 0 3px 10px rgba(20, 12, 10, 0.4);
+      transform-origin: 50% 70%;
+    }
   </style>
   <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
     <div id="cap-00" class="cap clip" data-start="0.100" data-duration="0.2"><span class="w">Nós</span></div>
@@ -54,7 +68,7 @@
     <div id="cap-19" class="cap clip" data-start="6.240" data-duration="0.14"><span class="w">no</span></div>
     <div id="cap-20" class="cap clip" data-start="6.380" data-duration="0.36"><span class="w">perfil</span></div>
     <div id="cap-21" class="cap clip" data-start="6.740" data-duration="0.1"><span class="w">da</span></div>
-    <div id="cap-22" class="cap clip hl" data-start="6.840" data-duration="0.66"><span class="w">Roda do Sol</span></div>
+    <div id="cap-22" class="cap clip hl" data-start="6.840" data-duration="0.66"><span class="w">Rota do Sol</span></div>
     <div id="cap-23" class="cap clip" data-start="7.500" data-duration="0.4"><span class="w">pra</span></div>
     <div id="cap-24" class="cap clip" data-start="7.900" data-duration="0.36"><span class="w">mostrar</span></div>
     <div id="cap-25" class="cap clip" data-start="8.260" data-duration="0.3"><span class="w">todos</span></div>
@@ -63,10 +77,10 @@
     <div id="cap-28" class="cap clip" data-start="9.040" data-duration="0.2"><span class="w">da</span></div>
     <div id="cap-29" class="cap clip" data-start="9.240" data-duration="0.88"><span class="w">loja</span></div>
     <div id="cap-30" class="cap clip" data-start="10.120" data-duration="0.28"><span class="w">Teremos</span></div>
-    <div id="cap-31" class="cap clip hl" data-start="10.400" data-duration="1.36"><span class="w">tapetes de sala</span></div>
-    <div id="cap-32" class="cap clip hl" data-start="11.960" data-duration="1.3"><span class="w">capas de almofada</span></div>
-    <div id="cap-33" class="cap clip hl" data-start="13.260" data-duration="1.36"><span class="w">mantas de sofá</span></div>
-    <div id="cap-34" class="cap clip hl" data-start="14.620" data-duration="1.18"><span class="w">jogos de passadeira</span></div>
+    <div id="cap-31" class="cap clip prod" data-start="10.400" data-duration="1.36"><span class="w">tapetes de sala</span></div>
+    <div id="cap-32" class="cap clip prod" data-start="11.960" data-duration="1.3"><span class="w">capas de almofada</span></div>
+    <div id="cap-33" class="cap clip prod" data-start="13.260" data-duration="1.36"><span class="w">mantas de sofá</span></div>
+    <div id="cap-34" class="cap clip prod" data-start="14.620" data-duration="1.18"><span class="w">jogos de passadeira</span></div>
     <div id="cap-35" class="cap clip" data-start="15.800" data-duration="0.24"><span class="w">e</span></div>
     <div id="cap-36" class="cap clip" data-start="16.040" data-duration="0.3"><span class="w">muito</span></div>
     <div id="cap-37" class="cap clip" data-start="16.340" data-duration="0.54"><span class="w">mais</span></div>
@@ -119,10 +133,10 @@
     tl.fromTo("#cap-28 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.08, ease: "power2.out" }, 9.040);
     tl.fromTo("#cap-29 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.08, ease: "power2.out" }, 9.240);
     tl.fromTo("#cap-30 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.08, ease: "power2.out" }, 10.120);
-    tl.fromTo("#cap-31 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 10.400);
-    tl.fromTo("#cap-32 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 11.960);
-    tl.fromTo("#cap-33 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 13.260);
-    tl.fromTo("#cap-34 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 14.620);
+    tl.fromTo("#cap-31 .w", { opacity: 0.2, y: 18, scale: 1.04, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, 10.400);
+    tl.fromTo("#cap-32 .w", { opacity: 0.2, y: 18, scale: 1.04, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, 11.960);
+    tl.fromTo("#cap-33 .w", { opacity: 0.2, y: 18, scale: 1.04, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, 13.260);
+    tl.fromTo("#cap-34 .w", { opacity: 0.2, y: 18, scale: 1.04, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, 14.620);
     tl.fromTo("#cap-35 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.08, ease: "power2.out" }, 15.800);
     tl.fromTo("#cap-36 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.08, ease: "power2.out" }, 16.040);
     tl.fromTo("#cap-37 .w", { opacity: 0, y: 6, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.08, ease: "power2.out" }, 16.340);

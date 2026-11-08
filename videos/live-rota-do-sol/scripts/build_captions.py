@@ -17,13 +17,16 @@ DURATION = 21.63
 # Sequências faladas que viram um único bloco de destaque (por posição no transcript).
 HIGHLIGHTS = [
     ["11", "de", "novembro"],
-    ["Roda", "do", "Sol"],
+    ["Rota", "do", "Sol"],
     ["tapetes", "de", "sala"],
     ["capas", "de", "almofada"],
     ["mantas", "de", "sofá"],
     ["jogos", "de", "passadeira"],
     ["7", "horas"],
 ]
+
+# Nomes dos produtos: mesma fonte e cor do título do gancho (League Gothic, amarelo clarinho).
+PRODUCTS = {"tapetes de sala", "capas de almofada", "mantas de sofá", "jogos de passadeira"}
 
 
 def clean(w: str) -> str:
@@ -67,15 +70,23 @@ tweens = []
 for k, e in enumerate(entries):
     cid = f"cap-{k:02d}"
     dur = round(e["hide"] - e["show"], 3)
-    cls = "cap clip hl" if e["hl"] else "cap clip"
+    is_prod = e["text"] in PRODUCTS
+    cls = "cap clip prod" if is_prod else ("cap clip hl" if e["hl"] else "cap clip")
     items.append(
         f'    <div id="{cid}" class="{cls}" data-start="{e["show"]:.3f}" data-duration="{dur}">'
         f'<span class="w">{e["text"]}</span></div>'
     )
-    tweens.append(
-        f'    tl.fromTo("#{cid} .w", {{ opacity: 0, y: 6, scale: 0.94 }}, '
-        f'{{ opacity: 1, y: 0, scale: 1, duration: {0.12 if e["hl"] else 0.08}, ease: "power2.out" }}, {e["show"]:.3f});'
-    )
+    if is_prod:
+        # Entrada igual à do título do gancho: sobe e desfoca para nítido.
+        tweens.append(
+            f'    tl.fromTo("#{cid} .w", {{ opacity: 0.2, y: 18, scale: 1.04, filter: "blur(8px)" }}, '
+            f'{{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }}, {e["show"]:.3f});'
+        )
+    else:
+        tweens.append(
+            f'    tl.fromTo("#{cid} .w", {{ opacity: 0, y: 6, scale: 0.94 }}, '
+            f'{{ opacity: 1, y: 0, scale: 1, duration: {0.12 if e["hl"] else 0.08}, ease: "power2.out" }}, {e["show"]:.3f});'
+        )
 
 html = f"""<template>
   <style>
@@ -109,6 +120,20 @@ html = f"""<template>
       font-size: 54px;
       letter-spacing: -0.015em;
     }}
+    #root .cap.prod {{
+      top: 1170px;
+    }}
+    #root .cap.prod .w {{
+      font-family: "League Gothic", sans-serif;
+      font-weight: 400;
+      font-size: 120px;
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: var(--product-color, #fff4c8);
+      text-shadow: 0 0 34px rgba(20, 12, 10, 0.55), 0 3px 10px rgba(20, 12, 10, 0.4);
+      transform-origin: 50% 70%;
+    }}
   </style>
   <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
 {chr(10).join(items)}
@@ -124,4 +149,5 @@ html = f"""<template>
 (ROOT / "compositions/captions.html").write_text(html)
 print(f"{len(entries)} legendas -> compositions/captions.html")
 for e in entries:
-    print(f'{e["show"]:6.2f}-{e["hide"]:6.2f} {"*" if e["hl"] else " "} {e["text"]}')
+    mark = "P" if e["text"] in PRODUCTS else ("*" if e["hl"] else " ")
+    print(f'{e["show"]:6.2f}-{e["hide"]:6.2f} {mark} {e["text"]}')

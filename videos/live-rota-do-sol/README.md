@@ -1,8 +1,8 @@
-# Live Roda do Sol (11/11): vídeo de divulgação
+# Live Rota do Sol (11/11): vídeo de divulgação
 
 Edição feita com [HyperFrames](https://hyperframes.heygen.com) (HTML → MP4).
 
-- **Vídeo final:** `renders/live-roda-do-sol-final.mp4` (1080×1920, 30 fps, 21,6 s, áudio em −16 LUFS)
+- **Vídeo final:** `renders/live-rota-do-sol-final.mp4` (1080×1920, 30 fps, 21,6 s, áudio em −16 LUFS)
 - **Vídeo bruto:** [Google Drive](https://drive.google.com/file/d/1B2fN3IEbHdzI5JAFZrMgOTDsp_xJlt5P/view)
 - **Referências:** legenda e efeito, [reel @giubeckers](https://www.instagram.com/reel/DfcgCGiBxCQ/); efeitos sonoros, [reel @majusoarees](https://www.instagram.com/reel/Db1JEipPpeY/)
 
@@ -12,7 +12,8 @@ Edição feita com [HyperFrames](https://hyperframes.heygen.com) (HTML → MP4).
 | --- | --- |
 | **Texto atrás da pessoa** | Usado **uma vez só**, no gancho (0–3,6 s). "Estamos preparando mais uma" em branco e **LIVE DE SUCESSO** em amarelo bem clarinho (`#fff4c8`, League Gothic). Ela entra andando na frente do título e a cabeça cobre a parte de baixo do "SU". Fica menor e mais discreto que na referência, com um leve escurecimento do fundo só atrás do texto. |
 | **Por que no gancho** | O primeiro frame do vídeo não tem ninguém (ela entra depois), então o título é o que segura quem passa o feed e funciona como capa. É também o plano com cabeça pequena e fundo mais limpo, onde o texto continua legível com ela na frente. No plano final, com a data, a cabeça grande taparia o "11 de novembro". |
-| **Legenda contínua** | Uma palavra por vez, branca, Inter Bold, centralizada na altura do quadril (fora da área da interface do Reels). As palavras de destaque aparecem agrupadas e um pouco maiores: *11 de novembro*, *Roda do Sol*, *tapetes de sala*, *capas de almofada*, *mantas de sofá*, *jogos de passadeira*, *7 horas*. |
+| **Legenda contínua** | Uma palavra por vez, branca, Inter Bold, centralizada na altura do quadril (fora da área da interface do Reels). As palavras de destaque aparecem agrupadas e um pouco maiores: *11 de novembro*, *Rota do Sol*, *7 horas*. |
+| **Nomes dos produtos** | *Tapetes de sala*, *capas de almofada*, *mantas de sofá* e *jogos de passadeira* aparecem em maiúsculas na mesma fonte e cor do título do gancho (League Gothic, `#fff4c8`), com a mesma entrada suave. A lista fica em `PRODUCTS`, no `scripts/build_captions.py`. |
 | **Efeitos sonoros** | Poucos, só na data e nos produtos (veja a tabela abaixo). |
 | **Voz** | O áudio original veio baixo (−27 LUFS); a voz foi subida em +11 dB (`data-volume="3.5"`). |
 
@@ -47,7 +48,7 @@ scripts/clean_matte.py        limpa a máscara do recorte (deixa só a pessoa)
 Requer Node 22+ e FFmpeg.
 
 ```bash
-cd videos/live-roda-do-sol
+cd videos/live-rota-do-sol
 
 # 1. Vídeo-fonte (não versionado, 39 MB): baixe o .mov do Drive e converta para H.264
 ffmpeg -i live.mov -c:v libx264 -crf 16 -pix_fmt yuv420p -c:a aac assets/video/live.mp4
@@ -58,7 +59,7 @@ python3 scripts/build_captions.py
 # 3. Prévia no navegador e render
 npx hyperframes@0.9.23 preview
 npx hyperframes@0.9.23 check
-npx hyperframes@0.9.23 render -o renders/live-roda-do-sol-final.mp4 -q delivery --crf 18
+npx hyperframes@0.9.23 render -o renders/live-rota-do-sol-final.mp4 -q delivery --crf 18
 ```
 
 Para refazer o recorte da pessoa: `npx hyperframes remove-background` no trecho 0–3,6 s e depois
