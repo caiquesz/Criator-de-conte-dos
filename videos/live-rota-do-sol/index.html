@@ -32,19 +32,21 @@
       data-width="1080"
       data-height="1920"
     >
-      <!-- Vídeo original da live (voz +11 dB: o arquivo veio em -27 LUFS) -->
+      <!-- Vídeo original da live (som substituído pela voz limpa abaixo) -->
       <video
         id="a-roll"
         class="clip"
         src="assets/video/live.mp4"
+        muted
         playsinline
-        data-has-audio="true"
-        data-volume="3.5"
         data-start="0"
         data-duration="21.63"
         data-track-index="0"
         style="position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 1"
       ></video>
+
+      <!-- Voz: áudio original sem a voz de fundo em 12–13 s (scripts/clean_voice.py), +11 dB (o arquivo veio em -27 LUFS) -->
+      <audio id="voz" class="clip" src="assets/audio/voz-limpa.wav" data-start="0" data-duration="21.63" data-track-index="7" data-volume="3.5"></audio>
 
       <!-- Gancho: título atrás da pessoa (único momento com o efeito) -->
       <div
@@ -96,9 +98,8 @@
       <audio id="sfx-pop-capas" class="clip" src="assets/sfx/pop.mp3" data-start="11.873" data-duration="0.7" data-track-index="5" data-volume="0.55"></audio>
       <audio id="sfx-click-mantas" class="clip" src="assets/sfx/click.mp3" data-start="13.22" data-duration="0.36" data-track-index="5" data-volume="1.1"></audio>
       <audio id="sfx-pop-jogos" class="clip" src="assets/sfx/pop.mp3" data-start="14.533" data-duration="0.7" data-track-index="5" data-volume="0.55"></audio>
-      <!-- 2ª data + horário: riser crescendo até o hit em "11 de novembro" (17.48 s) -->
-      <audio id="sfx-riser-data2" class="clip" src="assets/sfx/riser.mp3" data-start="14.041" data-duration="4.4" data-track-index="6" data-volume="0.22" data-fade-in="0.6" data-fade-out="0.5"></audio>
-      <audio id="sfx-hit-data2" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="17.44" data-duration="2.1" data-track-index="4" data-volume="0.22"></audio>
+      <!-- 2ª data "11 de novembro" (17.48 s): click -->
+      <audio id="sfx-click-data2" class="clip" src="assets/sfx/click.mp3" data-start="17.44" data-duration="0.36" data-track-index="5" data-volume="1.1"></audio>
     </div>
 
     <script>

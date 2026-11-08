@@ -12,10 +12,11 @@ Edição feita com [HyperFrames](https://hyperframes.heygen.com) (HTML → MP4).
 | --- | --- |
 | **Texto atrás da pessoa** | Usado **uma vez só**, no gancho (0–3,6 s). "Estamos preparando mais uma" em branco e **LIVE DE SUCESSO** em amarelo bem clarinho (`#fff4c8`, League Gothic). Ela entra andando na frente do título e a cabeça cobre a parte de baixo do "SU". Fica menor e mais discreto que na referência, com um leve escurecimento do fundo só atrás do texto. |
 | **Por que no gancho** | O primeiro frame do vídeo não tem ninguém (ela entra depois), então o título é o que segura quem passa o feed e funciona como capa. É também o plano com cabeça pequena e fundo mais limpo, onde o texto continua legível com ela na frente. No plano final, com a data, a cabeça grande taparia o "11 de novembro". |
-| **Legenda contínua** | Uma palavra por vez, branca, Inter Bold, centralizada na altura do quadril (fora da área da interface do Reels). As palavras de destaque aparecem agrupadas e um pouco maiores: *11 de novembro*, *Rota do Sol*, *7 horas*. |
+| **Legenda contínua** | Uma palavra por vez, branca, Inter Bold, centralizada na altura do quadril (fora da área da interface do Reels). As palavras de destaque aparecem agrupadas e um pouco maiores: *11 de novembro*, *Rota do Sol*, *19 horas*. Ela fala "7 horas", mas a live é à noite, então a tela mostra **19 horas** (`DISPLAY` em `scripts/build_captions.py`). |
 | **Nomes dos produtos** | *Tapetes de sala*, *capas de almofada*, *mantas de sofá* e *jogos de passadeira* aparecem em maiúsculas na mesma fonte e cor do título do gancho (League Gothic, `#fff4c8`), com a mesma entrada suave. A lista fica em `PRODUCTS`, no `scripts/build_captions.py`. |
 | **Efeitos sonoros** | Poucos, só na data e nos produtos (veja a tabela abaixo). |
 | **Voz** | O áudio original veio baixo (−27 LUFS); a voz foi subida em +11 dB (`data-volume="3.5"`). |
+| **Voz de fundo** | Entre 12,0 e 13,1 s, por cima de "capas de almofada", havia uma segunda voz (aguda, de criança, com um "mãe?" logo depois de "almofada"). Ela foi removida só nesse trecho: o SepFormer separa as duas vozes e a separação vira máscara sobre o áudio original, que mantém a qualidade cheia. O resto do áudio fica intocado. O vídeo toca mudo e a voz vem de `assets/audio/voz-limpa.wav`. |
 
 ### Efeitos sonoros
 
@@ -26,10 +27,9 @@ Edição feita com [HyperFrames](https://hyperframes.heygen.com) (HTML → MP4).
 | 12,0 s | "**capas** de almofada" | pop (som de interface) |
 | 13,3 s | "**mantas** de sofá" | click |
 | 14,6 s | "**jogos** de passadeira" | pop (som de interface) |
-| 14,9 → 17,5 s | "e muito mais… Então no dia" | riser (cria a tensão antes da data) |
-| 17,5 s | "**11 de novembro** às 7 horas" | hit |
+| 17,5 s | "**11 de novembro** às 19 horas" | click |
 
-Os sons vêm da biblioteca do HyperFrames (Pixabay, uso comercial liberado; ver `assets/sfx/CREDITS.md`).
+Os sons vêm da biblioteca do HyperFrames (Pixabay, uso comercial liberado; ver `assets/sfx/CREDITS.md`). Na data final, o riser + hit da 1ª versão foi trocado por um click, a pedido.
 
 ## Estrutura
 
@@ -38,9 +38,12 @@ index.html                  vídeo + cenas + sons (volumes e tempos editáveis a
 compositions/hook-title.html  título do gancho (texto, cor, posição, animação)
 compositions/captions.html    legenda contínua (gerada pelo script)
 assets/video/hook-cutout.webm recorte da pessoa (0–3,6 s) com transparência
+assets/audio/voz-limpa.wav    áudio original sem a voz de fundo (12–13 s)
 assets/transcript-words.json  transcrição palavra por palavra (faster-whisper medium, pt)
 scripts/build_captions.py     gera compositions/captions.html a partir da transcrição
 scripts/clean_matte.py        limpa a máscara do recorte (deixa só a pessoa)
+scripts/run_sep.py            separa as duas vozes com SepFormer (speechbrain)
+scripts/clean_voice.py        aplica a separação como máscara no áudio original
 ```
 
 ## Como editar e renderizar de novo
@@ -65,3 +68,15 @@ npx hyperframes@0.9.23 render -o renders/live-rota-do-sol-final.mp4 -q delivery 
 Para refazer o recorte da pessoa: `npx hyperframes remove-background` no trecho 0–3,6 s e depois
 `scripts/clean_matte.py`. O modelo confundia a almofada branca do fundo com a pessoa entre 0,4 e
 0,7 s, por isso o script zera a máscara antes de ela entrar (0,75 s) e mantém só o maior recorte.
+
+Para refazer a limpeza da voz (precisa de um venv com `torch`, `torchaudio`, `speechbrain`, `soundfile`;
+o torch de CPU vem de `--index-url https://download.pytorch.org/whl/cpu`):
+
+```bash
+ffmpeg -i live.mov -vn -ac 2 -ar 44100 original.wav
+ffmpeg -ss 9.4 -t 8.0 -i original.wav -ac 1 -ar 16000 broll16k.wav
+python scripts/run_sep.py broll16k.wav sep speechbrain/sepformer-whamr16k
+python3 scripts/clean_voice.py original.wav sep/src0.wav sep/src1.wav assets/audio/voz-limpa.wav
+```
+
+Confira qual das fontes (`src0`/`src1`) é a voz dela: o script assume `src0` = apresentadora.

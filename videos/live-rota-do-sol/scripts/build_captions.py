@@ -28,6 +28,9 @@ HIGHLIGHTS = [
 # Nomes dos produtos: mesma fonte e cor do título do gancho (League Gothic, amarelo clarinho).
 PRODUCTS = {"tapetes de sala", "capas de almofada", "mantas de sofá", "jogos de passadeira"}
 
+# Texto exibido diferente do falado: ela diz "7 horas", mas a live é à noite.
+DISPLAY = {"7 horas": "19 horas"}
+
 
 def clean(w: str) -> str:
     return re.sub(r"[.,!?;:]+$", "", w.strip())
@@ -74,7 +77,7 @@ for k, e in enumerate(entries):
     cls = "cap clip prod" if is_prod else ("cap clip hl" if e["hl"] else "cap clip")
     items.append(
         f'    <div id="{cid}" class="{cls}" data-start="{e["show"]:.3f}" data-duration="{dur}">'
-        f'<span class="w">{e["text"]}</span></div>'
+        f'<span class="w">{DISPLAY.get(e["text"], e["text"])}</span></div>'
     )
     if is_prod:
         # Entrada igual à do título do gancho: sobe e desfoca para nítido.
