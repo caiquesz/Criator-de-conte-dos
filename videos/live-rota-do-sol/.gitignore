@@ -1,0 +1,6 @@
+# Vídeo-fonte convertido (39 MB): regenerar a partir do Drive, ver README
+assets/video/live.mp4
+.hyperframes/
+work/
+renders/draft*.mp4
+node_modules/

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="21.63"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- Vídeo original da live (som substituído pela voz limpa abaixo) -->
+      <video
+        id="a-roll"
+        class="clip"
+        src="assets/video/live.mp4"
+        muted
+        playsinline
+        data-start="0"
+        data-duration="21.63"
+        data-track-index="0"
+        style="position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 1"
+      ></video>
+
+      <!-- Voz: áudio original sem a voz de fundo em 12–13 s (scripts/clean_voice.py), +11 dB (o arquivo veio em -27 LUFS) -->
+      <audio id="voz" class="clip" src="assets/audio/voz-limpa.wav" data-start="0" data-duration="21.63" data-track-index="7" data-volume="3.5"></audio>
+
+      <!-- Gancho: título atrás da pessoa (único momento com o efeito) -->
+      <div
+        id="hook-title"
+        data-composition-id="hook-title"
+        data-composition-src="compositions/hook-title.html"
+        data-start="0"
+        data-duration="3.6"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1080"
+        data-height="1920"
+        style="position: absolute; inset: 0; z-index: 2"
+      ></div>
+
+      <!-- Recorte da pessoa (remove-background) por cima do título -->
+      <video
+        id="hook-cutout"
+        class="clip"
+        src="assets/video/hook-cutout.webm"
+        muted
+        playsinline
+        data-start="0"
+        data-duration="3.6"
+        data-track-index="2"
+        data-layout-allow-occlusion
+        style="position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 3"
+      ></video>
+
+      <!-- Legenda contínua minimalista (uma palavra por vez) -->
+      <div
+        id="captions"
+        data-composition-id="captions"
+        data-composition-src="compositions/captions.html"
+        data-start="0"
+        data-duration="21.63"
+        data-track-index="3"
+        data-track-kind="captions"
+        data-width="1080"
+        data-height="1920"
+        style="position: absolute; inset: 0; z-index: 4"
+      ></div>
+
+      <!-- Efeitos sonoros: só na data e nos produtos -->
+      <!-- 1ª data "11 de novembro" (4.02 s): hit -->
+      <audio id="sfx-hit-data1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="3.98" data-duration="2.1" data-track-index="4" data-volume="0.14"></audio>
+      <!-- Produtos: tapetes, capas, mantas, jogos de passadeira -->
+      <audio id="sfx-click-tapetes" class="clip" src="assets/sfx/click.mp3" data-start="10.36" data-duration="0.36" data-track-index="5" data-volume="1.1"></audio>
+      <audio id="sfx-pop-capas" class="clip" src="assets/sfx/pop.mp3" data-start="11.873" data-duration="0.7" data-track-index="5" data-volume="0.55"></audio>
+      <audio id="sfx-click-mantas" class="clip" src="assets/sfx/click.mp3" data-start="13.22" data-duration="0.36" data-track-index="5" data-volume="1.1"></audio>
+      <audio id="sfx-pop-jogos" class="clip" src="assets/sfx/pop.mp3" data-start="14.533" data-duration="0.7" data-track-index="5" data-volume="0.55"></audio>
+      <!-- 2ª data "11 de novembro" (17.48 s): click -->
+      <audio id="sfx-click-data2" class="clip" src="assets/sfx/click.mp3" data-start="17.44" data-duration="0.36" data-track-index="5" data-volume="1.1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
