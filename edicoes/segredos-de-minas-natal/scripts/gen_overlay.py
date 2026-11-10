@@ -102,7 +102,7 @@ cap("viu só?", 28.70, 29.40, "viu so", "chest")
 cap("dá para", 29.40, 29.82, "da pra presentear", "chest")
 cap("presentear", 29.82, 30.58, "da pra presentear", "chest")
 cap("com carinho,", 30.58, 31.46, "da pra presentear", "chest")
-stack([("sem precisar", 64, WHITE, 31.46), ("gastar muito", 128, WHITE, 32.16)], 32.94, "da pra presentear", 1090)
+stack([("sem precisar", 64, WHITE, 31.46), ("gastar muito", 128, WHITE, 32.16)], 32.94, "da pra presentear", 1090, x=560)  # x pulled in: clear of the Reels icon column
 # ---------------- CTA (33.0 - 40.167) ----------------
 cap("então agora", 33.03, 33.56, "cta", "chest")
 stack([("clique no", 64, WHITE, 33.56), ("link abaixo", 132, WHITE, 34.26)], 35.14, "cta", 1090)

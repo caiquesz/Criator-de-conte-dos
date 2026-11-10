@@ -18,10 +18,20 @@ Segue o mesmo pipeline de `../segredos-de-minas-natal`, com estas mudanças pedi
 | Sincronia das palavras | Alinhamento forçado CTC (`scripts/align.py`, torchaudio MMS_FA) sobre a transcrição. Os timestamps do Whisper divergiam até 0,5 s. |
 | Transições | Dissolve de 6 frames só onde o corte de pausa coincide com troca de take (5 lugares). Em 13,7 s, o corte do bruto caía no meio de um corte de pausa. Ali o vídeo entra 2 frames antes do áudio (`vlead`), para não piscar. |
 | Zoom | Push-in lento em cada trecho, punch-in no jump cut de "olha esse kit" e no meio do b-roll, e zoom out lento no CTA. |
-| Produto | "olha esse / kit de lavabo" abaixo do queixo. As medidas entram como bloco grande centralizado: "65 cm / por / 40 cm". |
-| SFX | 6 efeitos: whoosh no início, pop em "kit de lavabo", em "65 cm" e em "40 cm", click em "link abaixo" e brilho em "o seu". Ficam 3 a 6 dB abaixo da voz. |
+| Produto | "olha esse / kit de lavabo" abaixo do queixo. A palavra **tapete** fica na tela do momento em que é dita até o fim da medida. Logo embaixo, em fonte menor, a medida vai entrando conforme a fala: "0,65" e depois "x 0,40 m" (65 cm × 40 cm). |
+| SFX | 6 efeitos: whoosh no início, pop em "kit de lavabo", em "0,65" e em "0,40 m", click em "link abaixo" e brilho em "o seu". Ficam 3 a 6 dB abaixo da voz. |
 | Áudio | Voz original, sem EQ, compressão ou normalização. Fades de 5 ms nos cortes (30 ms no "s" longo de "peças"). Fora dos fades, as amostras são idênticas ao bruto. |
 | Cor | Nenhuma correção. O processamento é feito direto em YUV bt709, e as médias Y/U/V da saída batem com o bruto (diferença de ~0,1). |
+
+## Área segura para postar
+
+ verifica todos os frames da camada de texto. Os limites são:
+- margem de 60 px nas laterais;
+- nada acima de y=290 (é a parte que o corte 4:5 do feed remove);
+- nada abaixo de y=1440 (área do nome, da legenda e do áudio no Reels);
+- texto à direita termina em x≤950 abaixo de y=1000 (coluna de curtir/comentar/compartilhar).
+
+O resultado atual é 0 violações nos 1085 frames.
 
 ## Renderizar de novo
 

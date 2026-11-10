@@ -22,6 +22,7 @@ O vídeo final (`segredos_de_minas_natal_editado.mp4`, 40,2 s, H.264 1080x1920 3
 | Áudio | A voz é a original, sem EQ, sem compressão e sem normalização. Só há fades de 5 ms nos cortes. Fora dos fades, as amostras são idênticas ao bruto. |
 | Cor | Nenhuma correção de cor. O vídeo é processado direto nos planos YUV 4:2:0 bt709 do original. As médias Y/U/V da saída batem com o bruto (diferença de ~0,04). |
 | Sem música | Conforme pedido. |
+| Área segura |  deu 0 violações nos 1205 frames (laterais, topo/corte do feed, base com o nome e a legenda, e coluna de ícones). |
 
 ## Estrutura
 
