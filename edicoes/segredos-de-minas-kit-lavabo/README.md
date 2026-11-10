@@ -25,7 +25,7 @@ Segue o mesmo pipeline de `../segredos-de-minas-natal`, com estas mudanças pedi
 
 ## Área segura para postar
 
- verifica todos os frames da camada de texto. Os limites são:
+`scripts/check_safe.py` verifica todos os frames da camada de texto. Os limites são:
 - margem de 60 px nas laterais;
 - nada acima de y=290 (é a parte que o corte 4:5 do feed remove);
 - nada abaixo de y=1440 (área do nome, da legenda e do áudio no Reels);
@@ -44,4 +44,5 @@ python scripts/align.py $S              # work/transcript.json -> work/aligned.j
 python scripts/render.py $S work/base_preview.mp4 --preset ultrafast
 ffmpeg -i work/base_preview.mp4 -vf "fps=10,scale=108:192" work/lum/f_%04d.png
 python scripts/zones.py $S 12.8 13.9    # nota de legibilidade de cada zona numa janela
+python scripts/check_safe.py $S/work/ovl 1   # área segura do Instagram (deve dar 0 violações)
 ```
