@@ -1,0 +1,7 @@
+hyperframes/assets/
+hyperframes/renders/
+hyperframes/.hyperframes/
+hyperframes/node_modules/
+*.mp4
+*.mov
+*.wav
