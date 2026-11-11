@@ -396,10 +396,23 @@ def imagens(f):
     return out
 
 
+VIDEO_EXT = (".mp4", ".mov", ".webm", ".m4v")
+
+
+def e_video(src):
+    return str(src).lower().endswith(VIDEO_EXT)
+
+
 def meta_imagem(meta, src, pasta):
     m = meta.get("fotos", {}).get(src)
     if m:
         return m
+    if e_video(src):
+        import subprocess
+        r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
+                            "-of", "csv=p=0", str(Path(pasta) / src)], capture_output=True, text=True, check=True).stdout
+        w, h = (int(v) for v in r.strip().split(",")[:2])
+        return {"largura": w, "altura": h, "rosto": None}
     from PIL import Image
     with Image.open(Path(pasta) / src) as im:
         return {"largura": im.width, "altura": im.height, "rosto": None}
@@ -438,12 +451,19 @@ def enquadrar(m, cw, ch, rosto_frac=None, centro=(0.5, 0.45), zoom=1.0, foco=Non
     return w, h, x, y, px / iw, py / ih
 
 
-def caixa_foto(iid, im, m, cw, ch, classe="ft-caixa", **kw):
+def caixa_foto(iid, im, m, cw, ch, classe="ft-caixa", tempo=None, **kw):
     w, h, x, y, ox, oy = enquadrar(m, cw, ch, foco=im.get("foco"), zoom=im.get("zoom", 1.0), **kw)
     rotulo = f'<div class="ft-rotulo">{esc(im["rotulo"])}</div>' if im.get("rotulo") else ""
-    return (f'<div class="{classe}" style="width:{num(cw)}px;height:{num(ch)}px">'
-            f'<img id="{iid}" src="{esc(im["src"])}" alt="" style="left:{x:.1f}px;top:{y:.1f}px;width:{w:.1f}px;'
-            f'height:{h:.1f}px;transform-origin:{ox * 100:.1f}% {oy * 100:.1f}%">{rotulo}</div>')
+    estilo = (f'left:{x:.1f}px;top:{y:.1f}px;width:{w:.1f}px;height:{h:.1f}px;'
+              f'transform-origin:{ox * 100:.1f}% {oy * 100:.1f}%')
+    if e_video(im["src"]):
+        # vídeo (ex.: gravação de tela de um post): sem som, a voz de quem fala continua por cima
+        ini, fim = tempo
+        midia = (f'<video id="{iid}" class="clip" src="{esc(im["src"])}" data-start="{num(ini)}" data-duration="{num(fim - ini)}" '
+                 f'data-media-start="{num(im.get("inicio_midia", 0))}" muted playsinline style="{estilo}"></video>')
+    else:
+        midia = f'<img id="{iid}" src="{esc(im["src"])}" alt="" style="{estilo}">'
+    return f'<div class="{classe}" style="width:{num(cw)}px;height:{num(ch)}px">{midia}{rotulo}</div>'
 
 
 def foto_dividida_desce(f, meta):
@@ -469,6 +489,11 @@ def gerar_fotos(plano, duracao, camada):
         ms = [meta_imagem(meta, im["src"], pasta) for im in ims]
         par = len(ims) == 2
         rf = f.get("rosto", None)
+        cf = lambda *a, **k: caixa_foto(*a, tempo=(ini, fim), **k)  # noqa: E731
+        # com vídeo dentro, quem leva o tempo é o vídeo; a caixa fica sem tempo (o GSAP a esconde fora da janela)
+        tem_video = any(e_video(im["src"]) for im in ims)
+        abre = (lambda a, b, extra: f'<div id="{fid}" class="ft"{extra}>' if tem_video else
+                f'<div id="{fid}" class="clip ft" data-start="{num(a)}" data-duration="{num(b - a)}"{extra}>')
         # par de antes e depois na mesma escala: pelo corpo inteiro (quando as duas fotos o mostram)
         # ou pelo rosto; com fotos já cortadas igual pela clínica, as duas cobrem a caixa do mesmo jeito
         inteiros = par and all((mm.get("corpo") or {}).get("inteiro") for mm in ms)
@@ -486,7 +511,7 @@ def gerar_fotos(plano, duracao, camada):
                 cx, cy, cw, ch, rot = slots[k]
                 cid = f"{fid}-c{k}"
                 cards.append(f'<div class="ft-card" id="{cid}" style="left:{num(cx - cw / 2 - FOTO_BORDA)}px;top:{num(cy - ch / 2 - FOTO_BORDA)}px">'
-                             + caixa_foto(f"{cid}-i", ims[k], ms[k], cw, ch, rosto_frac=rf, modo=modo,
+                             + cf(f"{cid}-i", ims[k], ms[k], cw, ch, rosto_frac=rf, modo=modo,
                                           corpo_frac=0.9 if inteiros else None, centro=(0.5, 0.5) if corpo else (0.5, 0.45)) + "</div>")
                 lado = -1 if rot < 0 else 1
                 t0 = ini + 0.12 * k
@@ -497,12 +522,13 @@ def gerar_fotos(plano, duracao, camada):
                     js.append(f'tl.to("#{cid}", {{y:-12, rotation:{rot + 0.9 * lado}, duration:{num(fim_deriva - t0 - 0.62)}, ease:"sine.inOut"}}, {num(t0 + 0.62)});')
                 js.append(f'tl.fromTo("#{cid}-i", {{scale:1}}, {{scale:1.05, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
                 js.append(f'tl.to("#{cid}", {{opacity:0, y:-150, scale:0.92, duration:0.34, ease:"power2.in"}}, {num(fim - 0.38 - 0.06 * (n - 1 - k))});')
-            html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(ini)}" data-duration="{num(fim - ini)}" '
-                         f'data-layout-allow-overlap data-layout-allow-overflow>\n        ' + "\n        ".join(cards) + "\n      </div>")
+            html_.append(abre(ini, fim, " data-layout-allow-overlap data-layout-allow-overflow") + "\n        " + "\n        ".join(cards) + "\n      </div>")
 
         elif lay == "dividida":
             corte = f.get("corte", 880)
-            linha = FOTO_GAP if f.get("linha", True) else 0
+            # esfumado (referência 1): sem linha branca, a parte de cima se dissolve no vídeo
+            esf = f.get("esfumado", False)
+            linha = 0 if esf else (FOTO_GAP if f.get("linha", True) else 0)
             n = len(ims)
             if n <= 2:
                 cw = (LARGURA - FOTO_GAP * (n - 1)) / n
@@ -510,7 +536,7 @@ def gerar_fotos(plano, duracao, camada):
                     rf = (0.36 if par else None) if rf is None else (rf or None)
                 caixas = "".join(
                     f'<div class="ft-slot" style="left:{num(k * (cw + FOTO_GAP))}px">'
-                    + caixa_foto(f"{fid}-i{k}", ims[k], ms[k], cw, corte, rosto_frac=rf, modo=modo,
+                    + cf(f"{fid}-i{k}", ims[k], ms[k], cw, corte, rosto_frac=rf, modo=modo,
                                  corpo_frac=0.92 if inteiros else None, centro=(0.5, 0.5) if corpo else (0.5, 0.42)) + "</div>"
                     for k in range(n))
                 faixa = f'<div class="ft-faixa" id="{fid}-s">{caixas}</div>'
@@ -522,23 +548,35 @@ def gerar_fotos(plano, duracao, camada):
                 total = n * cw + (n - 1) * FOTO_GAP
                 caixas = "".join(
                     f'<div class="ft-slot" style="left:{num(k * (cw + FOTO_GAP))}px">'
-                    + caixa_foto(f"{fid}-i{k}", ims[k], ms[k], cw, corte, modo=modo, centro=(0.5, 0.5) if corpo else (0.5, 0.42)) + "</div>"
+                    + cf(f"{fid}-i{k}", ims[k], ms[k], cw, corte, modo=modo, centro=(0.5, 0.5) if corpo else (0.5, 0.42)) + "</div>"
                     for k in range(n))
                 faixa = f'<div class="ft-faixa" id="{fid}-s" style="width:{num(total)}px">{caixas}</div>'
                 if total > LARGURA:
                     js.append(f'tl.fromTo("#{fid}-s", {{x:0}}, {{x:{num(LARGURA - total)}, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
-            html_.append(
-                f'<div id="{fid}" class="clip ft" data-start="{num(ini)}" data-duration="{num(fim - ini)}" data-layout-allow-overlap data-layout-allow-overflow>\n'
-                f'        <div class="ft-painel" id="{fid}-p" style="height:{num(corte + linha)}px">\n          {faixa}\n        </div>\n      </div>')
-            js.append(f'tl.fromTo("#{fid}-p", {{yPercent:-100}}, {{yPercent:0, duration:0.5, ease:"expo.out"}}, {num(ini)});')
-            js.append(f'tl.to("#{fid}-p", {{yPercent:-100, duration:0.42, ease:"expo.in"}}, {num(fim - 0.44)});')
+            if esf:
+                dissolve = f.get("dissolve", 0.3)          # fração de baixo do painel que vai sumindo
+                mascara = (f"-webkit-mask-image:linear-gradient(to bottom,#000 {num((1 - dissolve) * 100)}%,transparent 100%);"
+                           f"mask-image:linear-gradient(to bottom,#000 {num((1 - dissolve) * 100)}%,transparent 100%);")
+                painel = f'<div class="ft-painel esfumado" id="{fid}-p" style="height:{num(corte)}px;{mascara}">'
+            else:
+                painel = f'<div class="ft-painel" id="{fid}-p" style="height:{num(corte + linha)}px">'
+            html_.append(abre(ini, fim, " data-layout-allow-overlap data-layout-allow-overflow") + "\n"
+                         f'        {painel}\n          {faixa}\n        </div>\n      </div>')
+            if esf:
+                # no começo do vídeo já abre dividida; depois, entra e sai num esmaecer
+                entra = 0.01 if ini < 0.05 else 0.45
+                js.append(f'tl.fromTo("#{fid}-p", {{opacity:{1 if ini < 0.05 else 0}}}, {{opacity:1, duration:{entra}, ease:"power2.out"}}, {num(ini)});')
+                js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.5, ease:"power2.inOut"}}, {num(fim - 0.52)});')
+            else:
+                js.append(f'tl.fromTo("#{fid}-p", {{yPercent:-100}}, {{yPercent:0, duration:0.5, ease:"expo.out"}}, {num(ini)});')
+                js.append(f'tl.to("#{fid}-p", {{yPercent:-100, duration:0.42, ease:"expo.in"}}, {num(fim - 0.44)});')
 
         elif lay == "atras":
             # a pessoa da foto fica ao lado e acima da cabeça de quem fala, não escondida atrás dela
             altura = f.get("altura", 1150)
-            caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, altura, classe="ft-caixa reta", modo=modo,
+            caixa = cf(f"{fid}-i", ims[0], ms[0], LARGURA, altura, classe="ft-caixa reta", modo=modo,
                                rosto_frac=rf or None, centro=tuple(f.get("centro", (0.72, 0.5) if corpo else (0.7, 0.24))))
-            html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(ini)}" data-duration="{num(fim - ini)}" data-layout-allow-overlap>\n'
+            html_.append(abre(ini, fim, " data-layout-allow-overlap") + "\n"
                          f'        <div class="ft-fundo" id="{fid}-b" style="height:{num(altura)}px">{caixa}</div>\n      </div>')
             js.append(f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.45, ease:"power2.out"}}, {num(ini)});')
             js.append(f'tl.fromTo("#{fid}-i", {{scale:1.08}}, {{scale:1, duration:0.9, ease:"expo.out"}}, {num(ini)});')
@@ -548,10 +586,10 @@ def gerar_fotos(plano, duracao, camada):
 
         else:  # cheia
             flash = f.get("entrada", "flash") == "flash"
-            caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, ALTURA, classe="ft-caixa reta", modo=modo,
+            caixa = cf(f"{fid}-i", ims[0], ms[0], LARGURA, ALTURA, classe="ft-caixa reta", modo=modo,
                                centro=tuple(f.get("centro", (0.5, 0.5) if corpo else (0.5, 0.42))))
             a, b = (ini - 0.1, fim + 0.34) if flash else (ini, fim)
-            html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(a)}" data-duration="{num(b - a)}" data-layout-allow-overlap>\n'
+            html_.append(abre(a, b, " data-layout-allow-overlap") + "\n"
                          f'        <div class="ft-cheia" id="{fid}-b">{caixa}</div>\n'
                          + (f'        <div class="ft-flash" id="{fid}-f"></div>\n' if flash else "") + "      </div>")
             js.append(f'tl.fromTo("#{fid}-i", {{scale:1}}, {{scale:1.08, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
@@ -584,6 +622,7 @@ def gerar_fotos(plano, duracao, camada):
                    text-transform: uppercase; color: #FFFFFF; }}
       .ft-painel {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; overflow: hidden; background: #FFFFFF;
                    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22); }}
+      .ft-painel.esfumado {{ background: transparent; box-shadow: none; }}
       .ft-faixa {{ position: absolute; left: 0; top: 0; height: 100%; width: {LARGURA}px; }}
       .ft-slot {{ position: absolute; top: 0; }}
       .ft-slot .ft-caixa {{ border-radius: 0; }}
@@ -636,7 +675,8 @@ def eventos_sfx(plano):
             ev.append((f["inicio"] + 0.08, "whoosh-rapido", 0.45))
             ev.append((f["inicio"] + 0.55, "click", 0.45))
         elif f["layout"] == "dividida":
-            ev.append((f["inicio"] + 0.05, "whoosh", 0.45))
+            if not (f.get("esfumado") and f["inicio"] < 0.3):   # abrindo o vídeo já dividido: sem whoosh
+                ev.append((f["inicio"] + 0.05, "whoosh", 0.45))
         elif f["layout"] == "cheia" and f.get("entrada", "flash") == "flash":
             ev.append((f["inicio"], "whoosh-rapido", 0.5))
         else:
@@ -755,8 +795,14 @@ def gerar_index(plano, duracao):
     for f in plano.get("fotos", []):
         if f["layout"] == "dividida":
             d = foto_dividida_desce(f, meta)
-            js.append(f'tl.fromTo(".cam", {{y:0}}, {{y:{d}, duration:0.5, ease:"expo.out", immediateRender:false}}, {num(f["inicio"])});')
-            js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.42, ease:"expo.in", immediateRender:false}}, {num(f["fim"] - 0.44)});')
+            if f["inicio"] < 0.05:
+                js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:{d}, duration:0.01}}, 0);')
+            else:
+                js.append(f'tl.fromTo(".cam", {{y:0}}, {{y:{d}, duration:0.5, ease:"expo.out", immediateRender:false}}, {num(f["inicio"])});')
+            if f.get("esfumado"):
+                js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.55, ease:"power2.inOut", immediateRender:false}}, {num(f["fim"] - 0.55)});')
+            else:
+                js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.42, ease:"expo.in", immediateRender:false}}, {num(f["fim"] - 0.44)});')
     camadas = {lay: any(FOTO_CAMADA[f["layout"]] == lay for f in plano.get("fotos", [])) for lay in ("frente", "fundo")}
     fotos_fundo_html = """
       <div id="fotos-fundo" data-composition-id="fotos-fundo" data-composition-src="compositions/fotos-fundo.html"
