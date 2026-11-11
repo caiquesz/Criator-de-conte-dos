@@ -566,7 +566,10 @@ def gerar_fotos(plano, duracao, camada):
                 # no começo do vídeo já abre dividida; depois, entra e sai num esmaecer
                 entra = 0.01 if ini < 0.05 else 0.45
                 js.append(f'tl.fromTo("#{fid}-p", {{opacity:{1 if ini < 0.05 else 0}}}, {{opacity:1, duration:{entra}, ease:"power2.out"}}, {num(ini)});')
-                js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.5, ease:"power2.inOut"}}, {num(fim - 0.52)});')
+                if f.get("saida") == "corte":   # sai junto com um corte do vídeo: some no mesmo quadro
+                    js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.004}}, {num(fim - 0.006)});')
+                else:
+                    js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.5, ease:"power2.inOut"}}, {num(fim - 0.52)});')
             else:
                 js.append(f'tl.fromTo("#{fid}-p", {{yPercent:-100}}, {{yPercent:0, duration:0.5, ease:"expo.out"}}, {num(ini)});')
                 js.append(f'tl.to("#{fid}-p", {{yPercent:-100, duration:0.42, ease:"expo.in"}}, {num(fim - 0.44)});')
@@ -613,7 +616,7 @@ def gerar_fotos(plano, duracao, camada):
       .ft {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; height: {ALTURA}px; }}
       .ft-caixa {{ position: relative; overflow: hidden; border-radius: 20px; background: #161314; }}
       .ft-caixa.reta {{ border-radius: 0; }}
-      .ft-caixa img {{ position: absolute; max-width: none; display: block; }}
+      .ft-caixa img, .ft-caixa video {{ position: absolute; max-width: none; display: block; object-fit: fill; }}
       .ft-card {{ position: absolute; padding: {FOTO_BORDA}px; background: #FFFFFF; border-radius: 30px;
                  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.34), 0 6px 18px rgba(0, 0, 0, 0.18); }}
       .ft-rotulo {{ position: absolute; left: 0; right: 0; bottom: 20px; margin: 0 auto; width: fit-content;
@@ -799,7 +802,9 @@ def gerar_index(plano, duracao):
                 js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:{d}, duration:0.01}}, 0);')
             else:
                 js.append(f'tl.fromTo(".cam", {{y:0}}, {{y:{d}, duration:0.5, ease:"expo.out", immediateRender:false}}, {num(f["inicio"])});')
-            if f.get("esfumado"):
+            if f.get("saida") == "corte":
+                js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.004, immediateRender:false}}, {num(f["fim"] - 0.006)});')
+            elif f.get("esfumado"):
                 js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.55, ease:"power2.inOut", immediateRender:false}}, {num(f["fim"] - 0.55)});')
             else:
                 js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.42, ease:"expo.in", immediateRender:false}}, {num(f["fim"] - 0.44)});')

@@ -153,7 +153,7 @@ def main():
         for f in plano.get("fotos", []):
             for im in f["imagens"]:
                 src = im if isinstance(im, str) else im["src"]
-                if src not in fotos:
+                if src not in fotos and not (pasta / src).exists():
                     print(f"aviso: {f['id']} usa {src}, que não está em assets/fotos/")
     (pasta / "fotos.json").write_text(json.dumps({"fotos": fotos, "divididas": divididas}, ensure_ascii=False, indent=1))
     print("ok:", pasta / "fotos.json")

@@ -90,7 +90,7 @@
      "palavras": [
       {
        "t": "O",
-       "s": 0.46
+       "s": 0.864
       },
       {
        "t": "vídeo",
@@ -107,11 +107,12 @@
      ]
     }
    ],
-   "fim": 1.66
+   "fim": 1.66,
+   "sombra_forte": true
   },
   {
    "id": "g2",
-   "y": 980,
+   "y": 1000,
    "linhas": [
     {
      "estilo": "frase-forte",
@@ -127,7 +128,8 @@
      ]
     }
    ],
-   "fim": 3.14
+   "fim": 3.14,
+   "sombra_forte": true
   },
   {
    "id": "g3",
@@ -151,7 +153,8 @@
      ]
     }
    ],
-   "fim": 3.7
+   "fim": 3.7,
+   "sombra_forte": true
   },
   {
    "id": "g4",
@@ -171,7 +174,8 @@
      ]
     }
    ],
-   "fim": 4.7
+   "fim": 4.72,
+   "sombra_forte": true
   },
   {
    "id": "g5",
@@ -182,7 +186,7 @@
      "palavras": [
       {
        "t": "o",
-       "s": 4.72
+       "s": 4.736
       },
       {
        "t": "que",
@@ -199,7 +203,8 @@
      ]
     }
    ],
-   "fim": 5.54
+   "fim": 5.54,
+   "sombra_forte": true
   },
   {
    "id": "g6",
@@ -235,7 +240,8 @@
      ]
     }
    ],
-   "fim": 6.98
+   "fim": 7.02,
+   "sombra_forte": true
   },
   {
    "id": "g7",
@@ -246,7 +252,7 @@
      "palavras": [
       {
        "t": "mas",
-       "s": 7.0
+       "s": 7.04
       },
       {
        "t": "eu",
@@ -271,18 +277,19 @@
      ]
     }
    ],
-   "fim": 8.64
+   "fim": 8.26,
+   "sombra_forte": true
   },
   {
    "id": "g8",
-   "y": 1100,
+   "y": 1300,
    "linhas": [
     {
-     "estilo": "frase-fina",
+     "estilo": "frase",
      "palavras": [
       {
        "t": "primeiro,",
-       "s": 8.66
+       "s": 8.28
       }
      ]
     },
@@ -300,11 +307,12 @@
      ]
     }
    ],
-   "fim": 10.24
+   "fim": 10.24,
+   "sombra_forte": true
   },
   {
    "id": "g9",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -315,7 +323,7 @@
       },
       {
        "t": "treina",
-       "s": 10.38
+       "s": 10.44
       },
       {
        "t": "todos",
@@ -332,11 +340,12 @@
      ]
     }
    ],
-   "fim": 11.86
+   "fim": 11.86,
+   "sombra_forte": true
   },
   {
    "id": "g10",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -347,7 +356,7 @@
       },
       {
        "t": "academia",
-       "s": 11.88
+       "s": 11.94
       },
       {
        "t": "em",
@@ -360,18 +369,19 @@
      ]
     }
    ],
-   "fim": 12.98
+   "fim": 13.0,
+   "sombra_forte": true
   },
   {
    "id": "g11",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
      "palavras": [
       {
        "t": "se",
-       "s": 13.0
+       "s": 13.024
       },
       {
        "t": "alimenta",
@@ -384,11 +394,12 @@
      ]
     }
    ],
-   "fim": 14.34
+   "fim": 14.34,
+   "sombra_forte": true
   },
   {
    "id": "g12",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -404,11 +415,12 @@
      ]
     }
    ],
-   "fim": 15.14
+   "fim": 15.14,
+   "sombra_forte": true
   },
   {
    "id": "g13",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -428,11 +440,12 @@
      ]
     }
    ],
-   "fim": 16.1
+   "fim": 16.1,
+   "sombra_forte": true
   },
   {
    "id": "g14",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -456,11 +469,12 @@
      ]
     }
    ],
-   "fim": 17.86
+   "fim": 17.86,
+   "sombra_forte": true
   },
   {
    "id": "g15",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -488,14 +502,15 @@
      ]
     }
    ],
-   "fim": 19.22
+   "fim": 19.22,
+   "sombra_forte": true
   },
   {
    "id": "g16",
-   "y": 1100,
+   "y": 1200,
    "linhas": [
     {
-     "estilo": "frase-fina",
+     "estilo": "frase",
      "palavras": [
       {
        "t": "segundo,",
@@ -517,11 +532,12 @@
      ]
     }
    ],
-   "fim": 20.88
+   "fim": 20.88,
+   "sombra_forte": true
   },
   {
    "id": "g17",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -545,11 +561,12 @@
      ]
     }
    ],
-   "fim": 21.94
+   "fim": 21.94,
+   "sombra_forte": true
   },
   {
    "id": "g18",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -569,11 +586,12 @@
      ]
     }
    ],
-   "fim": 22.88
+   "fim": 22.88,
+   "sombra_forte": true
   },
   {
    "id": "g19",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -593,18 +611,19 @@
      ]
     }
    ],
-   "fim": 23.94
+   "fim": 24.01,
+   "sombra_forte": true
   },
   {
    "id": "g20",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
      "palavras": [
       {
        "t": "e",
-       "s": 23.96
+       "s": 24.032
       },
       {
        "t": "isso",
@@ -625,11 +644,12 @@
      ]
     }
    ],
-   "fim": 25.18
+   "fim": 25.18,
+   "sombra_forte": true
   },
   {
    "id": "g21",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -649,18 +669,19 @@
      ]
     }
    ],
-   "fim": 26.42
+   "fim": 26.44,
+   "sombra_forte": true
   },
   {
    "id": "g22",
-   "y": 1100,
+   "y": 1200,
    "linhas": [
     {
-     "estilo": "frase-fina",
+     "estilo": "frase",
      "palavras": [
       {
        "t": "é",
-       "s": 26.44
+       "s": 26.464
       },
       {
        "t": "o",
@@ -686,18 +707,19 @@
      ]
     }
    ],
-   "fim": 28.08
+   "fim": 27.78,
+   "sombra_forte": true
   },
   {
    "id": "g23",
-   "y": 1110,
+   "y": 1300,
    "linhas": [
     {
-     "estilo": "frase-fina",
+     "estilo": "frase",
      "palavras": [
       {
        "t": "terceiro,",
-       "s": 28.22
+       "s": 27.8
       }
      ]
     },
@@ -723,11 +745,12 @@
      ]
     }
    ],
-   "fim": 30.24
+   "fim": 30.24,
+   "sombra_forte": true
   },
   {
    "id": "g24",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -751,14 +774,15 @@
      ]
     }
    ],
-   "fim": 31.18
+   "fim": 31.18,
+   "sombra_forte": true
   },
   {
    "id": "g25",
-   "y": 1100,
+   "y": 1300,
    "linhas": [
     {
-     "estilo": "frase-fina",
+     "estilo": "frase",
      "palavras": [
       {
        "t": "uma",
@@ -776,11 +800,12 @@
      ]
     }
    ],
-   "fim": 32.16
+   "fim": 32.16,
+   "sombra_forte": true
   },
   {
    "id": "g26",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -800,11 +825,12 @@
      ]
     }
    ],
-   "fim": 33.04
+   "fim": 33.04,
+   "sombra_forte": true
   },
   {
    "id": "g27",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -824,11 +850,12 @@
      ]
     }
    ],
-   "fim": 33.88
+   "fim": 33.88,
+   "sombra_forte": true
   },
   {
    "id": "g28",
-   "y": 1120,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase-forte",
@@ -844,18 +871,19 @@
      ]
     }
    ],
-   "fim": 35.0
+   "fim": 35.12,
+   "sombra_forte": true
   },
   {
    "id": "g29",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
      "palavras": [
       {
        "t": "e",
-       "s": 35.02
+       "s": 35.136
       },
       {
        "t": "hoje",
@@ -868,11 +896,12 @@
      ]
     }
    ],
-   "fim": 35.9
+   "fim": 35.9,
+   "sombra_forte": true
   },
   {
    "id": "g30",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -892,11 +921,12 @@
      ]
     }
    ],
-   "fim": 36.8
+   "fim": 36.8,
+   "sombra_forte": true
   },
   {
    "id": "g31",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -912,11 +942,12 @@
      ]
     }
    ],
-   "fim": 37.48
+   "fim": 37.48,
+   "sombra_forte": true
   },
   {
    "id": "g32",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -936,11 +967,12 @@
      ]
     }
    ],
-   "fim": 38.34
+   "fim": 38.34,
+   "sombra_forte": true
   },
   {
    "id": "g33",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -956,11 +988,12 @@
      ]
     }
    ],
-   "fim": 39.4
+   "fim": 39.4,
+   "sombra_forte": true
   },
   {
    "id": "g34",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -980,11 +1013,12 @@
      ]
     }
    ],
-   "fim": 41.48
+   "fim": 41.48,
+   "sombra_forte": true
   },
   {
    "id": "g35",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1008,11 +1042,12 @@
      ]
     }
    ],
-   "fim": 42.86
+   "fim": 42.86,
+   "sombra_forte": true
   },
   {
    "id": "g36",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1032,11 +1067,12 @@
      ]
     }
    ],
-   "fim": 43.48
+   "fim": 43.48,
+   "sombra_forte": true
   },
   {
    "id": "g37",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1056,11 +1092,12 @@
      ]
     }
    ],
-   "fim": 44.38
+   "fim": 44.38,
+   "sombra_forte": true
   },
   {
    "id": "g38",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -1084,11 +1121,12 @@
      ]
     }
    ],
-   "fim": 45.12
+   "fim": 45.12,
+   "sombra_forte": true
   },
   {
    "id": "g39",
-   "y": 1110,
+   "y": 1300,
    "linhas": [
     {
      "estilo": "frase",
@@ -1117,11 +1155,12 @@
      ]
     }
    ],
-   "fim": 46.94
+   "fim": 46.94,
+   "sombra_forte": true
   },
   {
    "id": "g40",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1145,11 +1184,12 @@
      ]
     }
    ],
-   "fim": 48.16
+   "fim": 48.16,
+   "sombra_forte": true
   },
   {
    "id": "g41",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1173,14 +1213,15 @@
      ]
     }
    ],
-   "fim": 49.7
+   "fim": 49.7,
+   "sombra_forte": true
   },
   {
    "id": "g42",
-   "y": 1100,
+   "y": 1650,
    "linhas": [
     {
-     "estilo": "frase-fina",
+     "estilo": "frase",
      "palavras": [
       {
        "t": "o",
@@ -1206,11 +1247,12 @@
      ]
     }
    ],
-   "fim": 51.18
+   "fim": 51.18,
+   "sombra_forte": true
   },
   {
    "id": "g43",
-   "y": 1130,
+   "y": 1690,
    "linhas": [
     {
      "estilo": "frase",
@@ -1230,11 +1272,12 @@
      ]
     }
    ],
-   "fim": 51.9
+   "fim": 51.9,
+   "sombra_forte": true
   },
   {
    "id": "g44",
-   "y": 1130,
+   "y": 1690,
    "linhas": [
     {
      "estilo": "frase",
@@ -1254,18 +1297,19 @@
      ]
     }
    ],
-   "fim": 52.62
+   "fim": 52.78,
+   "sombra_forte": true
   },
   {
    "id": "g45",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
      "palavras": [
       {
        "t": "Mas",
-       "s": 52.64
+       "s": 52.8
       },
       {
        "t": "é",
@@ -1282,11 +1326,12 @@
      ]
     }
    ],
-   "fim": 54.32
+   "fim": 54.32,
+   "sombra_forte": true
   },
   {
    "id": "g46",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -1310,11 +1355,12 @@
      ]
     }
    ],
-   "fim": 55.5
+   "fim": 55.5,
+   "sombra_forte": true
   },
   {
    "id": "g47",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -1334,11 +1380,12 @@
      ]
     }
    ],
-   "fim": 56.08
+   "fim": 56.08,
+   "sombra_forte": true
   },
   {
    "id": "g48",
-   "y": 1130,
+   "y": 1340,
    "linhas": [
     {
      "estilo": "frase",
@@ -1358,11 +1405,12 @@
      ]
     }
    ],
-   "fim": 57.0
+   "fim": 57.0,
+   "sombra_forte": true
   },
   {
    "id": "g49",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1386,11 +1434,12 @@
      ]
     }
    ],
-   "fim": 57.96
+   "fim": 57.96,
+   "sombra_forte": true
   },
   {
    "id": "g50",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1406,11 +1455,12 @@
      ]
     }
    ],
-   "fim": 58.72
+   "fim": 58.72,
+   "sombra_forte": true
   },
   {
    "id": "g51",
-   "y": 1120,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase-forte",
@@ -1426,11 +1476,12 @@
      ]
     }
    ],
-   "fim": 60.0
+   "fim": 60.0,
+   "sombra_forte": true
   },
   {
    "id": "g52",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1450,11 +1501,12 @@
      ]
     }
    ],
-   "fim": 61.0
+   "fim": 61.0,
+   "sombra_forte": true
   },
   {
    "id": "g53",
-   "y": 1130,
+   "y": 1240,
    "linhas": [
     {
      "estilo": "frase",
@@ -1478,11 +1530,12 @@
      ]
     }
    ],
-   "fim": 62.48
+   "fim": 62.48,
+   "sombra_forte": true
   },
   {
    "id": "g54",
-   "y": 1100,
+   "y": 1200,
    "linhas": [
     {
      "estilo": "frase",
@@ -1506,12 +1559,13 @@
       },
       {
        "t": "Virgínia.",
-       "s": 62.98
+       "s": 63.0
       }
      ]
     }
    ],
-   "fim": 63.88
+   "fim": 63.88,
+   "sombra_forte": true
   }
  ],
  "fotos": [
@@ -1520,7 +1574,7 @@
    "layout": "dividida",
    "esfumado": true,
    "inicio": 0.0,
-   "fim": 8.15,
+   "fim": 8.1333,
    "corte": 1000,
    "imagens": [
     {
@@ -1530,7 +1584,8 @@
       0.73
      ]
     }
-   ]
+   ],
+   "saida": "corte"
   },
   {
    "id": "f2",
@@ -1544,35 +1599,35 @@
  ],
  "transicoes": [
   {
-   "t": 8.15,
+   "t": 8.1333,
    "tipo": "corte"
   },
   {
-   "t": 19.05,
+   "t": 19.0667,
    "tipo": "corte"
   },
   {
-   "t": 27.69,
+   "t": 27.7,
    "tipo": "corte"
   },
   {
-   "t": 37.49,
+   "t": 37.5,
    "tipo": "corte"
   },
   {
-   "t": 44.29,
+   "t": 44.3,
    "tipo": "corte"
   },
   {
-   "t": 46.87,
+   "t": 46.8667,
    "tipo": "corte"
   },
   {
-   "t": 52.61,
+   "t": 52.6,
    "tipo": "corte"
   },
   {
-   "t": 56.89,
+   "t": 56.9,
    "tipo": "corte"
   }
  ]

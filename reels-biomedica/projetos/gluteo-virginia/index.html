@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      :root {
+        --texto: #FFFFFF;
+        --destaque: #FFFFFF;
+        --destaque-brilho: transparent;
+        --destaque-sombra: rgba(56, 46, 46, 0.42);
+        --destaque-sombra-leve: rgba(56, 46, 46, 0.22);
+        --destaque-escuro: #FFFFFF;
+        --vazamento: #FF9A4D;
+      }
+      .cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+      .cam video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .transicao { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+      .transicao.luz { mix-blend-mode: screen; }
+      .vazamento { position: absolute; inset: -25%; opacity: 0; }
+      .vazamento.ambar {
+        background: radial-gradient(ellipse 50% 95% at 18% 55%, rgba(255, 244, 214, 0.95), transparent 46%),
+                    radial-gradient(ellipse 75% 120% at 28% 50%, var(--vazamento), transparent 68%);
+        filter: blur(30px);
+      }
+      .vazamento.quente {
+        background: radial-gradient(ellipse 60% 100% at 78% 35%, rgba(255, 92, 60, 0.75), rgba(255, 60, 90, 0.25) 50%, transparent 76%);
+        filter: blur(40px);
+      }
+      .vazamento.clarao { background: radial-gradient(ellipse 90% 80% at 50% 45%, rgba(255, 248, 232, 1), rgba(255, 214, 160, 0.85) 55%, rgba(255, 170, 110, 0.6)); }
+      .cortina { position: absolute; inset: 0; background: #000; opacity: 0; }
+      .cortina.branca { background: #fff8ee; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="63.9"
+      data-width="1080" data-height="1920">
+      <div class="cam" id="cam-video" style="z-index: 1">
+        <video id="video" class="clip" src="assets/video/video.mp4" data-start="0" data-duration="63.9"
+          data-track-index="0" data-has-audio="true" playsinline></video>
+      </div>
+
+      <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
+        data-start="0" data-duration="63.9" data-track-index="2" data-track-kind="captions"
+        data-width="1080" data-height="1920" style="z-index: 7"></div>
+
+      <div id="fotos" data-composition-id="fotos" data-composition-src="compositions/fotos.html"
+        data-start="0" data-duration="63.9" data-track-index="4" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 5"></div>
+      <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
+        data-start="0" data-duration="63.9" data-track-index="3" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 6"></div>
+
+      
+
+      <audio id="sfx1" src="assets/sfx/click.mp3" data-start="0.824" data-duration="0.366" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx2" src="assets/sfx/click-agudo.mp3" data-start="1.651" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx3" src="assets/sfx/click-agudo.mp3" data-start="9.111" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx4" src="assets/sfx/click-agudo.mp3" data-start="19.891" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx5" src="assets/sfx/click-agudo.mp3" data-start="26.711" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx6" src="assets/sfx/click-agudo.mp3" data-start="31.551" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx7" src="assets/sfx/click-agudo.mp3" data-start="33.871" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx8" src="assets/sfx/click-agudo.mp3" data-start="46.011" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx9" src="assets/sfx/whoosh-rapido.mp3" data-start="49.593" data-duration="0.549" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx10" src="assets/sfx/click-agudo.mp3" data-start="50.191" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx11" src="assets/sfx/click-agudo.mp3" data-start="58.711" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx12" src="assets/sfx/click-agudo.mp3" data-start="62.911" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: 63.9 }, 0);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 8.133);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 19.067);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 27.7);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 37.5);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 44.3);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 46.867);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 52.6);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 56.9);
+      tl.fromTo(".cam", {y:445}, {y:445, duration:0.01}, 0);
+      tl.fromTo(".cam", {y:445}, {y:0, duration:0.004, immediateRender:false}, 8.127);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

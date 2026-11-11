@@ -63,6 +63,19 @@ de `fotos` no `plano.json`, presa à fala:
   (com `recorte_janelas` só nesses trechos); a foto desce até `altura` e some num degradê para o
   fundo do vídeo. O quadril da foto fica à direita (`"centro": [0.72, 0.5]`, fração da caixa), ao
   lado dela e não escondido atrás; mude o `centro` se a foto pedir.
+- **Vídeo no lugar da foto:** uma imagem pode ser um vídeo (`assets/fotos/x.mp4`, ex.: a gravação de
+  tela de um post da famosa, convertida para 1080×1920 a 30 fps com `-g 30`); entra sem som, a voz
+  dela continua. Dê o `foco` à mão (`{"src": "assets/fotos/x.mp4", "foco": [0.5, 0.73]}`).
+- **Tela dividida esfumada** (`"esfumado": true`, referência 1): sem linha branca, a parte de cima
+  se dissolve no vídeo dela (`"dissolve": 0.3` da altura do painel). No começo do vídeo já abre
+  dividida; `"saida": "corte"` faz sair no mesmo quadro de um corte de enquadramento (sem a faixa
+  preta que aparece quando o vídeo sobe enquanto o painel some).
+- **Planos aberto, médio e fechado** numa tomada só: `"enquadramentos"` no plano e
+  `scripts/reenquadrar.py` (corta do 4K original, nas pausas da fala; ponha as transições `corte`
+  nos mesmos quadros, `quadro/30`).
+- **Legenda em cenário claro** (poltrona e almofada brancas): meça a faixa mais escura de cada plano
+  e ponha a legenda nela (na Virgínia, a calça jeans), com `sombra_forte`; numa foto em tela cheia,
+  fora do que a foto mostra.
 - Cada formato tem som de entrada (whoosh, clique); `"sons": false` tira. O `mixar.py` baixa os
   efeitos na mesma proporção quando a voz foi gravada mais baixa que a do André (a dela veio uns
   24 dB mais baixa), sem tocar na voz.
