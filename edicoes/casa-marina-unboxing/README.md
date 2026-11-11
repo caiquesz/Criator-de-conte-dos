@@ -2,8 +2,21 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual (teste com texto branco): `casa-marina-unboxing-editado-v4-branco.mp4`.** O vídeo tem 46,4 s, em H.264 1080x1920 a 30 fps (~7 Mbps), e **não tem áudio**.
-A versão anterior, com o texto em marrom, continua em `casa-marina-unboxing-editado-v3.mp4` para comparação.
+**Entrega atual: `casa-marina-unboxing-editado-v5.mp4`.** O vídeo tem 46,4 s, em H.264 1080x1920 a 30 fps (~7 Mbps), e **não tem áudio**.
+As versões anteriores ficaram no histórico do git (v4 `c79e0aa`, v3 `ac19ed4`, v2 `f1ea05a`, v1 `a6061e1`).
+
+## v5: fontes da combinação "Sequel + CC-Doodly" e risquinho reto
+- **Fontes:** a 2ª combinação do reel de referência. A Sequel é paga e a CC-Doodly é exclusiva do CapCut, então usei as equivalentes livres mais parecidas:
+  - **Unbounded ExtraBold, 46 px, caixa-alta** (como a Sequel), com o nome da peça;
+  - **Coming Soon, 40 px, manuscrita** (como a CC-Doodly), com o material.
+- Texto **centralizado e branco**, sem contorno, só com uma sombra difusa.
+- **Risquinho reto (vertical) e parado:** ele não acompanha mais o movimento do vídeo. Nasce na peça e cresce até o texto, e depois o texto aparece.
+  - O sousplat tem o texto embaixo e o risquinho sobe até o sousplat vermelho, longe do prato.
+  - O geométrico tem o texto em cima, no piso, e o risquinho desce até o tapete.
+  - Nos outros, o texto fica sobre a peça e o risquinho sobe até ela.
+- As posições foram escolhidas com `scripts/place_search.py` e `scripts/bg_luma.py`, para o fundo do texto branco ficar escuro durante todo o tempo do nome.
+- O resto é igual à v4: véu branco com logo na abertura e no final, e zoom suave no adesivo.
+- Ver `scripts/render_v5.py`.
 
 ## v4 (teste com texto branco)
 - **Abertura com véu branco:** o vídeo começa desfocado sob um véu branco e a logo marrom aparece junto. Depois a logo some com fade e desfoque, o véu se dissolve e o vídeo começa nítido (0 a 1,9 s).
