@@ -2,7 +2,18 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-editado-v3.mp4`.** O vídeo tem 44,9 s, em H.264 1080x1920 a 30 fps (~7 Mbps), e **não tem áudio** (sem som ambiente, sem efeitos e sem música).
+**Entrega atual (teste com texto branco): `casa-marina-unboxing-editado-v4-branco.mp4`.** O vídeo tem 46,4 s, em H.264 1080x1920 a 30 fps (~7 Mbps), e **não tem áudio**.
+A versão anterior, com o texto em marrom, continua em `casa-marina-unboxing-editado-v3.mp4` para comparação.
+
+## v4 (teste com texto branco)
+- **Abertura com véu branco:** o vídeo começa desfocado sob um véu branco e a logo marrom aparece junto. Depois a logo some com fade e desfoque, o véu se dissolve e o vídeo começa nítido (0 a 1,9 s).
+- **Final com fade out:** o último take vai desfocando sob o véu branco e a logo volta a aparecer, espelhando a abertura (últimos ~1,7 s).
+- **Zoom no adesivo mais suave:** foi de 1,7x para 1,3x.
+- **Textos brancos e maiores:** Cormorant Garamond Italic 84 px + Lexend Mega Light 28 px (na v3 eram 70/24). Não há contorno, só uma sombra bem difusa.
+  - Cada nome fica sobre uma parte escura da peça. Medi o brilho do fundo quadro a quadro com o `scripts/bg_luma.py`.
+  - Exceção: o geométrico ficou no mesmo layout da v3, sobre o piso, com a sombra difusa um pouco mais forte.
+- **Sousplat:** o nome foi para o close do sousplat vermelho, e o risquinho aponta para o sousplat, não mais para o prato.
+- Ver `scripts/render_v4.py` (`--plan` mostra cortes e tempos).
 
 Fora desta versão: color grading e música. As cores do bruto foram mantidas: o vídeo é decodificado e recodificado na mesma matriz BT.709, e conferi que o brilho médio de cada corte é igual ao do bruto.
 
