@@ -1,0 +1,442 @@
+[
+ {
+  "kind": "cap",
+  "t0": 0.06,
+  "t1": 0.28,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "uma",
+    "size": 60,
+    "font": "cool",
+    "t": 0.06
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 0.28,
+  "t1": 1.2,
+  "y": 1010,
+  "lines": [
+   {
+    "text": "mesa bonita",
+    "size": 134,
+    "font": "serif",
+    "t": 0.28
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 1.2,
+  "t1": 1.8,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "começa com",
+    "size": 60,
+    "font": "cool",
+    "t": 1.2
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 1.8,
+  "t1": 2.82,
+  "y": 1010,
+  "lines": [
+   {
+    "text": "uma",
+    "size": 56,
+    "font": "cool",
+    "t": 1.8
+   },
+   {
+    "text": "boa toalha",
+    "size": 130,
+    "font": "serif",
+    "t": 1.96
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 2.86,
+  "t1": 3.58,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "e essa aqui",
+    "size": 60,
+    "font": "cool",
+    "t": 2.86
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 3.58,
+  "t1": 4.24,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "pode ser a que",
+    "size": 60,
+    "font": "cool",
+    "t": 3.58
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 4.24,
+  "t1": 4.98,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "você estava",
+    "size": 60,
+    "font": "cool",
+    "t": 4.24
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 4.98,
+  "t1": 5.7,
+  "y": 1010,
+  "lines": [
+   {
+    "text": "procurando",
+    "size": 138,
+    "font": "serif",
+    "t": 4.98
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 5.76,
+  "t1": 6.65,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "essa é a nossa",
+    "size": 60,
+    "font": "cool",
+    "t": 5.76
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 6.65,
+  "t1": 7.74,
+  "y": 1010,
+  "lines": [
+   {
+    "text": "toalha",
+    "size": 120,
+    "font": "serif",
+    "t": 6.65
+   },
+   {
+    "text": "piquenique",
+    "size": 140,
+    "font": "serif",
+    "t": 7.15
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 7.76,
+  "t1": 8.55,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "é uma toalha que",
+    "size": 60,
+    "font": "cool",
+    "t": 7.76
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 8.55,
+  "t1": 9.23,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "deixa a mesa",
+    "size": 60,
+    "font": "cool",
+    "t": 8.55
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 9.23,
+  "t1": 9.77,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "muito mais",
+    "size": 60,
+    "font": "cool",
+    "t": 9.23
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 9.77,
+  "t1": 12.5,
+  "y": 1080,
+  "lines": [
+   {
+    "text": "bonita,",
+    "size": 120,
+    "font": "serif",
+    "t": 9.77
+   },
+   {
+    "text": "alegre e",
+    "size": 120,
+    "font": "serif",
+    "t": 10.59
+   },
+   {
+    "text": "aconchegante",
+    "size": 110,
+    "font": "serif",
+    "t": 11.45
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 12.57,
+  "t1": 13.57,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "ela é perfeita",
+    "size": 60,
+    "font": "cool",
+    "t": 12.57
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 13.57,
+  "t1": 14.49,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "para refeições",
+    "size": 60,
+    "font": "cool",
+    "t": 13.57
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 14.49,
+  "t1": 15.3,
+  "y": 900,
+  "lines": [
+   {
+    "text": "em",
+    "size": 56,
+    "font": "cool",
+    "t": 14.49
+   },
+   {
+    "text": "família",
+    "size": 160,
+    "font": "serif",
+    "t": 14.61
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 15.32,
+  "t1": 16.54,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "cafés da tarde,",
+    "size": 60,
+    "font": "cool",
+    "t": 15.32
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 16.54,
+  "t1": 17.38,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "piqueniques",
+    "size": 60,
+    "font": "cool",
+    "t": 16.54
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 17.38,
+  "t1": 18.18,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "e também para",
+    "size": 60,
+    "font": "cool",
+    "t": 17.38
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 18.18,
+  "t1": 19.78,
+  "y": 1140,
+  "lines": [
+   {
+    "text": "valorizar",
+    "size": 130,
+    "font": "serif",
+    "t": 18.18
+   },
+   {
+    "text": "a decoração",
+    "size": 110,
+    "font": "serif",
+    "t": 19.04
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 19.78,
+  "t1": 20.62,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "de sua casa.",
+    "size": 60,
+    "font": "cool",
+    "t": 19.78
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 20.62,
+  "t1": 21.4,
+  "y": 900,
+  "lines": [
+   {
+    "text": "garanta já",
+    "size": 130,
+    "font": "serif",
+    "t": 20.62
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 21.4,
+  "t1": 22.09,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "a sua,",
+    "size": 60,
+    "font": "cool",
+    "t": 21.4
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 22.09,
+  "t1": 22.85,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "entre em contato",
+    "size": 60,
+    "font": "cool",
+    "t": 22.09
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 22.85,
+  "t1": 23.63,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "conosco",
+    "size": 60,
+    "font": "cool",
+    "t": 22.85
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 23.63,
+  "t1": 24.47,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "e consulte as",
+    "size": 60,
+    "font": "cool",
+    "t": 23.63
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 24.47,
+  "t1": 28.033333333333335,
+  "y": 980,
+  "lines": [
+   {
+    "text": "cores",
+    "size": 160,
+    "font": "serif",
+    "t": 24.47
+   },
+   {
+    "text": "e tamanhos",
+    "size": 110,
+    "font": "serif",
+    "t": 25.15
+   },
+   {
+    "text": "disponíveis",
+    "size": 96,
+    "font": "serif",
+    "t": 25.75
+   }
+  ]
+ }
+]

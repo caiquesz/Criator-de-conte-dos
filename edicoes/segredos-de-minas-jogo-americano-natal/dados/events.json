@@ -1,0 +1,576 @@
+[
+ {
+  "kind": "cap",
+  "t0": 0.02,
+  "t1": 0.96,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "você não precisa",
+    "size": 60,
+    "font": "cool",
+    "t": 0.02
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 0.96,
+  "t1": 1.92,
+  "y": 980,
+  "lines": [
+   {
+    "text": "gastar muito",
+    "size": 124,
+    "font": "serif",
+    "t": 0.96
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 1.92,
+  "t1": 2.7,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "para montar uma",
+    "size": 60,
+    "font": "cool",
+    "t": 1.92
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 2.7,
+  "t1": 3.48,
+  "y": 980,
+  "lines": [
+   {
+    "text": "mesa linda",
+    "size": 146,
+    "font": "serif",
+    "t": 2.7
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 3.48,
+  "t1": 4.22,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "nesse Natal.",
+    "size": 60,
+    "font": "cool",
+    "t": 3.48
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 4.29,
+  "t1": 5.13,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "às vezes são os",
+    "size": 60,
+    "font": "cool",
+    "t": 4.29
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 5.13,
+  "t1": 6.25,
+  "y": 980,
+  "lines": [
+   {
+    "text": "pequenos",
+    "size": 130,
+    "font": "serif",
+    "t": 5.13
+   },
+   {
+    "text": "detalhes",
+    "size": 130,
+    "font": "serif",
+    "t": 5.57
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 6.25,
+  "t1": 7.65,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "que fazem a diferença.",
+    "size": 60,
+    "font": "cool",
+    "t": 6.25
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 7.75,
+  "t1": 8.39,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "olha só esse",
+    "size": 60,
+    "font": "cool",
+    "t": 7.75
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 8.39,
+  "t1": 9.85,
+  "y": 980,
+  "lines": [
+   {
+    "text": "jogo americano",
+    "size": 104,
+    "font": "serif",
+    "t": 8.39
+   },
+   {
+    "text": "de Natal",
+    "size": 104,
+    "font": "serif",
+    "t": 9.23
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 9.85,
+  "t1": 10.53,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "que nós temos",
+    "size": 60,
+    "font": "cool",
+    "t": 9.85
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 10.53,
+  "t1": 10.87,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "aqui na",
+    "size": 60,
+    "font": "cool",
+    "t": 10.53
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 10.87,
+  "t1": 11.92,
+  "y": 980,
+  "lines": [
+   {
+    "text": "Segredos",
+    "size": 116,
+    "font": "serif",
+    "t": 10.87
+   },
+   {
+    "text": "de Minas",
+    "size": 116,
+    "font": "serif",
+    "t": 10.87
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 11.97,
+  "t1": 12.97,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "ele contém",
+    "size": 60,
+    "font": "cool",
+    "t": 11.97
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 12.97,
+  "t1": 15.79,
+  "y": 980,
+  "lines": [
+   {
+    "text": "6 americanos",
+    "size": 118,
+    "font": "serif",
+    "t": 12.97
+   },
+   {
+    "text": "+ 6 guardanapos",
+    "size": 96,
+    "font": "serif",
+    "t": 14.55
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 15.79,
+  "t1": 16.59,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "produzidos",
+    "size": 60,
+    "font": "cool",
+    "t": 15.79
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 16.59,
+  "t1": 17.75,
+  "y": 980,
+  "lines": [
+   {
+    "text": "100% algodão",
+    "size": 112,
+    "font": "serif",
+    "t": 16.59
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 17.82,
+  "t1": 18.84,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "é uma ótima opção",
+    "size": 60,
+    "font": "cool",
+    "t": 17.82
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 18.84,
+  "t1": 19.64,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "para dar aquele",
+    "size": 60,
+    "font": "cool",
+    "t": 18.84
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 19.64,
+  "t1": 20.56,
+  "y": 980,
+  "lines": [
+   {
+    "text": "toque natalino",
+    "size": 110,
+    "font": "serif",
+    "t": 19.64
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 20.56,
+  "t1": 21.38,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "à sua mesa",
+    "size": 60,
+    "font": "cool",
+    "t": 20.56
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 21.43,
+  "t1": 22.35,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "e deixar tudo",
+    "size": 60,
+    "font": "cool",
+    "t": 21.43
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 22.35,
+  "t1": 23.45,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "ainda mais bonito",
+    "size": 60,
+    "font": "cool",
+    "t": 22.35
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 23.45,
+  "t1": 24.17,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "para receber",
+    "size": 60,
+    "font": "cool",
+    "t": 23.45
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 24.17,
+  "t1": 25.05,
+  "y": 980,
+  "lines": [
+   {
+    "text": "a sua",
+    "size": 56,
+    "font": "cool",
+    "t": 24.17
+   },
+   {
+    "text": "família",
+    "size": 160,
+    "font": "serif",
+    "t": 24.51
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 25.08,
+  "t1": 25.5,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "e aqui na",
+    "size": 60,
+    "font": "cool",
+    "t": 25.08
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 25.5,
+  "t1": 26.58,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "Segredos de Minas",
+    "size": 60,
+    "font": "cool",
+    "t": 25.5
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 26.58,
+  "t1": 27.94,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "você também encontra",
+    "size": 60,
+    "font": "cool",
+    "t": 26.58
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 27.94,
+  "t1": 30.18,
+  "y": 980,
+  "lines": [
+   {
+    "text": "outras opções",
+    "size": 116,
+    "font": "serif",
+    "t": 27.94
+   },
+   {
+    "text": "de cores natalinas",
+    "size": 88,
+    "font": "serif",
+    "t": 28.84
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 30.22,
+  "t1": 31.16,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "então se você quer",
+    "size": 60,
+    "font": "cool",
+    "t": 30.22
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 31.16,
+  "t1": 32.06,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "montar a sua mesa",
+    "size": 60,
+    "font": "cool",
+    "t": 31.16
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 32.06,
+  "t1": 32.75,
+  "y": 980,
+  "lines": [
+   {
+    "text": "de",
+    "size": 56,
+    "font": "cool",
+    "t": 32.06
+   },
+   {
+    "text": "Natal",
+    "size": 176,
+    "font": "serif",
+    "t": 32.2
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 32.77,
+  "t1": 33.59,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "não deixe de entrar",
+    "size": 60,
+    "font": "cool",
+    "t": 32.77
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 33.59,
+  "t1": 34.69,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "em contato com a gente.",
+    "size": 60,
+    "font": "cool",
+    "t": 33.59
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 34.69,
+  "t1": 35.29,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "clique aí no",
+    "size": 60,
+    "font": "cool",
+    "t": 34.69
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 35.29,
+  "t1": 36.19,
+  "y": 980,
+  "lines": [
+   {
+    "text": "link abaixo",
+    "size": 144,
+    "font": "serif",
+    "t": 35.29
+   }
+  ]
+ },
+ {
+  "kind": "cap",
+  "t0": 36.2,
+  "t1": 37.07,
+  "y": 1330,
+  "lines": [
+   {
+    "text": "que enviamos para",
+    "size": 60,
+    "font": "cool",
+    "t": 36.2
+   }
+  ]
+ },
+ {
+  "kind": "hl",
+  "t0": 37.07,
+  "t1": 39.06666666666667,
+  "y": 980,
+  "lines": [
+   {
+    "text": "todo o Brasil",
+    "size": 128,
+    "font": "serif",
+    "t": 37.07
+   }
+  ]
+ }
+]

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="assets/js/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Coolvetica"; src: url("assets/fonts/Coolvetica-Rg.otf") format("opentype"); font-display: block; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+#root { position: relative; width: 1080px; height: 1920px; font-family: "Coolvetica", sans-serif; color: #fff;
+        font-feature-settings: "liga" 1, "kern" 1; -webkit-font-smoothing: antialiased; }
+.ev { position: absolute; top: 0; opacity: 0; white-space: nowrap; }
+.line { display: block; white-space: nowrap; line-height: 0.86; letter-spacing: -0.012em; }
+.ch { display: inline-block; will-change: transform, opacity, filter; }
+.sp { display: inline-block; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="36.1667" data-width="1080" data-height="1920"></div>
+<script>
+const EV = [{"kind": "stack", "t0": 0.0, "t1": 1.1, "x": 990, "y": 760, "align": "right", "lines": [{"text": "você está", "size": 60, "color": "#ffffff", "t": 0.0}, {"text": "procurando", "size": 112, "color": "#ffffff", "t": 0.56}]}, {"kind": "stack", "t0": 1.1, "t1": 2.44, "x": 540, "y": 960, "align": "center", "lines": [{"text": "uma opção de", "size": 60, "color": "#ffffff", "t": 1.1}, {"text": "presente", "size": 140, "color": "#ffffff", "t": 1.68}]}, {"kind": "cap", "t0": 2.44, "t1": 3.4, "x": 930, "y": 1170, "align": "right", "lines": [{"text": "bonita,", "size": 104, "color": "#ffffff", "t": 2.44}]}, {"kind": "cap", "t0": 3.4, "t1": 4.04, "x": 90, "y": 1170, "align": "left", "lines": [{"text": "útil", "size": 104, "color": "#ffffff", "t": 3.4}]}, {"kind": "stack", "t0": 4.04, "t1": 6.0, "x": 540, "y": 1170, "align": "center", "lines": [{"text": "e com ótimo", "size": 60, "color": "#ffffff", "t": 4.04}, {"text": "custo-benefício?", "size": 104, "color": "#ffffff", "t": 4.84}]}, {"kind": "stack", "t0": 6.13, "t1": 7.7, "x": 90, "y": 946.9315305328369, "align": "left", "lines": [{"text": "olha esse", "size": 60, "color": "#ffffff", "t": 6.13}, {"text": "kit de lavabo", "size": 112, "color": "#ffffff", "t": 6.75}]}, {"kind": "cap", "t0": 7.77, "t1": 8.58, "x": 90, "y": 430, "align": "left", "lines": [{"text": "ele vem com um", "size": 64, "color": "#ffffff", "t": 7.77}]}, {"kind": "stack", "t0": 8.58, "t1": 12.8, "x": 540, "y": 960, "align": "center", "lines": [{"text": "tapete", "size": 150, "color": "#ffffff", "t": 8.58}, {"text": "", "size": 78, "color": "#ffffff", "t": 10.31, "parts": [{"text": "0,65", "t": 10.31}, {"text": " x 0,40 m", "t": 12.13}]}]}, {"kind": "cap", "t0": 9.43, "t1": 10.31, "x": 930, "y": 1330, "align": "right", "lines": [{"text": "que tem a medida de", "size": 64, "color": "#ffffff", "t": 9.43}]}, {"kind": "cap", "t0": 12.98, "t1": 13.92, "x": 90, "y": 1068, "align": "left", "lines": [{"text": "e uma toalhinha", "size": 100, "color": "#ffffff", "t": 12.98}]}, {"kind": "stack", "t0": 13.92, "t1": 14.84, "x": 930, "y": 1060, "align": "right", "lines": [{"text": "de rosto", "size": 84, "color": "#ffffff", "t": 13.92}, {"text": "ou de mão", "size": 84, "color": "#ffffff", "t": 14.34}]}, {"kind": "cap", "t0": 14.92, "t1": 15.6, "x": 90, "y": 1170, "align": "left", "lines": [{"text": "e olha só", "size": 64, "color": "#ffffff", "t": 14.92}]}, {"kind": "stack", "t0": 15.6, "t1": 17.82, "x": 90, "y": 430, "align": "left", "lines": [{"text": "o capricho", "size": 120, "color": "#ffffff", "t": 15.6}, {"text": "no acabamento", "size": 64, "color": "#ffffff", "t": 16.4}, {"text": "artesanal", "size": 120, "color": "#ffffff", "t": 17.14}]}, {"kind": "cap", "t0": 17.82, "t1": 18.68, "x": 90, "y": 1330, "align": "left", "lines": [{"text": "dessas peças.", "size": 76, "color": "#ffffff", "t": 17.82}]}, {"kind": "stack", "t0": 18.74, "t1": 20.4, "x": 930, "y": 1330, "align": "right", "lines": [{"text": "aqui na", "size": 60, "color": "#ffffff", "t": 18.74}, {"text": "segredos de minas", "size": 100, "color": "#ffffff", "t": 19.28}]}, {"kind": "cap", "t0": 20.43, "t1": 21.17, "x": 90, "y": 430, "align": "left", "lines": [{"text": "temos várias", "size": 64, "color": "#ffffff", "t": 20.43}]}, {"kind": "stack", "t0": 21.17, "t1": 22.47, "x": 990, "y": 430, "align": "right", "lines": [{"text": "opções de", "size": 60, "color": "#ffffff", "t": 21.17}, {"text": "cores", "size": 156, "color": "#ffffff", "t": 21.79}]}, {"kind": "cap", "t0": 22.47, "t1": 23.69, "x": 930, "y": 1330, "align": "right", "lines": [{"text": "para você escolher", "size": 64, "color": "#ffffff", "t": 22.47}]}, {"kind": "cap", "t0": 23.69, "t1": 24.29, "x": 540, "y": 1170, "align": "center", "lines": [{"text": "a que mais", "size": 64, "color": "#ffffff", "t": 23.69}]}, {"kind": "cap", "t0": 24.29, "t1": 24.79, "x": 90, "y": 1330, "align": "left", "lines": [{"text": "combina", "size": 112, "color": "#ffffff", "t": 24.29}]}, {"kind": "cap", "t0": 24.79, "t1": 25.76, "x": 90, "y": 430, "align": "left", "lines": [{"text": "com o ambiente", "size": 64, "color": "#ffffff", "t": 24.79}]}, {"kind": "cap", "t0": 25.8, "t1": 26.44, "x": 930, "y": 1170, "align": "right", "lines": [{"text": "ou com a pessoa", "size": 64, "color": "#ffffff", "t": 25.8}]}, {"kind": "cap", "t0": 26.44, "t1": 27.22, "x": 90, "y": 430, "align": "left", "lines": [{"text": "que vai receber", "size": 64, "color": "#ffffff", "t": 26.44}]}, {"kind": "cap", "t0": 27.22, "t1": 27.92, "x": 90, "y": 1330, "align": "left", "lines": [{"text": "esse presente.", "size": 80, "color": "#ffffff", "t": 27.22}]}, {"kind": "cap", "t0": 27.93, "t1": 28.71, "x": 540, "y": 1330, "align": "center", "lines": [{"text": "nós enviamos", "size": 64, "color": "#ffffff", "t": 27.93}]}, {"kind": "stack", "t0": 28.71, "t1": 29.51, "x": 930, "y": 1330, "align": "right", "lines": [{"text": "para todo o", "size": 60, "color": "#ffffff", "t": 28.71}, {"text": "brasil", "size": 156, "color": "#ffffff", "t": 28.99}]}, {"kind": "stack", "t0": 29.51, "t1": 30.9, "x": 90, "y": 1330, "align": "left", "lines": [{"text": "com frete", "size": 60, "color": "#ffffff", "t": 29.51}, {"text": "acessível", "size": 124, "color": "#ffffff", "t": 30.07}]}, {"kind": "stack", "t0": 30.95, "t1": 32.24, "x": 540, "y": 1330, "align": "center", "lines": [{"text": "clique no", "size": 60, "color": "#ffffff", "t": 30.95}, {"text": "link abaixo", "size": 124, "color": "#ffffff", "t": 31.36}]}, {"kind": "cap", "t0": 32.26, "t1": 33.1, "x": 90, "y": 1330, "align": "left", "lines": [{"text": "conheça todas", "size": 64, "color": "#ffffff", "t": 32.26}]}, {"kind": "stack", "t0": 33.1, "t1": 34.7, "x": 930, "y": 1330, "align": "right", "lines": [{"text": "as cores", "size": 60, "color": "#ffffff", "t": 33.1}, {"text": "disponíveis", "size": 116, "color": "#ffffff", "t": 33.66}]}, {"kind": "stack", "t0": 34.7, "t1": 37.166666666666664, "x": 540, "y": 1330, "align": "center", "lines": [{"text": "e já garanta", "size": 64, "color": "#ffffff", "t": 34.7}, {"text": "o seu", "size": 168, "color": "#ffffff", "t": 35.5}]}];
+const root = document.getElementById("root");
+const tl = gsap.timeline({ paused: true });
+function glyphs(text) {               // keep Coolvetica's "qu" ligature intact
+  const out = []; let i = 0;
+  while (i < text.length) {
+    if (text.slice(i, i + 2).toLowerCase() === "qu") { out.push(text.slice(i, i + 2)); i += 2; continue; }
+    out.push(text[i]); i += 1;
+  }
+  return out;
+}
+function buildLine(L, align) {
+  const el = document.createElement("div");
+  el.className = "line"; el.style.fontSize = L.size + "px"; el.style.textAlign = align;
+  const parts = L.parts || [{ text: L.text, t: L.t }];
+  parts.forEach((P, pi) => {
+    for (const g of glyphs(P.text)) {
+      const s = document.createElement("span");
+      if (g === " ") { s.className = "sp"; s.innerHTML = "&nbsp;"; } else { s.className = "ch p" + pi; s.textContent = g; }
+      el.appendChild(s);
+    }
+  });
+  return el;
+}
+EV.forEach((e, idx) => {
+  const box = document.createElement("div");
+  box.className = "ev"; box.id = "ev" + idx;
+  const lines = e.lines.map(L => buildLine(L, e.align));
+  lines.forEach(l => box.appendChild(l));
+  root.appendChild(box);
+  if (e.align === "left") { box.style.left = e.x + "px"; box.style.textAlign = "left"; }
+  else if (e.align === "right") { box.style.right = (1080 - e.x) + "px"; box.style.textAlign = "right"; }
+  else { box.style.left = "0px"; box.style.width = "1080px"; box.style.textAlign = "center"; }
+  const h = e.lines.reduce((a, L) => a + L.size * 0.86, 0);
+  box.style.top = (e.y - h / 2) + "px";
+  // entrance drifts in from the side the text is anchored to
+  const dx = e.align === "left" ? -22 : e.align === "right" ? 22 : 0;
+  const dy = e.align === "center" ? 14 : 6;
+  tl.set(box, { opacity: 1 }, e.t0);
+  e.lines.forEach((L, li) => (L.parts || [{ t: L.t }]).forEach((P, pi) => {
+    const chars = lines[li].querySelectorAll(L.parts ? ".p" + pi : ".ch");
+    const big = L.size >= 110;
+    tl.fromTo(chars, { opacity: 0, x: dx, y: dy, filter: big ? "blur(12px)" : "blur(7px)", scale: big ? 0.9 : 1 },
+      { opacity: 1, x: 0, y: 0, filter: "blur(0px)", scale: 1, duration: big ? 0.36 : 0.26,
+        stagger: big ? 0.028 : 0.013, ease: "power3.out" }, P.t);
+  }));
+  if (e.t1 < 36.1667) {
+    if (e.kind === "cap") tl.to(box, { opacity: 0, filter: "blur(4px)", duration: 0.1, ease: "power1.in" }, e.t1 - 0.06);
+    else tl.to(lines, { opacity: 0, filter: "blur(6px)", duration: 0.18, stagger: 0.035, ease: "power1.in" }, e.t1 - 0.18);
+  }
+});
+tl.set({}, {}, 36.1667);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+tl.seek(0);
+</script>
+</body>
+</html>

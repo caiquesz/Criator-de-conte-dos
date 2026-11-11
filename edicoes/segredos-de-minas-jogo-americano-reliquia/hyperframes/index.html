@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="assets/js/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Coolvetica"; src: url("assets/fonts/Coolvetica-Rg.otf") format("opentype"); font-display: block; }
+@font-face { font-family: "DM Serif Display"; font-style: italic; src: url("assets/fonts/DMSerifDisplay-Italic.ttf") format("truetype"); font-display: block; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+#root { position: relative; width: 1080px; height: 1920px; color: #fff; -webkit-font-smoothing: antialiased; }
+.ev { position: absolute; left: 0; width: 1080px; display: flex; justify-content: center; opacity: 0; }
+.card { position: relative; border-radius: 28px; text-align: center; white-space: nowrap; }
+.cap .card { padding: 12px 26px 16px; border-radius: 22px; }
+.hl .card { padding: 18px 44px 30px; border-radius: 36px; }
+.line { display: block; line-height: 0.92; }
+.cool { font-family: "Coolvetica", sans-serif; letter-spacing: -0.012em; font-feature-settings: "liga" 1, "kern" 1; }
+.serif { font-family: "DM Serif Display", serif; font-style: italic; letter-spacing: -0.005em; line-height: 1.0; }
+/* MODE */
+.card { background: transparent; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="32.6000" data-width="1080" data-height="1920"></div>
+<script>
+const EV = [{"kind": "cap", "t0": 0.08, "t1": 0.64, "y": 1330, "lines": [{"text": "hoje eu vou", "size": 60, "font": "cool", "t": 0.08}]}, {"kind": "cap", "t0": 0.64, "t1": 1.22, "y": 1330, "lines": [{"text": "te mostrar um", "size": 60, "font": "cool", "t": 0.64}]}, {"kind": "hl", "t0": 1.22, "t1": 1.92, "y": 960, "lines": [{"text": "detalhe", "size": 160, "font": "serif", "t": 1.22}]}, {"kind": "cap", "t0": 1.93, "t1": 2.63, "y": 1330, "lines": [{"text": "que vai fazer", "size": 60, "font": "cool", "t": 1.93}]}, {"kind": "hl", "t0": 2.63, "t1": 3.75, "y": 960, "lines": [{"text": "toda a diferença", "size": 100, "font": "serif", "t": 2.63}]}, {"kind": "cap", "t0": 3.75, "t1": 4.77, "y": 1330, "lines": [{"text": "na hora de montar", "size": 60, "font": "cool", "t": 3.75}]}, {"kind": "cap", "t0": 4.77, "t1": 5.13, "y": 1330, "lines": [{"text": "a sua", "size": 60, "font": "cool", "t": 4.77}]}, {"kind": "hl", "t0": 5.13, "t1": 5.92, "y": 960, "lines": [{"text": "mesa posta", "size": 146, "font": "serif", "t": 5.13}]}, {"kind": "cap", "t0": 6.0, "t1": 7.22, "y": 1330, "lines": [{"text": "esse é o nosso", "size": 60, "font": "cool", "t": 6.0}]}, {"kind": "hl", "t0": 7.22, "t1": 8.85, "y": 960, "lines": [{"text": "jogo americano", "size": 104, "font": "serif", "t": 7.22}, {"text": "Relíquia", "size": 150, "font": "serif", "t": 8.1}]}, {"kind": "cap", "t0": 8.94, "t1": 9.98, "y": 1330, "lines": [{"text": "ele é vendido a", "size": 60, "font": "cool", "t": 8.94}]}, {"kind": "hl", "t0": 9.98, "t1": 10.96, "y": 1100, "lines": [{"text": "peça avulsa", "size": 138, "font": "serif", "t": 9.98}]}, {"kind": "hl", "t0": 10.98, "t1": 12.4, "y": 1160, "lines": [{"text": "produzida em", "size": 56, "font": "cool", "t": 10.98}, {"text": "tear", "size": 176, "font": "serif", "t": 11.74}]}, {"kind": "hl", "t0": 12.42, "t1": 14.02, "y": 1040, "lines": [{"text": "e", "size": 56, "font": "cool", "t": 12.42}, {"text": "100% algodão", "size": 112, "font": "serif", "t": 12.6}]}, {"kind": "cap", "t0": 14.07, "t1": 14.57, "y": 1330, "lines": [{"text": "e aqui na", "size": 60, "font": "cool", "t": 14.07}]}, {"kind": "cap", "t0": 14.57, "t1": 15.77, "y": 1330, "lines": [{"text": "Segredos de Minas", "size": 60, "font": "cool", "t": 14.57}]}, {"kind": "cap", "t0": 15.77, "t1": 16.89, "y": 1330, "lines": [{"text": "temos essa opção", "size": 60, "font": "cool", "t": 15.77}]}, {"kind": "cap", "t0": 16.89, "t1": 17.31, "y": 1330, "lines": [{"text": "que está", "size": 60, "font": "cool", "t": 16.89}]}, {"kind": "hl", "t0": 17.31, "t1": 17.85, "y": 960, "lines": [{"text": "linda", "size": 176, "font": "serif", "t": 17.31}]}, {"kind": "hl", "t0": 17.99, "t1": 19.93, "y": 1100, "lines": [{"text": "outros modelos", "size": 106, "font": "serif", "t": 17.99}, {"text": "e cores", "size": 106, "font": "serif", "t": 19.25}]}, {"kind": "cap", "t0": 19.93, "t1": 20.89, "y": 1330, "lines": [{"text": "para você escolher", "size": 60, "font": "cool", "t": 19.93}]}, {"kind": "cap", "t0": 20.89, "t1": 21.75, "y": 1330, "lines": [{"text": "aquele que mais", "size": 60, "font": "cool", "t": 20.89}]}, {"kind": "cap", "t0": 21.75, "t1": 22.41, "y": 1330, "lines": [{"text": "combina com", "size": 60, "font": "cool", "t": 21.75}]}, {"kind": "cap", "t0": 22.41, "t1": 23.05, "y": 1330, "lines": [{"text": "a sua casa.", "size": 60, "font": "cool", "t": 22.41}]}, {"kind": "cap", "t0": 23.1, "t1": 24.46, "y": 1330, "lines": [{"text": "você quer conhecer", "size": 60, "font": "cool", "t": 23.1}]}, {"kind": "cap", "t0": 24.46, "t1": 25.44, "y": 1330, "lines": [{"text": "todas as opções", "size": 60, "font": "cool", "t": 24.46}]}, {"kind": "cap", "t0": 25.44, "t1": 26.0, "y": 1330, "lines": [{"text": "que nós temos", "size": 60, "font": "cool", "t": 25.44}]}, {"kind": "cap", "t0": 26.0, "t1": 26.34, "y": 1330, "lines": [{"text": "aqui na", "size": 60, "font": "cool", "t": 26.0}]}, {"kind": "cap", "t0": 26.34, "t1": 27.38, "y": 1330, "lines": [{"text": "Segredos de Minas?", "size": 60, "font": "cool", "t": 26.34}]}, {"kind": "cap", "t0": 27.4, "t1": 28.06, "y": 1330, "lines": [{"text": "então clique no", "size": 60, "font": "cool", "t": 27.4}]}, {"kind": "hl", "t0": 28.06, "t1": 28.86, "y": 960, "lines": [{"text": "link abaixo", "size": 144, "font": "serif", "t": 28.06}]}, {"kind": "cap", "t0": 28.86, "t1": 29.9, "y": 1330, "lines": [{"text": "e mande uma mensagem", "size": 60, "font": "cool", "t": 28.86}]}, {"kind": "cap", "t0": 29.9, "t1": 30.4, "y": 1330, "lines": [{"text": "para a gente.", "size": 60, "font": "cool", "t": 29.9}]}, {"kind": "cap", "t0": 30.42, "t1": 31.4, "y": 1330, "lines": [{"text": "nós enviamos para", "size": 60, "font": "cool", "t": 30.42}]}, {"kind": "hl", "t0": 31.4, "t1": 33.6, "y": 960, "lines": [{"text": "todo o Brasil", "size": 128, "font": "serif", "t": 31.4}]}];
+const root = document.getElementById("root");
+const tl = gsap.timeline({ paused: true });
+EV.forEach((e, idx) => {
+  const box = document.createElement("div");
+  box.className = "ev " + e.kind;
+  const card = document.createElement("div");
+  card.className = "card";
+  const lines = e.lines.map(L => {
+    const el = document.createElement("div");
+    el.className = "line txt " + L.font; el.style.fontSize = L.size + "px";
+    if (L.parts) {
+      L.parts.forEach((P, pi) => { const sp = document.createElement("span"); sp.className = "part p" + pi; sp.textContent = P.text; sp.style.display = "inline-block"; sp.style.whiteSpace = "pre"; el.appendChild(sp); });
+    } else el.textContent = L.text;
+    card.appendChild(el);
+    return el;
+  });
+  box.appendChild(card);
+  root.appendChild(box);
+  // vertical centring from known line metrics (fonts may not be measured yet)
+  const lh = e.lines.reduce((a, L) => a + L.size * (L.font === "serif" ? 1.0 : 0.92), 0);
+  const pad = e.kind === "cap" ? 28 : 48;
+  box.style.top = (e.y - (lh + pad) / 2) + "px";
+  if (e.kind === "cap") {
+    // standard caption: same place every time, plain soft fade
+    tl.fromTo(box, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, e.t0);
+    if (e.t1 < 32.6000) tl.to(box, { opacity: 0, duration: 0.1, ease: "power1.in" }, e.t1 - 0.08);
+  } else {
+    // highlight: card + first line together, later lines join when they are spoken
+    tl.fromTo(box, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.24, ease: "power3.out" }, e.t0);
+    lines.forEach((el, li) => {
+      if (e.lines[li].parts) {
+        e.lines[li].parts.forEach((P, pi) => {
+          const sp = el.querySelector(".p" + pi);
+          tl.fromTo(sp, { opacity: 0, y: 10, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, P.t);
+        });
+        return;
+      }
+      if (li === 0) {
+        tl.fromTo(el, { opacity: 0, y: 10, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, e.lines[li].t);
+      } else {
+        tl.set(el, { opacity: 0 }, 0);
+        tl.fromTo(el, { opacity: 0, y: 12, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, e.lines[li].t);
+      }
+    });
+    if (e.t1 < 32.6000) tl.to(box, { opacity: 0, scale: 0.98, duration: 0.18, ease: "power1.in" }, e.t1 - 0.16);
+  }
+});
+tl.set({}, {}, 32.6000);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+tl.seek(0);
+</script>
+</body>
+</html>
