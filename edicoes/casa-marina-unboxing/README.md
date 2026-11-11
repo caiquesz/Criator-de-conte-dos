@@ -1,41 +1,41 @@
 # Casa Marina: edição do reel de unboxing
 
-Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 72 s, 1080x1920, 30 fps.
-Entrega: `casa-marina-unboxing-editado.mp4` (H.264, 1080x1920, 30 fps, ~6,5 Mbps, AAC 192k).
+Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-Fora desta versão: color grading e música de fundo. As cores do bruto foram mantidas: o vídeo é decodificado e recodificado na mesma matriz BT.709.
+**Entrega atual: `casa-marina-unboxing-editado-v2.mp4`.** O vídeo tem 44,8 s, em H.264 1080x1920 a 30 fps (~7 Mbps), e **não tem áudio** (sem som ambiente, sem efeitos e sem música).
 
-## O que foi feito
+Fora desta versão: color grading e música. As cores do bruto foram mantidas: o vídeo é decodificado e recodificado na mesma matriz BT.709, e conferi que o brilho médio de cada corte é igual ao do bruto.
 
-| Tempo | Efeito |
+## v2: remontagem "tira da caixa → peça no ambiente"
+Cada peça sai da caixa e, logo no take seguinte, aparece no ambiente com o nome. A ordem segue a lista de produtos. Os takes foram enxugados para ficar só o momento em que a peça aparece bem. Assim o vídeo caiu de 71,9 s para 44,8 s, sem deixar nenhum produto de fora.
+
+| Saída | Trecho |
 |---|---|
-| 0,00 a 1,95 s | Logo da Casa Marina **sem o fundo de papel** (só letras e símbolo, na cor marrom da marca). Entra com um fade de 0,35 s, fica parada e some com fade, um leve desfoque e uma leve ampliação. SFX: pop. |
-| 2,00 a 3,77 s (take 2) | **Zoom suave no adesivo** da caixa (até 1,7x, com curva ease-in-out). O zoom segue a posição do adesivo quadro a quadro (`assets/track_adesivo.json`). SFX: clique. |
-| 32,45 a 36,12 s | **Sousplat** / em fio de malha |
-| 40,80 a 42,56 s | **Tapete redondo** / de crochê |
-| 43,05 a 45,22 s | **Jogo de passadeira** / feito em tear manual |
-| 47,82 a 49,26 s | **Tapete geométrico em crochê** / e em fio de malha |
-| 50,00 a 55,26 s | **Tapete retangular de crochê** / em fio de malha |
-| 55,56 a 57,36 s | **Tapete redondo menor** / de crochê |
+| 0,00 a 6,77 s | Abertura: caixa + logo (0 a 1,95 s) → zoom no adesivo → abre a caixa → papel de seda → revela as peças |
+| 6,77 a 13,90 s | **Sousplat**: tira o bege → tira o vermelho → bege na mesa (prato, copo) → close do vermelho. Nome de 9,85 a 12,76 s |
+| 13,90 a 20,20 s | **Tapete redondo**: tira o taupe → tira o cru → cinza no chão → marrom no chão. Nome de 18,40 a 20,16 s |
+| 20,20 a 27,40 s | **Tapete retangular**: tira o marinho → tira o vermelho → close do marinho → marrom → marinho no chão. Nome de 23,50 a 27,37 s |
+| 27,40 a 32,20 s | **Tapete geométrico**: tira da caixa → close → aberto no chão. Nome de 30,72 a 32,16 s |
+| 32,20 a 36,93 s | **Jogo de passadeira**: tira da caixa → arrumando no chão. Nome de 34,68 a 36,85 s |
+| 36,93 a 41,60 s | **Tapetes redondos menores** caindo no chão até formar a pilha. Nome de 37,13 a 38,93 s |
+| 41,60 a 44,80 s | Fecho: oval verde → close da textura (teal e cru) |
 
-Cada nome de produto entra com um **risquinho fino** (sem ponta de seta), que se desenha a partir da peça. Depois o texto aparece com fade e uma pequena subida, e no fim tudo some com fade antes do corte. SFX: pop quando o texto aparece.
+A lista completa de cortes, em quadros do bruto, está em `EDL` no `scripts/render_v2.py` (`python3 scripts/render_v2.py --plan`).
+
+## Efeitos visuais (os mesmos da v1)
+- **Logo sem o fundo de papel** (só letras e símbolo, no marrom da marca). Entra com um fade de 0,35 s e some com fade, um leve desfoque e uma leve ampliação, até 1,95 s.
+- **Zoom suave no adesivo** (take 2, até 1,7x, com curva ease-in-out). O zoom segue o adesivo quadro a quadro (`assets/track_adesivo.json`).
+- **Nome dos produtos** com um **risquinho fino** (sem ponta de seta), que se desenha a partir da peça. Depois o texto entra com fade e uma pequena subida, e some com fade antes do corte.
 
 ### Tipografia
 A combinação **Noto Serif + Montserrat** foi tirada do reel de referência de combinações de fontes:
 - Linha 1: Noto Serif Regular, 54 px (nome do produto)
 - Linha 2: Montserrat Regular, 31 px, com um leve espaçamento entre letras (complemento)
 
-Não há contorno na fonte. Sobre fundo claro (parede, piso) o texto sai no marrom da logo (`#3A241C`). Sobre a própria peça (passadeira e tapetes retangulares) sai em branco quente, só com uma sombra bem difusa, sem contorno.
+Não há contorno na fonte. Sobre fundo claro (parede, piso) o texto sai no marrom da logo (`#3A241C`). Sobre a própria peça (passadeira e tapetes retangulares) sai em branco quente, só com uma sombra bem difusa.
 
 ### Área segura (Instagram Reels)
-Todos os textos ficam entre y = 260 e y = 1100 px e entre x = 90 e x = 900 px. Assim eles passam longe do topo (interface), da faixa de baixo (legenda e @) e da coluna de botões da direita.
-
-### Efeitos sonoros
-Só **pop** e **clique**, com um efeito por informação que aparece (8 no total). Arquivos CC0 do pacote *Interface Sounds* da Kenney (`assets/sfx`).
-O áudio original da câmera (ruído ambiente bem baixo, cerca de -40 LUFS) foi mantido por baixo. Também foi gerada uma versão `-so-sfx`, sem o áudio ambiente, para colocar a música direto no Instagram. Ela foi enviada à parte e não está no repositório, para não deixá-lo pesado. Para gerar de novo, use o `audio_so_sfx.wav` do `mix_audio.py`.
-
-## Observação sobre a ordem dos produtos
-No vídeo, a ordem é: sousplat, tapete redondo, **passadeira**, geométrico, **retangular**, redondo menor. Os nomes foram aplicados de acordo com a peça que aparece em cada cena. O verde oval (66,4 s) e o close final (teal e cru) não estão na lista e ficaram sem nome.
+Todos os textos ficam entre y = 260 e y = 1100 px e entre x = 90 e x = 900 px. Assim eles passam longe do topo, da faixa da legenda e da coluna de botões da direita.
 
 ## Como renderizar de novo
 ```bash
@@ -43,10 +43,10 @@ No vídeo, a ordem é: sousplat, tapete redondo, **passadeira**, geométrico, **
 #   raw/video.MOV, logo/logo_casa_marina.png, t2/track.json, fonts/{NotoSerif,Montserrat}.ttf
 python3 scripts/make_logo.py logo/logo_src.jpg logo/logo_casa_marina.png
 python3 scripts/track_sticker.py raw/video.MOV t2/track.json
-python3 scripts/render.py --preview 0.5,3.5,44.0          # stills para conferir
-python3 scripts/render.py --render out/video_noaudio.mp4  # vídeo sem áudio
-python3 scripts/render.py --cues > out/cues.json          # tempos dos SFX
-python3 scripts/mix_audio.py out/cues.json assets/sfx/pop.ogg assets/sfx/clique.ogg \
-        out/audio_ambiente_sfx.wav out/audio_so_sfx.wav raw/video.MOV
+python3 scripts/render_v2.py --plan                        # lista de cortes e tempos dos nomes
+python3 scripts/render_v2.py --preview 3.3,10.4,31.4       # stills para conferir
+python3 scripts/render_v2.py --render out/v2/master.mp4    # vídeo sem áudio
 ```
-Os tempos, as posições e os textos de cada produto ficam na lista `LABELS` em `scripts/render.py`.
+
+## Histórico
+- **v1** (commit `a6061e1`): ordem original do bruto, 71,9 s, com o som ambiente e SFX de pop e clique (CC0, Kenney, em `assets/sfx`). Os scripts dela continuam aqui: `render.py` e `mix_audio.py`.
