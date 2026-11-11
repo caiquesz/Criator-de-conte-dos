@@ -12,8 +12,15 @@ Pela página "Envio da Biomédica" (https://claude.ai/artifact/Dm5w3uprQVKwq9PZG
 próprio). Cada envio é um documento da coleção `envios` (ler com `db_get`/`db_list`):
 
 - `arquivos: [{nome, tamanho, duracao, largura, altura, partes: [ids]}]`: o vídeo, em um ou mais
-  arquivos na ordem escolhida. Baixe as partes de cada arquivo na ordem (`read_asset` ou o
-  `/_blob/<id>`), junte com `cat` e, se forem vários arquivos, emende-os nessa ordem.
+  arquivos na ordem escolhida. Baixe as partes de cada arquivo na ordem com `read_asset`
+  (`max_bytes: 4194304`; o arquivo fica salvo em `tool-results/` e o resultado traz o sha256 para
+  conferir) e junte com `cat`. Um arquivo a mais pode ser material para o vídeo, não uma
+  continuação: leia as `observacoes` antes de emendar (a gravação de tela da Virgínia era para a
+  tela dividida).
+- **Pedaços de 4 MiB:** o `read_asset` só baixa até 4 MiB. A página guarda tudo em pedaços de até
+  4 MiB; envios antigos, de pedaços de 19 MiB, ela mesma refaz quando o cliente abre a página
+  (`pequenas: true` no documento quando termina; os ids antigos ficam em `partesGrandes`, para
+  apagar com `delete_asset` depois de baixar e conferir).
 - `fotos: [{nome, tamanho, tipo, largura, altura, categoria, grupo, quando, layout, partes}]`:
   `categoria` é `antes`, `depois`, `famosa` ou `outra`; `grupo` junta o antes e o depois da mesma
   pessoa (ou dá o nome da famosa); `quando` diz em que fala a foto entra; `layout` é `auto`

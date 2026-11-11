@@ -21,6 +21,11 @@ partes: [ids]}]` na ordem escolhida pelo cliente: baixe as partes de cada arquiv
 arquivo com `cat` e emende os arquivos nessa ordem (ffmpeg concat) antes de editar. A entrega
 volta pela mesma página, no mesmo formato `entrega` da outra.
 
+**Download pelas ferramentas novas:** o `read_asset` do servidor de artefatos só baixa até 4 MiB por
+arquivo; as partes de 19 MiB destas páginas não passam. A página da biomédica já guarda em pedaços
+de 4 MiB e refaz os envios antigos sozinha (veja `../reels-biomedica/CLAUDE.md`); faça o mesmo
+nestas páginas antes do próximo envio.
+
 **Entrega:** o vídeo final vai para o cliente pela mesma página. Corte o .mp4 em partes de até
 19 MiB (nenhuma começando com `<`), suba com `Artifact` publish `asset: true` + `file_paths` e
 grave no documento `entrega: {arquivo, tamanho, sha256, descricao, partes: [ids]}`; a página

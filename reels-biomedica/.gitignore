@@ -13,3 +13,4 @@ referencias/*.mp4
 node_modules/
 __pycache__/
 projetos/*.log
+entrada/

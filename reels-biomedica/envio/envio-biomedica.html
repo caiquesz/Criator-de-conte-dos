@@ -344,7 +344,8 @@
 
 <script>
 (() => {
-  const PARTE = 19 * 1024 * 1024; // limite do armazenamento: 20 MiB por arquivo guardado
+  // pedaços de até 4 MiB: é o que o Claude consegue baixar de uma vez para editar
+  const PARTE = 4 * 1024 * 1024 - 64 * 1024;
   const $ = (id) => document.getElementById(id);
   const els = {
     dropVideo: $("dropVideo"), fileVideo: $("fileVideo"), filaVideo: $("filaVideo"), vazioVideo: $("vazioVideo"), totalVideo: $("totalVideo"),
@@ -636,10 +637,15 @@
     return fim;
   }
   async function subir(blob, tipo) {
-    try { return await assets.upload(blob, tipo ? { type: tipo } : undefined); }
-    catch (e) {
-      if (e && e.code === "store_unavailable") { await new Promise((r) => setTimeout(r, 1500)); return assets.upload(blob, tipo ? { type: tipo } : undefined); }
-      throw e;
+    const espera = (ms) => new Promise((r) => setTimeout(r, ms));
+    for (let tentativa = 0; ; tentativa++) {
+      try { return await assets.upload(blob, tipo ? { type: tipo } : undefined); }
+      catch (e) {
+        const c = e && e.code;
+        if (c === "store_unavailable" && tentativa < 3) { await espera(1500 * (tentativa + 1)); continue; }
+        if (c === "rate_limited" && tentativa < 6) { await espera(15000 * (tentativa + 1)); continue; }
+        throw e;
+      }
     }
   }
   // foto que o armazenamento não aceita como veio (HEIC, ou grande demais): vira JPEG
@@ -783,6 +789,11 @@
         v.tamanhoTotal ? fmtMB(v.tamanhoTotal) : "", v.duracaoTotal ? fmtDur(v.duracaoTotal) : ""].filter(Boolean).join(" · ");
       item.append(nome, chip, meta);
       if (v.nota) { const m = document.createElement("div"); m.className = "msg"; m.textContent = v.nota; item.append(m); }
+      if (precisaRepartir(v)) {
+        const m = document.createElement("div"); m.className = "msg";
+        m.textContent = "Preparando para a edição: deixe esta página aberta até aparecer \"Envio preparado\" lá em cima, perto do botão Enviar.";
+        item.append(m);
+      }
       const ent = v.entrega;
       if (ent && Array.isArray(ent.partes) && ent.partes.length && ent.arquivo) {
         const caixa = document.createElement("div"); caixa.className = "entrega";
@@ -840,6 +851,58 @@
     }
   }
 
+  // envios guardados em pedaços de 19 MiB (antes desta versão) são refeitos em pedaços de 4 MiB, que
+  // o Claude consegue baixar; roda no navegador de quem pode editar a página, com ela aberta
+  let repartindo = false;
+  const precisaRepartir = (v) => !!v && v.status !== "enviando" && !v.pequenas && (v.tamanhoParte || 0) > PARTE;
+  async function repartir(id, v) {
+    const ref = db.collection("envios").doc(id);
+    const listas = { arquivos: JSON.parse(JSON.stringify(Array.isArray(v.arquivos) ? v.arquivos : [])),
+                     fotos: JSON.parse(JSON.stringify(Array.isArray(v.fotos) ? v.fotos : [])) };
+    const total = [...listas.arquivos, ...listas.fotos].reduce((s, a) => s + (a.tamanho || 0), 0);
+    let feito = 0;
+    const aviso = () => setStatus(`Preparando o envio para a edição · ${fmtMB(feito)} de ${fmtMB(total)}. Deixe esta página aberta até terminar.`);
+    for (const nome of ["arquivos", "fotos"]) {
+      for (const item of listas[nome]) {
+        if (item.repartido || !Array.isArray(item.partes) || !item.partes.length) { feito += item.tamanho || 0; continue; }
+        const novas = [];
+        for (const pid of item.partes) {
+          aviso();
+          const r = await fetch("/_blob/" + pid);
+          if (!r.ok) throw { code: "parte" };
+          const blob = await r.blob();
+          if (blob.size <= PARTE) { novas.push(pid); feito += blob.size; continue; }
+          let pos = 0;
+          while (pos < blob.size) {
+            const fim = await fimDaParte(blob, pos);
+            const up = await subir(blob.slice(pos, fim), "video/mp4");
+            novas.push(up.id); feito += fim - pos; pos = fim;
+            aviso();
+          }
+        }
+        item.partesGrandes = item.partes.filter((x) => !novas.includes(x));
+        item.partes = novas;
+        item.repartido = true;
+        await ref.update({ [nome]: listas[nome] });
+      }
+    }
+    await ref.update({ tamanhoParte: PARTE, pequenas: true });
+  }
+  async function repartirPendentes(snap) {
+    if (repartindo || !assets || !db || ocupado || envio) return;
+    const pendentes = snap.docs.filter((d) => precisaRepartir(d.data()));
+    if (!pendentes.length) return;
+    repartindo = true;
+    try {
+      for (const d of pendentes) await repartir(d.id, d.data());
+      setStatus("Envio preparado para a edição. Pode me avisar no chat.", "ok");
+    } catch (e) {
+      setStatus("A preparação para a edição parou no meio. Recarregue a página para continuar.", "err");
+    } finally {
+      repartindo = false;
+    }
+  }
+
   const usar = (n) => (window.claude && window.claude.use ? window.claude.use(n) : Promise.resolve(null));
   renderVideos(); renderFotos();
   (async () => {
@@ -861,7 +924,7 @@
         p.textContent = "A lista está demorando para carregar. Recarregue a página se não aparecer.";
         els.items.replaceChildren(p);
       }, 10000);
-      db.collection("envios").orderBy("criadoEm", "desc").limit(30).onSnapshot((snap) => { clearTimeout(falha); render(snap); }, () => {
+      db.collection("envios").orderBy("criadoEm", "desc").limit(30).onSnapshot((snap) => { clearTimeout(falha); render(snap); repartirPendentes(snap); }, () => {
         clearTimeout(falha);
         const p = document.createElement("p"); p.className = "empty";
         p.textContent = "Não consegui carregar a lista agora. Recarregue a página.";
