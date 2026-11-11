@@ -3,3 +3,11 @@ __pycache__/
 *.pyc
 .env
 .streamlit/secrets.toml
+# edição de vídeo: assets com licença restrita e arquivos gerados
+edicao_video/assets/OBLISK.otf
+edicao_video/sfx/
+edicao_video/timeline.js
+edicao_video/timeline.json
+edicao_video/**/*.mp4
+edicao_video/**/*.mov
+edicao_video/**/*.wav
