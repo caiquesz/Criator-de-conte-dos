@@ -1,0 +1,7 @@
+[
+ {"ai": "out/ai/results/chunk_A_flux.mp4",  "map": [[0, 0, 291]]},
+ {"ai": "out/ai/results/chunk_B1_flux.mp4", "map": [[0, 432, 369]]},
+ {"ai": "out/ai/results/test_menores_flux.mp4", "map": [[0, 1087, 180]]},
+ {"ai": "out/ai/results/chunk_B2_flux.mp4", "map": [[0, 1267, 126], [126, 801, 205]]},
+ {"ai": "out/ai/results/chunk_D1_flux.mp4", "map": [[0, 899, 46]]}
+]
