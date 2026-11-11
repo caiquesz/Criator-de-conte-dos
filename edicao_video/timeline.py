@@ -63,6 +63,11 @@ for sm, hl in PH:
 for k, p in enumerate(phrases):
     nxt = phrases[k + 1]["start"] if k + 1 < len(phrases) else 99
     p["end"] = round(min(nxt - 0.10, p["lastEnd"] + 0.55), 3)
+# P1 vira o título de abertura ("quando a sua CNH pode ser RECOLHIDA?") -> não aparece como legenda
+phrases[0]["hidden"] = True
+# título de abertura: grande no centro até INTRO_MORPH, depois vira cabeçalho no topo até o motion
+INTRO_MORPH = 1.40
+INTRO_HDR_OUT = 8.18
 # P5 ("ou quando ela tiver VENCIDA") sai quando o painel do motion entra
 phrases[4]["end"] = 8.40
 # última frase fica até o fim
@@ -133,6 +138,10 @@ for p in phrases:
 # a parte "DIAS" do "30 DIAS" (2a palavra destaque) -> sem pop extra
 sfx = [x for x in sfx if abs(x["t"] - (W(61) - 0.02)) > 0.01]
 
+# título de abertura
+add("pop_soft", W(2) - 0.02, 0.5)         # CNH (entra junto com "ela")
+add("swish", INTRO_MORPH + 0.05, 0.22, align=0.41)   # título encolhe para o topo
+
 # motion
 add("whoosh", (T_IN0 + T_IN1) / 2, 0.55, align=1.07)
 add("pop", W(22) - 0.02, 0.85)            # 30
@@ -159,6 +168,7 @@ add("whoosh", (T_OUT0 + T_OUT1) / 2, 0.5, align=1.07)
 out = {
     "fps": FPS, "nframes": NFRAMES, "cut": [CUT_A, CUT_B],
     "words": words, "phrases": phrases,
+    "intro": {"morph": INTRO_MORPH, "hdrOut": INTRO_HDR_OUT},
     "tin": [T_IN0, T_IN1], "tout": [T_OUT0, T_OUT1],
     "panelX": panelX, "videoX": videoX, "speed": speed, "zoom": zoom, "sfx": sfx,
 }

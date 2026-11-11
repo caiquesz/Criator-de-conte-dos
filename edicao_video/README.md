@@ -2,6 +2,9 @@
 
 Pipeline que gerou o Reels final (1080x1920, 30 fps, ~35 s, -14 LUFS):
 
+- **Título de abertura**: a 1ª frase ("quando que ela pode ser recolhida?") vira o título
+  "quando a sua **CNH** / **PODE SER RECOLHIDA?**" no centro, com o vídeo escurecido atrás; em 1,4 s ele
+  encolhe e voa para o topo, virando um cabeçalho fixo (tarja preta) até o motion entrar.
 - **Legenda constante** no estilo da referência (@adorozaya): Poppins Medium, minúscula, palavras entrando
   uma a uma com blur e subida, sincronizadas com a fala (Whisper large-v3, timestamps por palavra).
 - **Palavras de destaque** em **Oblisk**, caixa alta, entrando com "pop" (escala com overshoot e blur).

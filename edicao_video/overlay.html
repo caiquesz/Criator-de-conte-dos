@@ -65,6 +65,16 @@ html, body { margin: 0; padding: 0; background: transparent; }
   background: var(--cream); box-shadow: 0 0 0 10px rgba(245,238,226,.18), 0 0 30px rgba(245,238,226,.5); }
 .tlabels { width: 760px; display: flex; justify-content: space-between; font-family: "Poppins"; font-weight: 600;
   font-size: 30px; letter-spacing: .08em; color: rgba(245,238,226,.7); }
+/* título de abertura */
+#introDim { position: absolute; inset: 0; background:
+  radial-gradient(ellipse 80% 55% at 50% 50%, rgba(0,0,0,.52) 0%, rgba(0,0,0,.62) 100%); opacity: 0; }
+#intro .obl, #intro .sm { text-shadow: 0 8px 30px rgba(0,0,0,.45), 0 2px 5px rgba(0,0,0,.35); }
+#intro .sm { color: #fff; }
+.hdr { background: rgba(12,12,12,.92); border-radius: 26px; padding: 30px 44px 28px; text-align: center;
+  box-shadow: 0 18px 50px rgba(0,0,0,.45), inset 0 0 0 2px rgba(245,238,226,.10); }
+.hdr .obl { font-size: 100px; line-height: .714; }
+.hdr .obl + .obl { margin-top: 20px; }
+.red { color: var(--red); }
 .uline { height: 10px; border-radius: 5px; background: var(--cream); transform-origin: 50% 50%; }
 </style>
 </head>
@@ -78,7 +88,9 @@ html, body { margin: 0; padding: 0; background: transparent; }
     <div id="vig"></div>
     <div id="scene"></div>
   </div>
+  <div id="introDim"></div>
   <div id="caps"></div>
+  <div id="intro"></div>
 </div>
 <script src="timeline.js"></script>
 <script>
@@ -97,14 +109,19 @@ const IN = {
   right: p => ({ o: eo(p*1.3), dx: (1 - eo(p)) * 140, b: (1 - eo(p)) * 12 }),
   rise:  p => ({ o: eo(p*1.5), dy: (1 - eo(p)) * 320, s: .92 + .08*eo(p), b: (1 - eo(p)) * 10 }),
   fade:  p => ({ o: eo(p) }),
+  drop:  p => ({ o: eo(p*1.4), dy: -(1 - eo(p)) * 60, s: .9 + .1*eback(p), b: (1 - eo(p)) * 12 }),
 };
 const OUT = {
   out:   q => ({ o: 1 - eo(q), s: 1 + .14*ei(q), b: eo(q) * 16 }),
   up:    q => ({ o: 1 - eo(q), dy: -ei(q) * 160, b: eo(q) * 12 }),
   left:  q => ({ o: 1 - eo(q), dx: -ei(q) * 260, b: eo(q) * 14 }),
   down:  q => ({ o: 1 - eo(q), s: 1 - .18*ei(q), b: eo(q) * 12 }),
+  // encolhe e sobe até a posição do cabeçalho (sensação de "morph" para o topo)
+  toTop: (q, it) => ({ o: 1 - clamp((q - .35) / .5), dy: -eo(q) * (it.y - (it.toY || 380)), s: 1 - (1 - (it.toS || .3)) * eo(q), b: eo(q) * 5 }),
 };
 const items = [];
+const introItems = [];
+let TARGET = items;
 function el(html, parent, cls) {
   const d = document.createElement('div');
   d.className = 'abs ' + (cls || '');
@@ -116,11 +133,11 @@ function el(html, parent, cls) {
 function A(node, x, y, tin, inType, tout, outType, opt = {}) {
   const it = Object.assign({ node, x, y, tin, inType, tout, outType, inD: inType === 'pop' ? .36 : (inType === 'slam' ? .2 : .32),
     outD: .24, rot: 0, drift: .03, abs: true }, opt);
-  items.push(it); return it;
+  TARGET.push(it); return it;
 }
 /* linha de palavras (cada palavra entra no seu tempo) */
 function line(wordsArr, x, y, cls, size, tout, outType, opt = {}) {
-  const d = el('', null, cls);
+  const d = el('', opt.parent || null, cls);
   d.style.fontSize = size + 'px';
   const box = A(d, x, y, -1, 'none', tout, outType, Object.assign({ drift: 0 }, opt));
   wordsArr.forEach(([txt, t, type, extra]) => {
@@ -130,7 +147,7 @@ function line(wordsArr, x, y, cls, size, tout, outType, opt = {}) {
     s.style.margin = '0 ' + (cls.includes('obl') ? '.05em' : '.12em');
     if (extra && extra.style) Object.assign(s.style, extra.style);
     d.appendChild(s);
-    items.push({ node: s, tin: t, inType: type || 'up', inD: type === 'pop' ? .36 : .3, tout: 1e9, abs: false, drift: 0 });
+    TARGET.push({ node: s, tin: t, inType: type || 'up', inD: type === 'pop' ? .36 : .3, tout: 1e9, abs: false, drift: 0 });
   });
   return box;
 }
@@ -144,7 +161,7 @@ function stateOf(it, t) {
   if (t >= it.tout) {
     const q = (t - it.tout) / it.outD;
     if (q >= 1) return { o: 0, dx: 0, dy: 0, s: 1, b: 0 };
-    const o2 = OUT[it.outType](q);
+    const o2 = OUT[it.outType](q, it);
     st.o *= (o2.o ?? 1); st.dx += (o2.dx || 0); st.dy += (o2.dy || 0); st.s *= (o2.s ?? 1); st.b += (o2.b || 0);
   }
   if (it.drift && t > it.tin) st.s *= 1 + it.drift * clamp((t - it.tin) / Math.max(.5, it.tout - it.tin));
@@ -225,12 +242,29 @@ function buildScenes() {
   A(el(OB('VENCIDA', 214, 'color:var(--red)')), 540, 1385, W(48), 'pop', s4b, 'out');
 }
 
+/* ================= TÍTULO DE ABERTURA ================= */
+function buildIntro() {
+  TARGET = introItems;
+  const P = document.getElementById('intro');
+  const M = TL.intro.morph;
+  // grande no centro, sincronizado com "quando que ela pode ser recolhida?"
+  line([['quando', -.15], ['a', W(1)], ['sua', W(1) + .05]], 540, 742, 'sm', 62, M, 'toTop', { parent: P, toY: 335, toS: .5, outD: .4 });
+  A(el(OB('CNH', 440), P), 540, 955, W(2), 'pop', M, 'toTop', { toY: 335, toS: .23, outD: .4, drift: .03 });
+  line([['PODE', W(3)], ['SER', W(4)], ['RECOLHIDA?', W(5), 'pop', { cls: 'red' }]], 540, 1205, 'obl', 158, M, 'toTop',
+       { parent: P, toY: 427, toS: .63, outD: .4 });
+  // vira cabeçalho fixo no topo até o motion entrar
+  const h = el(`<div class="hdr">${OB('QUANDO A SUA CNH', 100)}${OB('PODE SER <span class="red">RECOLHIDA?</span>', 100)}</div>`, P);
+  A(h, 540, 380, M + .16, 'drop', TL.intro.hdrOut, 'up', { inD: .38, drift: 0 });
+  TARGET = items;
+}
+
 /* ================= LEGENDA CONSTANTE ================= */
 const CAP_Y = 1105;   // centro da linha pequena
 const phraseIts = [];
 function buildCaptions() {
   const caps = document.getElementById('caps');
   TL.phrases.forEach(p => {
+    if (p.hidden) return;
     const d = document.createElement('div');
     d.className = 'phrase';
     const l1 = document.createElement('div'); l1.className = 'l1';
@@ -300,6 +334,10 @@ function render(f) {
     fillNode.style.width = (bp * 100).toFixed(2) + '%';
     knobNode.style.left = (bp * 100).toFixed(2) + '%';
   }
+  // título de abertura + escurecimento do vídeo atrás dele
+  introItems.forEach(it => apply(it, stateOf(it, t)));
+  const M = TL.intro.morph;
+  document.getElementById('introDim').style.opacity = (t < M ? 1 : 1 - eo((t - M) / .4)).toFixed(3);
   renderCaptions(t);
 }
 window.__ready = (async () => {
@@ -310,6 +348,7 @@ window.__ready = (async () => {
   await document.fonts.ready;
   await new Promise(r => { const i = document.getElementById('bg'); i.complete ? r() : i.onload = r; });
   buildScenes();
+  buildIntro();
   buildCaptions();
   return true;
 })();
