@@ -36,6 +36,12 @@ ESTILOS = {
     "serifa":   {"familia": "Instrument Serif", "peso": 400, "italico": True, "tam": 172, "arquivo": "InstrumentSerif-400i.ttf", "cor": "destaque"},
     # rótulo pequeno em caixa alta e letras bem abertas (como nos cards)
     "rotulo":   {"familia": "Poppins Reels", "peso": 400, "italico": False, "tam": 40,  "arquivo": "Poppins-400.ttf", "maiusculas": True},
+    # legenda curta de frase (referências da biomédica): uma frase pequena por vez, no meio da tela
+    "frase":       {"familia": "Poppins Reels", "peso": 600, "italico": False, "tam": 54, "arquivo": "Poppins-600.ttf"},
+    "frase-fina":  {"familia": "Poppins Reels", "peso": 400, "italico": False, "tam": 46, "arquivo": "Poppins-400.ttf"},
+    "frase-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 86, "arquivo": "Poppins-800.ttf"},
+    # palavra escrita à mão (referência 2 da biomédica)
+    "manuscrita":  {"familia": "Caveat", "peso": 600, "italico": False, "tam": 96, "arquivo": "Caveat-600.ttf"},
 }
 
 # onde cai o pico de cada efeito sonoro (s), medido com `hyperframes audio`
@@ -76,6 +82,8 @@ def tracking_em(estilo, plano):
         return t.get("serifa", -0.01)
     if estilo == "rotulo":
         return 0.32
+    if estilo in ("frase", "frase-fina", "manuscrita"):
+        return t.get("frase", -0.005)
     return t.get("forte", -0.035)
 
 
@@ -96,7 +104,16 @@ def tamanho_linha(linha, plano):
     return tam
 
 
-def font_faces():
+def usa_estilo(plano, estilo):
+    grupos = (plano or {}).get("legendas", []) + (plano or {}).get("perspectivas", [])
+    return any(l.get("estilo") == estilo for g in grupos for l in g["linhas"])
+
+
+def font_faces(plano=None):
+    # a fonte manuscrita só entra no projeto que a usa (os projetos antigos não têm o arquivo)
+    caveat = ("""
+      @font-face { font-family: "Caveat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Caveat-600.ttf"); }"""
+              if usa_estilo(plano, "manuscrita") else "")
     return """
       @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
       @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
@@ -105,14 +122,14 @@ def font_faces():
       @font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
       @font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
       @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: italic; src: url("assets/fonts/InstrumentSerif-400i.ttf"); }
-      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }"""
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }""" + caveat
 
 
 # ── legendas ────────────────────────────────────────────────────────────────
 
 def entrada_palavra(estilo):
     """De onde cada estilo entra (sempre com desfoque, como nas referências)."""
-    if estilo == "serifa":
+    if estilo in ("serifa", "manuscrita"):
         return {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}
     if estilo in ("forte", "pesada", "destaque", "media"):
         return {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}
@@ -179,7 +196,7 @@ def gerar_legendas(plano, duracao):
     js += pers_js
 
     return f"""<template>
-  <style>{font_faces()}
+  <style>{font_faces(plano)}
       #root {{ position: absolute; inset: 0; overflow: visible; }}
       .grupo {{ position: absolute; left: 0; width: {LARGURA}px; text-align: center; overflow: visible; isolation: isolate; }}
       .linha {{ position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
@@ -344,6 +361,227 @@ def gerar_cards(plano, duracao):
 """
 
 
+# ── fotos: antes e depois, famosas, resultados ──────────────────────────────
+#
+# Quatro jeitos de pôr fotos no vídeo, tirados das referências da biomédica:
+#   cards     dois cards inclinados no alto (antes e depois), a pessoa falando embaixo
+#   dividida  fotos na metade de cima e a pessoa na de baixo (o vídeo desce); com 3 ou mais
+#             fotos vira carrossel, as fotos passando da direita para a esquerda
+#   atras     a foto ocupa o fundo, no alto, e a pessoa recortada fica na frente
+#   cheia     a foto na tela inteira, com zoom lento, entrando num flash branco
+# fotos.json (scripts/preparar_fotos.py) traz o tamanho de cada foto e onde está o rosto,
+# para enquadrar pelo rosto (e com o mesmo tamanho de rosto no antes e no depois), e a
+# altura dos olhos da pessoa no vídeo em cada tela dividida.
+
+FOTO_CAMADA = {"cards": "frente", "dividida": "frente", "cheia": "frente", "atras": "fundo"}
+FOTO_BORDA = 12          # borda branca dos cards
+FOTO_GAP = 8             # linha branca entre as fotos da tela dividida
+
+
+def meta_fotos(plano):
+    arq = Path(plano["_pasta"]) / "fotos.json"
+    return json.loads(arq.read_text()) if arq.exists() else {"fotos": {}, "divididas": {}}
+
+
+def imagens(f):
+    """As imagens de uma entrada de foto, cada uma como {src, rotulo, foco, zoom}."""
+    out = []
+    for k, im in enumerate(f["imagens"]):
+        im = {"src": im} if isinstance(im, str) else dict(im)
+        if "rotulo" not in im and f.get("rotulos"):
+            nomes = f["rotulos"] if isinstance(f["rotulos"], list) else ["antes", "depois"]
+            im["rotulo"] = nomes[k] if k < len(nomes) else ""
+        out.append(im)
+    return out
+
+
+def meta_imagem(meta, src, pasta):
+    m = meta.get("fotos", {}).get(src)
+    if m:
+        return m
+    from PIL import Image
+    with Image.open(Path(pasta) / src) as im:
+        return {"largura": im.width, "altura": im.height, "rosto": None}
+
+
+def enquadrar(m, cw, ch, rosto_frac=None, centro=(0.5, 0.45), zoom=1.0, foco=None):
+    """Onde a foto fica dentro de uma caixa cw×ch: cobre a caixa toda, sem distorcer, com o
+    rosto no ponto `centro` da caixa e, com rosto_frac, ocupando essa fração da altura.
+    Devolve largura, altura, x, y da foto e a origem do zoom lento (fração da foto)."""
+    iw, ih = m["largura"], m["altura"]
+    cobre = max(cw / iw, ch / ih)
+    r = m.get("rosto")
+    s = cobre
+    if foco:
+        px, py = foco[0] * iw, foco[1] * ih
+    elif r:
+        px, py = r[0] + r[2] / 2, r[1] + r[3] / 2
+        if rosto_frac:
+            s = min(max(cobre, rosto_frac * ch / r[3]), cobre * 2.4)
+    else:
+        px, py = iw / 2, ih * 0.42
+    s *= zoom
+    w, h = iw * s, ih * s
+    x = min(0.0, max(cw - w, cw * centro[0] - px * s))
+    y = min(0.0, max(ch - h, ch * centro[1] - py * s))
+    return w, h, x, y, px / iw, py / ih
+
+
+def caixa_foto(iid, im, m, cw, ch, classe="ft-caixa", **kw):
+    w, h, x, y, ox, oy = enquadrar(m, cw, ch, foco=im.get("foco"), zoom=im.get("zoom", 1.0), **kw)
+    rotulo = f'<div class="ft-rotulo">{esc(im["rotulo"])}</div>' if im.get("rotulo") else ""
+    return (f'<div class="{classe}" style="width:{num(cw)}px;height:{num(ch)}px">'
+            f'<img id="{iid}" src="{esc(im["src"])}" alt="" style="left:{x:.1f}px;top:{y:.1f}px;width:{w:.1f}px;'
+            f'height:{h:.1f}px;transform-origin:{ox * 100:.1f}% {oy * 100:.1f}%">{rotulo}</div>')
+
+
+def foto_dividida_desce(f, meta):
+    """Quanto o vídeo desce na tela dividida: os olhos da pessoa a 30% da metade de baixo."""
+    if "desce" in f:
+        return f["desce"]
+    corte = f.get("corte", 880)
+    olhos = meta.get("divididas", {}).get(f["id"], {}).get("olhos_y", 780)
+    return int(max(0, min(corte - 40, corte + 0.30 * (ALTURA - corte) - olhos)))
+
+
+def gerar_fotos(plano, duracao, camada):
+    meta = meta_fotos(plano)
+    pasta = plano["_pasta"]
+    html_, js = [], []
+    for f in plano.get("fotos", []):
+        if FOTO_CAMADA[f["layout"]] != camada:
+            continue
+        fid, ini, fim, lay = f["id"], f["inicio"], f["fim"], f["layout"]
+        ims = imagens(f)
+        ms = [meta_imagem(meta, im["src"], pasta) for im in ims]
+        par = len(ims) == 2
+        rf = f.get("rosto", None)
+
+        if lay == "cards":
+            # um card grande, ou dois (antes à esquerda, depois à direita), inclinados
+            slots = [(540, 400, 540, 675, -3)] if len(ims) == 1 else [(300, 382, 430, 538, -6), (782, 404, 430, 538, 5)]
+            rf = (0.42 if par else None) if rf is None else (rf or None)
+            n = min(len(ims), len(slots))
+            cards = []
+            for k in range(n):
+                cx, cy, cw, ch, rot = slots[k]
+                cid = f"{fid}-c{k}"
+                cards.append(f'<div class="ft-card" id="{cid}" style="left:{num(cx - cw / 2 - FOTO_BORDA)}px;top:{num(cy - ch / 2 - FOTO_BORDA)}px">'
+                             + caixa_foto(f"{cid}-i", ims[k], ms[k], cw, ch, rosto_frac=rf) + "</div>")
+                lado = -1 if rot < 0 else 1
+                t0 = ini + 0.12 * k
+                js.append(f'tl.fromTo("#{cid}", {{opacity:0, y:-240, rotation:{rot + 14 * lado}, scale:0.86}}, '
+                          f'{{opacity:1, y:0, rotation:{rot}, scale:1, duration:0.62, ease:"back.out(1.3)"}}, {num(t0)});')
+                fim_deriva = fim - 0.46
+                if fim_deriva > t0 + 0.7:
+                    js.append(f'tl.to("#{cid}", {{y:-12, rotation:{rot + 0.9 * lado}, duration:{num(fim_deriva - t0 - 0.62)}, ease:"sine.inOut"}}, {num(t0 + 0.62)});')
+                js.append(f'tl.fromTo("#{cid}-i", {{scale:1}}, {{scale:1.05, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
+                js.append(f'tl.to("#{cid}", {{opacity:0, y:-150, scale:0.92, duration:0.34, ease:"power2.in"}}, {num(fim - 0.38 - 0.06 * (n - 1 - k))});')
+            html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(ini)}" data-duration="{num(fim - ini)}" '
+                         f'data-layout-allow-overlap data-layout-allow-overflow>\n        ' + "\n        ".join(cards) + "\n      </div>")
+
+        elif lay == "dividida":
+            corte = f.get("corte", 880)
+            linha = FOTO_GAP if f.get("linha", True) else 0
+            n = len(ims)
+            if n <= 2:
+                cw = (LARGURA - FOTO_GAP * (n - 1)) / n
+                rf = (0.36 if par else None) if rf is None else (rf or None)
+                caixas = "".join(
+                    f'<div class="ft-slot" style="left:{num(k * (cw + FOTO_GAP))}px">'
+                    + caixa_foto(f"{fid}-i{k}", ims[k], ms[k], cw, corte, rosto_frac=rf, centro=(0.5, 0.42)) + "</div>"
+                    for k in range(n))
+                faixa = f'<div class="ft-faixa" id="{fid}-s">{caixas}</div>'
+                for k in range(n):
+                    js.append(f'tl.fromTo("#{fid}-i{k}", {{scale:1}}, {{scale:1.04, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
+            else:
+                # carrossel: as fotos passam em velocidade constante, todas aparecem na janela
+                cw = f.get("largura_foto", 500)
+                total = n * cw + (n - 1) * FOTO_GAP
+                caixas = "".join(
+                    f'<div class="ft-slot" style="left:{num(k * (cw + FOTO_GAP))}px">'
+                    + caixa_foto(f"{fid}-i{k}", ims[k], ms[k], cw, corte, centro=(0.5, 0.42)) + "</div>"
+                    for k in range(n))
+                faixa = f'<div class="ft-faixa" id="{fid}-s" style="width:{num(total)}px">{caixas}</div>'
+                if total > LARGURA:
+                    js.append(f'tl.fromTo("#{fid}-s", {{x:0}}, {{x:{num(LARGURA - total)}, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
+            html_.append(
+                f'<div id="{fid}" class="clip ft" data-start="{num(ini)}" data-duration="{num(fim - ini)}" data-layout-allow-overlap data-layout-allow-overflow>\n'
+                f'        <div class="ft-painel" id="{fid}-p" style="height:{num(corte + linha)}px">\n          {faixa}\n        </div>\n      </div>')
+            js.append(f'tl.fromTo("#{fid}-p", {{yPercent:-100}}, {{yPercent:0, duration:0.5, ease:"expo.out"}}, {num(ini)});')
+            js.append(f'tl.to("#{fid}-p", {{yPercent:-100, duration:0.42, ease:"expo.in"}}, {num(fim - 0.44)});')
+
+        elif lay == "atras":
+            altura = f.get("altura", 1150)
+            caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, altura, classe="ft-caixa reta",
+                               rosto_frac=rf or None, centro=tuple(f.get("centro", (0.5, 0.42))))
+            html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(ini)}" data-duration="{num(fim - ini)}" data-layout-allow-overlap>\n'
+                         f'        <div class="ft-fundo" id="{fid}-b" style="height:{num(altura)}px">{caixa}</div>\n      </div>')
+            js.append(f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.45, ease:"power2.out"}}, {num(ini)});')
+            js.append(f'tl.fromTo("#{fid}-i", {{scale:1.08}}, {{scale:1, duration:0.9, ease:"expo.out"}}, {num(ini)});')
+            if fim - ini > 1.4:
+                js.append(f'tl.to("#{fid}-i", {{scale:1.04, duration:{num(fim - ini - 0.9)}, ease:"none"}}, {num(ini + 0.9)});')
+            js.append(f'tl.to("#{fid}-b", {{opacity:0, duration:0.35, ease:"power2.in"}}, {num(fim - 0.37)});')
+
+        else:  # cheia
+            flash = f.get("entrada", "flash") == "flash"
+            caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, ALTURA, classe="ft-caixa reta", centro=(0.5, 0.42))
+            a, b = (ini - 0.1, fim + 0.34) if flash else (ini, fim)
+            html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(a)}" data-duration="{num(b - a)}" data-layout-allow-overlap>\n'
+                         f'        <div class="ft-cheia" id="{fid}-b">{caixa}</div>\n'
+                         + (f'        <div class="ft-flash" id="{fid}-f"></div>\n' if flash else "") + "      </div>")
+            js.append(f'tl.fromTo("#{fid}-i", {{scale:1}}, {{scale:1.08, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
+            if flash:
+                js += [
+                    f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.01}}, {num(ini)});',
+                    f'tl.fromTo("#{fid}-f", {{opacity:0}}, {{opacity:0.92, duration:0.09, ease:"power2.in"}}, {num(ini - 0.09)});',
+                    f'tl.to("#{fid}-f", {{opacity:0, duration:0.3, ease:"power2.out"}}, {num(ini + 0.01)});',
+                    f'tl.to("#{fid}-f", {{opacity:0.92, duration:0.09, ease:"power2.in"}}, {num(fim - 0.09)});',
+                    f'tl.to("#{fid}-b", {{opacity:0, duration:0.01}}, {num(fim)});',
+                    f'tl.to("#{fid}-f", {{opacity:0, duration:0.3, ease:"power2.out"}}, {num(fim + 0.01)});',
+                ]
+            else:
+                js.append(f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.35, ease:"power2.out"}}, {num(ini)});')
+                js.append(f'tl.to("#{fid}-b", {{opacity:0, duration:0.35, ease:"power2.in"}}, {num(fim - 0.37)});')
+
+    cid = "fotos" if camada == "frente" else "fotos-fundo"
+    return f"""<template>
+  <style>{font_faces()}
+      #root {{ position: absolute; inset: 0; overflow: hidden; }}
+      .ft {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; height: {ALTURA}px; }}
+      .ft-caixa {{ position: relative; overflow: hidden; border-radius: 20px; background: #161314; }}
+      .ft-caixa.reta {{ border-radius: 0; }}
+      .ft-caixa img {{ position: absolute; max-width: none; display: block; }}
+      .ft-card {{ position: absolute; padding: {FOTO_BORDA}px; background: #FFFFFF; border-radius: 30px;
+                 box-shadow: 0 30px 70px rgba(0, 0, 0, 0.34), 0 6px 18px rgba(0, 0, 0, 0.18); }}
+      .ft-rotulo {{ position: absolute; left: 0; right: 0; bottom: 20px; margin: 0 auto; width: fit-content;
+                   padding: 8px 20px 8px 24px; border-radius: 999px; background: rgba(18, 14, 16, 0.55);
+                   font-family: "Poppins Reels"; font-weight: 600; font-size: 24px; letter-spacing: 0.24em;
+                   text-transform: uppercase; color: #FFFFFF; }}
+      .ft-painel {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; overflow: hidden; background: #FFFFFF;
+                   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22); }}
+      .ft-faixa {{ position: absolute; left: 0; top: 0; height: 100%; width: {LARGURA}px; }}
+      .ft-slot {{ position: absolute; top: 0; }}
+      .ft-slot .ft-caixa {{ border-radius: 0; }}
+      .ft-fundo {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; overflow: hidden;
+                  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+                  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%); }}
+      .ft-cheia {{ position: absolute; inset: 0; overflow: hidden; }}
+      .ft-flash {{ position: absolute; inset: 0; background: #FFF9F4; opacity: 0; }}
+  </style>
+  <div id="root" data-composition-id="{cid}" data-width="{LARGURA}" data-height="{ALTURA}">
+      {chr(10).join("      " + h for h in html_).strip()}
+  </div>
+  <script>
+    const tl = gsap.timeline({{ paused: true }});
+    tl.to({{}}, {{ duration: {num(duracao)} }}, 0);
+    {(chr(10) + "    ").join(js)}
+    window.__timelines["{cid}"] = tl;
+  </script>
+</template>
+"""
+
+
 # ── raiz: vídeo, recorte, transições, sons ──────────────────────────────────
 
 def eventos_sfx(plano):
@@ -355,7 +593,7 @@ def eventos_sfx(plano):
     for g in sorted(plano.get("legendas", []) + plano.get("perspectivas", []), key=primeira_palavra):
         primeira = min(p["s"] for l in g["linhas"] for p in l["palavras"])
         destaques = [l["palavras"][0]["s"] for l in g["linhas"]
-                     if l.get("estilo", "fina") in ("serifa", "destaque")]
+                     if l.get("estilo", "fina") in ("serifa", "destaque", "manuscrita", "frase-forte")]
         # clique quando o texto volta depois de uma pausa; na fala corrida, só nos destaques
         if primeira - fim_anterior > 0.3 and not any(abs(d - primeira) < 0.15 for d in destaques):
             ev.append((primeira, CLIQUES[n_cliques % len(CLIQUES)], 0.5))
@@ -367,6 +605,18 @@ def eventos_sfx(plano):
     for c in plano.get("cards", []):
         ev.append((c["inicio"] + 0.08, "whoosh-rapido", 0.45))
         ev.append((c["inicio"] + 0.3, "click", 0.55))
+    for f in plano.get("fotos", []):
+        if not f.get("sons", True):
+            continue
+        if f["layout"] == "cards":
+            ev.append((f["inicio"] + 0.08, "whoosh-rapido", 0.45))
+            ev.append((f["inicio"] + 0.55, "click", 0.45))
+        elif f["layout"] == "dividida":
+            ev.append((f["inicio"] + 0.05, "whoosh", 0.45))
+        elif f["layout"] == "cheia" and f.get("entrada", "flash") == "flash":
+            ev.append((f["inicio"], "whoosh-rapido", 0.5))
+        else:
+            ev.append((f["inicio"] + 0.05, "whoosh-rapido", 0.35))
     grandes = [t for t in plano.get("transicoes", []) if t.get("tipo", "luz") != "corte"]
     for i, t in enumerate(grandes):
         tipo = t.get("tipo", "luz")
@@ -473,8 +723,27 @@ def gerar_index(plano, duracao):
           data-duration="{num(b - a)}" data-track-index="1" muted playsinline data-layout-allow-occlusion></video>"""
             for i, (a, b) in enumerate(janelas))
         recorte_html = f"""
-      <div class="cam" id="cam-recorte" style="z-index: 3">{videos}
+      <div class="cam" id="cam-recorte" style="z-index: 4">{videos}
       </div>"""
+
+    # tela dividida: o vídeo (e o recorte) descem para a metade de baixo enquanto as fotos estão no alto
+    meta = meta_fotos(plano)
+    for f in plano.get("fotos", []):
+        if f["layout"] == "dividida":
+            d = foto_dividida_desce(f, meta)
+            js.append(f'tl.fromTo(".cam", {{y:0}}, {{y:{d}, duration:0.5, ease:"expo.out", immediateRender:false}}, {num(f["inicio"])});')
+            js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.42, ease:"expo.in", immediateRender:false}}, {num(f["fim"] - 0.44)});')
+    camadas = {lay: any(FOTO_CAMADA[f["layout"]] == lay for f in plano.get("fotos", [])) for lay in ("frente", "fundo")}
+    fotos_fundo_html = """
+      <div id="fotos-fundo" data-composition-id="fotos-fundo" data-composition-src="compositions/fotos-fundo.html"
+        data-start="0" data-duration="{d}" data-track-index="6" data-track-kind="graphics"
+        data-width="{w}" data-height="{h}" style="z-index: 2"></div>""".format(d=num(duracao), w=LARGURA, h=ALTURA) if camadas["fundo"] else ""
+    fotos_html = """
+      <div id="fotos" data-composition-id="fotos" data-composition-src="compositions/fotos.html"
+        data-start="0" data-duration="{d}" data-track-index="4" data-track-kind="graphics"
+        data-width="{w}" data-height="{h}" style="z-index: 5"></div>""".format(d=num(duracao), w=LARGURA, h=ALTURA) if camadas["frente"] else ""
+    # a legenda passa atrás da pessoa (imobiliária) ou fica na frente de tudo (biomédica)
+    z_legendas = 7 if plano.get("legendas_na_frente") else 3
 
     cores = plano["cores"]
     return f"""<!doctype html>
@@ -497,7 +766,7 @@ def gerar_index(plano, duracao):
       }}
       .cam {{ position: absolute; inset: 0; transform-origin: 50% 45%; }}
       .cam video {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; height: {ALTURA}px; object-fit: cover; }}
-      .transicao {{ position: absolute; inset: 0; z-index: 5; pointer-events: none; }}
+      .transicao {{ position: absolute; inset: 0; z-index: 8; pointer-events: none; }}
       .transicao.luz {{ mix-blend-mode: screen; }}
       .vazamento {{ position: absolute; inset: -25%; opacity: 0; }}
       .vazamento.ambar {{
@@ -521,14 +790,14 @@ def gerar_index(plano, duracao):
         <video id="video" class="clip" src="{esc(video)}" data-start="0" data-duration="{num(duracao)}"
           data-track-index="0" {audio_attr} playsinline></video>
       </div>
-
+{fotos_fundo_html}
       <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
         data-start="0" data-duration="{num(duracao)}" data-track-index="2" data-track-kind="captions"
-        data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: 2"></div>
-{recorte_html}
+        data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: {z_legendas}"></div>
+{recorte_html}{fotos_html}
       <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
         data-start="0" data-duration="{num(duracao)}" data-track-index="3" data-track-kind="graphics"
-        data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: 4"></div>
+        data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: 6"></div>
 
       {(chr(10) + "      ").join(transicoes_html)}
 
@@ -556,7 +825,17 @@ def main():
     (pasta / "index.html").write_text(gerar_index(plano, duracao))
     (pasta / "compositions" / "legendas.html").write_text(gerar_legendas(plano, duracao))
     (pasta / "compositions" / "cards.html").write_text(gerar_cards(plano, duracao))
-    print(f"ok: {pasta}/index.html + compositions/legendas.html + compositions/cards.html")
+    feitos = ["legendas", "cards"]
+    for camada, nome in (("frente", "fotos"), ("fundo", "fotos-fundo")):
+        arq = pasta / "compositions" / f"{nome}.html"
+        if any(FOTO_CAMADA[f["layout"]] == camada for f in plano.get("fotos", [])):
+            arq.write_text(gerar_fotos(plano, duracao, camada))
+            feitos.append(nome)
+        elif arq.exists():
+            arq.unlink()
+    if any(f["layout"] == "atras" for f in plano.get("fotos", [])) and not plano.get("recorte"):
+        print("aviso: foto 'atras' sem recorte da pessoa no plano: a foto vai cobrir a pessoa")
+    print(f"ok: {pasta}/index.html + " + " + ".join(f"compositions/{n}.html" for n in feitos))
 
 
 if __name__ == "__main__":

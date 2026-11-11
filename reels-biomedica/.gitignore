@@ -1,0 +1,14 @@
+# vídeos, fotos de pacientes, recortes e renders ficam fora do git
+referencias/*.mp4
+**/assets/video/
+**/assets/fotos/
+**/fotos-originais/
+**/renders/
+**/.hyperframes/
+**/.media/
+**/assets/sfx/*.mp3
+**/assets/musica/*.mp3
+**/analise/
+node_modules/
+__pycache__/
+projetos/*.log

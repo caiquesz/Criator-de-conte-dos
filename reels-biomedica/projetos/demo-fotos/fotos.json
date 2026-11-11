@@ -1,0 +1,87 @@
+{
+ "fotos": {
+  "assets/fotos/antes.jpg": {
+   "largura": 352,
+   "altura": 440,
+   "rosto": [
+    30.0,
+    95.3,
+    198.1,
+    321.0
+   ]
+  },
+  "assets/fotos/depois.jpg": {
+   "largura": 352,
+   "altura": 440,
+   "rosto": [
+    55.4,
+    107.0,
+    201.5,
+    295.7
+   ]
+  },
+  "assets/fotos/famosa1.jpg": {
+   "largura": 270,
+   "altura": 640,
+   "rosto": [
+    98.4,
+    63.3,
+    162.9,
+    207.9
+   ]
+  },
+  "assets/fotos/famosa2.jpg": {
+   "largura": 270,
+   "altura": 640,
+   "rosto": [
+    123.8,
+    88.2,
+    168.2,
+    316.4
+   ]
+  },
+  "assets/fotos/famosa3.jpg": {
+   "largura": 250,
+   "altura": 640,
+   "rosto": [
+    117.8,
+    82.0,
+    137.2,
+    247.7
+   ]
+  },
+  "assets/fotos/famosa4.jpg": {
+   "largura": 260,
+   "altura": 640,
+   "rosto": null
+  },
+  "assets/fotos/resultado.jpg": {
+   "largura": 720,
+   "altura": 900,
+   "rosto": [
+    177.7,
+    233.4,
+    299.1,
+    420.4
+   ]
+  },
+  "assets/fotos/virginia.jpg": {
+   "largura": 720,
+   "altura": 430,
+   "rosto": [
+    465.0,
+    1.0,
+    71.7,
+    69.9
+   ]
+  }
+ },
+ "divididas": {
+  "f2": {
+   "olhos_y": 807
+  },
+  "f4": {
+   "olhos_y": 815
+  }
+ }
+}

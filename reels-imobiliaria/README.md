@@ -93,7 +93,11 @@ cd ../.. && python3 scripts/mixar.py projetos/casa-x projetos/casa-x/renders/ren
 ```
 
 Estilos de linha: `fina`, `fina-it`, `media`, `forte`, `pesada`, `destaque` (ExtraBold na cor de
-destaque), `serifa` e `rotulo` (caixa alta pequena, letras bem abertas). `s` é o instante em que a palavra é dita (vem de `transcricao.txt`). Uma
+destaque), `serifa` e `rotulo` (caixa alta pequena, letras bem abertas); para legendas curtas de
+frase (Reels da biomédica): `frase`, `frase-fina`, `frase-forte` e `manuscrita` (Caveat, à mão).
+`"legendas_na_frente": true` põe a legenda na frente da pessoa em vez de atrás, e `fotos` põe
+fotos no vídeo (cards inclinados, tela dividida, atrás da pessoa, tela cheia): veja
+`../reels-biomedica/README.md`. `s` é o instante em que a palavra é dita (vem de `transcricao.txt`). Uma
 linha mais larga que a área segura tem a fonte reduzida automaticamente.
 
 ## Edição técnica de takes soltos
@@ -108,7 +112,7 @@ iguais entre os takes; o áudio, a duração e a ordem não mudam.
 ## Pastas
 
 - `template/`: fontes (Poppins e Instrument Serif, licença OFL) e configuração do HyperFrames.
-- `scripts/`: `analisar.py`, `sincronizar.py`, `paleta.py`, `gerar.py`, `recorte.sh`, `estabilizar.py`, `rastrear.py`, `enquadrar.py`, `silhueta.py`, `mixar.py`, `novo_projeto.sh`, `preparar_sfx.sh`.
+- `scripts/`: `analisar.py`, `sincronizar.py`, `paleta.py`, `gerar.py`, `recorte.sh`, `estabilizar.py`, `rastrear.py`, `enquadrar.py`, `preparar_fotos.py`, `silhueta.py`, `mixar.py`, `novo_projeto.sh`, `preparar_sfx.sh`.
 - `teste-estilo/`: o teste de estilo feito sobre trechos de B-roll da referência (o vídeo não vai
   para o git).
 - `projetos/`: um projeto por vídeo. Os vídeos e renders ficam fora do git.

@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # Cria um projeto de Reels a partir do template.
-# Uso: scripts/novo_projeto.sh NOME caminho/do/video.mp4
+# Uso: scripts/novo_projeto.sh NOME caminho/do/video.mp4 [PASTA_DOS_PROJETOS]
+#      (sem a pasta, o projeto vai para reels-imobiliaria/projetos; a biomédica usa reels-biomedica/projetos)
 set -euo pipefail
 
 RAIZ="$(cd "$(dirname "$0")/.." && pwd)"
 NOME="$1"
 VIDEO="$2"
-DEST="$RAIZ/projetos/$NOME"
+DEST="${3:-$RAIZ/projetos}/$NOME"
 
 mkdir -p "$DEST/assets/video"
 cp -r "$RAIZ/template/." "$DEST/"

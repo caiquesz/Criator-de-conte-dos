@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Envio da Biomédica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  /* Três passos em coluna (vídeo, fotos, briefing) e, embaixo, os envios com o vídeo pronto para baixar.
+     Porcelana levemente rosada, ameixa como cor de ação. */
+  :root {
+    --bg: #F4F1F2;
+    --surface: #FCFBFB;
+    --fg: #231B21;
+    --muted: #6D6068;
+    --line: #E2D9DE;
+    --accent: #6E2F5E;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #F1E4EC;
+    --photo: #D8C3CE;
+    --photo-2: #C4A9B7;
+    --pessoa: #7F6674;
+    --ok: #2D7A4E;
+    --warn: #9B5A13;
+    --err: #B2352C;
+    --frame: #1A1519;
+    --font-ui: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151114; --surface: #1F191D; --fg: #F2EBEF; --muted: #B2A4AC; --line: #362D33;
+      --accent: #E2A8CE; --accent-ink: #2B0F22; --accent-soft: #33212C;
+      --photo: #5A4552; --photo-2: #6E5564; --pessoa: #A88F9D;
+      --ok: #6CC390; --warn: #E2A35B; --err: #F08B7F; --frame: #0C0A0B; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #151114; --surface: #1F191D; --fg: #F2EBEF; --muted: #B2A4AC; --line: #362D33;
+    --accent: #E2A8CE; --accent-ink: #2B0F22; --accent-soft: #33212C;
+    --photo: #5A4552; --photo-2: #6E5564; --pessoa: #A88F9D;
+    --ok: #6CC390; --warn: #E2A35B; --err: #F08B7F; --frame: #0C0A0B; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-ui); font-size: 15px; line-height: 1.55;
+    padding: 32px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px));
+  }
+  .page { max-width: 940px; margin: 0 auto; display: grid; gap: 36px; }
+  img, svg, video { max-width: 100%; }
+
+  header { display: grid; gap: 8px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin: 0; font-weight: 600; }
+  h1 {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(40px, 7vw, 62px); line-height: 1; letter-spacing: -0.015em; margin: 0; text-wrap: balance;
+  }
+  .lead { margin: 4px 0 0; color: var(--muted); max-width: 62ch; }
+
+  .passo { display: grid; gap: 14px; min-width: 0; }
+  .passo-titulo { display: flex; align-items: baseline; gap: 12px; }
+  .passo-titulo .n {
+    font-family: var(--font-display); font-style: italic; font-size: 30px; line-height: 1; color: var(--accent); min-width: 22px;
+  }
+  h2 { font-size: 19px; font-weight: 700; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .passo-titulo small { color: var(--muted); font-size: 13px; font-weight: 500; }
+  .explica { margin: -6px 0 0; color: var(--muted); font-size: 14px; max-width: 66ch; }
+
+  .drop {
+    display: grid; justify-items: center; gap: 6px; text-align: center; padding: 22px 16px;
+    border: 1.5px dashed var(--line); border-radius: 16px; background: var(--surface); cursor: pointer;
+  }
+  .drop strong { font-weight: 600; }
+  .drop small { color: var(--muted); font-size: 13px; }
+  .drop.dragging { border-color: var(--accent); background: var(--accent-soft); }
+  .drop[aria-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
+
+  .fila { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .fila > li {
+    display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 8px 10px 8px 8px;
+  }
+  .thumb {
+    width: 54px; aspect-ratio: 9 / 16; border-radius: 8px; overflow: hidden; background: var(--frame);
+    position: relative; display: grid; place-items: center;
+  }
+  .thumb video, .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .thumb b {
+    position: relative; z-index: 1; font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: 24px; color: #F4EEF1; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  }
+  .info { display: grid; gap: 1px; min-width: 0; }
+  .info .rot { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .info .nome { font-weight: 600; overflow-wrap: anywhere; }
+  .info .meta { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .meta .bad { color: var(--warn); }
+  .meta .ok { color: var(--ok); }
+  .acoes { display: flex; gap: 4px; }
+  .icone {
+    font: inherit; font-size: 16px; line-height: 1; width: 36px; height: 36px; border-radius: 10px;
+    border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer;
+  }
+  .icone[disabled] { opacity: 0.3; cursor: not-allowed; }
+  .total { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .vazio { color: var(--muted); font-size: 14px; margin: 0; }
+
+  /* como as fotos entram no vídeo */
+  .layouts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 760px) { .layouts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .layout { display: grid; gap: 8px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+  .layout svg { width: 74px; height: auto; display: block; }
+  .layout b { font-size: 14px; }
+  .layout span { font-size: 13px; color: var(--muted); line-height: 1.45; }
+  .layout .tag { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .sv-tela { fill: var(--frame); }
+  .sv-foto { fill: var(--photo); }
+  .sv-foto2 { fill: var(--photo-2); }
+  .sv-pessoa { fill: var(--pessoa); }
+  .sv-borda { fill: none; stroke: #FFFFFF; stroke-width: 2.4; }
+  .sv-legenda { fill: #FFFFFF; opacity: 0.9; }
+
+  /* fotos */
+  .fotos { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .foto {
+    display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 14px; align-items: start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px;
+  }
+  .foto-img {
+    width: 84px; aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; background: var(--photo);
+    display: grid; place-items: center; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  }
+  .foto-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .foto-corpo { display: grid; gap: 10px; min-width: 0; }
+  .foto-topo { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: start; }
+  .tipos { display: flex; flex-wrap: wrap; gap: 6px; border: 0; padding: 0; margin: 0; min-width: 0; }
+  .tipos legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tipo { position: relative; }
+  .tipo input { position: absolute; opacity: 0; pointer-events: none; }
+  .tipo span {
+    display: inline-block; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--muted); cursor: pointer; background: var(--bg);
+  }
+  .tipo input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .tipo input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .campos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .campos .largo { grid-column: 1 / -1; }
+  @media (max-width: 560px) {
+    .campos { grid-template-columns: minmax(0, 1fr); }
+    .foto { grid-template-columns: 64px minmax(0, 1fr); }
+    .foto-img { width: 64px; }
+  }
+
+  label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); min-width: 0; }
+  input[type="text"], textarea, select {
+    font: inherit; font-size: 15px; color: var(--fg); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; width: 100%; min-width: 0;
+  }
+  .briefing input[type="text"], .briefing textarea { background: var(--surface); }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible, .drop:focus-visible, .choice input:focus-visible + span {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+
+  .briefing { display: grid; gap: 14px; min-width: 0; }
+  .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 560px) { .row { grid-template-columns: minmax(0, 1fr); } }
+  .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  @media (max-width: 460px) { .choices { grid-template-columns: minmax(0, 1fr); } }
+  .choice { position: relative; display: block; cursor: pointer; }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice span {
+    display: grid; gap: 2px; height: 100%; padding: 12px 14px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--fg); font-size: 14px;
+  }
+  .choice span em { font-style: normal; font-size: 12px; color: var(--muted); }
+  .choice span b { font-weight: 700; }
+  .choice input:checked + span { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+
+  .send { display: grid; gap: 10px; }
+  .btn {
+    font: inherit; font-weight: 700; font-size: 15px; border: 0; border-radius: 999px; padding: 13px 24px;
+    background: var(--accent); color: var(--accent-ink); cursor: pointer; justify-self: start;
+  }
+  .btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+  .bar { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.3s ease; }
+  .status { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .status.err { color: var(--err); }
+  .status.ok { color: var(--ok); }
+  .note { font-size: 13px; color: var(--muted); margin: 0; }
+
+  section.list { display: grid; gap: 12px; }
+  .items { display: grid; gap: 10px; }
+  .item {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  }
+  .item .name { font-weight: 700; overflow-wrap: anywhere; min-width: 0; }
+  .item .meta { grid-column: 1 / -1; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .item .msg { grid-column: 1 / -1; font-size: 14px; }
+  .chip { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 3px 10px; border: 1px solid currentColor; white-space: nowrap; }
+  .chip.enviando { color: var(--warn); }
+  .chip.enviado { color: var(--muted); }
+  .chip.editando { color: var(--accent); }
+  .chip.pronto { color: var(--ok); }
+  .chip.erro { color: var(--err); }
+  .empty { color: var(--muted); font-size: 14px; margin: 0; }
+  .entrega { grid-column: 1 / -1; display: grid; gap: 8px; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .entrega .btn { padding: 11px 20px; font-size: 14px; }
+  .aviso-baixar { font-size: 13px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+  .aviso-baixar.err { color: var(--err); }
+  .aviso-baixar.ok { color: var(--ok); }
+
+  @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <p class="eyebrow">Reels da biomédica</p>
+    <h1>Envio de vídeos e fotos</h1>
+    <p class="lead">Mande o vídeo dela e, se tiver, as fotos de antes e depois ou de famosas que ela cita. Eu edito no estilo das referências e coloco cada foto no momento em que ela fala daquilo. Arquivos grandes passam em pedaços, e o envio continua de onde parou se a internet cair.</p>
+  </header>
+
+  <section class="passo" aria-labelledby="t-video">
+    <div class="passo-titulo"><span class="n" aria-hidden="true">1</span><h2 id="t-video">Vídeo</h2><small>um ou vários arquivos, na ordem</small></div>
+    <div class="drop" id="dropVideo" role="button" tabindex="0" aria-label="Adicionar arquivos de vídeo">
+      <strong>Adicionar vídeo</strong>
+      <small>Toque para escolher na galeria ou arraste aqui. Se o vídeo veio em vários takes,<br>escolha todos: eu junto na ordem desta lista.</small>
+    </div>
+    <input type="file" id="fileVideo" accept="video/*" multiple hidden>
+    <ol class="fila" id="filaVideo" aria-label="Ordem dos arquivos de vídeo"></ol>
+    <p class="vazio" id="vazioVideo">Nenhum vídeo ainda. As setas mudam a ordem.</p>
+    <p class="total" id="totalVideo" hidden></p>
+  </section>
+
+  <section class="passo" aria-labelledby="t-fotos">
+    <div class="passo-titulo"><span class="n" aria-hidden="true">2</span><h2 id="t-fotos">Fotos</h2><small>opcional</small></div>
+    <p class="explica">Para cada foto, marque se é o antes, o depois, uma famosa ou outra coisa. Antes e depois da mesma paciente vão juntos: dê o mesmo nome nas duas. Se quiser, diga quando a foto entra e como mostrar.</p>
+
+    <div class="layouts" aria-label="Como as fotos podem entrar no vídeo">
+      <div class="layout">
+        <svg viewBox="0 0 90 160" role="img" aria-label="Dois cards inclinados no alto e a biomédica embaixo">
+          <rect class="sv-tela" x="0" y="0" width="90" height="160" rx="9"/>
+          <circle class="sv-pessoa" cx="45" cy="98" r="13"/>
+          <path class="sv-pessoa" d="M19 160c0-24 11-38 26-38s26 14 26 38z"/>
+          <g transform="rotate(-8 27 38)"><rect class="sv-foto" x="10" y="14" width="34" height="44" rx="4"/><rect class="sv-borda" x="10" y="14" width="34" height="44" rx="4"/></g>
+          <g transform="rotate(7 63 40)"><rect class="sv-foto2" x="46" y="16" width="34" height="44" rx="4"/><rect class="sv-borda" x="46" y="16" width="34" height="44" rx="4"/></g>
+          <rect class="sv-legenda" x="27" y="134" width="36" height="5" rx="2.5"/>
+        </svg>
+        <span class="tag">Antes e depois</span>
+        <b>Cards inclinados</b>
+        <span>Dois cards no alto, um pouco girados, com ela falando embaixo.</span>
+      </div>
+      <div class="layout">
+        <svg viewBox="0 0 90 160" role="img" aria-label="Fotos na metade de cima e a biomédica na metade de baixo">
+          <rect class="sv-tela" x="0" y="0" width="90" height="160" rx="9"/>
+          <circle class="sv-pessoa" cx="45" cy="112" r="11"/>
+          <path class="sv-pessoa" d="M23 160c0-20 9-32 22-32s22 12 22 32z"/>
+          <rect class="sv-foto" x="0" y="0" width="44.5" height="76" rx="0"/>
+          <rect class="sv-foto2" x="45.5" y="0" width="44.5" height="76"/>
+          <rect x="0" y="76" width="90" height="2" fill="#FFFFFF"/>
+          <rect class="sv-legenda" x="27" y="84" width="36" height="5" rx="2.5"/>
+        </svg>
+        <span class="tag">Par ou várias famosas</span>
+        <b>Tela dividida</b>
+        <span>Fotos na metade de cima e ela embaixo. Com várias fotos, elas passam em carrossel.</span>
+      </div>
+      <div class="layout">
+        <svg viewBox="0 0 90 160" role="img" aria-label="Foto no fundo, no alto, com a biomédica recortada na frente">
+          <defs><linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.7" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
+          <mask id="m-fade"><rect x="0" y="0" width="90" height="98" fill="url(#fade)"/></mask></defs>
+          <rect class="sv-tela" x="0" y="0" width="90" height="160" rx="9"/>
+          <rect class="sv-foto" x="0" y="0" width="90" height="98" mask="url(#m-fade)"/>
+          <circle class="sv-pessoa" cx="45" cy="92" r="14"/>
+          <path class="sv-pessoa" d="M16 160c0-28 12-44 29-44s29 16 29 44z"/>
+          <rect class="sv-legenda" x="27" y="134" width="36" height="5" rx="2.5"/>
+        </svg>
+        <span class="tag">Famosa ou resultado</span>
+        <b>Atrás dela</b>
+        <span>A foto ocupa o fundo, no alto, e ela fica recortada na frente.</span>
+      </div>
+      <div class="layout">
+        <svg viewBox="0 0 90 160" role="img" aria-label="Foto ocupando a tela inteira">
+          <rect class="sv-foto" x="0" y="0" width="90" height="160" rx="9"/>
+          <circle class="sv-foto2" cx="45" cy="62" r="18"/>
+          <path class="sv-foto2" d="M12 160c0-34 15-56 33-56s33 22 33 56z"/>
+          <rect class="sv-legenda" x="27" y="134" width="36" height="5" rx="2.5"/>
+        </svg>
+        <span class="tag">Resultado</span>
+        <b>Tela cheia</b>
+        <span>A foto inteira por alguns segundos, com um zoom lento, enquanto a voz dela continua.</span>
+      </div>
+    </div>
+
+    <div class="drop" id="dropFoto" role="button" tabindex="0" aria-label="Adicionar fotos">
+      <strong>Adicionar fotos</strong>
+      <small>JPG, PNG ou HEIC. Pode escolher várias de uma vez.</small>
+    </div>
+    <input type="file" id="fileFoto" accept="image/*,.heic,.heif" multiple hidden>
+    <datalist id="grupos"></datalist>
+    <ul class="fotos" id="listaFotos" aria-label="Fotos"></ul>
+    <p class="vazio" id="vazioFotos">Nenhuma foto. Se o vídeo não tiver fotos, pode pular este passo.</p>
+  </section>
+
+  <section class="passo" aria-labelledby="t-brief">
+    <div class="passo-titulo"><span class="n" aria-hidden="true">3</span><h2 id="t-brief">Sobre o vídeo</h2></div>
+    <form class="briefing" id="form" novalidate>
+      <div class="row">
+        <label for="tema">Assunto ou procedimento
+          <input type="text" id="tema" name="tema" placeholder="ex.: preenchimento labial">
+        </label>
+        <label for="destaques">Palavras para destacar
+          <input type="text" id="destaques" name="destaques" placeholder="ex.: natural, sem exagero">
+        </label>
+      </div>
+      <label for="observacoes">Observações
+        <textarea id="observacoes" name="observacoes" placeholder="Algo que eu deva saber: um trecho que sai, qual referência seguir, o tom do vídeo."></textarea>
+      </label>
+      <div class="choices" role="radiogroup" aria-label="Música">
+        <label class="choice"><input type="radio" name="musica" value="tem" checked><span><b>Já tem música</b><em>mantenho a trilha do vídeo</em></span></label>
+        <label class="choice"><input type="radio" name="musica" value="nao-tem"><span><b>Sem música</b><em>eu escolho uma e mando opções</em></span></label>
+      </div>
+      <div class="send">
+        <button class="btn" type="submit" id="enviar" disabled>Enviar</button>
+        <div class="bar" id="bar" hidden><i id="barFill"></i></div>
+        <p class="status" id="status" role="status" aria-live="polite">Adicione o vídeo para liberar o envio.</p>
+        <button class="btn ghost" type="button" id="retomar" hidden>Continuar de onde parou</button>
+        <p class="note" id="aviso">Depois de enviar, me avise no chat que eu começo a edição.</p>
+      </div>
+    </form>
+  </section>
+
+  <section class="list" aria-labelledby="t-envios">
+    <div class="passo-titulo"><h2 id="t-envios">Seus envios</h2></div>
+    <div class="items" id="items"><p class="empty">Os vídeos que você enviar aparecem aqui, com o andamento da edição e o botão para baixar quando ficar pronto.</p></div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const PARTE = 19 * 1024 * 1024; // limite do armazenamento: 20 MiB por arquivo guardado
+  const $ = (id) => document.getElementById(id);
+  const els = {
+    dropVideo: $("dropVideo"), fileVideo: $("fileVideo"), filaVideo: $("filaVideo"), vazioVideo: $("vazioVideo"), totalVideo: $("totalVideo"),
+    dropFoto: $("dropFoto"), fileFoto: $("fileFoto"), listaFotos: $("listaFotos"), vazioFotos: $("vazioFotos"), grupos: $("grupos"),
+    form: $("form"), enviar: $("enviar"), bar: $("bar"), barFill: $("barFill"), status: $("status"),
+    retomar: $("retomar"), items: $("items"), aviso: $("aviso"),
+  };
+  const CAMPOS = ["tema", "destaques", "observacoes"];
+  const ROTULO = { enviando: "Enviando", enviado: "Na fila", editando: "Editando", pronto: "Pronto", erro: "Com problema" };
+  const CATEGORIAS = [["antes", "Antes"], ["depois", "Depois"], ["famosa", "Famosa"], ["outra", "Outra"]];
+  const LAYOUTS = [["auto", "Você escolhe"], ["cards", "Cards inclinados"], ["dividida", "Tela dividida"], ["atras", "Atrás dela"], ["cheia", "Tela cheia"]];
+
+  let videos = [];  // {id, file, url, info}
+  let fotos = [];   // {id, file, url, info, categoria, grupo, quando, layout}
+  let envio = null; // envio em andamento: {ref, fila, k, pos, arquivos, fotos, tamTotal}
+  let ocupado = false, assets = null, db = null, seq = 0;
+
+  const fmtMB = (b) => b < 1048576 ? Math.max(1, Math.round(b / 1024)) + " KB"
+    : (b / 1048576).toLocaleString("pt-BR", { maximumFractionDigits: b > 1e8 ? 0 : 1 }) + " MB";
+  const fmtDur = (s) => { s = Math.round(s); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+  function setStatus(texto, tipo) { els.status.textContent = texto; els.status.className = "status" + (tipo ? " " + tipo : ""); }
+  function progresso(frac) { els.bar.hidden = false; els.barFill.style.width = Math.round(frac * 100) + "%"; }
+  const travado = () => ocupado || !!envio;
+
+  // rascunho do briefing só neste navegador
+  try {
+    const salvo = JSON.parse(localStorage.getItem("envio-biomedica-rascunho") || "{}");
+    CAMPOS.forEach((c) => { if (salvo[c]) $(c).value = salvo[c]; });
+    if (salvo.musica) { const r = els.form.querySelector(`input[name="musica"][value="${salvo.musica}"]`); if (r) r.checked = true; }
+  } catch (e) {}
+  let rascunhoTimer = null;
+  els.form.addEventListener("input", () => {
+    clearTimeout(rascunhoTimer);
+    rascunhoTimer = setTimeout(() => { try { localStorage.setItem("envio-biomedica-rascunho", JSON.stringify(briefing())); } catch (e) {} }, 400);
+  });
+  function briefing() {
+    const b = {};
+    CAMPOS.forEach((c) => { b[c] = $(c).value.trim(); });
+    b.musica = els.form.querySelector('input[name="musica"]:checked').value;
+    return b;
+  }
+
+  // ── vídeo ──
+  const ehVideo = (f) => f.type.startsWith("video/") || /\.(mp4|mov|m4v|webm)$/i.test(f.name);
+  const ehFoto = (f) => f.type.startsWith("image/") || /\.(jpe?g|png|webp|heic|heif)$/i.test(f.name);
+  const ehHeic = (f) => /heic|heif/i.test(f.type) || /\.(heic|heif)$/i.test(f.name);
+
+  function adicionarVideos(files) {
+    if (travado()) return;
+    const novos = Array.from(files || []);
+    const ruins = novos.filter((f) => !ehVideo(f));
+    novos.filter(ehVideo).forEach((f) => {
+      const p = { id: "v" + (++seq), file: f, url: URL.createObjectURL(f),
+                  info: { nome: f.name, tamanho: f.size, tipo: f.type || "", duracao: null, largura: null, altura: null } };
+      videos.push(p);
+      const v = document.createElement("video");
+      v.preload = "metadata"; v.muted = true; v.src = p.url;
+      v.onloadedmetadata = () => {
+        p.info.duracao = Math.round(v.duration * 100) / 100;
+        p.info.largura = v.videoWidth; p.info.altura = v.videoHeight;
+        renderVideos();
+      };
+    });
+    if (ruins.length) setStatus(ruins.length === 1 ? `"${ruins[0].name}" não parece um vídeo e ficou de fora.` : `${ruins.length} arquivos não pareciam vídeo e ficaram de fora.`, "err");
+    else prontoParaEnviar();
+    renderVideos();
+  }
+  function moverVideo(i, d) {
+    if (travado()) return;
+    const j = i + d; if (j < 0 || j >= videos.length) return;
+    [videos[i], videos[j]] = [videos[j], videos[i]];
+    renderVideos();
+  }
+  function tirarVideo(i) {
+    if (travado()) return;
+    URL.revokeObjectURL(videos[i].url);
+    videos.splice(i, 1);
+    renderVideos();
+  }
+  const botao = (txt, rotulo, desab, fn) => {
+    const x = document.createElement("button"); x.type = "button"; x.className = "icone"; x.textContent = txt;
+    x.setAttribute("aria-label", rotulo); x.disabled = desab; x.addEventListener("click", fn); return x;
+  };
+  function feitoNoEnvio(lista, i) {
+    if (!envio) return false;
+    const k = envio.fila.findIndex((q) => q.lista === lista && q.i === i);
+    return k >= 0 && (k < envio.k);
+  }
+  function renderVideos() {
+    els.filaVideo.replaceChildren();
+    const trava = travado();
+    els.dropVideo.setAttribute("aria-disabled", trava ? "true" : "false");
+    videos.forEach((p, i) => {
+      const li = document.createElement("li");
+      const th = document.createElement("div"); th.className = "thumb";
+      const v = document.createElement("video");
+      v.muted = true; v.playsInline = true; v.preload = "metadata"; v.src = p.url + "#t=0.1";
+      const n = document.createElement("b"); n.textContent = String(i + 1);
+      th.append(v, n);
+      const info = document.createElement("div"); info.className = "info";
+      const rot = document.createElement("span"); rot.className = "rot"; rot.textContent = videos.length > 1 ? `Parte ${i + 1}` : "Vídeo";
+      const nome = document.createElement("span"); nome.className = "nome"; nome.textContent = p.info.nome;
+      const meta = document.createElement("span"); meta.className = "meta";
+      const partes = [fmtMB(p.info.tamanho)];
+      if (p.info.duracao) partes.push(fmtDur(p.info.duracao));
+      if (p.info.largura) partes.push(`${p.info.largura}×${p.info.altura}`);
+      meta.textContent = partes.join(" · ");
+      if (p.info.altura && Math.abs(p.info.largura / p.info.altura - 9 / 16) > 0.02) {
+        const w = document.createElement("span"); w.className = "bad"; w.textContent = " · não está em 9:16"; meta.append(w);
+      }
+      if (feitoNoEnvio("arquivos", i)) { const ok = document.createElement("span"); ok.className = "ok"; ok.textContent = " · enviado"; meta.append(ok); }
+      info.append(rot, nome, meta);
+      const acoes = document.createElement("div"); acoes.className = "acoes";
+      acoes.append(
+        botao("↑", `Subir o arquivo ${i + 1}`, trava || i === 0, () => moverVideo(i, -1)),
+        botao("↓", `Descer o arquivo ${i + 1}`, trava || i === videos.length - 1, () => moverVideo(i, 1)),
+        botao("✕", `Tirar o arquivo ${i + 1}`, trava, () => tirarVideo(i)),
+      );
+      li.append(th, info, acoes);
+      els.filaVideo.append(li);
+    });
+    els.vazioVideo.hidden = videos.length > 0;
+    els.totalVideo.hidden = videos.length < 2;
+    if (videos.length > 1) {
+      const tam = videos.reduce((s, p) => s + p.info.tamanho, 0);
+      const dur = videos.every((p) => p.info.duracao) ? videos.reduce((s, p) => s + p.info.duracao, 0) : null;
+      els.totalVideo.textContent = `${videos.length} arquivos · ${fmtMB(tam)}` + (dur ? ` · ${fmtDur(dur)} no total` : "");
+    }
+    atualizarBotao();
+  }
+
+  // ── fotos ──
+  function grupoPadrao(cat) {
+    if (cat !== "antes" && cat !== "depois") return "";
+    const usados = fotos.filter((f) => (f.categoria === "antes" || f.categoria === "depois") && f.grupo).map((f) => f.grupo);
+    return usados.length ? usados[usados.length - 1] : "Paciente 1";
+  }
+  function adicionarFotos(files) {
+    if (travado()) return;
+    const novos = Array.from(files || []);
+    const ruins = novos.filter((f) => !ehFoto(f));
+    novos.filter(ehFoto).forEach((f) => {
+      const heic = ehHeic(f);
+      // a primeira foto de um par costuma ser o antes, a segunda o depois
+      const ultima = fotos[fotos.length - 1];
+      const cat = ultima && ultima.categoria === "antes" ? "depois" : "antes";
+      const p = { id: "f" + (++seq), file: f, url: heic ? null : URL.createObjectURL(f), categoria: cat, grupo: "", quando: "", layout: "auto",
+                  info: { nome: f.name, tamanho: f.size, tipo: f.type || (heic ? "image/heic" : ""), largura: null, altura: null } };
+      p.grupo = grupoPadrao(cat);
+      fotos.push(p);
+      if (p.url) {
+        const im = new Image();
+        im.onload = () => { p.info.largura = im.naturalWidth; p.info.altura = im.naturalHeight; atualizarMetaFoto(p); };
+        im.src = p.url;
+      }
+    });
+    if (ruins.length) setStatus(ruins.length === 1 ? `"${ruins[0].name}" não parece uma foto e ficou de fora.` : `${ruins.length} arquivos não pareciam foto e ficaram de fora.`, "err");
+    else prontoParaEnviar();
+    renderFotos();
+  }
+  function moverFoto(i, d) {
+    if (travado()) return;
+    const j = i + d; if (j < 0 || j >= fotos.length) return;
+    [fotos[i], fotos[j]] = [fotos[j], fotos[i]];
+    renderFotos();
+  }
+  function tirarFoto(i) {
+    if (travado()) return;
+    if (fotos[i].url) URL.revokeObjectURL(fotos[i].url);
+    fotos.splice(i, 1);
+    renderFotos();
+  }
+  function textoMetaFoto(p, i) {
+    const partes = [fmtMB(p.info.tamanho)];
+    if (p.info.largura) partes.push(`${p.info.largura}×${p.info.altura}`);
+    if (feitoNoEnvio("fotos", i)) partes.push("enviada");
+    return partes.join(" · ");
+  }
+  function atualizarMetaFoto(p) {
+    const i = fotos.indexOf(p);
+    const el = document.getElementById("meta-" + p.id);
+    if (el && i >= 0) el.textContent = textoMetaFoto(p, i);
+  }
+  function atualizarGrupos() {
+    const nomes = [...new Set(fotos.map((f) => f.grupo.trim()).filter(Boolean))];
+    els.grupos.replaceChildren(...nomes.map((n) => { const o = document.createElement("option"); o.value = n; return o; }));
+  }
+  function campo(rotulo, id, el, largo) {
+    const l = document.createElement("label"); l.htmlFor = id; if (largo) l.className = "largo";
+    l.append(document.createTextNode(rotulo), el); return l;
+  }
+  function renderFotos() {
+    els.listaFotos.replaceChildren();
+    const trava = travado();
+    els.dropFoto.setAttribute("aria-disabled", trava ? "true" : "false");
+    fotos.forEach((p, i) => {
+      const li = document.createElement("li"); li.className = "foto";
+      const img = document.createElement("div"); img.className = "foto-img";
+      if (p.url) { const im = document.createElement("img"); im.src = p.url; im.alt = ""; img.append(im); }
+      else img.textContent = "HEIC";
+
+      const corpo = document.createElement("div"); corpo.className = "foto-corpo";
+      const topo = document.createElement("div"); topo.className = "foto-topo";
+      const info = document.createElement("div"); info.className = "info";
+      const nome = document.createElement("span"); nome.className = "nome"; nome.textContent = p.info.nome;
+      const meta = document.createElement("span"); meta.className = "meta"; meta.id = "meta-" + p.id; meta.textContent = textoMetaFoto(p, i);
+      info.append(nome, meta);
+      const acoes = document.createElement("div"); acoes.className = "acoes";
+      acoes.append(
+        botao("↑", `Subir a foto ${i + 1}`, trava || i === 0, () => moverFoto(i, -1)),
+        botao("↓", `Descer a foto ${i + 1}`, trava || i === fotos.length - 1, () => moverFoto(i, 1)),
+        botao("✕", `Tirar a foto ${i + 1}`, trava, () => tirarFoto(i)),
+      );
+      topo.append(info, acoes);
+
+      const tipos = document.createElement("fieldset"); tipos.className = "tipos";
+      const lg = document.createElement("legend"); lg.textContent = `O que é a foto ${i + 1}`; tipos.append(lg);
+      CATEGORIAS.forEach(([valor, texto]) => {
+        const l = document.createElement("label"); l.className = "tipo";
+        const r = document.createElement("input"); r.type = "radio"; r.name = "cat-" + p.id; r.id = `cat-${p.id}-${valor}`;
+        r.value = valor; r.checked = p.categoria === valor; r.disabled = trava;
+        r.addEventListener("change", () => {
+          const antesPar = p.categoria === "antes" || p.categoria === "depois";
+          p.categoria = valor;
+          const agoraPar = valor === "antes" || valor === "depois";
+          if (agoraPar && !antesPar && !p.grupo) p.grupo = grupoPadrao(valor);
+          if (!agoraPar && antesPar && /^Paciente \d+$/.test(p.grupo)) p.grupo = "";
+          renderFotos();
+        });
+        const s = document.createElement("span"); s.textContent = texto;
+        l.append(r, s); tipos.append(l);
+      });
+
+      const campos = document.createElement("div"); campos.className = "campos";
+      const grupo = document.createElement("input"); grupo.type = "text"; grupo.id = "grupo-" + p.id; grupo.value = p.grupo;
+      grupo.setAttribute("list", "grupos"); grupo.disabled = trava;
+      const par = p.categoria === "antes" || p.categoria === "depois";
+      grupo.placeholder = par ? "ex.: Paciente 1" : p.categoria === "famosa" ? "ex.: Virgínia" : "opcional";
+      grupo.addEventListener("input", () => { p.grupo = grupo.value; });
+      grupo.addEventListener("change", atualizarGrupos);
+      const rotGrupo = par ? "De quem é (o mesmo nome junta antes e depois)" : p.categoria === "famosa" ? "Nome da famosa" : "Nome ou legenda";
+
+      const layout = document.createElement("select"); layout.id = "layout-" + p.id; layout.disabled = trava;
+      LAYOUTS.forEach(([valor, texto]) => { const o = document.createElement("option"); o.value = valor; o.textContent = texto; o.selected = p.layout === valor; layout.append(o); });
+      layout.addEventListener("change", () => { p.layout = layout.value; });
+
+      const quando = document.createElement("input"); quando.type = "text"; quando.id = "quando-" + p.id; quando.value = p.quando; quando.disabled = trava;
+      quando.placeholder = "ex.: quando ela fala do resultado no lábio";
+      quando.addEventListener("input", () => { p.quando = quando.value; });
+
+      campos.append(campo(rotGrupo, grupo.id, grupo), campo("Como mostrar", layout.id, layout), campo("Quando aparece (opcional)", quando.id, quando, true));
+      corpo.append(topo, tipos, campos);
+      li.append(img, corpo);
+      els.listaFotos.append(li);
+    });
+    els.vazioFotos.hidden = fotos.length > 0;
+    atualizarGrupos();
+    atualizarBotao();
+  }
+
+  function ligarDrop(drop, input, fn) {
+    drop.addEventListener("click", () => { if (!travado()) input.click(); });
+    drop.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && !travado()) { e.preventDefault(); input.click(); } });
+    input.addEventListener("change", () => { fn(input.files); input.value = ""; });
+    ["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("dragging"); }));
+    ["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, () => drop.classList.remove("dragging")));
+    drop.addEventListener("drop", (e) => { e.preventDefault(); if (!travado()) fn(e.dataTransfer.files); });
+  }
+  ligarDrop(els.dropVideo, els.fileVideo, adicionarVideos);
+  ligarDrop(els.dropFoto, els.fileFoto, adicionarFotos);
+
+  function atualizarBotao() { els.enviar.disabled = !((videos.length || fotos.length) && assets && db) || ocupado || !!envio; }
+  function prontoParaEnviar() {
+    if (!assets || !db) return;
+    if (videos.length) setStatus(fotos.length ? "Confira as fotos e toque em Enviar." : "Se tiver fotos, adicione no passo 2. Depois toque em Enviar.");
+    else if (fotos.length) setStatus("Falta o vídeo. Se as fotos são de um vídeo que você já mandou, pode enviar só elas e me avisar no chat.");
+  }
+
+  // ── envio ──
+  // um pedaço que começa com "<" seria recusado como marcação: recua o corte
+  async function fimDaParte(f, inicio) {
+    let fim = Math.min(inicio + PARTE, f.size);
+    while (fim < f.size) {
+      const bytes = new Uint8Array(await f.slice(fim, fim + 64).arrayBuffer());
+      const k = bytes.findIndex((x) => ![0x20, 0x09, 0x0a, 0x0d, 0x0c].includes(x));
+      if (k === -1 || bytes[k] !== 0x3c) break;
+      fim -= 1;
+    }
+    return fim;
+  }
+  async function subir(blob, tipo) {
+    try { return await assets.upload(blob, tipo ? { type: tipo } : undefined); }
+    catch (e) {
+      if (e && e.code === "store_unavailable") { await new Promise((r) => setTimeout(r, 1500)); return assets.upload(blob, tipo ? { type: tipo } : undefined); }
+      throw e;
+    }
+  }
+  // foto que o armazenamento não aceita como veio (HEIC, ou grande demais): vira JPEG
+  async function paraJpeg(file) {
+    const bmp = await createImageBitmap(file);
+    const esc = Math.min(1, 4096 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(bmp.width * esc); c.height = Math.round(bmp.height * esc);
+    c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+    return await new Promise((ok, falha) => c.toBlob((b) => (b ? ok(b) : falha({ code: "conversao" })), "image/jpeg", 0.92));
+  }
+  const ERROS_DE_CONTA = ["quota_or_state", "rate_limited", "upstream_auth", "not_granted", "capability_disabled"];
+  function mensagemErro(e) {
+    const c = e && e.code;
+    if (c === "quota_or_state") return "O espaço de armazenamento desta página acabou. Me avise no chat que eu libero espaço apagando os vídeos já editados.";
+    if (c === "rate_limited") return "Muitos envios seguidos. Espere um minuto e toque em Continuar.";
+    if (c === "upstream_auth") return "Sua sessão expirou. Recarregue a página, entre de novo no claude.ai e toque em Continuar.";
+    if (c === "not_granted" || c === "capability_disabled") return "Esta visualização não permite enviar arquivos. Abra o link logado na sua conta.";
+    if (c === "foto") return `Não consegui enviar a foto "${e.nome}". Tire-a da lista ou mande-a em JPG e toque em Continuar.`;
+    return "O envio parou no meio. Toque em Continuar para retomar do pedaço que falhou.";
+  }
+  const metaFoto = (p) => ({ ...p.info, categoria: p.categoria, grupo: p.grupo.trim(), quando: p.quando.trim(), layout: p.layout, partes: [] });
+  const copia = (lst) => lst.map((a) => ({ ...a, partes: a.partes.slice() }));
+
+  async function enviarFoto(q) {
+    const alvo = envio.fotos[q.i];
+    let blob = q.file;
+    if (ehHeic(blob) || blob.size > PARTE) {
+      try { blob = await paraJpeg(blob); alvo.tipo = "image/jpeg"; alvo.convertida = true; } catch (e) { blob = q.file; }
+    }
+    if (blob.size <= PARTE) {
+      try {
+        const r = await subir(blob, blob.type || alvo.tipo || "image/jpeg");
+        alvo.partes = [r.id]; return blob.size;
+      } catch (e) {
+        if (e && ERROS_DE_CONTA.includes(e.code)) throw e;
+        let jpg = null;
+        try { jpg = await paraJpeg(q.file); } catch (e2) { throw { code: "foto", nome: alvo.nome }; }
+        const r = await subir(jpg, "image/jpeg");
+        alvo.partes = [r.id]; alvo.tipo = "image/jpeg"; alvo.convertida = true; return blob.size;
+      }
+    }
+    // foto enorme que o navegador não converte: vai em pedaços, como o vídeo
+    let pos = 0;
+    alvo.partes = [];
+    while (pos < blob.size) {
+      const fim = await fimDaParte(blob, pos);
+      const r = await subir(blob.slice(pos, fim), "video/mp4");
+      alvo.partes.push(r.id); pos = fim;
+    }
+    alvo.emPedacos = true;
+    return blob.size;
+  }
+
+  async function enviar() {
+    if (ocupado || (!videos.length && !fotos.length)) return;
+    ocupado = true; atualizarBotao(); els.retomar.hidden = true;
+    renderVideos(); renderFotos();
+    try {
+      if (!envio) {
+        const tamTotal = videos.reduce((s, p) => s + p.info.tamanho, 0) + fotos.reduce((s, p) => s + p.info.tamanho, 0);
+        const uso = await assets.list().then((r) => r.usage).catch(() => null);
+        if (uso && uso.maxBytes && uso.bytes + tamTotal > uso.maxBytes) throw { code: "quota_or_state" };
+        const ref = db.collection("envios").doc();
+        const fila = [...videos.map((p, i) => ({ lista: "arquivos", i, file: p.file })), ...fotos.map((p, i) => ({ lista: "fotos", i, file: p.file }))];
+        envio = { ref, fila, k: 0, pos: 0, tamTotal,
+                  arquivos: videos.map((p) => ({ ...p.info, partes: [] })), fotos: fotos.map(metaFoto) };
+        const durs = videos.map((p) => p.info.duracao);
+        await ref.set({
+          tipo: "biomedica", arquivos: copia(envio.arquivos), fotos: copia(envio.fotos), tamanhoParte: PARTE, status: "enviando",
+          tamanhoTotal: tamTotal, duracaoTotal: durs.length && durs.every(Boolean) ? Math.round(durs.reduce((s, d) => s + d, 0) * 100) / 100 : null,
+          criadoEm: new Date().toISOString(), briefing: briefing(), nota: "",
+        });
+      }
+      const antesDe = (k) => envio.fila.slice(0, k).reduce((s, q) => s + q.file.size, 0);
+      while (envio.k < envio.fila.length) {
+        const q = envio.fila[envio.k];
+        if (q.lista === "arquivos") {
+          const f = q.file;
+          while (envio.pos < f.size) {
+            const feito = antesDe(envio.k) + envio.pos;
+            setStatus(`Enviando o vídeo${envio.arquivos.length > 1 ? ` ${q.i + 1} de ${envio.arquivos.length}` : ""} · ${fmtMB(feito)} de ${fmtMB(envio.tamTotal)}`);
+            progresso(feito / envio.tamTotal);
+            const fim = await fimDaParte(f, envio.pos);
+            const r = await subir(f.slice(envio.pos, fim), "video/mp4");
+            envio.arquivos[q.i].partes.push(r.id); envio.pos = fim;
+            await envio.ref.update({ arquivos: copia(envio.arquivos) });
+          }
+        } else {
+          setStatus(`Enviando a foto ${q.i + 1} de ${envio.fotos.length} · ${fmtMB(antesDe(envio.k))} de ${fmtMB(envio.tamTotal)}`);
+          progresso(antesDe(envio.k) / envio.tamTotal);
+          await enviarFoto(q);
+          await envio.ref.update({ fotos: copia(envio.fotos) });
+        }
+        envio.k += 1; envio.pos = 0;
+        if (q.lista === "arquivos") renderVideos(); else atualizarMetaFoto(fotos[q.i]);
+      }
+      await envio.ref.update({ status: "enviado", briefing: briefing(), enviadoEm: new Date().toISOString() });
+      progresso(1);
+      const partesTexto = [envio.arquivos.length ? (envio.arquivos.length === 1 ? "o vídeo" : `${envio.arquivos.length} vídeos`) : "",
+                           envio.fotos.length ? (envio.fotos.length === 1 ? "1 foto" : `${envio.fotos.length} fotos`) : ""].filter(Boolean).join(" e ");
+      setStatus(`Enviado: ${partesTexto} (${fmtMB(envio.tamTotal)}). Agora me avise no chat que eu começo a edição.`, "ok");
+      videos.forEach((p) => URL.revokeObjectURL(p.url));
+      fotos.forEach((p) => { if (p.url) URL.revokeObjectURL(p.url); });
+      videos = []; fotos = []; envio = null;
+      try { localStorage.removeItem("envio-biomedica-rascunho"); } catch (e) {}
+    } catch (e) {
+      setStatus(mensagemErro(e), "err");
+      const nadaSubiu = envio && !envio.arquivos.some((a) => a.partes.length) && !envio.fotos.some((a) => a.partes.length);
+      if (envio && e && e.code === "quota_or_state" && nadaSubiu) envio = null;
+      else if (envio) els.retomar.hidden = false;
+    } finally {
+      ocupado = false; renderVideos(); renderFotos();
+    }
+  }
+  els.form.addEventListener("submit", (e) => { e.preventDefault(); enviar(); });
+  els.retomar.addEventListener("click", enviar);
+
+  // ── lista de envios, ao vivo ──
+  function render(snap) {
+    els.items.replaceChildren();
+    if (snap.empty) {
+      const p = document.createElement("p"); p.className = "empty";
+      p.textContent = "Os vídeos que você enviar aparecem aqui, com o andamento da edição e o botão para baixar quando ficar pronto.";
+      els.items.append(p); return;
+    }
+    snap.docs.forEach((d) => {
+      const v = d.data() || {}; const b = v.briefing || {};
+      const arqs = Array.isArray(v.arquivos) ? v.arquivos : [];
+      const fts = Array.isArray(v.fotos) ? v.fotos : [];
+      const item = document.createElement("div"); item.className = "item";
+      const nome = document.createElement("div"); nome.className = "name";
+      nome.textContent = b.tema || (arqs[0] && arqs[0].nome) || (fts.length ? "Fotos" : "Vídeo");
+      const chip = document.createElement("span"); const st = ROTULO[v.status] ? v.status : "enviado";
+      chip.className = "chip " + st; chip.textContent = ROTULO[st];
+      const meta = document.createElement("div"); meta.className = "meta";
+      const quando = v.criadoEm ? new Date(v.criadoEm).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : "";
+      meta.textContent = [quando,
+        arqs.length ? (arqs.length === 1 ? "1 vídeo" : `${arqs.length} vídeos`) : "",
+        fts.length ? (fts.length === 1 ? "1 foto" : `${fts.length} fotos`) : "",
+        v.tamanhoTotal ? fmtMB(v.tamanhoTotal) : "", v.duracaoTotal ? fmtDur(v.duracaoTotal) : ""].filter(Boolean).join(" · ");
+      item.append(nome, chip, meta);
+      if (v.nota) { const m = document.createElement("div"); m.className = "msg"; m.textContent = v.nota; item.append(m); }
+      const ent = v.entrega;
+      if (ent && Array.isArray(ent.partes) && ent.partes.length && ent.arquivo) {
+        const caixa = document.createElement("div"); caixa.className = "entrega";
+        const bt = document.createElement("button"); bt.type = "button"; bt.className = "btn";
+        bt.id = "baixar-" + d.id;
+        bt.textContent = `Baixar vídeo editado${ent.tamanho ? " · " + fmtMB(ent.tamanho) : ""}`;
+        const aviso = document.createElement("p"); aviso.className = "aviso-baixar"; aviso.id = "aviso-" + d.id;
+        aviso.setAttribute("role", "status"); aviso.setAttribute("aria-live", "polite");
+        const est = estadoBaixar[d.id];
+        if (est) { aviso.textContent = est.texto; if (est.tipo) aviso.classList.add(est.tipo); bt.disabled = est.ocupado; }
+        else aviso.textContent = ent.descricao || "";
+        bt.addEventListener("click", () => baixarEntrega(d.id, ent));
+        caixa.append(bt, aviso); item.append(caixa);
+      }
+      els.items.append(item);
+    });
+  }
+
+  // download do vídeo editado: junta os pedaços guardados e entrega um único .mp4
+  const estadoBaixar = {};
+  function mostrarBaixar(id, texto, tipo, ocup) {
+    estadoBaixar[id] = { texto, tipo, ocupado: ocup };
+    const aviso = document.getElementById("aviso-" + id), bt = document.getElementById("baixar-" + id);
+    if (aviso) { aviso.textContent = texto; aviso.className = "aviso-baixar" + (tipo ? " " + tipo : ""); }
+    if (bt) bt.disabled = ocup;
+  }
+  async function baixarEntrega(id, ent) {
+    if (estadoBaixar[id] && estadoBaixar[id].ocupado) return;
+    const downloads = await usar("downloads");
+    if (!downloads) {
+      mostrarBaixar(id, "Este aplicativo não deixa baixar arquivos por aqui. Abra este link no navegador (Chrome ou Safari), logado no claude.ai.", "err", false);
+      return;
+    }
+    mostrarBaixar(id, "Preparando o vídeo…", "", true);
+    try {
+      const pedacos = []; let recebido = 0;
+      for (let i = 0; i < ent.partes.length; i++) {
+        mostrarBaixar(id, `Preparando o vídeo: pedaço ${i + 1} de ${ent.partes.length} · ${fmtMB(recebido)} de ${fmtMB(ent.tamanho || 0)}`, "", true);
+        const r = await fetch("/_blob/" + ent.partes[i]);
+        if (!r.ok) throw { code: "parte", status: r.status };
+        const blob = await r.blob(); pedacos.push(blob); recebido += blob.size;
+      }
+      if (ent.tamanho && recebido !== ent.tamanho) throw { code: "tamanho" };
+      mostrarBaixar(id, "Confirme o download na janela que abriu.", "", true);
+      await downloads.save({ filename: ent.arquivo, data: new Blob(pedacos, { type: "video/mp4" }) });
+      mostrarBaixar(id, "Vídeo salvo. Confira na pasta de downloads ou na galeria.", "ok", false);
+    } catch (e) {
+      const c = e && e.code;
+      const msg = c === "declined" ? "Download cancelado. Toque de novo quando quiser."
+        : c === "too_large" ? "Este aparelho recusou um arquivo desse tamanho. Peça a versão leve no chat."
+        : c === "rate_limited" ? "Já existe uma janela de download aberta. Feche-a e toque de novo."
+        : c === "parte" || c === "tamanho" ? "A conexão falhou no meio. Toque de novo para tentar outra vez."
+        : "Este aplicativo não deixa baixar arquivos por aqui. Abra este link no navegador (Chrome ou Safari), logado no claude.ai.";
+      mostrarBaixar(id, msg, c === "declined" ? "" : "err", false);
+    }
+  }
+
+  const usar = (n) => (window.claude && window.claude.use ? window.claude.use(n) : Promise.resolve(null));
+  renderVideos(); renderFotos();
+  (async () => {
+    const [a, d] = await Promise.all([usar("assets"), usar("db")]);
+    assets = a; db = d;
+    if (!assets || !db) {
+      setStatus("Para enviar, abra este link logado na sua conta do claude.ai.", "err");
+      els.aviso.hidden = true;
+    } else if (!videos.length && !fotos.length) {
+      setStatus("Adicione o vídeo para liberar o envio.");
+    } else {
+      prontoParaEnviar();
+    }
+    atualizarBotao();
+    if (db) {
+      const falha = setTimeout(() => {
+        if (els.items.querySelector(".item")) return;
+        const p = document.createElement("p"); p.className = "empty";
+        p.textContent = "A lista está demorando para carregar. Recarregue a página se não aparecer.";
+        els.items.replaceChildren(p);
+      }, 10000);
+      db.collection("envios").orderBy("criadoEm", "desc").limit(30).onSnapshot((snap) => { clearTimeout(falha); render(snap); }, () => {
+        clearTimeout(falha);
+        const p = document.createElement("p"); p.className = "empty";
+        p.textContent = "Não consegui carregar a lista agora. Recarregue a página.";
+        els.items.replaceChildren(p);
+      });
+    }
+  })();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<template>
+  <style>
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: italic; src: url("assets/fonts/InstrumentSerif-400i.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }
+      #root { position: absolute; inset: 0; overflow: hidden; }
+      .ft { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+      .ft-caixa { position: relative; overflow: hidden; border-radius: 20px; background: #161314; }
+      .ft-caixa.reta { border-radius: 0; }
+      .ft-caixa img { position: absolute; max-width: none; display: block; }
+      .ft-card { position: absolute; padding: 12px; background: #FFFFFF; border-radius: 30px;
+                 box-shadow: 0 30px 70px rgba(0, 0, 0, 0.34), 0 6px 18px rgba(0, 0, 0, 0.18); }
+      .ft-rotulo { position: absolute; left: 0; right: 0; bottom: 20px; margin: 0 auto; width: fit-content;
+                   padding: 8px 20px 8px 24px; border-radius: 999px; background: rgba(18, 14, 16, 0.55);
+                   font-family: "Poppins Reels"; font-weight: 600; font-size: 24px; letter-spacing: 0.24em;
+                   text-transform: uppercase; color: #FFFFFF; }
+      .ft-painel { position: absolute; left: 0; top: 0; width: 1080px; overflow: hidden; background: #FFFFFF;
+                   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22); }
+      .ft-faixa { position: absolute; left: 0; top: 0; height: 100%; width: 1080px; }
+      .ft-slot { position: absolute; top: 0; }
+      .ft-slot .ft-caixa { border-radius: 0; }
+      .ft-fundo { position: absolute; left: 0; top: 0; width: 1080px; overflow: hidden;
+                  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+                  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%); }
+      .ft-cheia { position: absolute; inset: 0; overflow: hidden; }
+      .ft-flash { position: absolute; inset: 0; background: #FFF9F4; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="fotos" data-width="1080" data-height="1920">
+      <div id="f1" class="clip ft" data-start="6.86" data-duration="3.09" data-layout-allow-overlap data-layout-allow-overflow>
+        <div class="ft-card" id="f1-c0" style="left:73px;top:101px"><div class="ft-caixa" style="width:430px;height:538px"><img id="f1-c0-i" src="assets/fotos/antes.jpg" alt="" style="left:0.0px;top:0.0px;width:430.4px;height:538.0px;transform-origin:36.7% 58.1%"><div class="ft-rotulo">antes</div></div></div>
+        <div class="ft-card" id="f1-c1" style="left:555px;top:123px"><div class="ft-caixa" style="width:430px;height:538px"><img id="f1-c1-i" src="assets/fotos/depois.jpg" alt="" style="left:0.0px;top:0.0px;width:430.4px;height:538.0px;transform-origin:44.4% 57.9%"><div class="ft-rotulo">depois</div></div></div>
+      </div>
+      <div id="f2" class="clip ft" data-start="10" data-duration="2.4" data-layout-allow-overlap data-layout-allow-overflow>
+        <div class="ft-painel" id="f2-p" style="height:888px">
+          <div class="ft-faixa" id="f2-s"><div class="ft-slot" style="left:0px"><div class="ft-caixa" style="width:536px;height:880px"><img id="f2-i0" src="assets/fotos/antes.jpg" alt="" style="left:0.0px;top:0.0px;width:704.0px;height:880.0px;transform-origin:36.7% 58.1%"></div></div><div class="ft-slot" style="left:544px"><div class="ft-caixa" style="width:536px;height:880px"><img id="f2-i1" src="assets/fotos/depois.jpg" alt="" style="left:-44.3px;top:0.0px;width:704.0px;height:880.0px;transform-origin:44.4% 57.9%"></div></div></div>
+        </div>
+      </div>
+      <div id="f4" class="clip ft" data-start="15.55" data-duration="4.8" data-layout-allow-overlap data-layout-allow-overflow>
+        <div class="ft-painel" id="f4-p" style="height:888px">
+          <div class="ft-faixa" id="f4-s" style="width:2024px"><div class="ft-slot" style="left:0px"><div class="ft-caixa" style="width:500px;height:880px"><img id="f4-i0" src="assets/fotos/famosa1.jpg" alt="" style="left:0.0px;top:0.0px;width:500.0px;height:1185.2px;transform-origin:66.6% 26.1%"></div></div><div class="ft-slot" style="left:508px"><div class="ft-caixa" style="width:500px;height:880px"><img id="f4-i1" src="assets/fotos/famosa2.jpg" alt="" style="left:0.0px;top:-86.7px;width:500.0px;height:1185.2px;transform-origin:77.0% 38.5%"></div></div><div class="ft-slot" style="left:1016px"><div class="ft-caixa" style="width:500px;height:880px"><img id="f4-i2" src="assets/fotos/famosa3.jpg" alt="" style="left:0.0px;top:-42.1px;width:500.0px;height:1280.0px;transform-origin:74.6% 32.2%"></div></div><div class="ft-slot" style="left:1524px"><div class="ft-caixa" style="width:500px;height:880px"><img id="f4-i3" src="assets/fotos/famosa4.jpg" alt="" style="left:0.0px;top:-147.3px;width:500.0px;height:1230.8px;transform-origin:50.0% 42.0%"></div></div></div>
+        </div>
+      </div>
+      <div id="f5" class="clip ft" data-start="20.32" data-duration="2.97" data-layout-allow-overlap>
+        <div class="ft-cheia" id="f5-b"><div class="ft-caixa reta" style="width:1080px;height:1920px"><img id="f5-i" src="assets/fotos/resultado.jpg" alt="" style="left:-158.1px;top:0.0px;width:1536.0px;height:1920.0px;transform-origin:45.5% 49.3%"></div></div>
+        <div class="ft-flash" id="f5-f"></div>
+      </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 24.1 }, 0);
+    tl.fromTo("#f1-c0", {opacity:0, y:-240, rotation:-20, scale:0.86}, {opacity:1, y:0, rotation:-6, scale:1, duration:0.62, ease:"back.out(1.3)"}, 6.86);
+    tl.to("#f1-c0", {y:-12, rotation:-6.9, duration:2.01, ease:"sine.inOut"}, 7.48);
+    tl.fromTo("#f1-c0-i", {scale:1}, {scale:1.05, duration:3.09, ease:"none"}, 6.86);
+    tl.to("#f1-c0", {opacity:0, y:-150, scale:0.92, duration:0.34, ease:"power2.in"}, 9.51);
+    tl.fromTo("#f1-c1", {opacity:0, y:-240, rotation:19, scale:0.86}, {opacity:1, y:0, rotation:5, scale:1, duration:0.62, ease:"back.out(1.3)"}, 6.98);
+    tl.to("#f1-c1", {y:-12, rotation:5.9, duration:1.89, ease:"sine.inOut"}, 7.6);
+    tl.fromTo("#f1-c1-i", {scale:1}, {scale:1.05, duration:3.09, ease:"none"}, 6.86);
+    tl.to("#f1-c1", {opacity:0, y:-150, scale:0.92, duration:0.34, ease:"power2.in"}, 9.57);
+    tl.fromTo("#f2-i0", {scale:1}, {scale:1.04, duration:2.4, ease:"none"}, 10);
+    tl.fromTo("#f2-i1", {scale:1}, {scale:1.04, duration:2.4, ease:"none"}, 10);
+    tl.fromTo("#f2-p", {yPercent:-100}, {yPercent:0, duration:0.5, ease:"expo.out"}, 10);
+    tl.to("#f2-p", {yPercent:-100, duration:0.42, ease:"expo.in"}, 11.96);
+    tl.fromTo("#f4-s", {x:0}, {x:-944, duration:4.8, ease:"none"}, 15.55);
+    tl.fromTo("#f4-p", {yPercent:-100}, {yPercent:0, duration:0.5, ease:"expo.out"}, 15.55);
+    tl.to("#f4-p", {yPercent:-100, duration:0.42, ease:"expo.in"}, 19.91);
+    tl.fromTo("#f5-i", {scale:1}, {scale:1.08, duration:2.53, ease:"none"}, 20.42);
+    tl.fromTo("#f5-b", {opacity:0}, {opacity:1, duration:0.01}, 20.42);
+    tl.fromTo("#f5-f", {opacity:0}, {opacity:0.92, duration:0.09, ease:"power2.in"}, 20.33);
+    tl.to("#f5-f", {opacity:0, duration:0.3, ease:"power2.out"}, 20.43);
+    tl.to("#f5-f", {opacity:0.92, duration:0.09, ease:"power2.in"}, 22.86);
+    tl.to("#f5-b", {opacity:0, duration:0.01}, 22.95);
+    tl.to("#f5-f", {opacity:0, duration:0.3, ease:"power2.out"}, 22.96);
+    window.__timelines["fotos"] = tl;
+  </script>
+</template>
