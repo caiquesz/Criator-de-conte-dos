@@ -2,24 +2,25 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entregas atuais: `casa-marina-unboxing-editado-v6-madeira.mp4` (piso de madeira) e `casa-marina-unboxing-editado-v5.mp4` (piso original).** Os dois têm 46,4 s, em H.264 1080x1920 a 30 fps (~7 Mbps), e **não tem áudio**.
-As versões anteriores ficaram no histórico do git (v4 `c79e0aa`, v3 `ac19ed4`, v2 `f1ea05a`, v1 `a6061e1`).
+**Entregas atuais: `casa-marina-unboxing-editado-v7-madeira.mp4` (piso de madeira em todos os takes) e `casa-marina-unboxing-editado-v5.mp4` (piso original).** Os dois têm 46,4 s, em H.264 1080x1920 a 30 fps (~7 Mbps), e **não tem áudio**.
+As versões anteriores ficaram no histórico do git (v6 `1950980`, v4 `c79e0aa`, v3 `ac19ed4`, v2 `f1ea05a`, v1 `a6061e1`).
 
-## v6 (piso de laminado de madeira, com Higgsfield): `casa-marina-unboxing-editado-v6-madeira.mp4`
-Mesma edição da v5, mas o piso de cerâmica branca virou laminado de carvalho claro.
-- **IA:** usei o FLUX 3 Video Edit do Higgsfield, que sai em 704x1248 a 24 fps. A montagem limpa (sem textos) foi enviada em trechos de até 15 s.
-  - O prompt pediu para trocar só o piso.
-  - A IA gastou cerca de 1 crédito por segundo de vídeo, uns 46 créditos no total.
-- **Composição (`scripts/floor_composite.py`):** o vídeo da IA não substitui o original. Ele só entrega o piso:
-  - uma máscara acha o piso no vídeo original: pouca saturação, tom frio, textura lisa, rejuntes e furos do crochê;
-  - nesses pixels entra a madeira da IA, alinhada no tempo (24→30 fps);
-  - todo o resto (tapetes, mãos, caixa, textos) continua com os pixels originais em 1080p.
-- Depois disso, a logo, o véu branco, o zoom e os textos da v5 são aplicados por cima (`scripts/render_v6.py`).
-- **O que ainda tem piso de cerâmica:** nos takes em que a IA não trocou o piso, a cerâmica continua aparecendo. São eles:
-  - o tapete retangular aberto e os closes dele (~22,8 a 26,7 s);
-  - a parte de cima do close final (~43,4 a 46,4 s);
-  - algumas manchinhas no tapete taupe saindo da caixa e no papel de seda.
-  - Tentei refazer esses takes com um prompt mais forte, mas o Higgsfield bloqueou por limite diário de gerações. Dá para refazer quando o limite renovar (`assets/plano_piso_ia.json` lista os trechos usados).
+## v7: piso de laminado de madeira em todos os takes
+Mesma edição da v5. O piso de cerâmica branca virou laminado de carvalho claro em todos os takes em que o chão aparece. A troca é feita em duas camadas:
+
+1. **IA (Higgsfield, FLUX 3 Video Edit)**, que é a base dos takes em que a IA trocou bem o piso: caixa, sousplat, tapete redondo cinza, geométrico, passadeira e redondos menores (branco e pilha).
+   - `scripts/floor_composite.py` usa a madeira da IA **só nos pixels do piso**. Tapetes, mãos e caixa continuam com os pixels originais em 1080p.
+2. **Laminado real com rastreamento de câmera (`scripts/retexture.py`)**, usado nos takes em que a IA falhou ou deixou cerâmica: tapete redondo marrom, tapete retangular (aberto, close e marrom), passadeira saindo da caixa, primeiro take dos redondos menores, oval verde e close final.
+   - A textura é uma foto de laminado em alta resolução: *Laminate Floor 02*, da Poly Haven, licença CC0 (`assets/textura/`).
+   - A cor foi ajustada para bater com a madeira da IA dos outros takes (média e desvio no espaço Lab).
+   - A câmera é rastreada (optical flow + homografia por take), então as tábuas acompanham o movimento e a perspectiva do chão.
+   - A orientação e o tamanho das tábuas seguem a grade dos rejuntes da cerâmica.
+   - A sombra original do chão (pés, pessoa, tapetes) é mantida: a luminância de baixa frequência do piso original multiplica a textura.
+   - A máscara cobre a cerâmica clara, a cerâmica na sombra, o reflexo de luz, os rejuntes e o piso que aparece pelos furinhos do crochê.
+   - Os parâmetros de cada take ficam em `assets/plano_textura_piso.json`.
+3. Por cima entram a logo, o véu branco, o zoom e os textos da v5 (`scripts/render_v6.py`).
+
+O `scripts/residual_tile.py` mede quanto de cerâmica sobra em cada take. Em todos os takes com chão, o resultado é ~0%. O que a métrica ainda marca nos takes da caixa e da passadeira é o papel de seda branco e as listras creme. Nos takes da mesa, é a parede.
 
 ## v5: fontes da combinação "Sequel + CC-Doodly" e risquinho reto
 - **Fontes:** a 2ª combinação do reel de referência. A Sequel é paga e a CC-Doodly é exclusiva do CapCut, então usei as equivalentes livres mais parecidas:
