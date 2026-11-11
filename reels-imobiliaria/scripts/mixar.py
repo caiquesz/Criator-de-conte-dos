@@ -22,6 +22,18 @@ sys.path.insert(0, str(Path(__file__).parent))
 from gerar import DURACAO_SFX, FPS, PICO_SFX, eventos_sfx  # noqa: E402
 
 TAXA = 48000
+# nível de fala (percentil 90 da energia em janelas de 100 ms) dos vídeos do André, em que os
+# volumes dos efeitos foram acertados; numa gravação mais baixa os efeitos descem junto, para
+# ficarem na mesma proporção da voz (a voz em si nunca muda)
+FALA_REFERENCIA_DB = -13.0
+
+
+def nivel_fala_db(x):
+    mono = x.mean(1)
+    n = TAXA // 10
+    k = len(mono) // n
+    rms = np.sqrt((mono[: k * n].reshape(k, n) ** 2).mean(1)) + 1e-9
+    return float(20 * np.log10(np.percentile(rms, 90)))
 
 
 def pcm(arquivo):
@@ -102,10 +114,14 @@ def main():
     original = pcm(pasta / plano.get("video_original", plano["video"]))
     extra = np.zeros_like(original)          # tudo o que é somado por cima da voz
     tem_efeito = np.zeros(len(original), bool)
+    fala = nivel_fala_db(original)
+    ajuste = float(np.clip(10 ** ((fala - FALA_REFERENCIA_DB) / 20), 0.05, 1.0))
+    if ajuste < 0.99:
+        print(f"voz gravada mais baixa ({fala:.1f} dB contra {FALA_REFERENCIA_DB:.0f} dB): efeitos a {20 * np.log10(ajuste):+.1f} dB")
 
     for t, som, vol in eventos_sfx(plano):
         ini = max(0.0, t - PICO_SFX.get(som, 0.08) + 1 / FPS)
-        efeito = pcm(pasta / "assets" / "sfx" / f"{som}.mp3")[: int(DURACAO_SFX.get(som, 1.0) * TAXA)] * vol
+        efeito = pcm(pasta / "assets" / "sfx" / f"{som}.mp3")[: int(DURACAO_SFX.get(som, 1.0) * TAXA)] * vol * ajuste
         a = int(round(ini * TAXA))
         b = min(len(extra), a + len(efeito))
         extra[a:b] += efeito[: b - a]

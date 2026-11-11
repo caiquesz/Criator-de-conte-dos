@@ -241,7 +241,7 @@
 
   <section class="passo" aria-labelledby="t-fotos">
     <div class="passo-titulo"><span class="n" aria-hidden="true">2</span><h2 id="t-fotos">Fotos</h2><small>opcional</small></div>
-    <p class="explica">Para cada foto, marque se é o antes, o depois, uma famosa ou outra coisa. Antes e depois da mesma paciente vão juntos: dê o mesmo nome nas duas. Se quiser, diga quando a foto entra e como mostrar.</p>
+    <p class="explica">Para cada foto, marque se é o antes, o depois, uma famosa ou outra coisa. Antes e depois da mesma paciente vão juntos: dê o mesmo nome nas duas. Mande as fotos de corpo como foram tiradas, de costas ou de lado: eu enquadro pelo glúteo. Se quiser, diga quando a foto entra e como mostrar.</p>
 
     <div class="layouts" aria-label="Como as fotos podem entrar no vídeo">
       <div class="layout">
@@ -313,10 +313,10 @@
     <form class="briefing" id="form" novalidate>
       <div class="row">
         <label for="tema">Assunto ou procedimento
-          <input type="text" id="tema" name="tema" placeholder="ex.: preenchimento labial">
+          <input type="text" id="tema" name="tema" placeholder="ex.: harmonização glútea">
         </label>
         <label for="destaques">Palavras para destacar
-          <input type="text" id="destaques" name="destaques" placeholder="ex.: natural, sem exagero">
+          <input type="text" id="destaques" name="destaques" placeholder="ex.: sem cirurgia, resultado natural">
         </label>
       </div>
       <label for="observacoes">Observações
@@ -592,7 +592,7 @@
       layout.addEventListener("change", () => { p.layout = layout.value; });
 
       const quando = document.createElement("input"); quando.type = "text"; quando.id = "quando-" + p.id; quando.value = p.quando; quando.disabled = trava;
-      quando.placeholder = "ex.: quando ela fala do resultado no lábio";
+      quando.placeholder = "ex.: quando ela fala do resultado no glúteo";
       quando.addEventListener("input", () => { p.quando = quando.value; });
 
       campos.append(campo(rotGrupo, grupo.id, grupo), campo("Como mostrar", layout.id, layout), campo("Quando aparece (opcional)", quando.id, quando, true));

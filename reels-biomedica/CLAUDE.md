@@ -25,13 +25,17 @@ próprio). Cada envio é um documento da coleção `envios` (ler com `db_get`/`d
 
 ## Regras
 
+- **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,
+  celulite, flacidez de coxa). As fotos de antes e depois e das famosas são de corpo; enquadre pelo
+  corpo (`"foco_fotos": "corpo"`, o padrão) e confira no snapshot que o glúteo aparece, nunca só o
+  rosto.
 - **Voz intacta**, legenda só quando ela fala, sombra nas letras: como no CLAUDE.md da imobiliária.
 - **Legenda na frente dela** (`"legendas_na_frente": true`): nas referências o texto nunca passa
   atrás da pessoa.
 - **Cada foto só enquanto ela fala daquilo**, como os cards de preço da imobiliária: entra na
   palavra que a chama e sai antes do assunto seguinte.
-- **Antes e depois lado a lado, do mesmo tamanho:** o antes à esquerda; o rosto com o mesmo
-  tamanho nas duas fotos (o gerador já faz pelo rosto). Sem `layout` pedido: par de antes e
+- **Antes e depois lado a lado, na mesma escala:** o antes à esquerda; o corpo do mesmo tamanho e
+  na mesma altura nas duas fotos (o gerador alinha pela silhueta; confira e acerte `foco`/`zoom`). Sem `layout` pedido: par de antes e
   depois em `cards` na primeira vez e `dividida` quando ela comenta os detalhes; várias famosas em
   `dividida` (carrossel); uma famosa ou um resultado em `atras`; um resultado para impressionar em
   `cheia`, curto (2 a 4 s).

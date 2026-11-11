@@ -9,6 +9,7 @@ referencias/*.mp4
 **/assets/sfx/*.mp3
 **/assets/musica/*.mp3
 **/analise/
+**/.transcode-cache/
 node_modules/
 __pycache__/
 projetos/*.log

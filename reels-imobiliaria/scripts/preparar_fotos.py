@@ -5,8 +5,12 @@ Uso: python3 scripts/preparar_fotos.py PASTA_DO_PROJETO
 1. Cada foto de PASTA/fotos-originais/ (JPG, PNG, WEBP ou HEIC, como chegou da página de envio)
    vira PASTA/assets/fotos/<nome>.jpg: girada como foi tirada (EXIF), em RGB, com no máximo
    2400 px no lado maior. Fotos já em assets/fotos/ também entram.
-2. Em cada foto, o rosto (YuNet): o gerar.py enquadra pelo rosto e, no antes e depois, deixa
-   o rosto do mesmo tamanho nas duas fotos.
+2. Em cada foto, a silhueta da pessoa (o recorte do HyperFrames, guardado em analise/fotos/) e o
+   ponto do corpo em que a foto se apoia: a biomédica trabalha com glúteo, então o foco padrão é a
+   altura do quadril (55% do corpo inteiro; 72% do que aparece quando as pernas saem da foto; o
+   meio quando a foto já é só o tronco e as coxas; com a cabeça na foto, 3,8 rostos abaixo do
+   rosto), na coluna do meio do corpo nessa altura. Também
+   o rosto (YuNet), para quem usar "foco_fotos": "rosto" no plano.
 3. Em cada tela dividida do plano.json, a altura dos olhos da pessoa no vídeo durante aquele
    trecho: o vídeo desce o quanto precisa para o rosto ficar na metade de baixo.
 
@@ -14,6 +18,7 @@ Escreve PASTA/fotos.json.
 """
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -55,6 +60,35 @@ def rosto(detector, caminho):
     return [round(float(v) / e, 1) for v in f[:4]]
 
 
+def silhueta(arq, cache, r=None):
+    """Silhueta da pessoa na foto: caixa [x, y, w, h], foco do corpo [fx, fy] (fração da foto) e se o
+    corpo aparece inteiro. None se não houver pessoa."""
+    png = cache / (arq.stem + ".png")
+    if not png.exists() or png.stat().st_mtime < arq.stat().st_mtime:
+        hf = os.environ.get("HF", "npx hyperframes").split()
+        subprocess.run([*hf, "remove-background", str(arq), "-o", str(png), "--device", "cpu"],
+                       check=True, capture_output=True)
+    with Image.open(png) as im:
+        m = np.array(im.getchannel("A")) > 128
+    if m.mean() < 0.02:
+        return None
+    ys, xs = np.where(m)
+    x0, x1, y0, y1 = int(xs.min()), int(xs.max()), int(ys.min()), int(ys.max())
+    h_img = m.shape[0]
+    topo, base = y0 <= 2, y1 >= h_img - 3
+    fy = 0.5 if (topo and base) else 0.72 if base else 0.40 if topo else 0.55
+    yf = y0 + fy * (y1 - y0)
+    # com a cabeça na foto (rosto no alto da silhueta), o quadril fica uns 3,8 rostos abaixo dele
+    if r and r[1] + r[3] / 2 < y0 + 0.3 * (y1 - y0):
+        yf = min(y1 - 0.04 * (y1 - y0), r[1] + r[3] / 2 + 3.8 * r[3])
+    meia = max(2, int(0.08 * (y1 - y0)))
+    banda = m[max(0, int(yf) - meia):int(yf) + meia + 1]
+    cols = np.where(banda.any(0))[0]
+    xf = float(cols.mean()) if len(cols) else (x0 + x1) / 2
+    return {"caixa": [x0, y0, x1 - x0, y1 - y0], "foco": [round(xf / m.shape[1], 4), round(yf / h_img, 4)],
+            "inteiro": bool(not topo and not base)}
+
+
 def olhos_no_video(detector, video, inicio, fim):
     """Altura mediana dos olhos (px em 1080×1920) entre inicio e fim, ou None."""
     w, h = 540, 960
@@ -88,6 +122,8 @@ def main():
                 converter(arq, destino)
 
     detector = cv2.FaceDetectorYN.create(str(MODELO), "", (320, 320), 0.6, 0.3, 50)
+    cache = pasta / "analise" / "fotos"
+    cache.mkdir(parents=True, exist_ok=True)
     fotos = {}
     for arq in sorted(saida.iterdir()):
         if arq.suffix.lower() not in (".jpg", ".jpeg", ".png", ".webp"):
@@ -95,9 +131,12 @@ def main():
         with Image.open(arq) as im:
             largura, altura = im.size
         r = rosto(detector, arq)
+        c = silhueta(arq, cache, r)
         chave = f"assets/fotos/{arq.name}"
-        fotos[chave] = {"largura": largura, "altura": altura, "rosto": r}
-        print(f"{chave}: {largura}×{altura}, " + (f"rosto {r[2]:.0f}×{r[3]:.0f} px em ({r[0]:.0f}, {r[1]:.0f})" if r else "sem rosto (enquadra pelo centro)"))
+        fotos[chave] = {"largura": largura, "altura": altura, "rosto": r, "corpo": c}
+        print(f"{chave}: {largura}×{altura}, "
+              + (f"corpo {'inteiro' if c['inteiro'] else 'cortado'}, foco em ({c['foco'][0]:.2f}, {c['foco'][1]:.2f})" if c else "sem pessoa (enquadra pelo centro)")
+              + (f", rosto {r[2]:.0f}×{r[3]:.0f} px" if r else ""))
 
     divididas = {}
     plano_arq = pasta / "plano.json"

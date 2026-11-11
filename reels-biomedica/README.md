@@ -45,10 +45,15 @@ de `fotos` no `plano.json`, presa à fala:
 ]
 ```
 
-- **Enquadramento pelo rosto:** `scripts/preparar_fotos.py` acha o rosto de cada foto; o gerador
-  põe o rosto no lugar certo de cada caixa e, num par de antes e depois, com o mesmo tamanho nas
-  duas fotos. Para outra parte da foto (um corpo, um lábio): `{"src": "...", "foco": [0.5, 0.7],
-  "zoom": 1.3}`, com o foco em fração da foto; `"rosto": false` desliga o enquadramento pelo rosto.
+- **Enquadramento pelo corpo:** ela trabalha com glúteo (harmonização corporal: glúteo, gordura
+  localizada, celulite, flacidez de coxa), então as fotos são de corpo, quase sempre de costas ou
+  de lado. `scripts/preparar_fotos.py` acha a silhueta de cada foto e o ponto do quadril (com a
+  cabeça na foto, uns 3,8 rostos abaixo do rosto), e o gerador põe esse ponto no centro de cada
+  caixa (`"foco_fotos": "corpo"`, o padrão). Num par de antes e depois em que as duas fotos mostram
+  o corpo inteiro, os dois corpos ficam na mesma escala; com fotos já cortadas pela clínica, as duas
+  cobrem a caixa do mesmo jeito. Confira cada foto no snapshot e, quando o ponto não for o certo,
+  force: `{"src": "...", "foco": [0.5, 0.7], "zoom": 1.3}` (foco em fração da foto).
+  `"foco_fotos": "rosto"` enquadra pelo rosto, para um vídeo que fale de rosto.
 - **Rótulos:** `"rotulos": true` escreve ANTES e DEPOIS nos cards; uma lista troca os nomes
   (`["antes", "30 dias depois"]`). As referências não usam: ligue quando ajudar a entender.
 - **Tela dividida:** `corte` é onde a metade de cima termina (padrão 880 px); o vídeo desce sozinho
@@ -56,9 +61,11 @@ de `fotos` no `plano.json`, presa à fala:
   força um valor). A legenda desse trecho vai logo abaixo da linha branca (y ≈ corte + 40).
 - **Atrás dela:** precisa do recorte da pessoa (`scripts/recorte.sh`) e de `recorte` no plano
   (com `recorte_janelas` só nesses trechos); a foto desce até `altura` e some num degradê para o
-  fundo do vídeo. O rosto da foto fica à direita e no alto (`"centro": [0.7, 0.24]`, fração da
-  caixa), ao lado da cabeça dela e não escondido atrás; mude o `centro` se a foto pedir.
-- Cada formato tem som de entrada (whoosh, clique); `"sons": false` tira.
+  fundo do vídeo. O quadril da foto fica à direita (`"centro": [0.72, 0.5]`, fração da caixa), ao
+  lado dela e não escondido atrás; mude o `centro` se a foto pedir.
+- Cada formato tem som de entrada (whoosh, clique); `"sons": false` tira. O `mixar.py` baixa os
+  efeitos na mesma proporção quando a voz foi gravada mais baixa que a do André (a dela veio uns
+  24 dB mais baixa), sem tocar na voz.
 
 ## Como editar um vídeo dela
 

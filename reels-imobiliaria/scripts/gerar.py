@@ -369,9 +369,10 @@ def gerar_cards(plano, duracao):
 #             fotos vira carrossel, as fotos passando da direita para a esquerda
 #   atras     a foto ocupa o fundo, no alto, e a pessoa recortada fica na frente
 #   cheia     a foto na tela inteira, com zoom lento, entrando num flash branco
-# fotos.json (scripts/preparar_fotos.py) traz o tamanho de cada foto e onde está o rosto,
-# para enquadrar pelo rosto (e com o mesmo tamanho de rosto no antes e no depois), e a
-# altura dos olhos da pessoa no vídeo em cada tela dividida.
+# fotos.json (scripts/preparar_fotos.py) traz o tamanho de cada foto, a silhueta da pessoa com o
+# foco do corpo (a altura do quadril: a biomédica trabalha com glúteo) e o rosto, e a altura dos
+# olhos de quem fala no vídeo em cada tela dividida. O enquadramento padrão é pelo corpo
+# ("foco_fotos": "corpo"); "rosto" enquadra pelo rosto, com o mesmo tamanho de rosto no par.
 
 FOTO_CAMADA = {"cards": "frente", "dividida": "frente", "cheia": "frente", "atras": "fundo"}
 FOTO_BORDA = 12          # borda branca dos cards
@@ -404,16 +405,26 @@ def meta_imagem(meta, src, pasta):
         return {"largura": im.width, "altura": im.height, "rosto": None}
 
 
-def enquadrar(m, cw, ch, rosto_frac=None, centro=(0.5, 0.45), zoom=1.0, foco=None):
-    """Onde a foto fica dentro de uma caixa cw×ch: cobre a caixa toda, sem distorcer, com o
-    rosto no ponto `centro` da caixa e, com rosto_frac, ocupando essa fração da altura.
-    Devolve largura, altura, x, y da foto e a origem do zoom lento (fração da foto)."""
+def enquadrar(m, cw, ch, rosto_frac=None, centro=(0.5, 0.45), zoom=1.0, foco=None, modo="corpo", corpo_frac=None):
+    """Onde a foto fica dentro de uma caixa cw×ch: cobre a caixa toda, sem distorcer, com o foco
+    (o quadril, no modo corpo; o rosto, no modo rosto) no ponto `centro` da caixa. Com corpo_frac,
+    o corpo inteiro ocupa essa fração da altura da caixa (o par de antes e depois fica na mesma
+    escala); com rosto_frac, o rosto. Devolve largura, altura, x, y da foto e a origem do zoom lento
+    (fração da foto)."""
     iw, ih = m["largura"], m["altura"]
     cobre = max(cw / iw, ch / ih)
     r = m.get("rosto")
+    c = m.get("corpo")
     s = cobre
     if foco:
         px, py = foco[0] * iw, foco[1] * ih
+    elif modo == "corpo":
+        if c:
+            px, py = c["foco"][0] * iw, c["foco"][1] * ih
+            if corpo_frac and c.get("inteiro"):
+                s = min(max(cobre, corpo_frac * ch / c["caixa"][3]), cobre * 2.4)
+        else:
+            px, py = iw / 2, ih / 2
     elif r:
         px, py = r[0] + r[2] / 2, r[1] + r[3] / 2
         if rosto_frac:
@@ -447,6 +458,8 @@ def foto_dividida_desce(f, meta):
 def gerar_fotos(plano, duracao, camada):
     meta = meta_fotos(plano)
     pasta = plano["_pasta"]
+    modo = plano.get("foco_fotos", "corpo")
+    corpo = modo == "corpo"
     html_, js = [], []
     for f in plano.get("fotos", []):
         if FOTO_CAMADA[f["layout"]] != camada:
@@ -456,18 +469,25 @@ def gerar_fotos(plano, duracao, camada):
         ms = [meta_imagem(meta, im["src"], pasta) for im in ims]
         par = len(ims) == 2
         rf = f.get("rosto", None)
+        # par de antes e depois na mesma escala: pelo corpo inteiro (quando as duas fotos o mostram)
+        # ou pelo rosto; com fotos já cortadas igual pela clínica, as duas cobrem a caixa do mesmo jeito
+        inteiros = par and all((mm.get("corpo") or {}).get("inteiro") for mm in ms)
+        if corpo:
+            rf = None
 
         if lay == "cards":
             # um card grande, ou dois (antes à esquerda, depois à direita), inclinados
             slots = [(540, 400, 540, 675, -3)] if len(ims) == 1 else [(300, 382, 430, 538, -6), (782, 404, 430, 538, 5)]
-            rf = (0.42 if par else None) if rf is None else (rf or None)
+            if not corpo:
+                rf = (0.42 if par else None) if rf is None else (rf or None)
             n = min(len(ims), len(slots))
             cards = []
             for k in range(n):
                 cx, cy, cw, ch, rot = slots[k]
                 cid = f"{fid}-c{k}"
                 cards.append(f'<div class="ft-card" id="{cid}" style="left:{num(cx - cw / 2 - FOTO_BORDA)}px;top:{num(cy - ch / 2 - FOTO_BORDA)}px">'
-                             + caixa_foto(f"{cid}-i", ims[k], ms[k], cw, ch, rosto_frac=rf) + "</div>")
+                             + caixa_foto(f"{cid}-i", ims[k], ms[k], cw, ch, rosto_frac=rf, modo=modo,
+                                          corpo_frac=0.9 if inteiros else None, centro=(0.5, 0.5) if corpo else (0.5, 0.45)) + "</div>")
                 lado = -1 if rot < 0 else 1
                 t0 = ini + 0.12 * k
                 js.append(f'tl.fromTo("#{cid}", {{opacity:0, y:-240, rotation:{rot + 14 * lado}, scale:0.86}}, '
@@ -486,10 +506,12 @@ def gerar_fotos(plano, duracao, camada):
             n = len(ims)
             if n <= 2:
                 cw = (LARGURA - FOTO_GAP * (n - 1)) / n
-                rf = (0.36 if par else None) if rf is None else (rf or None)
+                if not corpo:
+                    rf = (0.36 if par else None) if rf is None else (rf or None)
                 caixas = "".join(
                     f'<div class="ft-slot" style="left:{num(k * (cw + FOTO_GAP))}px">'
-                    + caixa_foto(f"{fid}-i{k}", ims[k], ms[k], cw, corte, rosto_frac=rf, centro=(0.5, 0.42)) + "</div>"
+                    + caixa_foto(f"{fid}-i{k}", ims[k], ms[k], cw, corte, rosto_frac=rf, modo=modo,
+                                 corpo_frac=0.92 if inteiros else None, centro=(0.5, 0.5) if corpo else (0.5, 0.42)) + "</div>"
                     for k in range(n))
                 faixa = f'<div class="ft-faixa" id="{fid}-s">{caixas}</div>'
                 for k in range(n):
@@ -500,7 +522,7 @@ def gerar_fotos(plano, duracao, camada):
                 total = n * cw + (n - 1) * FOTO_GAP
                 caixas = "".join(
                     f'<div class="ft-slot" style="left:{num(k * (cw + FOTO_GAP))}px">'
-                    + caixa_foto(f"{fid}-i{k}", ims[k], ms[k], cw, corte, centro=(0.5, 0.42)) + "</div>"
+                    + caixa_foto(f"{fid}-i{k}", ims[k], ms[k], cw, corte, modo=modo, centro=(0.5, 0.5) if corpo else (0.5, 0.42)) + "</div>"
                     for k in range(n))
                 faixa = f'<div class="ft-faixa" id="{fid}-s" style="width:{num(total)}px">{caixas}</div>'
                 if total > LARGURA:
@@ -514,8 +536,8 @@ def gerar_fotos(plano, duracao, camada):
         elif lay == "atras":
             # a pessoa da foto fica ao lado e acima da cabeça de quem fala, não escondida atrás dela
             altura = f.get("altura", 1150)
-            caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, altura, classe="ft-caixa reta",
-                               rosto_frac=rf or None, centro=tuple(f.get("centro", (0.7, 0.24))))
+            caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, altura, classe="ft-caixa reta", modo=modo,
+                               rosto_frac=rf or None, centro=tuple(f.get("centro", (0.72, 0.5) if corpo else (0.7, 0.24))))
             html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(ini)}" data-duration="{num(fim - ini)}" data-layout-allow-overlap>\n'
                          f'        <div class="ft-fundo" id="{fid}-b" style="height:{num(altura)}px">{caixa}</div>\n      </div>')
             js.append(f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.45, ease:"power2.out"}}, {num(ini)});')
@@ -526,7 +548,8 @@ def gerar_fotos(plano, duracao, camada):
 
         else:  # cheia
             flash = f.get("entrada", "flash") == "flash"
-            caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, ALTURA, classe="ft-caixa reta", centro=(0.5, 0.42))
+            caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, ALTURA, classe="ft-caixa reta", modo=modo,
+                               centro=tuple(f.get("centro", (0.5, 0.5) if corpo else (0.5, 0.42))))
             a, b = (ini - 0.1, fim + 0.34) if flash else (ini, fim)
             html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(a)}" data-duration="{num(b - a)}" data-layout-allow-overlap>\n'
                          f'        <div class="ft-cheia" id="{fid}-b">{caixa}</div>\n'

@@ -524,8 +524,8 @@
    "fim": 9.95,
    "rotulos": true,
    "imagens": [
-    "assets/fotos/antes.jpg",
-    "assets/fotos/depois.jpg"
+    "assets/fotos/paciente-antes.jpg",
+    "assets/fotos/paciente-depois.jpg"
    ]
   },
   {
@@ -534,8 +534,8 @@
    "inicio": 10.0,
    "fim": 12.4,
    "imagens": [
-    "assets/fotos/antes.jpg",
-    "assets/fotos/depois.jpg"
+    "assets/fotos/paciente-antes.jpg",
+    "assets/fotos/paciente-depois.jpg"
    ]
   },
   {
@@ -553,10 +553,9 @@
    "inicio": 15.55,
    "fim": 20.35,
    "imagens": [
-    "assets/fotos/famosa1.jpg",
-    "assets/fotos/famosa2.jpg",
-    "assets/fotos/famosa3.jpg",
-    "assets/fotos/famosa4.jpg"
+    "assets/fotos/virginia.jpg",
+    "assets/fotos/famosa-2.jpg",
+    "assets/fotos/famosa-3.jpg"
    ]
   },
   {
@@ -565,7 +564,7 @@
    "inicio": 20.42,
    "fim": 22.95,
    "imagens": [
-    "assets/fotos/resultado.jpg"
+    "assets/fotos/virginia.jpg"
    ]
   }
  ],
@@ -574,5 +573,6 @@
    "t": 6.367,
    "tipo": "corte"
   }
- ]
+ ],
+ "foco_fotos": "corpo"
 }
