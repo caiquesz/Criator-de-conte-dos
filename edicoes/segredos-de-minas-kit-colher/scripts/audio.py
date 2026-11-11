@@ -108,11 +108,10 @@ def sparkle(dur=1.1):
 
 
 # (time in OUTPUT seconds, generator, peak dBFS)  -- kept deliberately sparse
-SFX = [
-    (1.22, lambda: whoosh(0.40), -26.5),   # "amigos secretos" highlight
+SFX = [  # client: only pop and click
     (9.08, pop, -26.0),                    # "kit de colher"
     (18.42, pop, -25.0),                   # "R$ 15,00"
-    (24.90, sparkle, -28.0),               # cut to the Christmas prints
+    (24.06, pop, -26.5),                   # "natalinas"
     (29.05, click, -19.5),                 # "link abaixo"
 ]
 if not NOSFX:

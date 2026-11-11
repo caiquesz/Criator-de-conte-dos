@@ -3,10 +3,9 @@
 - Standard caption: always the same spot (centre, y=1330), Coolvetica, white, short chunks,
   simple soft fade (no position changes).
 - Highlight words: DM Serif Display Italic, white, centred at y=960, below Sara's face.
-- Legibility over the white napkins: a frosted-glass card (blur + slight darken of the
-  footage under the text, done in render.py from a mask layer). No outline, no shadow.
+- All text plain white: no box, no outline, no shadow (client's call).
 
-Writes two projects: OUTDIR/index.html (text) and MASKDIR/index.html (card shapes only, same timeline).
+Writes OUTDIR/index.html.
 Times are OUTPUT-timeline seconds.
 """
 import json, sys, os
@@ -149,12 +148,7 @@ tl.seek(0);
 </html>
 """
 TEXT_CSS = ".card { background: transparent; }"
-# mask: card shapes in solid white, text invisible (same layout and timeline)
-MASK_CSS = ".card { background: #ffffff; } .txt { color: transparent !important; filter: none !important; }"
 base = HTML.replace("__EVENTS__", json.dumps(EV, ensure_ascii=False)).replace("__DUR__", f"{DUR:.4f}")
 os.makedirs(OUTDIR, exist_ok=True)
 open(os.path.join(OUTDIR, "index.html"), "w").write(base.replace("__MODECSS__", TEXT_CSS))
-MASKDIR = sys.argv[3] if len(sys.argv) > 3 else os.path.join(OUTDIR, "..", "mask")
-os.makedirs(MASKDIR, exist_ok=True)
-open(os.path.join(MASKDIR, "index.html"), "w").write(base.replace("__MODECSS__", MASK_CSS))
 print("events", len(EV), "duration", DUR)
