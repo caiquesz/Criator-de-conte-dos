@@ -512,9 +512,10 @@ def gerar_fotos(plano, duracao, camada):
             js.append(f'tl.to("#{fid}-p", {{yPercent:-100, duration:0.42, ease:"expo.in"}}, {num(fim - 0.44)});')
 
         elif lay == "atras":
+            # a pessoa da foto fica ao lado e acima da cabeça de quem fala, não escondida atrás dela
             altura = f.get("altura", 1150)
             caixa = caixa_foto(f"{fid}-i", ims[0], ms[0], LARGURA, altura, classe="ft-caixa reta",
-                               rosto_frac=rf or None, centro=tuple(f.get("centro", (0.5, 0.42))))
+                               rosto_frac=rf or None, centro=tuple(f.get("centro", (0.7, 0.24))))
             html_.append(f'<div id="{fid}" class="clip ft" data-start="{num(ini)}" data-duration="{num(fim - ini)}" data-layout-allow-overlap>\n'
                          f'        <div class="ft-fundo" id="{fid}-b" style="height:{num(altura)}px">{caixa}</div>\n      </div>')
             js.append(f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.45, ease:"power2.out"}}, {num(ini)});')

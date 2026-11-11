@@ -54,8 +54,10 @@ de `fotos` no `plano.json`, presa à fala:
 - **Tela dividida:** `corte` é onde a metade de cima termina (padrão 880 px); o vídeo desce sozinho
   para os olhos dela ficarem a 30% da metade de baixo (medido pelo `preparar_fotos.py`; `desce`
   força um valor). A legenda desse trecho vai logo abaixo da linha branca (y ≈ corte + 40).
-- **Atrás dela:** precisa do recorte da pessoa (`scripts/recorte.sh`) e de `recorte` no plano; a
-  foto desce até `altura` e some num degradê para o fundo do vídeo.
+- **Atrás dela:** precisa do recorte da pessoa (`scripts/recorte.sh`) e de `recorte` no plano
+  (com `recorte_janelas` só nesses trechos); a foto desce até `altura` e some num degradê para o
+  fundo do vídeo. O rosto da foto fica à direita e no alto (`"centro": [0.7, 0.24]`, fração da
+  caixa), ao lado da cabeça dela e não escondido atrás; mude o `centro` se a foto pedir.
 - Cada formato tem som de entrada (whoosh, clique); `"sons": false` tira.
 
 ## Como editar um vídeo dela
