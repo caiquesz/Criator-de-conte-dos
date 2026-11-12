@@ -1,0 +1,59 @@
+<!doctype html>
+<!--
+  Matéria da Virgínia com marca-texto (para a biomédica pôr no vídeo dela).
+  Fundo transparente (render em MOV ProRes 4444): só a matéria, que entra suave, aproxima devagar e
+  ganha o marca-texto em "Bioestimuladores de colágeno e preenchedores".
+  A imagem (assets/fotos/materia.jpg, 1432×708) fica fora do git; as medidas do destaque estão em px
+  da imagem original (a frase vai de x 71 a 825, linha de y 586 a 620).
+-->
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+      #root { position: absolute; inset: 0; background: transparent; }
+      /* a matéria: 1000 px de largura no meio da tela, cantos arredondados e uma sombra leve */
+      #card { position: absolute; left: 40px; top: 713px; width: 1000px; height: 494px; border-radius: 22px;
+              overflow: hidden; background: #FFFFFF; box-shadow: 0 26px 70px rgba(40, 28, 20, 0.30), 0 4px 14px rgba(40, 28, 20, 0.14);
+              transform-origin: 31% 84%; }
+      #zoom { position: absolute; inset: 0; transform-origin: 31% 84%; }
+      #pagina { position: absolute; left: 0; top: 0; width: 1432px; height: 708px; transform: scale(0.698324); transform-origin: 0 0; }
+      #pagina img { position: absolute; left: 0; top: 0; width: 1432px; height: 708px; }
+      /* marca-texto: amarelo de caneta, multiplicado sobre o papel (a letra continua preta). O multiply fica no
+         trilho, que é o grupo que se mistura com a matéria: dentro dele a tinta não teria nada embaixo */
+      #trilho { position: absolute; left: 58px; top: 580px; width: 774px; height: 48px; overflow: hidden;
+                border-radius: 8px 14px 12px 7px; transform: rotate(-0.4deg); mix-blend-mode: multiply; }
+      #tinta { position: absolute; inset: 0; border-radius: 8px 16px 12px 7px;
+               background: linear-gradient(180deg, rgba(255, 222, 40, 0.80) 0%, rgba(255, 230, 70, 0.92) 18%,
+                                           rgba(255, 232, 80, 0.92) 80%, rgba(255, 216, 30, 0.82) 100%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5.5" data-width="1080" data-height="1920">
+      <div id="card">
+        <div id="zoom">
+          <div id="pagina">
+            <img src="assets/fotos/materia.jpg" alt="" />
+            <div id="trilho"><div id="tinta"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: 5.5 }, 0);
+      // entra suave: sobe, cresce um pouco e endireita
+      tl.fromTo("#card", { opacity: 0, y: 50, scale: 0.93, rotation: -1.2 },
+                         { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.75, ease: "power3.out" }, 0);
+      // aproxima devagar em direção à frase, até o fim
+      tl.fromTo("#zoom", { scale: 1 }, { scale: 1.05, duration: 4.9, ease: "sine.inOut" }, 0.6);
+      // o marca-texto passa da esquerda para a direita
+      tl.fromTo("#tinta", { xPercent: -101 }, { xPercent: 0, duration: 1.05, ease: "power1.inOut" }, 1.0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
