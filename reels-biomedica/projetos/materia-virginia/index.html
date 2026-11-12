@@ -22,13 +22,14 @@
       #zoom { position: absolute; inset: 0; transform-origin: 31% 84%; }
       #pagina { position: absolute; left: 0; top: 0; width: 1432px; height: 708px; transform: scale(0.698324); transform-origin: 0 0; }
       #pagina img { position: absolute; left: 0; top: 0; width: 1432px; height: 708px; }
-      /* marca-texto: amarelo de caneta, multiplicado sobre o papel (a letra continua preta). O multiply fica no
+      /* marca-texto no marrom da própria matéria (#986524, o do cabeçalho), pedido da cliente; translúcido e
+         multiplicado sobre o papel (a letra continua preta). O multiply fica no
          trilho, que é o grupo que se mistura com a matéria: dentro dele a tinta não teria nada embaixo */
       #trilho { position: absolute; left: 58px; top: 580px; width: 774px; height: 48px; overflow: hidden;
                 border-radius: 8px 14px 12px 7px; transform: rotate(-0.4deg); mix-blend-mode: multiply; }
       #tinta { position: absolute; inset: 0; border-radius: 8px 16px 12px 7px;
-               background: linear-gradient(180deg, rgba(255, 222, 40, 0.80) 0%, rgba(255, 230, 70, 0.92) 18%,
-                                           rgba(255, 232, 80, 0.92) 80%, rgba(255, 216, 30, 0.82) 100%); }
+               background: linear-gradient(180deg, rgba(176, 108, 24, 0.62) 0%, rgba(176, 108, 24, 0.52) 18%,
+                                           rgba(176, 108, 24, 0.52) 80%, rgba(176, 108, 24, 0.64) 100%); }
     </style>
   </head>
   <body>
