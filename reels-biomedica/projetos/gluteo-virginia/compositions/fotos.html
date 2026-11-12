@@ -33,7 +33,7 @@
   </style>
   <div id="root" data-composition-id="fotos" data-width="1080" data-height="1920">
       <div id="f1" class="ft" data-layout-allow-overlap data-layout-allow-overflow>
-        <div class="ft-painel" id="f1-p" style="height:960px">
+        <div class="ft-painel esfumado" id="f1-p" style="height:960px;-webkit-mask-image:linear-gradient(to bottom,#000 80%,transparent 100%);mask-image:linear-gradient(to bottom,#000 80%,transparent 100%);">
           <div class="ft-faixa" id="f1-s"><div class="ft-slot" style="left:0px"><div class="ft-caixa" style="width:1080px;height:960px"><video id="f1-i0" class="clip" src="assets/fotos/virginia-tela.mp4" data-start="0" data-duration="4.733" data-media-start="0" muted playsinline style="left:-94.5px;top:-1128.0px;width:1350.0px;height:2400.0px;transform-origin:47.0% 67.0%"></video></div></div></div>
         </div>
       </div>
@@ -46,6 +46,7 @@
     const tl = gsap.timeline({ paused: true });
     tl.to({}, { duration: 65.7 }, 0);
     tl.fromTo("#f1-i0", {scale:1}, {scale:1.04, duration:4.733, ease:"none"}, 0);
+    tl.fromTo("#f1-p", {opacity:1}, {opacity:1, duration:0.01, ease:"power2.out"}, 0);
     tl.to("#f1-p", {opacity:0, duration:0.004}, 4.727);
     tl.fromTo("#f2-i", {scale:1}, {scale:1.08, duration:2.3, ease:"none"}, 51.5);
     tl.fromTo("#f2-b", {opacity:0}, {opacity:1, duration:0.01}, 51.5);

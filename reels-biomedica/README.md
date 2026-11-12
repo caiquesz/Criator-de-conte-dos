@@ -68,7 +68,7 @@ de `fotos` no `plano.json`, presa à fala:
   `"foco_fotos": "rosto"` enquadra pelo rosto, para um vídeo que fale de rosto.
 - **Rótulos:** `"rotulos": true` escreve ANTES e DEPOIS nos cards; uma lista troca os nomes
   (`["antes", "30 dias depois"]`). As referências não usam: ligue quando ajudar a entender.
-- **Tela dividida:** meio a meio nos vídeos dela (`"corte": 960, "linha": false`, como na
+- **Tela dividida:** meio a meio nos vídeos dela (`"corte": 960`, esfumada com `"dissolve": 0.2`; ou `"linha": false` para o corte seco da
   referência 3; com uma imagem só e `"saida": "corte"`, ela já abre dividida e sai num corte seco).
   `corte` é onde a metade de cima termina (padrão 880 px); o vídeo desce sozinho
   para os olhos dela ficarem a 30% da metade de baixo (medido pelo `preparar_fotos.py`; `desce`

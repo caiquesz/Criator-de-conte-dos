@@ -1671,7 +1671,8 @@
    "inicio": 0.0,
    "fim": 4.7333,
    "corte": 960,
-   "linha": false,
+   "esfumado": true,
+   "dissolve": 0.2,
    "saida": "corte",
    "imagens": [
     {

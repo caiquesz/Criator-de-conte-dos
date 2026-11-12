@@ -75,7 +75,7 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   dividida e na foto em tela cheia (na v1 a da foto ficou baixa demais). A frase entra inteira e
   troca seca (`"legendas_modo": "corte"`): uma nunca aparece com a anterior ainda na tela (na v1,
   "ter feito" ainda saía quando "harmonização glútea" entrou). **Nada de letra cursiva.**
-- **Tela dividida meio a meio** (`corte` 960, `"linha": false`, corte seco como na referência 3):
+- **Tela dividida meio a meio e esfumada** (`corte` 960, `"esfumado": true`, `"dissolve": 0.2`, como ela pediu no envio da Virgínia, referência 1):
   a famosa em cima, com o glúteo no meio da metade dela (`foco` no glúteo e `zoom` ~1.25), a
   biomédica embaixo; só enquanto ela fala do vídeo da famosa.
 - **Dinâmica:** planos alternando a cada 2 a 5 s (`enquadramentos` 1.22/1.5 do 4K), `zoom_lento`
