@@ -1,0 +1,84 @@
+{
+  "paleta": [
+    {
+      "hex": "#ECE8E3",
+      "peso": 0.19,
+      "matiz": 34,
+      "sat": 0.19,
+      "luz": 0.91
+    },
+    {
+      "hex": "#DAD4D0",
+      "peso": 0.175,
+      "matiz": 23,
+      "sat": 0.11,
+      "luz": 0.83
+    },
+    {
+      "hex": "#1A1213",
+      "peso": 0.134,
+      "matiz": 352,
+      "sat": 0.18,
+      "luz": 0.09
+    },
+    {
+      "hex": "#9D674A",
+      "peso": 0.095,
+      "matiz": 21,
+      "sat": 0.36,
+      "luz": 0.45
+    },
+    {
+      "hex": "#BA9E87",
+      "peso": 0.082,
+      "matiz": 27,
+      "sat": 0.27,
+      "luz": 0.63
+    },
+    {
+      "hex": "#774F3A",
+      "peso": 0.077,
+      "matiz": 21,
+      "sat": 0.34,
+      "luz": 0.35
+    },
+    {
+      "hex": "#C5805B",
+      "peso": 0.069,
+      "matiz": 21,
+      "sat": 0.48,
+      "luz": 0.56
+    },
+    {
+      "hex": "#CEB6A1",
+      "peso": 0.065,
+      "matiz": 28,
+      "sat": 0.32,
+      "luz": 0.72
+    },
+    {
+      "hex": "#9F8672",
+      "peso": 0.057,
+      "matiz": 27,
+      "sat": 0.19,
+      "luz": 0.54
+    },
+    {
+      "hex": "#493128",
+      "peso": 0.057,
+      "matiz": 17,
+      "sat": 0.29,
+      "luz": 0.22
+    }
+  ],
+  "destaques_sugeridos": [
+    {
+      "hex": "#D38E69",
+      "origem": "#C5805B",
+      "matiz": 21,
+      "presenca": 0.677
+    }
+  ],
+  "destaque": "#D38E69",
+  "texto": "#FFFFFF"
+}

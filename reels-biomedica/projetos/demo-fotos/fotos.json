@@ -1,0 +1,59 @@
+{
+ "fotos": {
+  "assets/fotos/famosa-2.jpg": {
+   "largura": 1080,
+   "altura": 1350,
+   "rosto": null,
+   "corpo": null
+  },
+  "assets/fotos/famosa-3.jpg": {
+   "largura": 1080,
+   "altura": 1350,
+   "rosto": null,
+   "corpo": null
+  },
+  "assets/fotos/paciente-antes.jpg": {
+   "largura": 1080,
+   "altura": 1350,
+   "rosto": null,
+   "corpo": null
+  },
+  "assets/fotos/paciente-depois.jpg": {
+   "largura": 1080,
+   "altura": 1350,
+   "rosto": null,
+   "corpo": null
+  },
+  "assets/fotos/virginia.jpg": {
+   "largura": 720,
+   "altura": 430,
+   "rosto": [
+    465.0,
+    1.0,
+    71.7,
+    69.9
+   ],
+   "corpo": {
+    "caixa": [
+     392,
+     0,
+     235,
+     429
+    ],
+    "foco": [
+     0.7097,
+     0.7013
+    ],
+    "inteiro": false
+   }
+  }
+ },
+ "divididas": {
+  "f2": {
+   "olhos_y": 807
+  },
+  "f4": {
+   "olhos_y": 815
+  }
+ }
+}

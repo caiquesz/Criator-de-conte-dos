@@ -1,0 +1,832 @@
+{
+ "video": "assets/video/video.mp4",
+ "video_original": "assets/video/original.mov",
+ "video_tem_audio": true,
+ "recorte": "assets/video/recorte.webm",
+ "duracao": 48.36,
+ "cores": {
+  "texto": "#FFFFFF",
+  "destaque": "#E6B07C",
+  "destaque_escuro": "#B0693A",
+  "vazamento": "#FF9A4D"
+ },
+ "tracking": {
+  "forte": -0.035,
+  "fina": -0.01,
+  "serifa": -0.01
+ },
+ "entrelinha": -0.16,
+ "legendas": [
+  {
+   "id": "g01",
+   "y": 600,
+   "fim": 1.24,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Sabe",
+       "s": 0.0
+      },
+      {
+       "t": "aquela",
+       "s": 0.16
+      },
+      {
+       "t": "casa",
+       "s": 0.28
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "que",
+       "s": 0.58
+      },
+      {
+       "t": "você",
+       "s": 0.72
+      },
+      {
+       "t": "compra",
+       "s": 0.94
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g02",
+   "y": 600,
+   "fim": 2.82,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 1.28
+      },
+      {
+       "t": "passa",
+       "s": 1.4
+      },
+      {
+       "t": "um",
+       "s": 1.64
+      },
+      {
+       "t": "ano",
+       "s": 1.86
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "reformando?",
+       "s": 2.16
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g03",
+   "y": 600,
+   "fim": 4.22,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Essa",
+       "s": 2.9
+      },
+      {
+       "t": "aqui",
+       "s": 3.36
+      },
+      {
+       "t": "é",
+       "s": 3.6
+      },
+      {
+       "t": "o",
+       "s": 3.68
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "contrário,",
+       "s": 3.72
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g04",
+   "y": 600,
+   "fim": 5.62,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "ela",
+       "s": 4.3
+      },
+      {
+       "t": "já",
+       "s": 4.44
+      },
+      {
+       "t": "está",
+       "s": 4.6
+      }
+     ],
+     "dx": -60
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "pronta.",
+       "s": 4.9
+      }
+     ],
+     "dx": 50
+    }
+   ]
+  },
+  {
+   "id": "g05",
+   "y": 560,
+   "fim": 10.4,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "O",
+       "s": 8.58
+      },
+      {
+       "t": "acabamento",
+       "s": 9.04
+      },
+      {
+       "t": "é",
+       "s": 9.54
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "todo",
+       "s": 9.68
+      },
+      {
+       "t": "moderno,",
+       "s": 9.82
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g06",
+   "y": 560,
+   "fim": 11.54,
+   "linhas": [
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "porcelanato",
+       "s": 10.48
+      }
+     ]
+    },
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "no",
+       "s": 11.1
+      },
+      {
+       "t": "chão,",
+       "s": 11.26
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g07",
+   "y": 560,
+   "fim": 12.48,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "forro",
+       "s": 11.62
+      },
+      {
+       "t": "de",
+       "s": 12.02
+      }
+     ],
+     "dx": -80
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "madeira",
+       "s": 12.1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g08",
+   "y": 560,
+   "fim": 13.7,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 12.56
+      },
+      {
+       "t": "telhado",
+       "s": 12.66
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "colonial.",
+       "s": 13.08
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g09",
+   "y": 560,
+   "fim": 15.42,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "A",
+       "s": 13.78
+      },
+      {
+       "t": "sala",
+       "s": 13.92
+      },
+      {
+       "t": "é",
+       "s": 14.22
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "conjugada",
+       "s": 14.34
+      }
+     ]
+    },
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 14.86
+      },
+      {
+       "t": "a",
+       "s": 14.98
+      },
+      {
+       "t": "cozinha,",
+       "s": 15.04
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g10",
+   "y": 560,
+   "fim": 16.66,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 15.5
+      },
+      {
+       "t": "bancada",
+       "s": 15.62
+      },
+      {
+       "t": "de",
+       "s": 16.12
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "granito",
+       "s": 16.24
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g11",
+   "y": 560,
+   "fim": 18.7,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 16.74
+      },
+      {
+       "t": "área",
+       "s": 17.02
+      },
+      {
+       "t": "de",
+       "s": 17.36
+      },
+      {
+       "t": "serviço",
+       "s": 17.52
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "aos",
+       "s": 17.98
+      },
+      {
+       "t": "fundos.",
+       "s": 18.12
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g12",
+   "y": 520,
+   "fim": 23.37,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Temos",
+       "s": 22.31
+      }
+     ],
+     "dx": -140
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "dois",
+       "s": 22.77
+      },
+      {
+       "t": "quartos,",
+       "s": 22.97
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g13",
+   "y": 520,
+   "fim": 24.7,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "sendo",
+       "s": 23.45
+      },
+      {
+       "t": "um",
+       "s": 23.63
+      },
+      {
+       "t": "deles",
+       "s": 23.79
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "suíte.",
+       "s": 24.11
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g14",
+   "y": 560,
+   "fim": 35.21,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "A",
+       "s": 33.83
+      },
+      {
+       "t": "garagem",
+       "s": 34.29
+      },
+      {
+       "t": "é",
+       "s": 34.67
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "coberta,",
+       "s": 34.71
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g15",
+   "y": 560,
+   "fim": 36.89,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "cabe",
+       "s": 35.29
+      },
+      {
+       "t": "dois",
+       "s": 35.49
+      },
+      {
+       "t": "carros",
+       "s": 35.71
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "independentes",
+       "s": 36.17
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g16",
+   "y": 560,
+   "fim": 38.6,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 36.97
+      },
+      {
+       "t": "a",
+       "s": 37.13
+      },
+      {
+       "t": "rua",
+       "s": 37.29
+      },
+      {
+       "t": "é",
+       "s": 37.51
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "asfaltada.",
+       "s": 37.67
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g17",
+   "y": 560,
+   "fim": 40.27,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Essa",
+       "s": 38.93
+      },
+      {
+       "t": "é",
+       "s": 39.39
+      },
+      {
+       "t": "a",
+       "s": 39.49
+      },
+      {
+       "t": "casa",
+       "s": 39.55
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "por",
+       "s": 39.83
+      },
+      {
+       "t": "fora,",
+       "s": 39.97
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g18",
+   "y": 560,
+   "fim": 43.69,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 42.67
+      },
+      {
+       "t": "tem",
+       "s": 43.03
+      },
+      {
+       "t": "um",
+       "s": 43.17
+      }
+     ],
+     "dx": -70
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "detalhe,",
+       "s": 43.23
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g19",
+   "y": 560,
+   "fim": 46.41,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 43.77
+      },
+      {
+       "t": "proprietário",
+       "s": 44.03
+      },
+      {
+       "t": "aceita",
+       "s": 44.57
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "permuta",
+       "s": 44.91
+      }
+     ]
+    },
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "em",
+       "s": 45.47
+      },
+      {
+       "t": "terreno",
+       "s": 45.77
+      },
+      {
+       "t": "rural.",
+       "s": 46.13
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g20",
+   "y": 560,
+   "fim": 48.3,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Chama",
+       "s": 46.49
+      },
+      {
+       "t": "a",
+       "s": 46.91
+      },
+      {
+       "t": "gente",
+       "s": 46.99
+      },
+      {
+       "t": "no",
+       "s": 47.17
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "WhatsApp.",
+       "s": 47.27
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "cards": [
+  {
+   "id": "c1",
+   "inicio": 5.95,
+   "fim": 8.45,
+   "y": 980,
+   "grande": "Nossa Senhora|da Penha",
+   "tam": 118,
+   "rotulo": "bairro"
+  },
+  {
+   "id": "c2",
+   "inicio": 24.95,
+   "fim": 28.2,
+   "y": 1020,
+   "grande": "2",
+   "unidade": "quartos",
+   "rotulo": "um deles suíte"
+  },
+  {
+   "id": "c3",
+   "inicio": 40.35,
+   "fim": 42.62,
+   "y": 420,
+   "grande": "116",
+   "unidade": "m²",
+   "rotulo": "área construída"
+  }
+ ],
+ "transicoes": [
+  {
+   "t": 5.7,
+   "tipo": "luz"
+  },
+  {
+   "t": 9.1,
+   "tipo": "corte"
+  },
+  {
+   "t": 13.933,
+   "tipo": "corte"
+  },
+  {
+   "t": 18.867,
+   "tipo": "corte"
+  },
+  {
+   "t": 20.933,
+   "tipo": "corte"
+  },
+  {
+   "t": 22.8,
+   "tipo": "luz"
+  },
+  {
+   "t": 29.6,
+   "tipo": "corte"
+  },
+  {
+   "t": 31.333,
+   "tipo": "corte"
+  },
+  {
+   "t": 32.567,
+   "tipo": "corte"
+  },
+  {
+   "t": 34.333,
+   "tipo": "flash"
+  },
+  {
+   "t": 38.733,
+   "tipo": "luz"
+  }
+ ],
+ "trilha": {
+  "src": "assets/musica/lucky-acoustic-jesse-keller.mp3",
+  "inicio_trilha": 97.591,
+  "abaixo_da_voz_db": 12,
+  "sobe_nas_pausas_db": 4,
+  "fade_in": 0.3,
+  "fade_out": 1.6,
+  "credito": "\"Lucky Acoustic\" – Jesse Keller (CC BY)"
+ }
+}

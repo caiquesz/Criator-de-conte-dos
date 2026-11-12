@@ -1,0 +1,1819 @@
+{
+ "video": "assets/video/video.mp4",
+ "video_tem_audio": true,
+ "duracao": 66.3,
+ "enquadramentos": [
+  {
+   "de": 0.0,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 8.1333,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 12.9,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 14.1333,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 19.0667,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 23.8667,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 26.2667,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 27.7,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 32.0333,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 35.0667,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 37.5,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 44.3,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 46.8667,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 51.1333,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 52.7333,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 56.8667,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 59.7333,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  }
+ ],
+ "legendas_na_frente": true,
+ "foco_fotos": "corpo",
+ "cores": {
+  "texto": "#FFFFFF",
+  "destaque": "#FFFFFF",
+  "destaque_escuro": "#FFFFFF",
+  "brilho": false
+ },
+ "legendas": [
+  {
+   "id": "g1",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "O",
+       "s": 0.864
+      },
+      {
+       "t": "vídeo",
+       "s": 0.94
+      },
+      {
+       "t": "da",
+       "s": 1.16
+      },
+      {
+       "t": "Virgínia",
+       "s": 1.34
+      }
+     ]
+    }
+   ],
+   "fim": 1.66,
+   "sombra_forte": true
+  },
+  {
+   "id": "g2",
+   "y": 1008,
+   "linhas": [
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "repercutiu",
+       "s": 1.68
+      },
+      {
+       "t": "muito,",
+       "s": 2.38
+      }
+     ]
+    }
+   ],
+   "fim": 3.14,
+   "sombra_forte": true
+  },
+  {
+   "id": "g3",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "todo",
+       "s": 3.16
+      },
+      {
+       "t": "mundo",
+       "s": 3.26
+      },
+      {
+       "t": "viu",
+       "s": 3.5
+      }
+     ]
+    }
+   ],
+   "fim": 3.7,
+   "sombra_forte": true
+  },
+  {
+   "id": "g4",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 3.72
+      },
+      {
+       "t": "resultado,",
+       "s": 3.98
+      }
+     ]
+    }
+   ],
+   "fim": 4.72,
+   "sombra_forte": true
+  },
+  {
+   "id": "g5",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 4.736
+      },
+      {
+       "t": "que",
+       "s": 4.86
+      },
+      {
+       "t": "ninguém",
+       "s": 4.98
+      },
+      {
+       "t": "vê",
+       "s": 5.22
+      }
+     ]
+    }
+   ],
+   "fim": 5.54,
+   "sombra_forte": true
+  },
+  {
+   "id": "g6",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "é",
+       "s": 5.56
+      },
+      {
+       "t": "o",
+       "s": 5.82
+      },
+      {
+       "t": "que",
+       "s": 5.96
+      },
+      {
+       "t": "vem",
+       "s": 6.1
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "antes",
+       "s": 6.22
+      },
+      {
+       "t": "dele,",
+       "s": 6.52
+      }
+     ]
+    }
+   ],
+   "fim": 7.02,
+   "sombra_forte": true
+  },
+  {
+   "id": "g7",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "mas",
+       "s": 7.04
+      },
+      {
+       "t": "eu",
+       "s": 7.2
+      },
+      {
+       "t": "vou",
+       "s": 7.36
+      },
+      {
+       "t": "te",
+       "s": 7.44
+      },
+      {
+       "t": "contar",
+       "s": 7.58
+      },
+      {
+       "t": "agora.",
+       "s": 7.8
+      }
+     ]
+    }
+   ],
+   "fim": 8.13,
+   "sombra_forte": true
+  },
+  {
+   "id": "g8",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "primeiro,",
+       "s": 10.68
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 11.54
+      },
+      {
+       "t": "rotina.",
+       "s": 11.74
+      }
+     ]
+    }
+   ],
+   "fim": 12.64,
+   "sombra_forte": true
+  },
+  {
+   "id": "g9",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "Ela",
+       "s": 12.78
+      },
+      {
+       "t": "treina",
+       "s": 12.84
+      },
+      {
+       "t": "todos",
+       "s": 13.06
+      },
+      {
+       "t": "os",
+       "s": 13.48
+      },
+      {
+       "t": "dias,",
+       "s": 13.64
+      }
+     ]
+    }
+   ],
+   "fim": 14.26,
+   "sombra_forte": true
+  },
+  {
+   "id": "g10",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 14.28
+      },
+      {
+       "t": "academia",
+       "s": 14.34
+      },
+      {
+       "t": "em",
+       "s": 14.58
+      },
+      {
+       "t": "casa,",
+       "s": 14.82
+      }
+     ]
+    }
+   ],
+   "fim": 15.4,
+   "sombra_forte": true
+  },
+  {
+   "id": "g11",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "se",
+       "s": 15.424
+      },
+      {
+       "t": "alimenta",
+       "s": 15.56
+      },
+      {
+       "t": "bem,",
+       "s": 16.02
+      }
+     ]
+    }
+   ],
+   "fim": 16.74,
+   "sombra_forte": true
+  },
+  {
+   "id": "g12",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 16.76
+      },
+      {
+       "t": "descanso,",
+       "s": 17.08
+      }
+     ]
+    }
+   ],
+   "fim": 17.54,
+   "sombra_forte": true
+  },
+  {
+   "id": "g13",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "então",
+       "s": 17.56
+      },
+      {
+       "t": "o",
+       "s": 17.76
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "procedimento",
+       "s": 18.0
+      }
+     ]
+    }
+   ],
+   "fim": 18.5,
+   "sombra_forte": true
+  },
+  {
+   "id": "g14",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "entra",
+       "s": 18.52
+      },
+      {
+       "t": "sobre",
+       "s": 18.94
+      },
+      {
+       "t": "essa",
+       "s": 19.54
+      },
+      {
+       "t": "base",
+       "s": 19.9
+      }
+     ]
+    }
+   ],
+   "fim": 20.26,
+   "sombra_forte": true
+  },
+  {
+   "id": "g15",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 20.28
+      },
+      {
+       "t": "não",
+       "s": 20.48
+      },
+      {
+       "t": "no",
+       "s": 20.7
+      },
+      {
+       "t": "lugar",
+       "s": 20.84
+      },
+      {
+       "t": "dela.",
+       "s": 21.14
+      }
+     ]
+    }
+   ],
+   "fim": 21.47,
+   "sombra_forte": true
+  },
+  {
+   "id": "g16",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "segundo,",
+       "s": 21.64
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 22.32
+      },
+      {
+       "t": "genética.",
+       "s": 22.5
+      }
+     ]
+    }
+   ],
+   "fim": 23.28,
+   "sombra_forte": true
+  },
+  {
+   "id": "g17",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "Tem",
+       "s": 23.3
+      },
+      {
+       "t": "corpos",
+       "s": 23.42
+      },
+      {
+       "t": "que",
+       "s": 23.88
+      },
+      {
+       "t": "nascem",
+       "s": 24.12
+      }
+     ]
+    }
+   ],
+   "fim": 24.34,
+   "sombra_forte": true
+  },
+  {
+   "id": "g18",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 24.36
+      },
+      {
+       "t": "mais",
+       "s": 24.58
+      },
+      {
+       "t": "glúteos",
+       "s": 24.78
+      }
+     ]
+    }
+   ],
+   "fim": 25.28,
+   "sombra_forte": true
+  },
+  {
+   "id": "g19",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 25.3
+      },
+      {
+       "t": "outros",
+       "s": 25.48
+      },
+      {
+       "t": "não,",
+       "s": 25.86
+      }
+     ]
+    }
+   ],
+   "fim": 26.41,
+   "sombra_forte": true
+  },
+  {
+   "id": "g20",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 26.432
+      },
+      {
+       "t": "isso",
+       "s": 26.66
+      },
+      {
+       "t": "não",
+       "s": 26.86
+      },
+      {
+       "t": "é",
+       "s": 27.06
+      },
+      {
+       "t": "mérito",
+       "s": 27.26
+      }
+     ]
+    }
+   ],
+   "fim": 27.58,
+   "sombra_forte": true
+  },
+  {
+   "id": "g21",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 27.6
+      },
+      {
+       "t": "nem",
+       "s": 27.94
+      },
+      {
+       "t": "culpa,",
+       "s": 28.12
+      }
+     ]
+    }
+   ],
+   "fim": 28.84,
+   "sombra_forte": true
+  },
+  {
+   "id": "g22",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "é",
+       "s": 28.864
+      },
+      {
+       "t": "o",
+       "s": 29.02
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "ponto",
+       "s": 29.14
+      },
+      {
+       "t": "de",
+       "s": 29.38
+      },
+      {
+       "t": "partida.",
+       "s": 29.58
+      }
+     ]
+    }
+   ],
+   "fim": 30.1,
+   "sombra_forte": true
+  },
+  {
+   "id": "g23",
+   "y": 1008,
+   "linhas": [
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "terceiro,",
+       "s": 30.2
+      }
+     ]
+    }
+   ],
+   "fim": 31.18,
+   "sombra_forte": true
+  },
+  {
+   "id": "g24",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 31.2
+      },
+      {
+       "t": "ela",
+       "s": 31.36
+      },
+      {
+       "t": "mesma",
+       "s": 31.58
+      },
+      {
+       "t": "contou,",
+       "s": 31.82
+      }
+     ]
+    }
+   ],
+   "fim": 32.64,
+   "sombra_forte": true
+  },
+  {
+   "id": "g25",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 32.66
+      },
+      {
+       "t": "glúteo",
+       "s": 32.74
+      },
+      {
+       "t": "dela",
+       "s": 33.08
+      },
+      {
+       "t": "é",
+       "s": 33.32
+      }
+     ]
+    }
+   ],
+   "fim": 33.58,
+   "sombra_forte": true
+  },
+  {
+   "id": "g26",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "uma",
+       "s": 33.6
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "construção.",
+       "s": 33.98
+      }
+     ]
+    }
+   ],
+   "fim": 34.56,
+   "sombra_forte": true
+  },
+  {
+   "id": "g27",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "Ela",
+       "s": 34.58
+      },
+      {
+       "t": "já",
+       "s": 34.72
+      },
+      {
+       "t": "mostrou",
+       "s": 35.06
+      }
+     ]
+    }
+   ],
+   "fim": 35.44,
+   "sombra_forte": true
+  },
+  {
+   "id": "g28",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "ter",
+       "s": 35.46
+      },
+      {
+       "t": "feito",
+       "s": 35.72
+      },
+      {
+       "t": "a",
+       "s": 36.08
+      }
+     ]
+    }
+   ],
+   "fim": 36.28,
+   "sombra_forte": true
+  },
+  {
+   "id": "g29",
+   "y": 1008,
+   "linhas": [
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "harmonização",
+       "s": 36.3
+      },
+      {
+       "t": "glútea",
+       "s": 36.78
+      }
+     ]
+    }
+   ],
+   "fim": 37.52,
+   "sombra_forte": true
+  },
+  {
+   "id": "g30",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 37.536
+      },
+      {
+       "t": "hoje",
+       "s": 37.68
+      },
+      {
+       "t": "mantém",
+       "s": 37.9
+      }
+     ]
+    }
+   ],
+   "fim": 38.3,
+   "sombra_forte": true
+  },
+  {
+   "id": "g31",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 38.32
+      },
+      {
+       "t": "o",
+       "s": 38.5
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "bioestimulador",
+       "s": 38.64
+      }
+     ]
+    }
+   ],
+   "fim": 39.2,
+   "sombra_forte": true
+  },
+  {
+   "id": "g32",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 39.22
+      },
+      {
+       "t": "colágeno.",
+       "s": 39.44
+      }
+     ]
+    }
+   ],
+   "fim": 39.88,
+   "sombra_forte": true
+  },
+  {
+   "id": "g33",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "O",
+       "s": 39.9
+      },
+      {
+       "t": "preenchedor",
+       "s": 40.04
+      },
+      {
+       "t": "e",
+       "s": 40.62
+      }
+     ]
+    }
+   ],
+   "fim": 40.74,
+   "sombra_forte": true
+  },
+  {
+   "id": "g34",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 40.76
+      },
+      {
+       "t": "bioestimulador",
+       "s": 40.94
+      }
+     ]
+    }
+   ],
+   "fim": 41.8,
+   "sombra_forte": true
+  },
+  {
+   "id": "g35",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "fazem",
+       "s": 41.82
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "efeitos",
+       "s": 42.28
+      },
+      {
+       "t": "distintos,",
+       "s": 42.98
+      }
+     ]
+    }
+   ],
+   "fim": 43.88,
+   "sombra_forte": true
+  },
+  {
+   "id": "g36",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "mas",
+       "s": 44.1
+      },
+      {
+       "t": "cada",
+       "s": 44.32
+      },
+      {
+       "t": "um",
+       "s": 44.7
+      },
+      {
+       "t": "teve",
+       "s": 45.02
+      }
+     ]
+    }
+   ],
+   "fim": 45.26,
+   "sombra_forte": true
+  },
+  {
+   "id": "g37",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 45.28
+      },
+      {
+       "t": "seu",
+       "s": 45.42
+      },
+      {
+       "t": "momento",
+       "s": 45.54
+      }
+     ]
+    }
+   ],
+   "fim": 45.88,
+   "sombra_forte": true
+  },
+  {
+   "id": "g38",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "na",
+       "s": 45.9
+      },
+      {
+       "t": "história",
+       "s": 46.14
+      },
+      {
+       "t": "dela.",
+       "s": 46.44
+      }
+     ]
+    }
+   ],
+   "fim": 46.78,
+   "sombra_forte": true
+  },
+  {
+   "id": "g39",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "Isso",
+       "s": 46.8
+      },
+      {
+       "t": "é",
+       "s": 46.94
+      },
+      {
+       "t": "um",
+       "s": 47.1
+      },
+      {
+       "t": "trabalho",
+       "s": 47.22
+      }
+     ]
+    }
+   ],
+   "fim": 47.52,
+   "sombra_forte": true
+  },
+  {
+   "id": "g40",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 47.54
+      },
+      {
+       "t": "anos",
+       "s": 47.86
+      },
+      {
+       "t": "com",
+       "s": 48.1
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "acompanhamento.",
+       "s": 48.44
+      }
+     ]
+    }
+   ],
+   "fim": 49.34,
+   "sombra_forte": true
+  },
+  {
+   "id": "g41",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "Então",
+       "s": 49.38
+      },
+      {
+       "t": "quando",
+       "s": 49.58
+      },
+      {
+       "t": "uma",
+       "s": 49.8
+      },
+      {
+       "t": "paciente",
+       "s": 50.04
+      }
+     ]
+    }
+   ],
+   "fim": 50.56,
+   "sombra_forte": true
+  },
+  {
+   "id": "g42",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "me",
+       "s": 50.58
+      },
+      {
+       "t": "chega",
+       "s": 50.9
+      },
+      {
+       "t": "como",
+       "s": 51.14
+      },
+      {
+       "t": "referência",
+       "s": 51.52
+      }
+     ]
+    }
+   ],
+   "fim": 52.1,
+   "sombra_forte": true
+  },
+  {
+   "id": "g43",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 52.12
+      },
+      {
+       "t": "glúteo",
+       "s": 52.26
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "da",
+       "s": 52.62
+      },
+      {
+       "t": "Virgínia,",
+       "s": 52.8
+      }
+     ]
+    }
+   ],
+   "fim": 53.58,
+   "sombra_forte": true
+  },
+  {
+   "id": "g44",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "eu",
+       "s": 53.6
+      },
+      {
+       "t": "já",
+       "s": 53.76
+      },
+      {
+       "t": "entendo",
+       "s": 54.02
+      }
+     ]
+    }
+   ],
+   "fim": 54.3,
+   "sombra_forte": true
+  },
+  {
+   "id": "g45",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 54.32
+      },
+      {
+       "t": "desejo",
+       "s": 54.54
+      },
+      {
+       "t": "dela.",
+       "s": 54.84
+      }
+     ]
+    }
+   ],
+   "fim": 55.18,
+   "sombra_forte": true
+  },
+  {
+   "id": "g46",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "Mas",
+       "s": 55.2
+      },
+      {
+       "t": "é",
+       "s": 55.32
+      },
+      {
+       "t": "importante",
+       "s": 55.58
+      },
+      {
+       "t": "pontuar",
+       "s": 56.12
+      }
+     ]
+    }
+   ],
+   "fim": 56.72,
+   "sombra_forte": true
+  },
+  {
+   "id": "g47",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 56.74
+      },
+      {
+       "t": "série",
+       "s": 56.96
+      },
+      {
+       "t": "de",
+       "s": 57.24
+      },
+      {
+       "t": "cuidados",
+       "s": 57.56
+      }
+     ]
+    }
+   ],
+   "fim": 57.9,
+   "sombra_forte": true
+  },
+  {
+   "id": "g48",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "que",
+       "s": 57.92
+      },
+      {
+       "t": "ela",
+       "s": 58.08
+      },
+      {
+       "t": "tem",
+       "s": 58.28
+      }
+     ]
+    }
+   ],
+   "fim": 58.48,
+   "sombra_forte": true
+  },
+  {
+   "id": "g49",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 58.5
+      },
+      {
+       "t": "ela",
+       "s": 58.74
+      },
+      {
+       "t": "mesma.",
+       "s": 58.9
+      }
+     ]
+    }
+   ],
+   "fim": 59.4,
+   "sombra_forte": true
+  },
+  {
+   "id": "g50",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 59.42
+      },
+      {
+       "t": "o",
+       "s": 59.56
+      },
+      {
+       "t": "seu",
+       "s": 59.7
+      },
+      {
+       "t": "cuidado",
+       "s": 59.88
+      }
+     ]
+    }
+   ],
+   "fim": 60.36,
+   "sombra_forte": true
+  },
+  {
+   "id": "g51",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "também",
+       "s": 60.38
+      },
+      {
+       "t": "pode",
+       "s": 60.86
+      }
+     ]
+    }
+   ],
+   "fim": 61.12,
+   "sombra_forte": true
+  },
+  {
+   "id": "g52",
+   "y": 1008,
+   "linhas": [
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "começar",
+       "s": 61.14
+      },
+      {
+       "t": "agora,",
+       "s": 61.58
+      }
+     ]
+    }
+   ],
+   "fim": 62.4,
+   "sombra_forte": true
+  },
+  {
+   "id": "g53",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "assim",
+       "s": 62.42
+      },
+      {
+       "t": "você",
+       "s": 62.72
+      },
+      {
+       "t": "terá",
+       "s": 63.14
+      }
+     ]
+    }
+   ],
+   "fim": 63.4,
+   "sombra_forte": true
+  },
+  {
+   "id": "g54",
+   "y": 1017,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "um",
+       "s": 63.42
+      },
+      {
+       "t": "resultado",
+       "s": 63.6
+      },
+      {
+       "t": "tão",
+       "s": 63.88
+      },
+      {
+       "t": "atrativo",
+       "s": 64.28
+      }
+     ]
+    }
+   ],
+   "fim": 64.88,
+   "sombra_forte": true
+  },
+  {
+   "id": "g55",
+   "y": 986,
+   "linhas": [
+    {
+     "estilo": "legenda",
+     "palavras": [
+      {
+       "t": "quanto",
+       "s": 64.9
+      },
+      {
+       "t": "o",
+       "s": 65.18
+      }
+     ]
+    },
+    {
+     "estilo": "legenda-forte",
+     "palavras": [
+      {
+       "t": "da",
+       "s": 65.34
+      },
+      {
+       "t": "Virgínia.",
+       "s": 65.4
+      }
+     ]
+    }
+   ],
+   "fim": 66.28,
+   "sombra_forte": true
+  }
+ ],
+ "fotos": [
+  {
+   "id": "f1",
+   "layout": "dividida",
+   "inicio": 0.0,
+   "fim": 4.7333,
+   "corte": 960,
+   "esfumado": true,
+   "dissolve": 0.32,
+   "saida": "corte",
+   "imagens": [
+    {
+     "src": "assets/fotos/virginia-tela.mp4",
+     "foco": [
+      0.47,
+      0.67
+     ],
+     "zoom": 1.25
+    }
+   ]
+  },
+  {
+   "id": "f2",
+   "layout": "cheia",
+   "inicio": 52.1,
+   "fim": 54.4,
+   "imagens": [
+    {
+     "src": "assets/fotos/virginia-foto.jpg"
+    }
+   ]
+  }
+ ],
+ "transicoes": [
+  {
+   "t": 4.7333,
+   "tipo": "corte"
+  },
+  {
+   "t": 8.1333,
+   "tipo": "luz",
+   "som": "whoosh",
+   "vol": 0.45
+  },
+  {
+   "t": 10.5333,
+   "tipo": "luz",
+   "som": "whoosh",
+   "vol": 0.4
+  },
+  {
+   "t": 15.3,
+   "tipo": "corte"
+  },
+  {
+   "t": 16.5333,
+   "tipo": "corte"
+  },
+  {
+   "t": 21.4667,
+   "tipo": "luz"
+  },
+  {
+   "t": 26.2667,
+   "tipo": "corte"
+  },
+  {
+   "t": 28.6667,
+   "tipo": "corte"
+  },
+  {
+   "t": 30.1,
+   "tipo": "luz"
+  },
+  {
+   "t": 34.4333,
+   "tipo": "corte"
+  },
+  {
+   "t": 37.4667,
+   "tipo": "corte"
+  },
+  {
+   "t": 39.9,
+   "tipo": "corte"
+  },
+  {
+   "t": 46.7,
+   "tipo": "corte"
+  },
+  {
+   "t": 49.2667,
+   "tipo": "corte"
+  },
+  {
+   "t": 53.5333,
+   "tipo": "corte"
+  },
+  {
+   "t": 55.1333,
+   "tipo": "corte"
+  },
+  {
+   "t": 59.2667,
+   "tipo": "corte"
+  },
+  {
+   "t": 62.1333,
+   "tipo": "corte"
+  }
+ ],
+ "legendas_modo": "corte",
+ "tracking": {
+  "legenda": -0.04
+ },
+ "zoom_lento": 0.035,
+ "som_cortes": {
+  "som": "whoosh-rapido",
+  "vol": 0.32
+ },
+ "extras": [
+  {
+   "id": "abertura",
+   "src": "compositions/abertura.html",
+   "z": 6
+  }
+ ],
+ "sfx_extra": [
+  {
+   "t": 8.633,
+   "som": "brilho",
+   "vol": 0.5
+  },
+  {
+   "t": 54.4,
+   "som": "whoosh-rapido",
+   "vol": 0.4
+  }
+ ],
+ "sfx_remover": [
+  {
+   "t": 53.5333
+  }
+ ],
+ "entrelinha": -0.02,
+ "pausas": [
+  {
+   "em": 8.1333,
+   "dur": 2.4
+  }
+ ],
+ "video_original": "assets/video/voz.wav"
+}

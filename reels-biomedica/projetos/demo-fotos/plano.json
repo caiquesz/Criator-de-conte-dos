@@ -1,0 +1,578 @@
+{
+ "video": "assets/video/video.mp4",
+ "video_tem_audio": true,
+ "recorte": "assets/video/recorte.webm",
+ "recorte_janelas": [
+  [
+   12.4,
+   15.6
+  ]
+ ],
+ "duracao": 24.1,
+ "legendas_na_frente": true,
+ "cores": {
+  "texto": "#FFFFFF",
+  "destaque": "#FFFFFF",
+  "destaque_escuro": "#FFFFFF",
+  "brilho": false
+ },
+ "legendas": [
+  {
+   "id": "g1",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "Eu",
+       "s": 0.416
+      },
+      {
+       "t": "sou",
+       "s": 0.5
+      },
+      {
+       "t": "doutora",
+       "s": 0.68
+      }
+     ]
+    }
+   ],
+   "fim": 0.96
+  },
+  {
+   "id": "g2",
+   "y": 1130,
+   "linhas": [
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "Nádia",
+       "s": 1.04
+      },
+      {
+       "t": "Rezende,",
+       "s": 1.36
+      }
+     ]
+    }
+   ],
+   "fim": 2.04
+  },
+  {
+   "id": "g3",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "especialista",
+       "s": 2.06
+      },
+      {
+       "t": "em",
+       "s": 2.58
+      }
+     ]
+    }
+   ],
+   "fim": 2.72
+  },
+  {
+   "id": "g4",
+   "y": 1120,
+   "linhas": [
+    {
+     "estilo": "frase-fina",
+     "palavras": [
+      {
+       "t": "harmonização",
+       "s": 2.74
+      }
+     ]
+    },
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "corporal",
+       "s": 3.3
+      }
+     ]
+    }
+   ],
+   "fim": 4.04
+  },
+  {
+   "id": "g5",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 4.06
+      },
+      {
+       "t": "criadora",
+       "s": 4.38
+      },
+      {
+       "t": "do",
+       "s": 4.78
+      },
+      {
+       "t": "método",
+       "s": 4.98
+      }
+     ]
+    }
+   ],
+   "fim": 5.24
+  },
+  {
+   "id": "g6",
+   "y": 1130,
+   "linhas": [
+    {
+     "estilo": "manuscrita",
+     "palavras": [
+      {
+       "t": "contour.",
+       "s": 5.32
+      }
+     ]
+    }
+   ],
+   "fim": 6.22
+  },
+  {
+   "id": "g7",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "Aquilo",
+       "s": 6.86
+      },
+      {
+       "t": "que",
+       "s": 7.08
+      },
+      {
+       "t": "você",
+       "s": 7.2
+      },
+      {
+       "t": "vê",
+       "s": 7.46
+      }
+     ]
+    }
+   ],
+   "fim": 7.58
+  },
+  {
+   "id": "g8",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "no",
+       "s": 7.6
+      },
+      {
+       "t": "espelho",
+       "s": 7.8
+      }
+     ]
+    }
+   ],
+   "fim": 8.24
+  },
+  {
+   "id": "g9",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 8.26
+      },
+      {
+       "t": "não",
+       "s": 8.56
+      },
+      {
+       "t": "se",
+       "s": 8.76
+      },
+      {
+       "t": "sente",
+       "s": 8.98
+      },
+      {
+       "t": "bem,",
+       "s": 9.22
+      }
+     ]
+    }
+   ],
+   "fim": 10.08
+  },
+  {
+   "id": "g10",
+   "y": 922,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "é",
+       "s": 10.1
+      },
+      {
+       "t": "o",
+       "s": 10.16
+      },
+      {
+       "t": "que",
+       "s": 10.28
+      },
+      {
+       "t": "a",
+       "s": 10.38
+      },
+      {
+       "t": "gente",
+       "s": 10.48
+      }
+     ]
+    }
+   ],
+   "fim": 10.66
+  },
+  {
+   "id": "g11",
+   "y": 922,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "conversa",
+       "s": 10.68
+      },
+      {
+       "t": "aqui.",
+       "s": 11.2
+      }
+     ]
+    }
+   ],
+   "fim": 12.1
+  },
+  {
+   "id": "g12",
+   "y": 1120,
+   "linhas": [
+    {
+     "estilo": "frase-fina",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 12.58
+      }
+     ]
+    },
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "glúteo",
+       "s": 12.8
+      }
+     ]
+    }
+   ],
+   "fim": 13.1
+  },
+  {
+   "id": "g13",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "que",
+       "s": 13.12
+      },
+      {
+       "t": "não",
+       "s": 13.26
+      },
+      {
+       "t": "tem",
+       "s": 13.5
+      },
+      {
+       "t": "o",
+       "s": 13.68
+      },
+      {
+       "t": "formato",
+       "s": 13.86
+      }
+     ]
+    }
+   ],
+   "fim": 14.14
+  },
+  {
+   "id": "g14",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "que",
+       "s": 14.16
+      },
+      {
+       "t": "você",
+       "s": 14.26
+      },
+      {
+       "t": "gostaria,",
+       "s": 14.6
+      }
+     ]
+    }
+   ],
+   "fim": 15.52
+  },
+  {
+   "id": "g15",
+   "y": 922,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "aquela",
+       "s": 15.6
+      },
+      {
+       "t": "gordurinha",
+       "s": 15.86
+      }
+     ]
+    }
+   ],
+   "fim": 16.3
+  },
+  {
+   "id": "g16",
+   "y": 922,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "localizada,",
+       "s": 16.38
+      }
+     ]
+    }
+   ],
+   "fim": 17.28
+  },
+  {
+   "id": "g17",
+   "y": 922,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 17.86
+      },
+      {
+       "t": "celulite",
+       "s": 18.02
+      }
+     ]
+    }
+   ],
+   "fim": 18.38
+  },
+  {
+   "id": "g18",
+   "y": 922,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "que",
+       "s": 18.46
+      },
+      {
+       "t": "você",
+       "s": 18.62
+      },
+      {
+       "t": "gostaria",
+       "s": 18.9
+      },
+      {
+       "t": "de",
+       "s": 19.36
+      },
+      {
+       "t": "tratar,",
+       "s": 19.64
+      }
+     ]
+    }
+   ],
+   "fim": 20.38
+  },
+  {
+   "id": "g19",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 20.46
+      },
+      {
+       "t": "flacidez",
+       "s": 20.54
+      }
+     ]
+    }
+   ],
+   "fim": 20.98
+  },
+  {
+   "id": "g20",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "interna",
+       "s": 21.06
+      },
+      {
+       "t": "de",
+       "s": 21.52
+      },
+      {
+       "t": "coxa,",
+       "s": 21.74
+      }
+     ]
+    }
+   ],
+   "fim": 21.92
+  },
+  {
+   "id": "g21",
+   "y": 1150,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "posterior",
+       "s": 22.0
+      },
+      {
+       "t": "de",
+       "s": 22.42
+      }
+     ]
+    }
+   ],
+   "fim": 23.32
+  }
+ ],
+ "fotos": [
+  {
+   "id": "f1",
+   "layout": "cards",
+   "inicio": 6.86,
+   "fim": 9.95,
+   "rotulos": true,
+   "imagens": [
+    "assets/fotos/paciente-antes.jpg",
+    "assets/fotos/paciente-depois.jpg"
+   ]
+  },
+  {
+   "id": "f2",
+   "layout": "dividida",
+   "inicio": 10.0,
+   "fim": 12.4,
+   "imagens": [
+    "assets/fotos/paciente-antes.jpg",
+    "assets/fotos/paciente-depois.jpg"
+   ]
+  },
+  {
+   "id": "f3",
+   "layout": "atras",
+   "inicio": 12.45,
+   "fim": 15.5,
+   "imagens": [
+    "assets/fotos/virginia.jpg"
+   ]
+  },
+  {
+   "id": "f4",
+   "layout": "dividida",
+   "inicio": 15.55,
+   "fim": 20.35,
+   "imagens": [
+    "assets/fotos/virginia.jpg",
+    "assets/fotos/famosa-2.jpg",
+    "assets/fotos/famosa-3.jpg"
+   ]
+  },
+  {
+   "id": "f5",
+   "layout": "cheia",
+   "inicio": 20.42,
+   "fim": 22.95,
+   "imagens": [
+    "assets/fotos/virginia.jpg"
+   ]
+  }
+ ],
+ "transicoes": [
+  {
+   "t": 6.367,
+   "tipo": "corte"
+  }
+ ],
+ "foco_fotos": "corpo"
+}

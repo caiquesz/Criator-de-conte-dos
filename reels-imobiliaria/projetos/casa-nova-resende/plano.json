@@ -1,0 +1,1420 @@
+{
+ "video": "assets/video/video_estab.mp4",
+ "video_tem_audio": true,
+ "recorte": "assets/video/recorte.webm",
+ "duracao": 80.86,
+ "cores": {
+  "texto": "#FFFFFF",
+  "destaque": "#E0A071",
+  "vazamento": "#FF9A4D",
+  "destaque_escuro": "#B5653C"
+ },
+ "tracking": {
+  "forte": -0.035,
+  "fina": -0.01,
+  "serifa": -0.01
+ },
+ "entrelinha": -0.16,
+ "legendas": [
+  {
+   "id": "g01",
+   "y": 470,
+   "fim": 1.62,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Uma",
+       "s": 0.352
+      },
+      {
+       "t": "coisa",
+       "s": 0.412
+      },
+      {
+       "t": "é",
+       "s": 0.64
+      },
+      {
+       "t": "você",
+       "s": 0.76
+      },
+      {
+       "t": "ter",
+       "s": 0.9
+      }
+     ],
+     "dx": -40
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "espaço,",
+       "s": 1.12
+      }
+     ],
+     "dx": 60
+    }
+   ]
+  },
+  {
+   "id": "g02",
+   "y": 470,
+   "fim": 4.04,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "outra",
+       "s": 1.7
+      },
+      {
+       "t": "é",
+       "s": 2.06
+      },
+      {
+       "t": "você",
+       "s": 2.44
+      },
+      {
+       "t": "conseguir",
+       "s": 2.68
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "acomodar",
+       "s": 3.02
+      },
+      {
+       "t": "os",
+       "s": 3.5
+      },
+      {
+       "t": "carros,",
+       "s": 3.64
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g03",
+   "y": 470,
+   "fim": 5.8,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 4.12
+      },
+      {
+       "t": "família",
+       "s": 4.26
+      },
+      {
+       "t": "e",
+       "s": 4.72
+      },
+      {
+       "t": "reunir",
+       "s": 4.86
+      }
+     ],
+     "dx": -50
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "todo",
+       "s": 5.26
+      },
+      {
+       "t": "mundo.",
+       "s": 5.42
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g04",
+   "y": 900,
+   "fim": 8.22,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Essa",
+       "s": 7.328
+      },
+      {
+       "t": "casa",
+       "s": 7.388
+      },
+      {
+       "t": "na",
+       "s": 7.7
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "Nova",
+       "s": 7.84
+      },
+      {
+       "t": "Resende",
+       "s": 7.98
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g05",
+   "y": 838,
+   "fim": 9.76,
+   "linhas": [
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "tem",
+       "s": 8.3
+      },
+      {
+       "t": "uma",
+       "s": 8.5
+      },
+      {
+       "t": "combinação",
+       "s": 8.62
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "interessante.",
+       "s": 8.96
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g06",
+   "y": 754,
+   "fim": 10.42,
+   "linhas": [
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "Vamos",
+       "s": 9.84
+      },
+      {
+       "t": "ver?",
+       "s": 10.06
+      }
+     ],
+     "cor": "texto"
+    }
+   ]
+  },
+  {
+   "id": "g07",
+   "y": 380,
+   "fim": 14.99,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 13.76
+      },
+      {
+       "t": "aqui",
+       "s": 13.82
+      },
+      {
+       "t": "dentro,",
+       "s": 13.88
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 14.29
+      },
+      {
+       "t": "casa",
+       "s": 14.41
+      },
+      {
+       "t": "conta",
+       "s": 14.63
+      },
+      {
+       "t": "com",
+       "s": 14.87
+      }
+     ]
+    }
+   ],
+   "alinhar": "direita",
+   "x": 70,
+   "sombra_forte": true
+  },
+  {
+   "id": "g08",
+   "y": 470,
+   "fim": 16.51,
+   "linhas": [
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "duas",
+       "s": 15.07
+      },
+      {
+       "t": "salas,",
+       "s": 15.31
+      }
+     ],
+     "cor": "destaque-escuro"
+    },
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "uma",
+       "s": 16.0
+      },
+      {
+       "t": "para",
+       "s": 16.06
+      },
+      {
+       "t": "receber",
+       "s": 16.25
+      }
+     ]
+    }
+   ],
+   "alinhar": "direita",
+   "x": 70,
+   "sombra_forte": true
+  },
+  {
+   "id": "g09",
+   "y": 470,
+   "fim": 18.3,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 16.59
+      },
+      {
+       "t": "a",
+       "s": 16.97
+      },
+      {
+       "t": "outra",
+       "s": 17.11
+      },
+      {
+       "t": "para",
+       "s": 17.35
+      },
+      {
+       "t": "o",
+       "s": 17.55
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "dia",
+       "s": 17.67
+      },
+      {
+       "t": "a",
+       "s": 17.83
+      },
+      {
+       "t": "dia.",
+       "s": 17.93
+      }
+     ]
+    }
+   ],
+   "alinhar": "direita",
+   "x": 70,
+   "sombra_forte": true
+  },
+  {
+   "id": "g10",
+   "y": 774,
+   "fim": 27.632,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "São",
+       "s": 26.656
+      }
+     ],
+     "dx": -150
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "três",
+       "s": 26.716
+      },
+      {
+       "t": "quartos",
+       "s": 26.86
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g11",
+   "y": 722,
+   "fim": 29.78,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 27.712
+      },
+      {
+       "t": "um",
+       "s": 27.772
+      },
+      {
+       "t": "deles",
+       "s": 27.832
+      },
+      {
+       "t": "conta",
+       "s": 28.1
+      },
+      {
+       "t": "com",
+       "s": 28.6
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "essa",
+       "s": 28.9
+      },
+      {
+       "t": "sacada.",
+       "s": 29.14
+      }
+     ],
+     "cor": "texto"
+    }
+   ]
+  },
+  {
+   "id": "g12",
+   "y": 825,
+   "fim": 31.3,
+   "linhas": [
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 30.08
+      },
+      {
+       "t": "detalhe,",
+       "s": 30.14
+      }
+     ],
+     "dx": -120
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "essa",
+       "s": 30.64
+      },
+      {
+       "t": "varanda",
+       "s": 30.84
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g13",
+   "y": 825,
+   "fim": 32.95,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "é",
+       "s": 31.38
+      },
+      {
+       "t": "ao",
+       "s": 31.58
+      },
+      {
+       "t": "redor",
+       "s": 31.68
+      },
+      {
+       "t": "da",
+       "s": 32.02
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "casa",
+       "s": 32.16
+      },
+      {
+       "t": "inteira.",
+       "s": 32.38
+      }
+     ],
+     "cor": "texto"
+    }
+   ]
+  },
+  {
+   "id": "g14",
+   "y": 520,
+   "fim": 38.15,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Na",
+       "s": 36.864
+      },
+      {
+       "t": "parte",
+       "s": 36.924
+      },
+      {
+       "t": "íntima",
+       "s": 37.09
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "da",
+       "s": 37.67
+      },
+      {
+       "t": "casa,",
+       "s": 37.83
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g15",
+   "y": 520,
+   "fim": 39.55,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "temos",
+       "s": 38.23
+      },
+      {
+       "t": "um",
+       "s": 38.47
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "banheiro",
+       "s": 38.67
+      },
+      {
+       "t": "com",
+       "s": 39.03
+      },
+      {
+       "t": "box.",
+       "s": 39.17
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g16",
+   "y": 380,
+   "fim": 41.488,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "A",
+       "s": 39.75
+      },
+      {
+       "t": "cozinha",
+       "s": 39.85
+      },
+      {
+       "t": "tem",
+       "s": 40.07
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "bancada",
+       "s": 40.25
+      },
+      {
+       "t": "em",
+       "s": 40.79
+      },
+      {
+       "t": "granito,",
+       "s": 40.89
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g17",
+   "y": 380,
+   "fim": 42.8,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "armário",
+       "s": 41.568
+      }
+     ],
+     "dx": -90
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "planejado,",
+       "s": 41.87
+      }
+     ],
+     "cor": "texto"
+    }
+   ]
+  },
+  {
+   "id": "g18",
+   "y": 380,
+   "fim": 43.824,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "fogão",
+       "s": 42.88
+      },
+      {
+       "t": "a",
+       "s": 43.11
+      }
+     ],
+     "dx": -40
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "lenha",
+       "s": 43.19
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g19",
+   "y": 380,
+   "fim": 45.35,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 43.904
+      },
+      {
+       "t": "espaço",
+       "s": 43.964
+      },
+      {
+       "t": "para",
+       "s": 44.15
+      },
+      {
+       "t": "uma",
+       "s": 44.51
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "mesa",
+       "s": 44.67
+      },
+      {
+       "t": "grande.",
+       "s": 44.91
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g20",
+   "y": 640,
+   "fim": 48.94,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 48.576
+      },
+      {
+       "t": "tem",
+       "s": 48.636
+      }
+     ],
+     "dx": -60
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "mais,",
+       "s": 48.696
+      }
+     ],
+     "cor": "texto"
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g21",
+   "y": 718,
+   "fim": 50.74,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "temos",
+       "s": 49.02
+      },
+      {
+       "t": "essa",
+       "s": 49.3
+      },
+      {
+       "t": "área",
+       "s": 49.56
+      },
+      {
+       "t": "com",
+       "s": 49.94
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "churrasqueira",
+       "s": 50.12
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g22",
+   "y": 660,
+   "fim": 52.5,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 50.82
+      },
+      {
+       "t": "pia,",
+       "s": 50.88
+      },
+      {
+       "t": "agregando",
+       "s": 51.584
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 52.06
+      },
+      {
+       "t": "cozinha,",
+       "s": 52.12
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g23",
+   "y": 420,
+   "fim": 55.3,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "lugar",
+       "s": 52.58
+      },
+      {
+       "t": "ideal",
+       "s": 52.72
+      },
+      {
+       "t": "para",
+       "s": 53.12
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "juntar",
+       "s": 53.46
+      },
+      {
+       "t": "todo",
+       "s": 53.78
+      },
+      {
+       "t": "mundo",
+       "s": 53.94
+      }
+     ]
+    },
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "que",
+       "s": 54.22
+      },
+      {
+       "t": "falei",
+       "s": 54.38
+      },
+      {
+       "t": "no",
+       "s": 54.66
+      },
+      {
+       "t": "começo.",
+       "s": 54.84
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g24",
+   "y": 420,
+   "fim": 57.88,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 55.6
+      },
+      {
+       "t": "aqui",
+       "s": 55.66
+      },
+      {
+       "t": "nós",
+       "s": 55.74
+      },
+      {
+       "t": "temos",
+       "s": 56.02
+      },
+      {
+       "t": "essa",
+       "s": 56.28
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "área",
+       "s": 56.46
+      },
+      {
+       "t": "de",
+       "s": 56.78
+      },
+      {
+       "t": "serviço",
+       "s": 56.9
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "espaçosa.",
+       "s": 57.32
+      }
+     ],
+     "cor": "destaque-escuro"
+    }
+   ]
+  },
+  {
+   "id": "g25",
+   "y": 380,
+   "fim": 60.1,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Temos",
+       "s": 57.96
+      },
+      {
+       "t": "também",
+       "s": 58.16
+      },
+      {
+       "t": "um",
+       "s": 58.5
+      },
+      {
+       "t": "banheiro",
+       "s": 58.68
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 59.08
+      },
+      {
+       "t": "um",
+       "s": 59.3
+      },
+      {
+       "t": "diferencial,",
+       "s": 59.46
+      }
+     ],
+     "cor": "texto"
+    }
+   ]
+  },
+  {
+   "id": "g26",
+   "y": 520,
+   "fim": 62.352,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "banheiro",
+       "s": 60.18
+      },
+      {
+       "t": "espaçoso",
+       "s": 60.34
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 60.94
+      },
+      {
+       "t": "serpentina.",
+       "s": 61.2
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g27",
+   "y": 430,
+   "fim": 63.74,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "A",
+       "s": 62.432
+      },
+      {
+       "t": "casa",
+       "s": 62.492
+      },
+      {
+       "t": "conta",
+       "s": 62.6
+      },
+      {
+       "t": "com",
+       "s": 62.78
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "duas",
+       "s": 63.02
+      },
+      {
+       "t": "garagens,",
+       "s": 63.3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g28",
+   "y": 430,
+   "fim": 65.02,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "uma",
+       "s": 63.82
+      },
+      {
+       "t": "com",
+       "s": 64.02
+      }
+     ],
+     "dx": -80
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "quatro",
+       "s": 64.22
+      },
+      {
+       "t": "vagas,",
+       "s": 64.6
+      }
+     ],
+     "cor": "destaque-escuro"
+    }
+   ]
+  },
+  {
+   "id": "g29",
+   "y": 430,
+   "fim": 66.55,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "coberta",
+       "s": 65.1
+      },
+      {
+       "t": "e",
+       "s": 65.54
+      },
+      {
+       "t": "uma",
+       "s": 65.68
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "descoberta.",
+       "s": 65.9
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g30",
+   "y": 470,
+   "fim": 73.9,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Aqui",
+       "s": 72.16
+      },
+      {
+       "t": "na",
+       "s": 72.28
+      }
+     ],
+     "dx": -100
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "Nova",
+       "s": 72.42
+      },
+      {
+       "t": "Resende,",
+       "s": 72.6
+      }
+     ]
+    },
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 72.96
+      },
+      {
+       "t": "Resende",
+       "s": 73.1
+      },
+      {
+       "t": "Costa,",
+       "s": 73.42
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "g31",
+   "y": 610,
+   "fim": 77.72,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Chama",
+       "s": 75.968
+      },
+      {
+       "t": "a",
+       "s": 76.08
+      },
+      {
+       "t": "gente",
+       "s": 76.14
+      },
+      {
+       "t": "no",
+       "s": 76.36
+      }
+     ]
+    },
+    {
+     "estilo": "destaque",
+     "palavras": [
+      {
+       "t": "WhatsApp",
+       "s": 76.44
+      }
+     ],
+     "cor": "texto"
+    },
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 76.64
+      },
+      {
+       "t": "marque",
+       "s": 76.88
+      },
+      {
+       "t": "sua",
+       "s": 77.1
+      },
+      {
+       "t": "visita.",
+       "s": 77.26
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "cards": [
+  {
+   "id": "c1",
+   "inicio": 18.75,
+   "fim": 21.0,
+   "y": 1020,
+   "grande": "2",
+   "unidade": "salas",
+   "rotulo": "receber e dia a dia"
+  },
+  {
+   "id": "c2",
+   "inicio": 33.35,
+   "fim": 35.55,
+   "y": 1020,
+   "grande": "3",
+   "unidade": "quartos",
+   "rotulo": "um com sacada"
+  },
+  {
+   "id": "c3",
+   "inicio": 66.75,
+   "fim": 69.35,
+   "y": 380,
+   "grande": "180",
+   "unidade": "m²",
+   "rotulo": "área construída"
+  },
+  {
+   "id": "c4",
+   "inicio": 69.6,
+   "fim": 71.72,
+   "y": 380,
+   "grande": "344",
+   "unidade": "m²",
+   "rotulo": "de terreno"
+  },
+  {
+   "id": "c5",
+   "inicio": 74.9,
+   "fim": 77.75,
+   "y": 300,
+   "grande": "R$ 500",
+   "unidade": "mil",
+   "rotulo": "valor do imóvel"
+  },
+  {
+   "id": "c6",
+   "inicio": 78.15,
+   "fim": 80.85,
+   "y": 760,
+   "grande": "Nova Resende",
+   "rotulo": "Resende Costa · MG"
+  }
+ ],
+ "transicoes": [
+  {
+   "t": 5.9,
+   "tipo": "luz"
+  },
+  {
+   "t": 7.333,
+   "tipo": "corte"
+  },
+  {
+   "t": 10.5,
+   "tipo": "luz"
+  },
+  {
+   "t": 13.733,
+   "tipo": "corte"
+  },
+  {
+   "t": 18.367,
+   "tipo": "corte"
+  },
+  {
+   "t": 19.933,
+   "tipo": "corte"
+  },
+  {
+   "t": 21.1,
+   "tipo": "corte"
+  },
+  {
+   "t": 26.533,
+   "tipo": "flash"
+  },
+  {
+   "t": 29.867,
+   "tipo": "corte"
+  },
+  {
+   "t": 33.033,
+   "tipo": "preto"
+  },
+  {
+   "t": 34.0,
+   "tipo": "corte"
+  },
+  {
+   "t": 35.667,
+   "tipo": "corte"
+  },
+  {
+   "t": 36.933,
+   "tipo": "corte"
+  },
+  {
+   "t": 39.633,
+   "tipo": "luz"
+  },
+  {
+   "t": 45.5,
+   "tipo": "corte"
+  },
+  {
+   "t": 48.4,
+   "tipo": "luz"
+  },
+  {
+   "t": 55.5,
+   "tipo": "corte"
+  },
+  {
+   "t": 60.333,
+   "tipo": "corte"
+  },
+  {
+   "t": 62.4,
+   "tipo": "luz"
+  },
+  {
+   "t": 66.7,
+   "tipo": "flash"
+  },
+  {
+   "t": 77.8,
+   "tipo": "preto"
+  }
+ ],
+ "video_original": "assets/video/original.mp4"
+}

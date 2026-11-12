@@ -1,0 +1,182 @@
+<template>
+  <style>
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: italic; src: url("assets/fonts/InstrumentSerif-400i.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }
+      @font-face { font-family: "Caveat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Caveat-600.ttf"); }
+      #root { position: absolute; inset: 0; overflow: visible; }
+      .grupo { position: absolute; left: 0; width: 1080px; text-align: center; overflow: visible; isolation: isolate; }
+      .linha { position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
+               text-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 3px 18px rgba(0, 0, 0, 0.36); }
+      /* palavra na cor de destaque: nada de sombra preta, só uma sombra no tom escuro da própria cor */
+      .linha.brilho { text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }
+      .linha.brilho.escuro { text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
+      /* fundo muito claro: a sombra fica nas próprias letras brancas, mais firme e mais justa */
+      .sombra-forte .linha {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.45), 0 4px 22px rgba(0, 0, 0, 0.35); }
+      .sombra-forte .linha.brilho { text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }
+      .sombra-forte .linha.brilho.escuro { text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
+      .p { display: inline-block; will-change: transform, filter, opacity; }
+      /* texto em perspectiva: um plano do tamanho da "tela" levado para a superfície rastreada */
+      .perspectiva { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+      .plano { position: absolute; left: 0; top: 0; transform-origin: 0 0; display: flex; flex-direction: column;
+                align-items: center; justify-content: center; text-align: center; overflow: visible; }
+  </style>
+  <div id="root" data-composition-id="legendas" data-width="1080" data-height="1920">
+      <div id="g1" class="clip grupo" data-start="0.396" data-duration="0.884" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g1-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g1-l0-p0">Eu</span> <span class="p" id="g1-l0-p1">sou</span> <span class="p" id="g1-l0-p2">doutora</span></div>
+      </div>
+      <div id="g2" class="clip grupo" data-start="1.02" data-duration="1.02" data-layout-allow-overlap style="top:1130px;">
+        <div class="linha" id="g2-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:86px;letter-spacing:-0.035em;color:var(--texto);"><span class="p" id="g2-l0-p0">Nádia</span> <span class="p" id="g2-l0-p1">Rezende,</span></div>
+      </div>
+      <div id="g3" class="clip grupo" data-start="2.04" data-duration="1.14" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g3-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g3-l0-p0">especialista</span> <span class="p" id="g3-l0-p1">em</span></div>
+      </div>
+      <div id="g4" class="clip grupo" data-start="2.72" data-duration="1.32" data-layout-allow-overlap style="top:1120px;">
+        <div class="linha" id="g4-l0" style="font-family:'Poppins Reels';font-weight:400;font-style:normal;font-size:46px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g4-l0-p0">harmonização</span></div>
+        <div class="linha" id="g4-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:86px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g4-l1-p0">corporal</span></div>
+      </div>
+      <div id="g5" class="clip grupo" data-start="4.04" data-duration="1.54" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g5-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g5-l0-p0">e</span> <span class="p" id="g5-l0-p1">criadora</span> <span class="p" id="g5-l0-p2">do</span> <span class="p" id="g5-l0-p3">método</span></div>
+      </div>
+      <div id="g6" class="clip grupo" data-start="5.3" data-duration="0.92" data-layout-allow-overlap style="top:1130px;">
+        <div class="linha" id="g6-l0" style="font-family:'Caveat';font-weight:600;font-style:normal;font-size:96px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g6-l0-p0">contour.</span></div>
+      </div>
+      <div id="g7" class="clip grupo" data-start="6.84" data-duration="1.22" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g7-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g7-l0-p0">Aquilo</span> <span class="p" id="g7-l0-p1">que</span> <span class="p" id="g7-l0-p2">você</span> <span class="p" id="g7-l0-p3">vê</span></div>
+      </div>
+      <div id="g8" class="clip grupo" data-start="7.58" data-duration="0.82" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g8-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g8-l0-p0">no</span> <span class="p" id="g8-l0-p1">espelho</span></div>
+      </div>
+      <div id="g9" class="clip grupo" data-start="8.24" data-duration="1.84" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g9-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g9-l0-p0">e</span> <span class="p" id="g9-l0-p1">não</span> <span class="p" id="g9-l0-p2">se</span> <span class="p" id="g9-l0-p3">sente</span> <span class="p" id="g9-l0-p4">bem,</span></div>
+      </div>
+      <div id="g10" class="clip grupo" data-start="10.08" data-duration="1" data-layout-allow-overlap style="top:922px;">
+        <div class="linha" id="g10-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g10-l0-p0">é</span> <span class="p" id="g10-l0-p1">o</span> <span class="p" id="g10-l0-p2">que</span> <span class="p" id="g10-l0-p3">a</span> <span class="p" id="g10-l0-p4">gente</span></div>
+      </div>
+      <div id="g11" class="clip grupo" data-start="10.66" data-duration="1.44" data-layout-allow-overlap style="top:922px;">
+        <div class="linha" id="g11-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g11-l0-p0">conversa</span> <span class="p" id="g11-l0-p1">aqui.</span></div>
+      </div>
+      <div id="g12" class="clip grupo" data-start="12.56" data-duration="0.89" data-layout-allow-overlap style="top:1120px;">
+        <div class="linha" id="g12-l0" style="font-family:'Poppins Reels';font-weight:400;font-style:normal;font-size:46px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g12-l0-p0">o</span></div>
+        <div class="linha" id="g12-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:86px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g12-l1-p0">glúteo</span></div>
+      </div>
+      <div id="g13" class="clip grupo" data-start="13.1" data-duration="1.36" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g13-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g13-l0-p0">que</span> <span class="p" id="g13-l0-p1">não</span> <span class="p" id="g13-l0-p2">tem</span> <span class="p" id="g13-l0-p3">o</span> <span class="p" id="g13-l0-p4">formato</span></div>
+      </div>
+      <div id="g14" class="clip grupo" data-start="14.14" data-duration="1.38" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g14-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g14-l0-p0">que</span> <span class="p" id="g14-l0-p1">você</span> <span class="p" id="g14-l0-p2">gostaria,</span></div>
+      </div>
+      <div id="g15" class="clip grupo" data-start="15.58" data-duration="0.88" data-layout-allow-overlap style="top:922px;">
+        <div class="linha" id="g15-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g15-l0-p0">aquela</span> <span class="p" id="g15-l0-p1">gordurinha</span></div>
+      </div>
+      <div id="g16" class="clip grupo" data-start="16.36" data-duration="0.92" data-layout-allow-overlap style="top:922px;">
+        <div class="linha" id="g16-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g16-l0-p0">localizada,</span></div>
+      </div>
+      <div id="g17" class="clip grupo" data-start="17.84" data-duration="0.78" data-layout-allow-overlap style="top:922px;">
+        <div class="linha" id="g17-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g17-l0-p0">a</span> <span class="p" id="g17-l0-p1">celulite</span></div>
+      </div>
+      <div id="g18" class="clip grupo" data-start="18.44" data-duration="1.94" data-layout-allow-overlap style="top:922px;">
+        <div class="linha" id="g18-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g18-l0-p0">que</span> <span class="p" id="g18-l0-p1">você</span> <span class="p" id="g18-l0-p2">gostaria</span> <span class="p" id="g18-l0-p3">de</span> <span class="p" id="g18-l0-p4">tratar,</span></div>
+      </div>
+      <div id="g19" class="clip grupo" data-start="20.44" data-duration="0.7" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g19-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g19-l0-p0">a</span> <span class="p" id="g19-l0-p1">flacidez</span></div>
+      </div>
+      <div id="g20" class="clip grupo" data-start="21.04" data-duration="1.3" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g20-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g20-l0-p0">interna</span> <span class="p" id="g20-l0-p1">de</span> <span class="p" id="g20-l0-p2">coxa,</span></div>
+      </div>
+      <div id="g21" class="clip grupo" data-start="21.98" data-duration="1.34" data-layout-allow-overlap style="top:1150px;">
+        <div class="linha" id="g21-l0" style="font-family:'Poppins Reels';font-weight:600;font-style:normal;font-size:54px;letter-spacing:-0.005em;color:var(--texto);"><span class="p" id="g21-l0-p0">posterior</span> <span class="p" id="g21-l0-p1">de</span></div>
+      </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 24.1 }, 0);
+    tl.fromTo("#g1-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.416);
+    tl.fromTo("#g1-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.5);
+    tl.fromTo("#g1-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.68);
+    tl.to(["#g1-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 1);
+    tl.fromTo("#g2-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 1.04);
+    tl.fromTo("#g2-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 1.36);
+    tl.to(["#g2-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 1.76);
+    tl.fromTo("#g3-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 2.06);
+    tl.fromTo("#g3-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 2.58);
+    tl.to(["#g3-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 2.9);
+    tl.fromTo("#g4-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 2.74);
+    tl.fromTo("#g4-l1-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.3);
+    tl.to(["#g4-l0", "#g4-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 3.71);
+    tl.fromTo("#g5-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 4.06);
+    tl.fromTo("#g5-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 4.38);
+    tl.fromTo("#g5-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 4.78);
+    tl.fromTo("#g5-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 4.98);
+    tl.to(["#g5-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 5.3);
+    tl.fromTo("#g6-l0-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 5.32);
+    tl.to(["#g6-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 5.94);
+    tl.fromTo("#g7-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 6.86);
+    tl.fromTo("#g7-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 7.08);
+    tl.fromTo("#g7-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 7.2);
+    tl.fromTo("#g7-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 7.46);
+    tl.to(["#g7-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 7.78);
+    tl.fromTo("#g8-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 7.6);
+    tl.fromTo("#g8-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 7.8);
+    tl.to(["#g8-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 8.12);
+    tl.fromTo("#g9-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 8.26);
+    tl.fromTo("#g9-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 8.56);
+    tl.fromTo("#g9-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 8.76);
+    tl.fromTo("#g9-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 8.98);
+    tl.fromTo("#g9-l0-p4", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 9.22);
+    tl.to(["#g9-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 9.8);
+    tl.fromTo("#g10-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 10.1);
+    tl.fromTo("#g10-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 10.16);
+    tl.fromTo("#g10-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 10.28);
+    tl.fromTo("#g10-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 10.38);
+    tl.fromTo("#g10-l0-p4", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 10.48);
+    tl.to(["#g10-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 10.8);
+    tl.fromTo("#g11-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 10.68);
+    tl.fromTo("#g11-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 11.2);
+    tl.to(["#g11-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 11.82);
+    tl.fromTo("#g12-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 12.58);
+    tl.fromTo("#g12-l1-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 12.8);
+    tl.to(["#g12-l0", "#g12-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 13.12);
+    tl.fromTo("#g13-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 13.12);
+    tl.fromTo("#g13-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 13.26);
+    tl.fromTo("#g13-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 13.5);
+    tl.fromTo("#g13-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 13.68);
+    tl.fromTo("#g13-l0-p4", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 13.86);
+    tl.to(["#g13-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 14.18);
+    tl.fromTo("#g14-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 14.16);
+    tl.fromTo("#g14-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 14.26);
+    tl.fromTo("#g14-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 14.6);
+    tl.to(["#g14-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 15.24);
+    tl.fromTo("#g15-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 15.6);
+    tl.fromTo("#g15-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 15.86);
+    tl.to(["#g15-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 16.18);
+    tl.fromTo("#g16-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 16.38);
+    tl.to(["#g16-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 17);
+    tl.fromTo("#g17-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 17.86);
+    tl.fromTo("#g17-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 18.02);
+    tl.to(["#g17-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 18.34);
+    tl.fromTo("#g18-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 18.46);
+    tl.fromTo("#g18-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 18.62);
+    tl.fromTo("#g18-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 18.9);
+    tl.fromTo("#g18-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 19.36);
+    tl.fromTo("#g18-l0-p4", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 19.64);
+    tl.to(["#g18-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 20.1);
+    tl.fromTo("#g19-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 20.46);
+    tl.fromTo("#g19-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 20.54);
+    tl.to(["#g19-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 20.86);
+    tl.fromTo("#g20-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 21.06);
+    tl.fromTo("#g20-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 21.52);
+    tl.fromTo("#g20-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 21.74);
+    tl.to(["#g20-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 22.06);
+    tl.fromTo("#g21-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 22);
+    tl.fromTo("#g21-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 22.42);
+    tl.to(["#g21-l0"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 23.04);
+    window.__timelines["legendas"] = tl;
+  </script>
+</template>

@@ -1,0 +1,968 @@
+"""Gera a composição HyperFrames de um Reels a partir do plano de edição.
+
+Uso: python3 scripts/gerar.py PASTA_DO_PROJETO
+
+Lê PASTA/plano.json e escreve:
+  index.html                  vídeo, recorte da pessoa, transições, efeitos sonoros
+  compositions/legendas.html  legendas palavra a palavra e textos em perspectiva
+  compositions/cards.html     cards em liquid glass
+
+Formato do plano.json: veja o README.md da pasta reels-imobiliaria.
+"""
+
+import html
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+from PIL import ImageFont
+
+RAIZ = Path(__file__).resolve().parent.parent
+FONTES = RAIZ / "template" / "assets" / "fonts"
+
+LARGURA, ALTURA = 1080, 1920
+LARGURA_MAX = 880  # largura máxima de uma linha de legenda (dentro da área segura)
+FPS = 30
+
+# estilos de palavra: fonte, peso, itálico, tamanho base (px em 1080 de largura)
+ESTILOS = {
+    "fina":     {"familia": "Poppins Reels", "peso": 300, "italico": False, "tam": 62,  "arquivo": "Poppins-300.ttf"},
+    "fina-it":  {"familia": "Poppins Reels", "peso": 300, "italico": True,  "tam": 62,  "arquivo": "Poppins-300i.ttf"},
+    "media":    {"familia": "Poppins Reels", "peso": 600, "italico": False, "tam": 84,  "arquivo": "Poppins-600.ttf"},
+    "forte":    {"familia": "Poppins Reels", "peso": 700, "italico": False, "tam": 112, "arquivo": "Poppins-700.ttf"},
+    "pesada":   {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 132, "arquivo": "Poppins-800.ttf"},
+    "destaque": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 120, "arquivo": "Poppins-800.ttf", "cor": "destaque"},
+    "serifa":   {"familia": "Instrument Serif", "peso": 400, "italico": True, "tam": 172, "arquivo": "InstrumentSerif-400i.ttf", "cor": "destaque"},
+    # rótulo pequeno em caixa alta e letras bem abertas (como nos cards)
+    "rotulo":   {"familia": "Poppins Reels", "peso": 400, "italico": False, "tam": 40,  "arquivo": "Poppins-400.ttf", "maiusculas": True},
+    # legenda curta de frase (referências da biomédica): uma frase pequena por vez, no meio da tela
+    "frase":       {"familia": "Poppins Reels", "peso": 600, "italico": False, "tam": 54, "arquivo": "Poppins-600.ttf"},
+    "frase-fina":  {"familia": "Poppins Reels", "peso": 400, "italico": False, "tam": 46, "arquivo": "Poppins-400.ttf"},
+    "frase-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 86, "arquivo": "Poppins-800.ttf"},
+    # legenda das referências 3 e 4 da biomédica: Poppins negrito, letras juntas, frase inteira
+    # legenda das referências da biomédica: pequena, numa linha, na altura do peito
+    "legenda":       {"familia": "Poppins Reels", "peso": 700, "italico": False, "tam": 46, "arquivo": "Poppins-700.ttf"},
+    "legenda-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 64, "arquivo": "Poppins-800.ttf"},
+    # palavra escrita à mão (referência 2 da biomédica)
+    "manuscrita":  {"familia": "Caveat", "peso": 600, "italico": False, "tam": 96, "arquivo": "Caveat-600.ttf"},
+}
+
+# onde cai o pico de cada efeito sonoro (s), medido com `hyperframes audio`
+DURACAO_SFX = {
+    "click": 0.366, "click-agudo": 0.34, "click-tecla": 0.432, "pop": 0.72,
+    "whoosh": 0.575, "whoosh-grave": 0.731, "whoosh-rapido": 0.549, "whoosh-transicao": 1.944,
+    "impacto": 1.4, "brilho": 1.8,
+}
+PICO_SFX = {
+    "click": 0.073, "click-agudo": 0.062, "click-tecla": 0.076, "pop": 0.12,
+    "whoosh": 0.162, "whoosh-grave": 0.197, "whoosh-rapido": 0.14, "whoosh-transicao": 0.803,
+    "impacto": 0.012, "brilho": 0.02,
+}
+CLIQUES = ["click", "click-agudo", "click"]
+WHOOSH_TRANSICAO = ["whoosh-transicao", "whoosh-grave"]
+
+
+def sombra_da_cor(hexa, alfa):
+    """Tom bem escuro da própria cor (mesmo matiz), para sombrear sem cinza nem preto."""
+    import colorsys
+    r, g, b = (int(hexa[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    r, g, b = colorsys.hls_to_rgb(h, 0.2, min(1.0, s + 0.1))
+    return f"rgba({round(r * 255)}, {round(g * 255)}, {round(b * 255)}, {alfa})"
+
+
+def esc(t):
+    return html.escape(str(t), quote=True)
+
+
+def num(x):
+    return f"{x:.3f}".rstrip("0").rstrip(".")
+
+
+def tracking_em(estilo, plano):
+    t = plano.get("tracking", {})
+    if estilo in ("fina", "fina-it"):
+        return t.get("fina", -0.01)
+    if estilo == "serifa":
+        return t.get("serifa", -0.01)
+    if estilo == "rotulo":
+        return 0.32
+    if estilo in ("frase", "frase-fina", "manuscrita"):
+        return t.get("frase", -0.005)
+    if estilo in ("legenda", "legenda-forte"):
+        return t.get("legenda", -0.04)
+    return t.get("forte", -0.035)
+
+
+def largura_linha(texto, estilo, tam, plano):
+    e = ESTILOS[estilo]
+    texto = texto.upper() if e.get("maiusculas") else texto
+    fonte = ImageFont.truetype(str(FONTES / e["arquivo"]), tam)
+    return fonte.getlength(texto) + tracking_em(estilo, plano) * tam * len(texto)
+
+
+def tamanho_linha(linha, plano):
+    """Tamanho final da linha: o do estilo (ou o pedido), reduzido até caber."""
+    estilo = linha.get("estilo", "fina")
+    tam = linha.get("tam", ESTILOS[estilo]["tam"])
+    texto = " ".join(p["t"] for p in linha["palavras"])
+    while tam > 36 and largura_linha(texto, estilo, tam, plano) > LARGURA_MAX:
+        tam -= 2
+    return tam
+
+
+def usa_estilo(plano, estilo):
+    grupos = (plano or {}).get("legendas", []) + (plano or {}).get("perspectivas", [])
+    return any(l.get("estilo") == estilo for g in grupos for l in g["linhas"])
+
+
+def font_faces(plano=None):
+    # a fonte manuscrita só entra no projeto que a usa (os projetos antigos não têm o arquivo)
+    caveat = ("""
+      @font-face { font-family: "Caveat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Caveat-600.ttf"); }"""
+              if usa_estilo(plano, "manuscrita") else "")
+    return """
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: italic; src: url("assets/fonts/InstrumentSerif-400i.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }""" + caveat
+
+
+# ── legendas ────────────────────────────────────────────────────────────────
+
+def entrada_palavra(estilo):
+    """De onde cada estilo entra (sempre com desfoque, como nas referências)."""
+    if estilo in ("serifa", "manuscrita"):
+        return {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}
+    if estilo in ("forte", "pesada", "destaque", "media"):
+        return {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}
+    return {"opacity": 0, "filter": "blur(12px)", "y": 18}
+
+
+def montar_linha(gid, li, linha, plano, js, animar=True):
+    """HTML de uma linha de palavras (e a entrada de cada palavra no tempo da fala)."""
+    estilo = linha.get("estilo", "fina")
+    e = ESTILOS[estilo]
+    tam = tamanho_linha(linha, plano)
+    cor = linha.get("cor", e.get("cor", "texto"))
+    css = (f"font-family:'{e['familia']}';font-weight:{e['peso']};"
+           f"font-style:{'italic' if e['italico'] else 'normal'};font-size:{tam}px;"
+           f"letter-spacing:{tracking_em(estilo, plano)}em;color:var(--{cor});")
+    if e.get("maiusculas"):
+        css += f"text-transform:uppercase;padding-left:{tracking_em(estilo, plano)}em;"
+    if li:
+        css += f"margin-top:{linha.get('entrelinha', plano.get('entrelinha', -0.16))}em;"
+    if linha.get("dx"):  # desloca a linha (layout escalonado da referência 1)
+        css += f"position:relative;left:{linha['dx']}px;"
+    spans = []
+    for pi, p in enumerate(linha["palavras"]):
+        pid = f"{gid}-l{li}-p{pi}"
+        spans.append(f'<span class="p" id="{pid}">{esc(p["t"])}</span>')
+        if animar:
+            js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
+                      f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"])});')
+    classe = "linha" if not cor.startswith("destaque") else (
+        "linha brilho escuro" if cor == "destaque-escuro" else "linha brilho")
+    return f'<div class="{classe}" id="{gid}-l{li}" style="{css}">{" ".join(spans)}</div>'
+
+
+def gerar_legendas(plano, duracao):
+    grupos_html, js = [], []
+    corte = plano.get("legendas_modo") == "corte"
+    grupos = plano.get("legendas", [])
+    inicio_de = lambda g: min(p["s"] for l in g["linhas"] for p in l["palavras"])
+    for gi, g in enumerate(grupos):
+        gid = g["id"]
+        palavras = [p for l in g["linhas"] for p in l["palavras"]]
+        if corte:
+            inicio = round(inicio_de(g) * FPS) / FPS
+            fim = g["fim"]
+            if gi + 1 < len(grupos):
+                fim = min(fim, round(inicio_de(grupos[gi + 1]) * FPS) / FPS)
+            estilo_bloco = f"top:{g['y']}px;"
+            linhas_html = [montar_linha(gid, li, linha, plano, js, animar=False) for li, linha in enumerate(g["linhas"])]
+            pop = plano.get("legendas_pop")
+            if pop:  # a frase inteira entra de uma vez, num estalo curto de escala (sem fade: nada fica por cima da anterior)
+                js.append(f'tl.fromTo("#{gid}", {{scale:{pop}}}, {{scale:1, duration:0.16, ease:"back.out(2.4)"}}, {num(inicio)});')
+            classe_grupo = "clip grupo sombra-forte" if g.get("sombra_forte") else "clip grupo"
+            grupos_html.append(
+                f'<div id="{gid}" class="{classe_grupo}" data-start="{num(inicio)}" data-duration="{num(fim - inicio)}" '
+                f'data-layout-allow-overlap style="{estilo_bloco}">\n        ' + "\n        ".join(linhas_html) + "\n      </div>")
+            continue
+        inicio = min(p["s"] for p in palavras) - 0.02
+        fim = g["fim"]
+        alinhar = g.get("alinhar", "centro")
+        estilo_bloco = f"top:{g['y']}px;"
+        if alinhar == "esquerda":
+            estilo_bloco += f"text-align:left;padding-left:{g.get('x', 110)}px;"
+        elif alinhar == "direita":
+            estilo_bloco += f"text-align:right;padding-right:{g.get('x', 110)}px;"
+        linhas_html = [montar_linha(gid, li, linha, plano, js) for li, linha in enumerate(g["linhas"])]
+        # saída: linha a linha, subindo e desfocando (como na referência 2). Na fala
+        # corrida a última palavra fica pelo menos 0,32 s parada antes de sair, mesmo
+        # que a saída invada o começo do grupo seguinte (como na referência 2)
+        n = len(g["linhas"])
+        saida = 0.26
+        ultima = max(p["s"] for p in palavras)
+        inicio_saida = max(fim - saida - 0.05 * (n - 1) - 0.02, ultima + 0.32)
+        fim = max(fim, inicio_saida + saida + 0.05 * (n - 1) + 0.02)
+        js.append(f'tl.to([{", ".join(chr(34) + "#" + gid + "-l" + str(i) + chr(34) for i in range(n))}], '
+                  f'{{opacity:0, filter:"blur(12px)", y:-26, duration:{saida}, ease:"power2.in", stagger:0.05}}, {num(inicio_saida)});')
+        classe_grupo = "clip grupo sombra-forte" if g.get("sombra_forte") else "clip grupo"
+        grupos_html.append(
+            f'<div id="{gid}" class="{classe_grupo}" data-start="{num(inicio)}" data-duration="{num(fim - inicio)}" '
+            f'data-layout-allow-overlap style="{estilo_bloco}">\n        ' + "\n        ".join(linhas_html) + "\n      </div>")
+
+    pers_html, pers_js = gerar_perspectivas(plano)
+    grupos_html += pers_html
+    js += pers_js
+
+    return f"""<template>
+  <style>{font_faces(plano)}
+      #root {{ position: absolute; inset: 0; overflow: visible; }}
+      .grupo {{ position: absolute; left: 0; width: {LARGURA}px; text-align: center; overflow: visible; isolation: isolate; }}
+      .linha {{ position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
+               text-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 3px 18px rgba(0, 0, 0, 0.36); }}
+      /* palavra na cor de destaque: nada de sombra preta, só uma sombra no tom escuro da própria cor */
+      .linha.brilho {{ text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }}
+      .linha.brilho.escuro {{ text-shadow: 0 2px 12px var(--destaque-sombra-leve); }}
+      /* fundo muito claro: a sombra fica nas próprias letras brancas, mais firme e mais justa */
+      .sombra-forte .linha {{
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.45), 0 4px 22px rgba(0, 0, 0, 0.35); }}
+      .sombra-forte .linha.brilho {{ text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }}
+      .sombra-forte .linha.brilho.escuro {{ text-shadow: 0 2px 12px var(--destaque-sombra-leve); }}
+      .p {{ display: inline-block; will-change: transform, filter, opacity; }}
+      /* texto em perspectiva: um plano do tamanho da "tela" levado para a superfície rastreada */
+      .perspectiva {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; height: {ALTURA}px; overflow: visible; }}
+      .plano {{ position: absolute; left: 0; top: 0; transform-origin: 0 0; display: flex; flex-direction: column;
+                align-items: center; justify-content: center; text-align: center; overflow: visible; }}
+  </style>
+  <div id="root" data-composition-id="legendas" data-width="{LARGURA}" data-height="{ALTURA}">
+      {chr(10).join("      " + h for h in grupos_html).strip()}
+  </div>
+  <script>
+    const tl = gsap.timeline({{ paused: true }});
+    tl.to({{}}, {{ duration: {num(duracao)} }}, 0);
+    {(chr(10) + "    ").join(js)}
+    window.__timelines["legendas"] = tl;
+  </script>
+</template>
+"""
+
+
+# ── texto em perspectiva ────────────────────────────────────────────────────
+
+def homografia(de, para):
+    """Homografia 3×3 que leva os 4 pontos `de` nos 4 pontos `para`."""
+    A, b = [], []
+    for (x, y), (u, v) in zip(de, para):
+        A += [[x, y, 1, 0, 0, 0, -u * x, -u * y], [0, 0, 0, x, y, 1, -v * x, -v * y]]
+        b += [u, v]
+    return np.append(np.linalg.solve(np.array(A, float), np.array(b, float)), 1).reshape(3, 3)
+
+
+def matrix3d(h):
+    """A homografia como transform CSS (matrix3d é por colunas; z fica de fora)."""
+    h = h / h[2, 2]
+    v = [h[0, 0], h[1, 0], 0, h[2, 0], h[0, 1], h[1, 1], 0, h[2, 1], 0, 0, 1, 0, h[0, 2], h[1, 2], 0, 1]
+    return "matrix3d(" + ",".join(f"{x:.7g}" for x in v) + ")"
+
+
+def gerar_perspectivas(plano):
+    """Textos presos a uma superfície do vídeo (fachada, parede, chão), quadro a quadro.
+
+    Cada âncora é um arquivo de scripts/rastrear.py com os cantos da superfície em cada
+    quadro do vídeo. O quadro n da composição (30 fps) mostra o quadro ⌊n·fps/30⌋ do
+    vídeo (é assim que o HyperFrames amostra), então a matriz de cada quadro da
+    composição sai do quadro de vídeo que ele mostra.
+    """
+    html_, js = [], []
+    pasta = Path(plano["_pasta"])
+    for pv in plano.get("perspectivas", []):
+        pid = pv["id"]
+        largura, altura = pv["tela"]
+        tela = [(0, 0), (largura, 0), (largura, altura), (0, altura)]
+        cantos = {}
+        for arq in pv["ancoras"]:
+            r = json.loads((pasta / arq).read_text())
+            num_, den_ = r["fps"]
+            cantos.update({int(k): v for k, v in r["cantos"].items()})
+        n0, n1 = int(np.ceil(pv["inicio"] * FPS - 1e-6)), int(np.floor(pv["fim"] * FPS + 1e-6))
+        mats = []
+        for n in range(n0, n1 + 1):
+            k = (n * num_) // (FPS * den_)
+            k = min(cantos, key=lambda c: abs(c - k)) if k not in cantos else k
+            mats.append(matrix3d(homografia(tela, cantos[k])))
+        linhas = [montar_linha(pid, li, linha, plano, js) for li, linha in enumerate(pv["linhas"])]
+        html_.append(
+            f'<div id="{pid}" class="clip perspectiva{" sombra-forte" if pv.get("sombra_forte", True) else ""}" '
+            f'data-start="{num(n0 / FPS)}" data-duration="{num((n1 - n0 + 1) / FPS)}" data-layout-allow-overlap '
+            f'data-layout-allow-overflow>\n        <div class="plano" id="{pid}-plano" '
+            f'style="width:{largura}px;height:{altura}px;transform:{mats[0]}">\n          '
+            + "\n          ".join(linhas) + "\n        </div>\n      </div>")
+        js.append(f'const {pid}M = {json.dumps(mats)};')
+        js.append(f'const {pid}E = {{ n: 0 }};')
+        js.append(f'const {pid}P = document.getElementById("{pid}-plano");')
+        js.append(f'tl.to({pid}E, {{ n: {n1 - n0}, duration: {num((n1 - n0) / FPS)}, ease: "none", '
+                  f'onUpdate: () => {{ {pid}P.style.transform = {pid}M[Math.round({pid}E.n)]; }} }}, {num(n0 / FPS)});')
+        saida = pv.get("saida", 0.3)
+        ids = ", ".join(f'"#{pid}-l{i}"' for i in range(len(pv["linhas"])))
+        js.append(f'tl.to([{ids}], {{opacity:0, filter:"blur(12px)", duration:{saida}, ease:"power2.in", stagger:0.04}}, '
+                  f'{num((n1 + 1) / FPS - saida - 0.04 * (len(pv["linhas"]) - 1) - 0.02)});')
+    return html_, js
+
+
+# ── cards em liquid glass ───────────────────────────────────────────────────
+
+def gerar_cards(plano, duracao):
+    cards_html, js = [], []
+    for c in plano.get("cards", []):
+        cid = c["id"]
+        ini, fim = c["inicio"], c["fim"]
+        unidade = f'<span class="card-unidade">{esc(c["unidade"])}</span>' if c.get("unidade") else ""
+        # "|" quebra a linha do texto grande; "tam" troca o tamanho (padrão 150 px)
+        grande = "<br>".join(esc(parte) for parte in str(c["grande"]).split("|"))
+        estilo_grande = f' style="font-size:{c["tam"]}px"' if c.get("tam") else ""
+        rotulo = f'<div class="card-rotulo" id="{cid}-r">{esc(c["rotulo"])}</div>' if c.get("rotulo") else ""
+        cards_html.append(
+            f'<div id="{cid}" class="clip card" data-start="{num(ini)}" data-duration="{num(fim - ini)}" style="top:{c["y"]}px">\n'
+            f'        <div class="vidro" id="{cid}-v">\n'
+            f'          <div class="vidro-brilho"></div>\n'
+            f'          <div class="card-grande" id="{cid}-g"{estilo_grande}>{grande}{unidade}</div>\n'
+            f'          {rotulo}\n'
+            f'        </div>\n      </div>')
+        # o vidro entra sem filter (filter no ancestral desliga o backdrop-filter)
+        js.append(f'tl.fromTo("#{cid}-v", {{opacity:0, y:46, scale:0.88}}, {{opacity:1, y:0, scale:1, duration:0.55, ease:"expo.out"}}, {num(ini)});')
+        js.append(f'tl.fromTo("#{cid}-g", {{opacity:0, filter:"blur(14px)", y:12}}, {{opacity:1, filter:"blur(0px)", y:0, duration:0.4, ease:"power3.out"}}, {num(ini + 0.12)});')
+        if c.get("rotulo"):
+            js.append(f'tl.fromTo("#{cid}-r", {{opacity:0, filter:"blur(8px)", y:10}}, {{opacity:1, filter:"blur(0px)", y:0, duration:0.5, ease:"power3.out"}}, {num(ini + 0.22)});')
+        js.append(f'tl.to("#{cid}-v", {{opacity:0, y:-24, scale:0.96, duration:0.3, ease:"power2.in"}}, {num(fim - 0.32)});')
+
+    return f"""<template>
+  <style>{font_faces()}
+      #root {{ position: absolute; inset: 0; }}
+      .card {{ position: absolute; left: 0; width: {LARGURA}px; display: flex; justify-content: center; }}
+      .vidro {{
+        position: relative; overflow: hidden; text-align: center;
+        padding: 30px 64px 36px; border-radius: 48px;
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.07) 48%, rgba(255, 255, 255, 0.14)),
+                    rgba(18, 18, 22, 0.14);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1.5px solid rgba(255, 255, 255, 0.42);
+        box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.7), inset 0 -2px 0 rgba(255, 255, 255, 0.14),
+                    inset 0 -22px 44px rgba(255, 255, 255, 0.08), 0 26px 70px rgba(0, 0, 0, 0.30);
+      }}
+      .vidro-brilho {{
+        position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+        background: radial-gradient(130% 70% at 18% -10%, rgba(255, 255, 255, 0.42), transparent 58%),
+                    radial-gradient(90% 60% at 100% 120%, rgba(255, 255, 255, 0.16), transparent 60%);
+      }}
+      .card-grande {{
+        position: relative; font-family: "Instrument Serif"; font-style: italic; font-weight: 400;
+        font-size: 150px; line-height: 0.95; letter-spacing: -0.01em; color: #fff;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.18);
+      }}
+      .card-unidade {{ color: var(--destaque); margin-left: 0.08em; text-shadow: 0 2px 12px var(--destaque-sombra-leve); }}
+      .card-rotulo {{
+        position: relative; margin-top: 6px; font-family: "Poppins Reels"; font-weight: 300;
+        font-size: 28px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255, 255, 255, 0.92);
+        padding-left: 0.32em;
+      }}
+  </style>
+  <div id="root" data-composition-id="cards" data-width="{LARGURA}" data-height="{ALTURA}">
+      {chr(10).join("      " + h for h in cards_html).strip()}
+  </div>
+  <script>
+    const tl = gsap.timeline({{ paused: true }});
+    tl.to({{}}, {{ duration: {num(duracao)} }}, 0);
+    {(chr(10) + "    ").join(js)}
+    window.__timelines["cards"] = tl;
+  </script>
+</template>
+"""
+
+
+# ── fotos: antes e depois, famosas, resultados ──────────────────────────────
+#
+# Quatro jeitos de pôr fotos no vídeo, tirados das referências da biomédica:
+#   cards     dois cards inclinados no alto (antes e depois), a pessoa falando embaixo
+#   dividida  fotos na metade de cima e a pessoa na de baixo (o vídeo desce); com 3 ou mais
+#             fotos vira carrossel, as fotos passando da direita para a esquerda
+#   atras     a foto ocupa o fundo, no alto, e a pessoa recortada fica na frente
+#   cheia     a foto na tela inteira, com zoom lento, entrando num flash branco
+# fotos.json (scripts/preparar_fotos.py) traz o tamanho de cada foto, a silhueta da pessoa com o
+# foco do corpo (a altura do quadril: a biomédica trabalha com glúteo) e o rosto, e a altura dos
+# olhos de quem fala no vídeo em cada tela dividida. O enquadramento padrão é pelo corpo
+# ("foco_fotos": "corpo"); "rosto" enquadra pelo rosto, com o mesmo tamanho de rosto no par.
+
+FOTO_CAMADA = {"cards": "frente", "dividida": "frente", "cheia": "frente", "atras": "fundo"}
+FOTO_BORDA = 12          # borda branca dos cards
+FOTO_GAP = 8             # linha branca entre as fotos da tela dividida
+
+
+def meta_fotos(plano):
+    arq = Path(plano["_pasta"]) / "fotos.json"
+    return json.loads(arq.read_text()) if arq.exists() else {"fotos": {}, "divididas": {}}
+
+
+def imagens(f):
+    """As imagens de uma entrada de foto, cada uma como {src, rotulo, foco, zoom}."""
+    out = []
+    for k, im in enumerate(f["imagens"]):
+        im = {"src": im} if isinstance(im, str) else dict(im)
+        if "rotulo" not in im and f.get("rotulos"):
+            nomes = f["rotulos"] if isinstance(f["rotulos"], list) else ["antes", "depois"]
+            im["rotulo"] = nomes[k] if k < len(nomes) else ""
+        out.append(im)
+    return out
+
+
+VIDEO_EXT = (".mp4", ".mov", ".webm", ".m4v")
+
+
+def e_video(src):
+    return str(src).lower().endswith(VIDEO_EXT)
+
+
+def meta_imagem(meta, src, pasta):
+    m = meta.get("fotos", {}).get(src)
+    if m:
+        return m
+    if e_video(src):
+        import subprocess
+        r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
+                            "-of", "csv=p=0", str(Path(pasta) / src)], capture_output=True, text=True, check=True).stdout
+        w, h = (int(v) for v in r.strip().split(",")[:2])
+        return {"largura": w, "altura": h, "rosto": None}
+    from PIL import Image
+    with Image.open(Path(pasta) / src) as im:
+        return {"largura": im.width, "altura": im.height, "rosto": None}
+
+
+def enquadrar(m, cw, ch, rosto_frac=None, centro=(0.5, 0.45), zoom=1.0, foco=None, modo="corpo", corpo_frac=None):
+    """Onde a foto fica dentro de uma caixa cw×ch: cobre a caixa toda, sem distorcer, com o foco
+    (o quadril, no modo corpo; o rosto, no modo rosto) no ponto `centro` da caixa. Com corpo_frac,
+    o corpo inteiro ocupa essa fração da altura da caixa (o par de antes e depois fica na mesma
+    escala); com rosto_frac, o rosto. Devolve largura, altura, x, y da foto e a origem do zoom lento
+    (fração da foto)."""
+    iw, ih = m["largura"], m["altura"]
+    cobre = max(cw / iw, ch / ih)
+    r = m.get("rosto")
+    c = m.get("corpo")
+    s = cobre
+    if foco:
+        px, py = foco[0] * iw, foco[1] * ih
+    elif modo == "corpo":
+        if c:
+            px, py = c["foco"][0] * iw, c["foco"][1] * ih
+            if corpo_frac and c.get("inteiro"):
+                s = min(max(cobre, corpo_frac * ch / c["caixa"][3]), cobre * 2.4)
+        else:
+            px, py = iw / 2, ih / 2
+    elif r:
+        px, py = r[0] + r[2] / 2, r[1] + r[3] / 2
+        if rosto_frac:
+            s = min(max(cobre, rosto_frac * ch / r[3]), cobre * 2.4)
+    else:
+        px, py = iw / 2, ih * 0.42
+    s *= zoom
+    w, h = iw * s, ih * s
+    x = min(0.0, max(cw - w, cw * centro[0] - px * s))
+    y = min(0.0, max(ch - h, ch * centro[1] - py * s))
+    return w, h, x, y, px / iw, py / ih
+
+
+def caixa_foto(iid, im, m, cw, ch, classe="ft-caixa", tempo=None, **kw):
+    w, h, x, y, ox, oy = enquadrar(m, cw, ch, foco=im.get("foco"), zoom=im.get("zoom", 1.0), **kw)
+    rotulo = f'<div class="ft-rotulo">{esc(im["rotulo"])}</div>' if im.get("rotulo") else ""
+    estilo = (f'left:{x:.1f}px;top:{y:.1f}px;width:{w:.1f}px;height:{h:.1f}px;'
+              f'transform-origin:{ox * 100:.1f}% {oy * 100:.1f}%')
+    if e_video(im["src"]):
+        # vídeo (ex.: gravação de tela de um post): sem som, a voz de quem fala continua por cima
+        ini, fim = tempo
+        midia = (f'<video id="{iid}" class="clip" src="{esc(im["src"])}" data-start="{num(ini)}" data-duration="{num(fim - ini)}" '
+                 f'data-media-start="{num(im.get("inicio_midia", 0))}" muted playsinline style="{estilo}"></video>')
+    else:
+        midia = f'<img id="{iid}" src="{esc(im["src"])}" alt="" style="{estilo}">'
+    return f'<div class="{classe}" style="width:{num(cw)}px;height:{num(ch)}px">{midia}{rotulo}</div>'
+
+
+def foto_dividida_desce(f, meta):
+    """Quanto o vídeo desce na tela dividida: os olhos da pessoa a 30% da metade de baixo."""
+    if "desce" in f:
+        return f["desce"]
+    corte = f.get("corte", 880)
+    olhos = meta.get("divididas", {}).get(f["id"], {}).get("olhos_y", 780)
+    return int(max(0, min(corte - 40, corte + 0.30 * (ALTURA - corte) - olhos)))
+
+
+def gerar_fotos(plano, duracao, camada):
+    meta = meta_fotos(plano)
+    pasta = plano["_pasta"]
+    modo = plano.get("foco_fotos", "corpo")
+    corpo = modo == "corpo"
+    html_, js = [], []
+    for f in plano.get("fotos", []):
+        if FOTO_CAMADA[f["layout"]] != camada:
+            continue
+        fid, ini, fim, lay = f["id"], f["inicio"], f["fim"], f["layout"]
+        ims = imagens(f)
+        ms = [meta_imagem(meta, im["src"], pasta) for im in ims]
+        par = len(ims) == 2
+        rf = f.get("rosto", None)
+        cf = lambda *a, **k: caixa_foto(*a, tempo=(ini, fim), **k)  # noqa: E731
+        # com vídeo dentro, quem leva o tempo é o vídeo; a caixa fica sem tempo (o GSAP a esconde fora da janela)
+        tem_video = any(e_video(im["src"]) for im in ims)
+        abre = (lambda a, b, extra: f'<div id="{fid}" class="ft"{extra}>' if tem_video else
+                f'<div id="{fid}" class="clip ft" data-start="{num(a)}" data-duration="{num(b - a)}"{extra}>')
+        # par de antes e depois na mesma escala: pelo corpo inteiro (quando as duas fotos o mostram)
+        # ou pelo rosto; com fotos já cortadas igual pela clínica, as duas cobrem a caixa do mesmo jeito
+        inteiros = par and all((mm.get("corpo") or {}).get("inteiro") for mm in ms)
+        if corpo:
+            rf = None
+
+        if lay == "cards":
+            # um card grande, ou dois (antes à esquerda, depois à direita), inclinados
+            slots = [(540, 400, 540, 675, -3)] if len(ims) == 1 else [(300, 382, 430, 538, -6), (782, 404, 430, 538, 5)]
+            if not corpo:
+                rf = (0.42 if par else None) if rf is None else (rf or None)
+            n = min(len(ims), len(slots))
+            cards = []
+            for k in range(n):
+                cx, cy, cw, ch, rot = slots[k]
+                cid = f"{fid}-c{k}"
+                cards.append(f'<div class="ft-card" id="{cid}" style="left:{num(cx - cw / 2 - FOTO_BORDA)}px;top:{num(cy - ch / 2 - FOTO_BORDA)}px">'
+                             + cf(f"{cid}-i", ims[k], ms[k], cw, ch, rosto_frac=rf, modo=modo,
+                                          corpo_frac=0.9 if inteiros else None, centro=(0.5, 0.5) if corpo else (0.5, 0.45)) + "</div>")
+                lado = -1 if rot < 0 else 1
+                t0 = ini + 0.12 * k
+                js.append(f'tl.fromTo("#{cid}", {{opacity:0, y:-240, rotation:{rot + 14 * lado}, scale:0.86}}, '
+                          f'{{opacity:1, y:0, rotation:{rot}, scale:1, duration:0.62, ease:"back.out(1.3)"}}, {num(t0)});')
+                fim_deriva = fim - 0.46
+                if fim_deriva > t0 + 0.7:
+                    js.append(f'tl.to("#{cid}", {{y:-12, rotation:{rot + 0.9 * lado}, duration:{num(fim_deriva - t0 - 0.62)}, ease:"sine.inOut"}}, {num(t0 + 0.62)});')
+                js.append(f'tl.fromTo("#{cid}-i", {{scale:1}}, {{scale:1.05, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
+                js.append(f'tl.to("#{cid}", {{opacity:0, y:-150, scale:0.92, duration:0.34, ease:"power2.in"}}, {num(fim - 0.38 - 0.06 * (n - 1 - k))});')
+            html_.append(abre(ini, fim, " data-layout-allow-overlap data-layout-allow-overflow") + "\n        " + "\n        ".join(cards) + "\n      </div>")
+
+        elif lay == "dividida":
+            corte = f.get("corte", 880)
+            # esfumado (referência 1): sem linha branca, a parte de cima se dissolve no vídeo
+            esf = f.get("esfumado", False)
+            linha = 0 if esf else (FOTO_GAP if f.get("linha", True) else 0)
+            n = len(ims)
+            if n <= 2:
+                cw = (LARGURA - FOTO_GAP * (n - 1)) / n
+                if not corpo:
+                    rf = (0.36 if par else None) if rf is None else (rf or None)
+                caixas = "".join(
+                    f'<div class="ft-slot" style="left:{num(k * (cw + FOTO_GAP))}px">'
+                    + cf(f"{fid}-i{k}", ims[k], ms[k], cw, corte, rosto_frac=rf, modo=modo,
+                                 corpo_frac=0.92 if inteiros else None, centro=(0.5, 0.5) if corpo else (0.5, 0.42)) + "</div>"
+                    for k in range(n))
+                faixa = f'<div class="ft-faixa" id="{fid}-s">{caixas}</div>'
+                for k in range(n):
+                    js.append(f'tl.fromTo("#{fid}-i{k}", {{scale:1}}, {{scale:1.04, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
+            else:
+                # carrossel: as fotos passam em velocidade constante, todas aparecem na janela
+                cw = f.get("largura_foto", 500)
+                total = n * cw + (n - 1) * FOTO_GAP
+                caixas = "".join(
+                    f'<div class="ft-slot" style="left:{num(k * (cw + FOTO_GAP))}px">'
+                    + cf(f"{fid}-i{k}", ims[k], ms[k], cw, corte, modo=modo, centro=(0.5, 0.5) if corpo else (0.5, 0.42)) + "</div>"
+                    for k in range(n))
+                faixa = f'<div class="ft-faixa" id="{fid}-s" style="width:{num(total)}px">{caixas}</div>'
+                if total > LARGURA:
+                    js.append(f'tl.fromTo("#{fid}-s", {{x:0}}, {{x:{num(LARGURA - total)}, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
+            if esf:
+                dissolve = f.get("dissolve", 0.3)          # fração de baixo do painel que vai sumindo
+                mascara = (f"-webkit-mask-image:linear-gradient(to bottom,#000 {num((1 - dissolve) * 100)}%,transparent 100%);"
+                           f"mask-image:linear-gradient(to bottom,#000 {num((1 - dissolve) * 100)}%,transparent 100%);")
+                painel = f'<div class="ft-painel esfumado" id="{fid}-p" style="height:{num(corte)}px;{mascara}">'
+            else:
+                painel = f'<div class="ft-painel" id="{fid}-p" style="height:{num(corte + linha)}px">'
+            html_.append(abre(ini, fim, " data-layout-allow-overlap data-layout-allow-overflow") + "\n"
+                         f'        {painel}\n          {faixa}\n        </div>\n      </div>')
+            if esf:
+                # no começo do vídeo já abre dividida; depois, entra e sai num esmaecer
+                entra = 0.01 if ini < 0.05 else 0.45
+                js.append(f'tl.fromTo("#{fid}-p", {{opacity:{1 if ini < 0.05 else 0}}}, {{opacity:1, duration:{entra}, ease:"power2.out"}}, {num(ini)});')
+                if f.get("saida") == "corte":   # sai junto com um corte do vídeo: some no mesmo quadro
+                    js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.004}}, {num(fim - 0.006)});')
+                else:
+                    js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.5, ease:"power2.inOut"}}, {num(fim - 0.52)});')
+            else:
+                # no começo do vídeo já abre dividida (referência 3); depois, o painel desce do alto
+                if ini >= 0.05:
+                    js.append(f'tl.fromTo("#{fid}-p", {{yPercent:-100}}, {{yPercent:0, duration:0.5, ease:"expo.out"}}, {num(ini)});')
+                if f.get("saida") == "corte":   # sai num corte seco, no mesmo quadro do vídeo
+                    js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.004}}, {num(fim - 0.006)});')
+                else:
+                    js.append(f'tl.to("#{fid}-p", {{yPercent:-100, duration:0.42, ease:"expo.in"}}, {num(fim - 0.44)});')
+
+        elif lay == "atras":
+            # a pessoa da foto fica ao lado e acima da cabeça de quem fala, não escondida atrás dela
+            altura = f.get("altura", 1150)
+            caixa = cf(f"{fid}-i", ims[0], ms[0], LARGURA, altura, classe="ft-caixa reta", modo=modo,
+                               rosto_frac=rf or None, centro=tuple(f.get("centro", (0.72, 0.5) if corpo else (0.7, 0.24))))
+            html_.append(abre(ini, fim, " data-layout-allow-overlap") + "\n"
+                         f'        <div class="ft-fundo" id="{fid}-b" style="height:{num(altura)}px">{caixa}</div>\n      </div>')
+            js.append(f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.45, ease:"power2.out"}}, {num(ini)});')
+            js.append(f'tl.fromTo("#{fid}-i", {{scale:1.08}}, {{scale:1, duration:0.9, ease:"expo.out"}}, {num(ini)});')
+            if fim - ini > 1.4:
+                js.append(f'tl.to("#{fid}-i", {{scale:1.04, duration:{num(fim - ini - 0.9)}, ease:"none"}}, {num(ini + 0.9)});')
+            js.append(f'tl.to("#{fid}-b", {{opacity:0, duration:0.35, ease:"power2.in"}}, {num(fim - 0.37)});')
+
+        else:  # cheia
+            flash = f.get("entrada", "flash") == "flash"
+            caixa = cf(f"{fid}-i", ims[0], ms[0], LARGURA, ALTURA, classe="ft-caixa reta", modo=modo,
+                               centro=tuple(f.get("centro", (0.5, 0.5) if corpo else (0.5, 0.42))))
+            a, b = (ini - 0.1, fim + 0.34) if flash else (ini, fim)
+            html_.append(abre(a, b, " data-layout-allow-overlap") + "\n"
+                         f'        <div class="ft-cheia" id="{fid}-b">{caixa}</div>\n'
+                         + (f'        <div class="ft-flash" id="{fid}-f"></div>\n' if flash else "") + "      </div>")
+            js.append(f'tl.fromTo("#{fid}-i", {{scale:1}}, {{scale:1.08, duration:{num(fim - ini)}, ease:"none"}}, {num(ini)});')
+            if flash:
+                js += [
+                    f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.01}}, {num(ini)});',
+                    f'tl.fromTo("#{fid}-f", {{opacity:0}}, {{opacity:0.92, duration:0.09, ease:"power2.in"}}, {num(ini - 0.09)});',
+                    f'tl.to("#{fid}-f", {{opacity:0, duration:0.3, ease:"power2.out"}}, {num(ini + 0.01)});',
+                    f'tl.to("#{fid}-f", {{opacity:0.92, duration:0.09, ease:"power2.in"}}, {num(fim - 0.09)});',
+                    f'tl.to("#{fid}-b", {{opacity:0, duration:0.01}}, {num(fim)});',
+                    f'tl.to("#{fid}-f", {{opacity:0, duration:0.3, ease:"power2.out"}}, {num(fim + 0.01)});',
+                ]
+            else:
+                js.append(f'tl.fromTo("#{fid}-b", {{opacity:0}}, {{opacity:1, duration:0.35, ease:"power2.out"}}, {num(ini)});')
+                js.append(f'tl.to("#{fid}-b", {{opacity:0, duration:0.35, ease:"power2.in"}}, {num(fim - 0.37)});')
+
+    cid = "fotos" if camada == "frente" else "fotos-fundo"
+    return f"""<template>
+  <style>{font_faces()}
+      #root {{ position: absolute; inset: 0; overflow: hidden; }}
+      .ft {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; height: {ALTURA}px; }}
+      .ft-caixa {{ position: relative; overflow: hidden; border-radius: 20px; background: #161314; }}
+      .ft-caixa.reta {{ border-radius: 0; }}
+      .ft-caixa img, .ft-caixa video {{ position: absolute; max-width: none; display: block; object-fit: fill; }}
+      .ft-card {{ position: absolute; padding: {FOTO_BORDA}px; background: #FFFFFF; border-radius: 30px;
+                 box-shadow: 0 30px 70px rgba(0, 0, 0, 0.34), 0 6px 18px rgba(0, 0, 0, 0.18); }}
+      .ft-rotulo {{ position: absolute; left: 0; right: 0; bottom: 20px; margin: 0 auto; width: fit-content;
+                   padding: 8px 20px 8px 24px; border-radius: 999px; background: rgba(18, 14, 16, 0.55);
+                   font-family: "Poppins Reels"; font-weight: 600; font-size: 24px; letter-spacing: 0.24em;
+                   text-transform: uppercase; color: #FFFFFF; }}
+      .ft-painel {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; overflow: hidden; background: #FFFFFF;
+                   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22); }}
+      .ft-painel.esfumado {{ background: transparent; box-shadow: none; }}
+      .ft-faixa {{ position: absolute; left: 0; top: 0; height: 100%; width: {LARGURA}px; }}
+      .ft-slot {{ position: absolute; top: 0; }}
+      .ft-slot .ft-caixa {{ border-radius: 0; }}
+      .ft-fundo {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; overflow: hidden;
+                  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+                  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%); }}
+      .ft-cheia {{ position: absolute; inset: 0; overflow: hidden; }}
+      .ft-flash {{ position: absolute; inset: 0; background: #FFF9F4; opacity: 0; }}
+  </style>
+  <div id="root" data-composition-id="{cid}" data-width="{LARGURA}" data-height="{ALTURA}">
+      {chr(10).join("      " + h for h in html_).strip()}
+  </div>
+  <script>
+    const tl = gsap.timeline({{ paused: true }});
+    tl.to({{}}, {{ duration: {num(duracao)} }}, 0);
+    {(chr(10) + "    ").join(js)}
+    window.__timelines["{cid}"] = tl;
+  </script>
+</template>
+"""
+
+
+# ── raiz: vídeo, recorte, transições, sons ──────────────────────────────────
+
+def eventos_sfx(plano):
+    """Efeitos sonoros automáticos (clique nas legendas e cards, whoosh nas transições)."""
+    ev = []
+    fim_anterior, n_cliques = -10.0, 0
+    primeira_palavra = lambda g: min(p["s"] for l in g["linhas"] for p in l["palavras"])
+    # os textos em perspectiva soam como as legendas (clique na entrada, clique agudo no destaque)
+    for g in sorted(plano.get("legendas", []) + plano.get("perspectivas", []), key=primeira_palavra):
+        primeira = min(p["s"] for l in g["linhas"] for p in l["palavras"])
+        destaques = [l["palavras"][0]["s"] for l in g["linhas"]
+                     if l.get("estilo", "fina") in ("serifa", "destaque", "manuscrita", "frase-forte")]
+        # clique quando o texto volta depois de uma pausa; na fala corrida, só nos destaques
+        if primeira - fim_anterior > 0.3 and not any(abs(d - primeira) < 0.15 for d in destaques):
+            ev.append((primeira, CLIQUES[n_cliques % len(CLIQUES)], 0.5))
+            n_cliques += 1
+        for d in destaques:
+            ev.append((d, "click-agudo", 0.6))
+        # o texto em perspectiva fica na tela depois da fala; conta só até a última palavra
+        fim_anterior = g["fim"] if "ancoras" not in g else max(p["s"] for l in g["linhas"] for p in l["palavras"]) + 0.4
+    for c in plano.get("cards", []):
+        ev.append((c["inicio"] + 0.08, "whoosh-rapido", 0.45))
+        ev.append((c["inicio"] + 0.3, "click", 0.55))
+    for f in plano.get("fotos", []):
+        if not f.get("sons", True):
+            continue
+        if f["layout"] == "cards":
+            ev.append((f["inicio"] + 0.08, "whoosh-rapido", 0.45))
+            ev.append((f["inicio"] + 0.55, "click", 0.45))
+        elif f["layout"] == "dividida":
+            if f["inicio"] >= 0.3:   # abrindo o vídeo já dividido: sem whoosh
+                ev.append((f["inicio"] + 0.05, "whoosh", 0.45))
+        elif f["layout"] == "cheia" and f.get("entrada", "flash") == "flash":
+            ev.append((f["inicio"], "whoosh-rapido", 0.5))
+        else:
+            ev.append((f["inicio"] + 0.05, "whoosh-rapido", 0.35))
+    sc = plano.get("som_cortes")
+    if sc:
+        for t in plano.get("transicoes", []):
+            if t.get("tipo") == "corte":
+                ev.append((t["t"], sc.get("som", "whoosh-rapido"), sc.get("vol", 0.35)))
+    grandes = [t for t in plano.get("transicoes", []) if t.get("tipo", "luz") != "corte"]
+    for i, t in enumerate(grandes):
+        tipo = t.get("tipo", "luz")
+        if tipo == "preto":
+            ev.append((t["t"], "whoosh-grave", 0.5))
+        elif tipo == "flash":
+            ev.append((t["t"], "whoosh-rapido", 0.5))
+        else:
+            ev.append((t["t"], t.get("som", WHOOSH_TRANSICAO[i % len(WHOOSH_TRANSICAO)]), t.get("vol", 0.6)))
+    for s in plano.get("sfx_extra", []):
+        ev.append((s["t"], s["som"], s.get("vol", 0.5)))
+    remover = {round(s["t"], 2) for s in plano.get("sfx_remover", [])}
+    ev = sorted(e for e in ev if round(e[0], 2) not in remover)
+    # sem amontoado: logo depois de um whoosh de transição não entra outro whoosh nem
+    # um clique colado, e dois cliques a menos de 0,2 s viram um só
+    limpo = []
+    for t, som, vol in ev:
+        ultimo_whoosh = max((x[0] for x in limpo if x[1].startswith("whoosh")), default=-10)
+        ultimo_clique = max((x[0] for x in limpo if x[1].startswith("click")), default=-10)
+        if som.startswith("whoosh") and t - ultimo_whoosh < 0.5:
+            continue
+        if som.startswith("click") and (t - ultimo_whoosh < 0.2 or t - ultimo_clique < 0.2):
+            continue
+        limpo.append((t, som, vol))
+    return limpo
+
+
+def gerar_index(plano, duracao):
+    video = plano["video"]
+    tem_audio = plano.get("video_tem_audio", True)
+    audio_attr = 'data-has-audio="true"' if tem_audio else "muted"
+    recorte = plano.get("recorte")
+
+    transicoes_html, js = [], []
+    for i, t in enumerate(plano.get("transicoes", [])):
+        tid = f"tr{i + 1}"
+        tipo = t.get("tipo", "luz")
+        corte = t["t"]
+        if tipo == "corte":  # corte seco com um empurrão de câmera discreto
+            escala = t.get("escala", 1.045)
+            js.append(f'tl.fromTo(".cam", {{scale:{escala}}}, {{scale:1, duration:0.45, ease:"expo.out", immediateRender:false}}, {num(corte)});')
+            continue
+        if tipo == "luz":
+            ini, dur = corte - 0.32, 0.8
+            transicoes_html.append(
+                f'<div id="{tid}" class="clip transicao luz" data-start="{num(ini)}" data-duration="{num(dur)}" '
+                f'data-track-index="5" data-layout-ignore>\n'
+                f'        <div class="vazamento ambar" id="{tid}-a"></div>\n'
+                f'        <div class="vazamento quente" id="{tid}-b"></div>\n'
+                f'        <div class="vazamento clarao" id="{tid}-c"></div>\n      </div>')
+            js += [
+                f'tl.fromTo("#{tid}-a", {{opacity:0, xPercent:-30, rotation:-6}}, {{opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}}, {num(ini)});',
+                f'tl.to("#{tid}-a", {{opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}}, {num(ini + 0.42)});',
+                f'tl.fromTo("#{tid}-b", {{opacity:0, xPercent:25, yPercent:-8}}, {{opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}}, {num(ini + 0.06)});',
+                f'tl.to("#{tid}-b", {{opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}}, {num(ini + 0.42)});',
+                f'tl.fromTo("#{tid}-c", {{opacity:0}}, {{opacity:0.92, duration:0.1, ease:"power2.in"}}, {num(corte - 0.1)});',
+                f'tl.to("#{tid}-c", {{opacity:0, duration:0.3, ease:"power2.out"}}, {num(corte + 0.02)});',
+            ]
+        elif tipo == "preto":
+            ini, dur = corte - 0.2, 0.46
+            transicoes_html.append(
+                f'<div id="{tid}" class="clip transicao preto" data-start="{num(ini)}" data-duration="{num(dur)}" '
+                f'data-track-index="5" data-layout-ignore><div class="cortina" id="{tid}-a"></div></div>')
+            js += [
+                f'tl.fromTo("#{tid}-a", {{opacity:0}}, {{opacity:1, duration:0.18, ease:"power2.in"}}, {num(ini)});',
+                f'tl.to("#{tid}-a", {{opacity:0, duration:0.24, ease:"power2.out"}}, {num(corte + 0.02)});',
+            ]
+        else:  # flash branco
+            ini, dur = corte - 0.08, 0.36
+            transicoes_html.append(
+                f'<div id="{tid}" class="clip transicao flash" data-start="{num(ini)}" data-duration="{num(dur)}" '
+                f'data-track-index="5" data-layout-ignore><div class="cortina branca" id="{tid}-a"></div></div>')
+            js += [
+                f'tl.fromTo("#{tid}-a", {{opacity:0}}, {{opacity:0.9, duration:0.08, ease:"power2.in"}}, {num(ini)});',
+                f'tl.to("#{tid}-a", {{opacity:0, duration:0.24, ease:"power2.out"}}, {num(corte + 0.02)});',
+            ]
+        if t.get("zoom", True):
+            js.append(f'tl.fromTo(".cam", {{scale:1.09}}, {{scale:1, duration:0.6, ease:"expo.out", immediateRender:false}}, {num(corte)});')
+
+    audios, fim_trilha = [], []
+    for i, (t, som, vol) in enumerate(eventos_sfx(plano)):
+        ini = max(0.0, t - PICO_SFX.get(som, 0.08) + 1 / FPS)
+        dur = min(DURACAO_SFX.get(som, 1.0), duracao - ini)
+        # primeira trilha livre (efeitos que se sobrepõem vão para trilhas diferentes)
+        trilha = next((k for k, f in enumerate(fim_trilha) if f <= ini), len(fim_trilha))
+        if trilha == len(fim_trilha):
+            fim_trilha.append(0)
+        fim_trilha[trilha] = ini + dur
+        audios.append(f'<audio id="sfx{i + 1}" src="assets/sfx/{som}.mp3" data-start="{num(ini)}" '
+                      f'data-duration="{num(dur)}" data-track-index="{10 + trilha}" data-volume="{vol}"></audio>')
+    for i, m in enumerate(plano.get("musica", [])):
+        audios.append(f'<audio id="musica{i + 1}" src="{esc(m["src"])}" data-start="{num(m.get("inicio", 0))}" '
+                      f'data-media-start="{num(m.get("corte", 0))}" data-duration="{num(m.get("dur", duracao))}" '
+                      f'data-track-index="9" data-volume="{m.get("vol", 0.14)}" data-fade-out="1.2"></audio>')
+
+    recorte_html = ""
+    if recorte:
+        # o recorte só existe nas tomadas com a pessoa: em drone e paisagem o modelo de recorte
+        # costuma marcar pedaços do chão como "pessoa", e eles cobririam a legenda
+        janelas = plano.get("recorte_janelas", [[0, duracao]])
+        videos = "".join(
+            f"""
+        <video id="recorte{i + 1}" class="clip" src="{esc(recorte)}" data-start="{num(a)}" data-media-start="{num(a)}"
+          data-duration="{num(b - a)}" data-track-index="1" muted playsinline data-layout-allow-occlusion></video>"""
+            for i, (a, b) in enumerate(janelas))
+        recorte_html = f"""
+      <div class="cam" id="cam-recorte" style="z-index: 4">{videos}
+      </div>"""
+
+    # tela dividida: o vídeo (e o recorte) descem para a metade de baixo enquanto as fotos estão no alto
+    meta = meta_fotos(plano)
+    for f in plano.get("fotos", []):
+        if f["layout"] == "dividida":
+            d = foto_dividida_desce(f, meta)
+            if f["inicio"] < 0.05:
+                js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:{d}, duration:0.01}}, 0);')
+            else:
+                js.append(f'tl.fromTo(".cam", {{y:0}}, {{y:{d}, duration:0.5, ease:"expo.out", immediateRender:false}}, {num(f["inicio"])});')
+            if f.get("saida") == "corte":
+                js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.004, immediateRender:false}}, {num(f["fim"] - 0.006)});')
+            elif f.get("esfumado"):
+                js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.55, ease:"power2.inOut", immediateRender:false}}, {num(f["fim"] - 0.55)});')
+            else:
+                js.append(f'tl.fromTo(".cam", {{y:{d}}}, {{y:0, duration:0.42, ease:"expo.in", immediateRender:false}}, {num(f["fim"] - 0.44)});')
+    camadas = {lay: any(FOTO_CAMADA[f["layout"]] == lay for f in plano.get("fotos", [])) for lay in ("frente", "fundo")}
+    fotos_fundo_html = """
+      <div id="fotos-fundo" data-composition-id="fotos-fundo" data-composition-src="compositions/fotos-fundo.html"
+        data-start="0" data-duration="{d}" data-track-index="6" data-track-kind="graphics"
+        data-width="{w}" data-height="{h}" style="z-index: 2"></div>""".format(d=num(duracao), w=LARGURA, h=ALTURA) if camadas["fundo"] else ""
+    fotos_html = """
+      <div id="fotos" data-composition-id="fotos" data-composition-src="compositions/fotos.html"
+        data-start="0" data-duration="{d}" data-track-index="4" data-track-kind="graphics"
+        data-width="{w}" data-height="{h}" style="z-index: 5"></div>""".format(d=num(duracao), w=LARGURA, h=ALTURA) if camadas["frente"] else ""
+    # composições extras escritas à mão no projeto (ex.: as animações do quadro da biomédica)
+    extras_html = "".join(f"""
+      <div id="{esc(x['id'])}" data-composition-id="{esc(x['id'])}" data-composition-src="{esc(x['src'])}"
+        data-start="0" data-duration="{num(duracao)}" data-track-index="{20 + i}" data-track-kind="graphics"
+        data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: {x.get('z', 6)}"></div>""" for i, x in enumerate(plano.get("extras", [])))
+    # zoom lento dentro de cada plano (as referências nunca ficam paradas): depois do empurrão de cada corte
+    zl = plano.get("zoom_lento")
+    if zl:
+        marcos = sorted({0.0} | {t["t"] for t in plano.get("transicoes", [])} | {duracao})
+        for a_, b_ in zip(marcos, marcos[1:]):
+            tr = next((t for t in plano.get("transicoes", []) if abs(t["t"] - a_) < 1e-6), None)
+            atraso = 0.0 if tr is None else (0.45 if tr.get("tipo") == "corte" else 0.6)
+            if b_ - a_ - atraso > 0.3:
+                js.append(f'tl.fromTo(".cam", {{scale:1}}, {{scale:{1 + zl}, duration:{num(b_ - a_ - atraso)}, ease:"none", immediateRender:false}}, {num(a_ + atraso)});')
+    # a legenda passa atrás da pessoa (imobiliária) ou fica na frente de tudo (biomédica)
+    z_legendas = 7 if plano.get("legendas_na_frente") else 3
+
+    cores = plano["cores"]
+    return f"""<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width={LARGURA}, height={ALTURA}" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+      html, body {{ margin: 0; width: {LARGURA}px; height: {ALTURA}px; overflow: hidden; background: #000; }}
+      :root {{
+        --texto: {cores.get("texto", "#FFFFFF")};
+        --destaque: {cores["destaque"]};
+        --destaque-brilho: {cores["destaque"] + "59" if cores.get("brilho", True) else "transparent"};
+        --destaque-sombra: {sombra_da_cor(cores["destaque"], 0.42)};
+        --destaque-sombra-leve: {sombra_da_cor(cores["destaque"], 0.22)};
+        --destaque-escuro: {cores.get("destaque_escuro", cores["destaque"])};
+        --vazamento: {cores.get("vazamento", "#FF9A4D")};
+      }}
+      .cam {{ position: absolute; inset: 0; transform-origin: 50% 45%; }}
+      .cam video {{ position: absolute; left: 0; top: 0; width: {LARGURA}px; height: {ALTURA}px; object-fit: cover; }}
+      .transicao {{ position: absolute; inset: 0; z-index: 8; pointer-events: none; }}
+      .transicao.luz {{ mix-blend-mode: screen; }}
+      .vazamento {{ position: absolute; inset: -25%; opacity: 0; }}
+      .vazamento.ambar {{
+        background: radial-gradient(ellipse 50% 95% at 18% 55%, rgba(255, 244, 214, 0.95), transparent 46%),
+                    radial-gradient(ellipse 75% 120% at 28% 50%, var(--vazamento), transparent 68%);
+        filter: blur(30px);
+      }}
+      .vazamento.quente {{
+        background: radial-gradient(ellipse 60% 100% at 78% 35%, rgba(255, 92, 60, 0.75), rgba(255, 60, 90, 0.25) 50%, transparent 76%);
+        filter: blur(40px);
+      }}
+      .vazamento.clarao {{ background: radial-gradient(ellipse 90% 80% at 50% 45%, rgba(255, 248, 232, 1), rgba(255, 214, 160, 0.85) 55%, rgba(255, 170, 110, 0.6)); }}
+      .cortina {{ position: absolute; inset: 0; background: #000; opacity: 0; }}
+      .cortina.branca {{ background: #fff8ee; }}
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="{num(duracao)}"
+      data-width="{LARGURA}" data-height="{ALTURA}">
+      <div class="cam" id="cam-video" style="z-index: 1">
+        <video id="video" class="clip" src="{esc(video)}" data-start="0" data-duration="{num(duracao)}"
+          data-track-index="0" {audio_attr} playsinline></video>
+      </div>
+{fotos_fundo_html}
+      <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
+        data-start="0" data-duration="{num(duracao)}" data-track-index="2" data-track-kind="captions"
+        data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: {z_legendas}"></div>
+{recorte_html}{fotos_html}{extras_html}
+      <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
+        data-start="0" data-duration="{num(duracao)}" data-track-index="3" data-track-kind="graphics"
+        data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: 6"></div>
+
+      {(chr(10) + "      ").join(transicoes_html)}
+
+      {(chr(10) + "      ").join(audios)}
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {{}};
+      const tl = gsap.timeline({{ paused: true }});
+      tl.to({{}}, {{ duration: {num(duracao)} }}, 0);
+      {(chr(10) + "      ").join(js)}
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
+"""
+
+
+def main():
+    pasta = Path(sys.argv[1]).resolve()
+    plano = json.loads((pasta / "plano.json").read_text())
+    plano["_pasta"] = str(pasta)
+    duracao = plano["duracao"]
+    (pasta / "compositions").mkdir(exist_ok=True)
+    (pasta / "index.html").write_text(gerar_index(plano, duracao))
+    (pasta / "compositions" / "legendas.html").write_text(gerar_legendas(plano, duracao))
+    (pasta / "compositions" / "cards.html").write_text(gerar_cards(plano, duracao))
+    feitos = ["legendas", "cards"]
+    for camada, nome in (("frente", "fotos"), ("fundo", "fotos-fundo")):
+        arq = pasta / "compositions" / f"{nome}.html"
+        if any(FOTO_CAMADA[f["layout"]] == camada for f in plano.get("fotos", [])):
+            arq.write_text(gerar_fotos(plano, duracao, camada))
+            feitos.append(nome)
+        elif arq.exists():
+            arq.unlink()
+    if any(f["layout"] == "atras" for f in plano.get("fotos", [])) and not plano.get("recorte"):
+        print("aviso: foto 'atras' sem recorte da pessoa no plano: a foto vai cobrir a pessoa")
+    print(f"ok: {pasta}/index.html + " + " + ".join(f"compositions/{n}.html" for n in feitos))
+
+
+if __name__ == "__main__":
+    main()
