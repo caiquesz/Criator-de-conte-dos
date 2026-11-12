@@ -38,7 +38,9 @@ resultado traz o sha256 de cada parte, confira contra o local. Grave `entrega` c
 **Limpeza do armazenamento:** depois de baixar e conferir, apague com `delete_asset` os ids de
 `partesGrandes` e grave `partesGrandes: []`. Se a página foi fechada no meio da preparação, ficam
 pedaços soltos de uma primeira tentativa, que nenhum documento cita: compare `list_assets` com os
-ids dos documentos antes de apagar.
+ids de **todos** os documentos (`db_list` da coleção inteira) antes de apagar, nunca pela hora em que
+foram criados. Em 12/11 isso apagou os pedaços de um segundo envio (a mesma gravação de tela, mandada
+de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é conferir antes.
 
 ## Regras
 
