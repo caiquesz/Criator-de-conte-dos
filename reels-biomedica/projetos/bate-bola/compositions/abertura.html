@@ -1,0 +1,73 @@
+<template>
+  <style>
+@font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+@font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Poppins Reels"; color: #FFFFFF; }
+    #ab { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; opacity: 0; }
+    /* o vídeo dela continua por baixo: aqui só desfoca e aquece */
+    .ab-desfoque { position: absolute; inset: 0; -webkit-backdrop-filter: blur(10px) sepia(0.35) saturate(0.85);
+                    backdrop-filter: blur(10px) sepia(0.35) saturate(0.85); }
+    .ab-veu { position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(132, 108, 92, 0.62) 0%, rgba(140, 116, 98, 0.52) 34%,
+                                  rgba(160, 138, 118, 0.42) 60%, rgba(120, 100, 86, 0.5) 100%); }
+    .ab-luz { position: absolute; width: 1000px; height: 1000px; border-radius: 50%; mix-blend-mode: screen;
+      background: radial-gradient(circle, rgba(255, 190, 156, 0.85) 0%, rgba(255, 196, 166, 0.35) 38%, rgba(255, 200, 170, 0) 70%); }
+    .ab-luz.suave { background: radial-gradient(circle, rgba(255, 226, 200, 0.7) 0%, rgba(255, 226, 200, 0.25) 40%, rgba(255, 226, 200, 0) 70%); }
+    .ab-brilho { position: absolute; border-radius: 50%; background: #FFFFFF; opacity: 0;
+                  box-shadow: 0 0 10px 3px rgba(255, 244, 232, 0.85), 0 0 22px 6px rgba(255, 214, 190, 0.45); }
+    .ab-titulo { position: absolute; left: 0; top: 760px; width: 1080px; text-align: center;
+                  text-shadow: 0 2px 8px rgba(80, 54, 40, 0.35), 0 8px 34px rgba(80, 54, 40, 0.45); }
+    .ab-nome { font-weight: 600; font-size: 150px; letter-spacing: -0.03em; line-height: 1.05; }
+    .le { display: inline-block; }
+    .ab-linha { width: 280px; height: 2px; margin: 34px auto 0; background: rgba(255, 255, 255, 0.9); border-radius: 2px;
+                 box-shadow: 0 0 12px rgba(255, 236, 220, 0.8); }
+    .ab-frase { font-weight: 400; font-size: 50px; letter-spacing: 0.01em; line-height: 1; margin-top: 32px; }
+  </style>
+  <div id="root" data-composition-id="abertura" data-width="1080" data-height="1920">
+    <div id="ab">
+      <div class="ab-desfoque"></div>
+      <div class="ab-veu"></div>
+      <div class="ab-luz" id="ab-l1" style="left:-320px;top:-260px"></div>
+      <div class="ab-luz suave" id="ab-l2" style="left:420px;top:1080px"></div>
+      <i class="ab-brilho" id="bx0" style="left:651px;top:1211px;width:12px;height:12px"></i><i class="ab-brilho" id="bx1" style="left:509px;top:1437px;width:12px;height:12px"></i><i class="ab-brilho" id="bx2" style="left:433px;top:494px;width:6px;height:6px"></i><i class="ab-brilho" id="bx3" style="left:779px;top:559px;width:5px;height:5px"></i><i class="ab-brilho" id="bx4" style="left:874px;top:615px;width:6px;height:6px"></i><i class="ab-brilho" id="bx5" style="left:269px;top:1361px;width:12px;height:12px"></i><i class="ab-brilho" id="bx6" style="left:894px;top:715px;width:7px;height:7px"></i><i class="ab-brilho" id="bx7" style="left:826px;top:1036px;width:10px;height:10px"></i><i class="ab-brilho" id="bx8" style="left:523px;top:734px;width:8px;height:8px"></i><i class="ab-brilho" id="bx9" style="left:944px;top:781px;width:8px;height:8px"></i><i class="ab-brilho" id="bx10" style="left:98px;top:432px;width:6px;height:6px"></i><i class="ab-brilho" id="bx11" style="left:828px;top:898px;width:10px;height:10px"></i><i class="ab-brilho" id="bx12" style="left:764px;top:1273px;width:7px;height:7px"></i><i class="ab-brilho" id="bx13" style="left:640px;top:1408px;width:7px;height:7px"></i><i class="ab-brilho" id="bx14" style="left:366px;top:1275px;width:12px;height:12px"></i><i class="ab-brilho" id="bx15" style="left:134px;top:1485px;width:10px;height:10px"></i><i class="ab-brilho" id="bx16" style="left:315px;top:1109px;width:6px;height:6px"></i><i class="ab-brilho" id="bx17" style="left:845px;top:526px;width:12px;height:12px"></i>
+      <div class="ab-titulo" id="ab-t">
+        <div class="ab-nome" id="ab-n"><span class="le" id="le0">B</span><span class="le" id="le1">a</span><span class="le" id="le2">t</span><span class="le" id="le3">e</span><span class="le" id="le4">-</span><span class="le" id="le5">b</span><span class="le" id="le6">o</span><span class="le" id="le7">l</span><span class="le" id="le8">a</span></div>
+        <div class="ab-linha" id="ab-r"></div>
+        <div class="ab-frase" id="ab-f">com Dra. Nádia Rezende</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 67.5 }, 0);
+    tl.set("#ab", {opacity:1}, 0);
+    tl.set("#ab", {opacity:0}, 2.967);
+    tl.fromTo("#ab-l1", {opacity:0, x:-40, y:-20}, {opacity:0.7, x:60, y:30, duration:1.78, ease:"sine.out"}, 0);
+    tl.to("#ab-l1", {opacity:0.35, x:110, duration:1.187, ease:"sine.in"}, 1.78);
+    tl.fromTo("#ab-l2", {opacity:0, x:40}, {opacity:0.55, x:-60, duration:2.967, ease:"sine.inOut"}, 0);
+    tl.fromTo(".le", {opacity:0, y:30, filter:"blur(12px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.8, ease:"power2.out", stagger:0.05}, 0.15);
+    tl.fromTo("#ab-r", {scaleX:0, opacity:0}, {scaleX:1, opacity:0.9, duration:0.7, ease:"sine.inOut"}, 0.6);
+    tl.fromTo("#ab-f", {opacity:0, y:14, filter:"blur(6px)"}, {opacity:0.96, y:0, filter:"blur(0px)", duration:0.6, ease:"power2.out"}, 0.8);
+    tl.to("#ab-t", {opacity:0, y:-16, filter:"blur(8px)", duration:0.38, ease:"power1.in"}, 2.567);
+    tl.fromTo("#bx0", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.56, 0.56, 0]}, y:-201, scale:1, duration:1.74, ease:"sine.out"}, 0.848);
+    tl.fromTo("#bx1", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.90, 0.90, 0]}, y:-135, scale:1, duration:1.39, ease:"sine.out"}, 0.047);
+    tl.fromTo("#bx2", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.92, 0.92, 0]}, y:-124, scale:1, duration:1.43, ease:"sine.out"}, 0.012);
+    tl.fromTo("#bx3", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.55, 0.55, 0]}, y:-105, scale:1, duration:1.67, ease:"sine.out"}, 0.125);
+    tl.fromTo("#bx4", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.68, 0.68, 0]}, y:-110, scale:1, duration:1.40, ease:"sine.out"}, 0.864);
+    tl.fromTo("#bx5", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.94, 0.94, 0]}, y:-173, scale:1, duration:1.86, ease:"sine.out"}, 0.184);
+    tl.fromTo("#bx6", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.68, 0.68, 0]}, y:-122, scale:1, duration:1.86, ease:"sine.out"}, 0.373);
+    tl.fromTo("#bx7", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.88, 0.88, 0]}, y:-127, scale:1, duration:1.50, ease:"sine.out"}, 0.61);
+    tl.fromTo("#bx8", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.93, 0.93, 0]}, y:-121, scale:1, duration:1.41, ease:"sine.out"}, 0.425);
+    tl.fromTo("#bx9", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.78, 0.78, 0]}, y:-134, scale:1, duration:1.77, ease:"sine.out"}, 0.016);
+    tl.fromTo("#bx10", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.65, 0.65, 0]}, y:-104, scale:1, duration:1.87, ease:"sine.out"}, 0.561);
+    tl.fromTo("#bx11", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.59, 0.59, 0]}, y:-183, scale:1, duration:1.61, ease:"sine.out"}, 0.319);
+    tl.fromTo("#bx12", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.69, 0.69, 0]}, y:-101, scale:1, duration:1.87, ease:"sine.out"}, 0.033);
+    tl.fromTo("#bx13", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.82, 0.82, 0]}, y:-101, scale:1, duration:1.72, ease:"sine.out"}, 0.248);
+    tl.fromTo("#bx14", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.61, 0.61, 0]}, y:-210, scale:1, duration:1.71, ease:"sine.out"}, 0.134);
+    tl.fromTo("#bx15", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.69, 0.69, 0]}, y:-179, scale:1, duration:1.32, ease:"sine.out"}, 0.831);
+    tl.fromTo("#bx16", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.75, 0.75, 0]}, y:-94, scale:1, duration:1.85, ease:"sine.out"}, 0.05);
+    tl.fromTo("#bx17", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.72, 0.72, 0]}, y:-198, scale:1, duration:1.38, ease:"sine.out"}, 0.508);
+    window.__timelines["abertura"] = tl;
+  </script>
+</template>

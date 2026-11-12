@@ -57,9 +57,11 @@ def main():
     aberto = v / "video-aberto.mp4"
     if not aberto.exists():
         shutil.copy2(v / "video.mp4", aberto)
-    s = sonda(original, "width,height,r_frame_rate")
+    s = sonda(original, "width,height")
     w, h = int(s["width"]), int(s["height"])
-    num, den = (int(x) for x in s["r_frame_rate"].split("/"))
+    # sempre 30 quadros por segundo, como a composição e o video.mp4 do novo_projeto.sh (o original pode vir
+    # em 31,58 ou 60): o filtro fps=30 vem antes dos cortes, então os quadros contados são os do vídeo final
+    num, den = 30, 1
     fps = num / den
     total = quadros(aberto)
     if w > h:  # o celular grava de lado e marca a rotação: o ffmpeg já entrega em pé
@@ -83,7 +85,7 @@ def main():
         ramos.append(i)
         print(f"{a / fps:6.2f}–{b / fps:6.2f} s: escala {esc:.2f}, corte {cw}×{ch} em ({x0}, {y0})")
     pausas = sorted((round(p["em"] * fps), round(p["dur"] * fps)) for p in plano.get("pausas", []))
-    grafo = (f"[0:v]split={len(ramos)}" + "".join(f"[s{i}]" for i in ramos) + ";" + ";".join(filtros) + ";"
+    grafo = (f"[0:v]fps={num}/{den},split={len(ramos)}" + "".join(f"[s{i}]" for i in ramos) + ";" + ";".join(filtros) + ";"
              + "".join(f"[v{i}]" for i in ramos) + f"concat=n={len(ramos)}:v=1:a=0,setpts=N/({num}/{den})/TB"
              + ("[o]" if not pausas else "[r]"))
     audio = ["-map", "0:a:0", "-c:a", "copy"]

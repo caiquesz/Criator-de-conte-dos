@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      :root {
+        --texto: #FFFFFF;
+        --destaque: #FFFFFF;
+        --destaque-brilho: transparent;
+        --destaque-sombra: rgba(56, 46, 46, 0.42);
+        --destaque-sombra-leve: rgba(56, 46, 46, 0.22);
+        --destaque-escuro: #FFFFFF;
+        --vazamento: #FF9A4D;
+      }
+      .cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+      .cam video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .transicao { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+      .transicao.luz { mix-blend-mode: screen; }
+      .vazamento { position: absolute; inset: -25%; opacity: 0; }
+      .vazamento.ambar {
+        background: radial-gradient(ellipse 50% 95% at 18% 55%, rgba(255, 244, 214, 0.95), transparent 46%),
+                    radial-gradient(ellipse 75% 120% at 28% 50%, var(--vazamento), transparent 68%);
+        filter: blur(30px);
+      }
+      .vazamento.quente {
+        background: radial-gradient(ellipse 60% 100% at 78% 35%, rgba(255, 92, 60, 0.75), rgba(255, 60, 90, 0.25) 50%, transparent 76%);
+        filter: blur(40px);
+      }
+      .vazamento.clarao { background: radial-gradient(ellipse 90% 80% at 50% 45%, rgba(255, 248, 232, 1), rgba(255, 214, 160, 0.85) 55%, rgba(255, 170, 110, 0.6)); }
+      .cortina { position: absolute; inset: 0; background: #000; opacity: 0; }
+      .cortina.branca { background: #fff8ee; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="67.5"
+      data-width="1080" data-height="1920">
+      <div class="cam" id="cam-video" style="z-index: 1">
+        <video id="video" class="clip" src="assets/video/video.mp4" data-start="0" data-duration="67.5"
+          data-track-index="0" data-has-audio="true" playsinline></video>
+      </div>
+
+      <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
+        data-start="0" data-duration="67.5" data-track-index="2" data-track-kind="captions"
+        data-width="1080" data-height="1920" style="z-index: 7"></div>
+
+      <div id="abertura" data-composition-id="abertura" data-composition-src="compositions/abertura.html"
+        data-start="0" data-duration="67.5" data-track-index="20" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 6"></div>
+      <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
+        data-start="0" data-duration="67.5" data-track-index="3" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 6"></div>
+
+      <div id="tr1" class="clip transicao luz" data-start="2.647" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr1-a"></div>
+        <div class="vazamento quente" id="tr1-b"></div>
+        <div class="vazamento clarao" id="tr1-c"></div>
+      </div>
+      <div id="tr4" class="clip transicao flash" data-start="9.853" data-duration="0.36" data-track-index="5" data-layout-ignore><div class="cortina branca" id="tr4-a"></div></div>
+      <div id="tr8" class="clip transicao flash" data-start="23.72" data-duration="0.36" data-track-index="5" data-layout-ignore><div class="cortina branca" id="tr8-a"></div></div>
+      <div id="tr11" class="clip transicao flash" data-start="33.953" data-duration="0.36" data-track-index="5" data-layout-ignore><div class="cortina branca" id="tr11-a"></div></div>
+      <div id="tr14" class="clip transicao flash" data-start="45.087" data-duration="0.36" data-track-index="5" data-layout-ignore><div class="cortina branca" id="tr14-a"></div></div>
+      <div id="tr17" class="clip transicao flash" data-start="56.32" data-duration="0.36" data-track-index="5" data-layout-ignore><div class="cortina branca" id="tr17-a"></div></div>
+
+      <audio id="sfx1" src="assets/sfx/brilho.mp3" data-start="0.313" data-duration="1.8" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx2" src="assets/sfx/whoosh.mp3" data-start="2.838" data-duration="0.575" data-track-index="10" data-volume="0.45"></audio>
+      <audio id="sfx3" src="assets/sfx/whoosh-rapido.mp3" data-start="6.393" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx4" src="assets/sfx/whoosh-rapido.mp3" data-start="8.027" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx5" src="assets/sfx/whoosh-rapido.mp3" data-start="9.827" data-duration="0.549" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx6" src="assets/sfx/whoosh-rapido.mp3" data-start="12.66" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx7" src="assets/sfx/whoosh-rapido.mp3" data-start="15.993" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx8" src="assets/sfx/whoosh-rapido.mp3" data-start="19.86" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx9" src="assets/sfx/whoosh-rapido.mp3" data-start="23.693" data-duration="0.549" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx10" src="assets/sfx/whoosh-rapido.mp3" data-start="25.793" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx11" src="assets/sfx/whoosh-rapido.mp3" data-start="30.16" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx12" src="assets/sfx/whoosh-rapido.mp3" data-start="33.927" data-duration="0.549" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx13" src="assets/sfx/whoosh-rapido.mp3" data-start="36.093" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx14" src="assets/sfx/whoosh-rapido.mp3" data-start="39.893" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx15" src="assets/sfx/whoosh-rapido.mp3" data-start="45.06" data-duration="0.549" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx16" src="assets/sfx/whoosh-rapido.mp3" data-start="48.527" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx17" src="assets/sfx/whoosh-rapido.mp3" data-start="53.393" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx18" src="assets/sfx/whoosh-rapido.mp3" data-start="56.293" data-duration="0.549" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx19" src="assets/sfx/whoosh-rapido.mp3" data-start="59.227" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx20" src="assets/sfx/whoosh-rapido.mp3" data-start="62.627" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx21" src="assets/sfx/whoosh-rapido.mp3" data-start="65.927" data-duration="0.549" data-track-index="10" data-volume="0.3"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: 67.5 }, 0);
+      tl.fromTo("#tr1-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 2.647);
+      tl.to("#tr1-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 3.067);
+      tl.fromTo("#tr1-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 2.707);
+      tl.to("#tr1-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 3.067);
+      tl.fromTo("#tr1-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 2.867);
+      tl.to("#tr1-c", {opacity:0, duration:0.3, ease:"power2.out"}, 2.987);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 2.967);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 6.5);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 8.133);
+      tl.fromTo("#tr4-a", {opacity:0}, {opacity:0.9, duration:0.08, ease:"power2.in"}, 9.853);
+      tl.to("#tr4-a", {opacity:0, duration:0.24, ease:"power2.out"}, 9.953);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 9.933);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 12.767);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 16.1);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 19.967);
+      tl.fromTo("#tr8-a", {opacity:0}, {opacity:0.9, duration:0.08, ease:"power2.in"}, 23.72);
+      tl.to("#tr8-a", {opacity:0, duration:0.24, ease:"power2.out"}, 23.82);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 23.8);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 25.9);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 30.267);
+      tl.fromTo("#tr11-a", {opacity:0}, {opacity:0.9, duration:0.08, ease:"power2.in"}, 33.953);
+      tl.to("#tr11-a", {opacity:0, duration:0.24, ease:"power2.out"}, 34.053);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 34.033);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 36.2);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 40);
+      tl.fromTo("#tr14-a", {opacity:0}, {opacity:0.9, duration:0.08, ease:"power2.in"}, 45.087);
+      tl.to("#tr14-a", {opacity:0, duration:0.24, ease:"power2.out"}, 45.187);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 45.167);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 48.633);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 53.5);
+      tl.fromTo("#tr17-a", {opacity:0}, {opacity:0.9, duration:0.08, ease:"power2.in"}, 56.32);
+      tl.to("#tr17-a", {opacity:0, duration:0.24, ease:"power2.out"}, 56.42);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 56.4);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 59.333);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 62.733);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 66.033);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.967, ease:"none", immediateRender:false}, 0);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.933, ease:"none", immediateRender:false}, 3.567);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:1.183, ease:"none", immediateRender:false}, 6.95);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:1.35, ease:"none", immediateRender:false}, 8.583);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.233, ease:"none", immediateRender:false}, 10.533);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.883, ease:"none", immediateRender:false}, 13.217);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:3.417, ease:"none", immediateRender:false}, 16.55);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:3.383, ease:"none", immediateRender:false}, 20.417);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:1.5, ease:"none", immediateRender:false}, 24.4);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:3.917, ease:"none", immediateRender:false}, 26.35);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:3.317, ease:"none", immediateRender:false}, 30.717);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:1.567, ease:"none", immediateRender:false}, 34.633);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:3.35, ease:"none", immediateRender:false}, 36.65);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:4.717, ease:"none", immediateRender:false}, 40.45);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.867, ease:"none", immediateRender:false}, 45.767);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:4.417, ease:"none", immediateRender:false}, 49.083);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.45, ease:"none", immediateRender:false}, 53.95);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.333, ease:"none", immediateRender:false}, 57);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.95, ease:"none", immediateRender:false}, 59.783);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:2.85, ease:"none", immediateRender:false}, 63.183);
+      tl.fromTo(".cam", {scale:1}, {scale:1.035, duration:1.017, ease:"none", immediateRender:false}, 66.483);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

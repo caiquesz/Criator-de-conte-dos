@@ -72,6 +72,15 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   desfoque, som `brilho`, luz com whoosh leve na entrada e na saída. A primeira (preto e branco,
   letra pesada, tremor, som de impacto) ela achou pesada. Modelo:
   `projetos/gluteo-virginia/abertura.py`, montado com `"extras"`.
+- **Quadro "Bate-bola com Dra. Nádia"** (perguntas rápidas, pergunta fora da câmera e ela
+  responde): ela mesma diz o título no começo, então a abertura delicada fica por cima do vídeo dela
+  (desfocado atrás do véu nude) nesses 3 s, sem pausa, e sai numa luz. Cada pergunta abre num flash
+  branco e no plano aberto ou médio; cada resposta corta para o fechado, com outro corte no meio das
+  longas; a palavra-chave da pergunta e os prazos em `legenda-forte`. Modelo:
+  `projetos/bate-bola/montar_plano.py` e `abertura.py`. O vídeo veio com música (opção "já tem
+  música"): o áudio fica como está, só entram os efeitos.
+- **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o
+  `reenquadrar.py` passam tudo para 30 (os da composição) antes de contar quadros.
 - **Legendas:** como nas referências, pequenas (Poppins 700, 46 px; `legenda-forte` 800, 64 px
   para a palavra que pesa), letras juntas (`tracking.legenda` -0.04), numa linha, na altura do
   peito dela (meio do bloco em y 1040, no top), a mesma em todo o vídeo, inclusive na tela

@@ -16,8 +16,9 @@ cp -r "$RAIZ/template/." "$DEST/"
 # o envio original fica guardado: o áudio final sai dele, sem nenhuma alteração
 cp "$VIDEO" "$DEST/assets/video/original.${VIDEO##*.}"
 # H.264 com um quadro-chave por segundo (o HyperFrames busca quadro a quadro); áudio copiado
-# (vídeos 4K do celular descem para 1080×1920, a resolução do Reels e da composição)
-ffmpeg -v error -y -i "$VIDEO" -vf "scale=1080:1920:flags=lanczos,setsar=1" -c:v libx264 -crf 14 \
+# (vídeos 4K do celular descem para 1080×1920, a resolução do Reels e da composição; e para 30 quadros
+# por segundo, os da composição: o celular às vezes grava em 31,58 ou 60, e os cortes contam quadros)
+ffmpeg -v error -y -i "$VIDEO" -vf "scale=1080:1920:flags=lanczos,setsar=1,fps=30" -c:v libx264 -crf 14 \
   -preset slow -g 30 -pix_fmt yuv420p -c:a copy "$DEST/assets/video/video.mp4"
 
 echo "projeto criado em $DEST"

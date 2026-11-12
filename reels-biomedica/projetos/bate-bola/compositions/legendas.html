@@ -1,0 +1,208 @@
+<template>
+  <style>
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: italic; src: url("assets/fonts/InstrumentSerif-400i.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }
+      #root { position: absolute; inset: 0; overflow: visible; }
+      .grupo { position: absolute; left: 0; width: 1080px; text-align: center; overflow: visible; isolation: isolate; }
+      .linha { position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
+               text-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 3px 18px rgba(0, 0, 0, 0.36); }
+      /* palavra na cor de destaque: nada de sombra preta, só uma sombra no tom escuro da própria cor */
+      .linha.brilho { text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }
+      .linha.brilho.escuro { text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
+      /* fundo muito claro: a sombra fica nas próprias letras brancas, mais firme e mais justa */
+      .sombra-forte .linha {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.45), 0 4px 22px rgba(0, 0, 0, 0.35); }
+      .sombra-forte .linha.brilho { text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }
+      .sombra-forte .linha.brilho.escuro { text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
+      .p { display: inline-block; will-change: transform, filter, opacity; }
+      /* texto em perspectiva: um plano do tamanho da "tela" levado para a superfície rastreada */
+      .perspectiva { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+      .plano { position: absolute; left: 0; top: 0; transform-origin: 0 0; display: flex; flex-direction: column;
+                align-items: center; justify-content: center; text-align: center; overflow: visible; }
+  </style>
+  <div id="root" data-composition-id="legendas" data-width="1080" data-height="1920">
+      <div id="g1" class="clip grupo sombra-forte" data-start="2.967" data-duration="0.867" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g1-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g1-l0-p0">Nádia,</span> <span class="p" id="g1-l0-p1">o</span> <span class="p" id="g1-l0-p2">verão</span></div>
+      </div>
+      <div id="g2" class="clip grupo sombra-forte" data-start="3.833" data-duration="1" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g2-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g2-l0-p0">está</span> <span class="p" id="g2-l0-p1">chegando.</span></div>
+      </div>
+      <div id="g3" class="clip grupo sombra-forte" data-start="4.833" data-duration="0.767" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g3-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g3-l0-p0">Ainda</span> <span class="p" id="g3-l0-p1">dá</span> <span class="p" id="g3-l0-p2">tempo</span></div>
+      </div>
+      <div id="g4" class="clip grupo sombra-forte" data-start="5.6" data-duration="1" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g4-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g4-l0-p0">de</span> <span class="p" id="g4-l0-p1">cuidar</span> <span class="p" id="g4-l0-p2">do</span> <span class="p" id="g4-l0-p3">corpo?</span></div>
+      </div>
+      <div id="g5" class="clip grupo sombra-forte" data-start="6.6" data-duration="1.6" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g5-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g5-l0-p0">Calma,</span> <span class="p" id="g5-l0-p1">vamos</span> <span class="p" id="g5-l0-p2">por</span> <span class="p" id="g5-l0-p3">partes.</span></div>
+      </div>
+      <div id="g6" class="clip grupo sombra-forte" data-start="8.267" data-duration="0.7" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g6-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g6-l0-p0">Depende</span> <span class="p" id="g6-l0-p1">muito</span></div>
+      </div>
+      <div id="g7" class="clip grupo sombra-forte" data-start="8.967" data-duration="1.033" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g7-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g7-l0-p0">do</span> <span class="p" id="g7-l0-p1">procedimento.</span></div>
+      </div>
+      <div id="g8" class="clip grupo sombra-forte" data-start="10" data-duration="1.067" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g8-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g8-l0-p0">Preenchimento</span> <span class="p" id="g8-l0-p1">glúteo.</span></div>
+      </div>
+      <div id="g9" class="clip grupo sombra-forte" data-start="11.067" data-duration="0.967" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g9-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g9-l0-p0">Quanto</span> <span class="p" id="g9-l0-p1">tempo</span> <span class="p" id="g9-l0-p2">pra</span> <span class="p" id="g9-l0-p3">perceber</span></div>
+      </div>
+      <div id="g10" class="clip grupo sombra-forte" data-start="12.033" data-duration="0.833" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g10-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g10-l0-p0">o</span> <span class="p" id="g10-l0-p1">resultado?</span></div>
+      </div>
+      <div id="g11" class="clip grupo sombra-forte" data-start="12.867" data-duration="0.967" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g11-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g11-l0-p0">O</span> <span class="p" id="g11-l0-p1">efeito</span> <span class="p" id="g11-l0-p2">de</span> <span class="p" id="g11-l0-p3">volume</span></div>
+      </div>
+      <div id="g12" class="clip grupo sombra-forte" data-start="13.833" data-duration="1.1" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g12-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g12-l0-p0">é</span> <span class="p" id="g12-l0-p1">percebido</span> <span class="p" id="g12-l0-p2">logo</span></div>
+      </div>
+      <div id="g13" class="clip grupo sombra-forte" data-start="14.933" data-duration="1.2" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g13-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g13-l0-p0">após</span> <span class="p" id="g13-l0-p1">o</span> <span class="p" id="g13-l0-p2">procedimento,</span></div>
+      </div>
+      <div id="g14" class="clip grupo sombra-forte" data-start="16.133" data-duration="0.933" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g14-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g14-l0-p0">mas</span> <span class="p" id="g14-l0-p1">nós</span> <span class="p" id="g14-l0-p2">precisamos</span></div>
+      </div>
+      <div id="g15" class="clip grupo sombra-forte" data-start="17.067" data-duration="1.3" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g15-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g15-l0-p0">levar</span> <span class="p" id="g15-l0-p1">em</span> <span class="p" id="g15-l0-p2">consideração</span></div>
+      </div>
+      <div id="g16" class="clip grupo sombra-forte" data-start="18.367" data-duration="1.567" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g16-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g16-l0-p0">7</span> <span class="p" id="g16-l0-p1">a</span> <span class="p" id="g16-l0-p2">10</span> <span class="p" id="g16-l0-p3">dias</span></div>
+      </div>
+      <div id="g17" class="clip grupo sombra-forte" data-start="19.933" data-duration="1.357" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g17-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g17-l0-p0">após</span> <span class="p" id="g17-l0-p1">o</span> <span class="p" id="g17-l0-p2">procedimento</span></div>
+      </div>
+      <div id="g18" class="clip grupo sombra-forte" data-start="21.367" data-duration="1.067" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g18-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g18-l0-p0">pra</span> <span class="p" id="g18-l0-p1">recuperação</span></div>
+      </div>
+      <div id="g19" class="clip grupo sombra-forte" data-start="22.433" data-duration="1.467" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g19-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g19-l0-p0">e</span> <span class="p" id="g19-l0-p1">acomodação</span> <span class="p" id="g19-l0-p2">do</span> <span class="p" id="g19-l0-p3">produto.</span></div>
+      </div>
+      <div id="g20" class="clip grupo sombra-forte" data-start="23.9" data-duration="1.333" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g20-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g20-l0-p0">Bioestimulador</span> <span class="p" id="g20-l0-p1">de</span> <span class="p" id="g20-l0-p2">colágeno</span></div>
+      </div>
+      <div id="g21" class="clip grupo sombra-forte" data-start="25.233" data-duration="0.8" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g21-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g21-l0-p0">é</span> <span class="p" id="g21-l0-p1">rápido?</span></div>
+      </div>
+      <div id="g22" class="clip grupo sombra-forte" data-start="26.033" data-duration="1.533" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g22-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g22-l0-p0">O</span> <span class="p" id="g22-l0-p1">bioestimulador</span> <span class="p" id="g22-l0-p2">de</span> <span class="p" id="g22-l0-p3">colágeno</span></div>
+      </div>
+      <div id="g23" class="clip grupo sombra-forte" data-start="27.567" data-duration="1.233" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g23-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g23-l0-p0">estimula</span> <span class="p" id="g23-l0-p1">o</span> <span class="p" id="g23-l0-p2">colágeno</span></div>
+      </div>
+      <div id="g24" class="clip grupo sombra-forte" data-start="28.8" data-duration="1.49" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g24-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g24-l0-p0">de</span> <span class="p" id="g24-l0-p1">forma</span> <span class="p" id="g24-l0-p2">gradativa,</span></div>
+      </div>
+      <div id="g25" class="clip grupo sombra-forte" data-start="30.467" data-duration="0.833" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g25-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g25-l0-p0">levando</span> <span class="p" id="g25-l0-p1">de</span></div>
+      </div>
+      <div id="g26" class="clip grupo sombra-forte" data-start="31.3" data-duration="1.767" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g26-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g26-l0-p0">45</span> <span class="p" id="g26-l0-p1">a</span> <span class="p" id="g26-l0-p2">90</span> <span class="p" id="g26-l0-p3">dias</span></div>
+      </div>
+      <div id="g27" class="clip grupo sombra-forte" data-start="33.067" data-duration="1.033" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g27-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g27-l0-p0">pro</span> <span class="p" id="g27-l0-p1">resultado</span> <span class="p" id="g27-l0-p2">final.</span></div>
+      </div>
+      <div id="g28" class="clip grupo sombra-forte" data-start="34.1" data-duration="1.467" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g28-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g28-l0-p0">Subcisão</span> <span class="p" id="g28-l0-p1">pra</span> <span class="p" id="g28-l0-p2">celulite.</span></div>
+      </div>
+      <div id="g29" class="clip grupo sombra-forte" data-start="35.567" data-duration="0.733" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g29-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g29-l0-p0">Dá</span> <span class="p" id="g29-l0-p1">tempo?</span></div>
+      </div>
+      <div id="g30" class="clip grupo sombra-forte" data-start="36.3" data-duration="1.167" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g30-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g30-l0-p0">Na</span> <span class="p" id="g30-l0-p1">subcisão</span> <span class="p" id="g30-l0-p2">nós</span> <span class="p" id="g30-l0-p3">temos</span></div>
+      </div>
+      <div id="g31" class="clip grupo sombra-forte" data-start="37.467" data-duration="0.833" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g31-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g31-l0-p0">também</span> <span class="p" id="g31-l0-p1">um</span> <span class="p" id="g31-l0-p2">resultado</span></div>
+      </div>
+      <div id="g32" class="clip grupo sombra-forte" data-start="38.3" data-duration="0.95" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g32-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g32-l0-p0">como</span> <span class="p" id="g32-l0-p1">pós-imediato,</span></div>
+      </div>
+      <div id="g33" class="clip grupo sombra-forte" data-start="40.067" data-duration="0.833" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g33-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g33-l0-p0">mas</span> <span class="p" id="g33-l0-p1">nós</span> <span class="p" id="g33-l0-p2">precisamos</span></div>
+      </div>
+      <div id="g34" class="clip grupo sombra-forte" data-start="40.9" data-duration="1.167" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g34-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g34-l0-p0">levar</span> <span class="p" id="g34-l0-p1">em</span> <span class="p" id="g34-l0-p2">consideração</span></div>
+      </div>
+      <div id="g35" class="clip grupo sombra-forte" data-start="42.067" data-duration="1.267" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g35-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g35-l0-p0">o</span> <span class="p" id="g35-l0-p1">tempo</span> <span class="p" id="g35-l0-p2">de</span> <span class="p" id="g35-l0-p3">recuperação</span></div>
+      </div>
+      <div id="g36" class="clip grupo sombra-forte" data-start="43.333" data-duration="0.633" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g36-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g36-l0-p0">que</span> <span class="p" id="g36-l0-p1">pode</span> <span class="p" id="g36-l0-p2">chegar</span></div>
+      </div>
+      <div id="g37" class="clip grupo sombra-forte" data-start="43.967" data-duration="1.3" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g37-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g37-l0-p0">a</span> <span class="p" id="g37-l0-p1">até</span> <span class="p" id="g37-l0-p2">40</span> <span class="p" id="g37-l0-p3">dias.</span></div>
+      </div>
+      <div id="g38" class="clip grupo sombra-forte" data-start="45.267" data-duration="1.133" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g38-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g38-l0-p0">Toxina</span> <span class="p" id="g38-l0-p1">botulínica</span></div>
+      </div>
+      <div id="g39" class="clip grupo sombra-forte" data-start="46.4" data-duration="1.333" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g39-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g39-l0-p0">pra</span> <span class="p" id="g39-l0-p1">suor</span> <span class="p" id="g39-l0-p2">excessivo.</span></div>
+      </div>
+      <div id="g40" class="clip grupo sombra-forte" data-start="47.733" data-duration="1.137" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g40-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g40-l0-p0">Quanto</span> <span class="p" id="g40-l0-p1">tempo</span> <span class="p" id="g40-l0-p2">demora?</span></div>
+      </div>
+      <div id="g41" class="clip grupo sombra-forte" data-start="48.933" data-duration="0.9" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g41-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g41-l0-p0">A</span> <span class="p" id="g41-l0-p1">toxina</span> <span class="p" id="g41-l0-p2">para</span></div>
+      </div>
+      <div id="g42" class="clip grupo sombra-forte" data-start="49.833" data-duration="1.067" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g42-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g42-l0-p0">a</span> <span class="p" id="g42-l0-p1">hiperidrose</span></div>
+      </div>
+      <div id="g43" class="clip grupo sombra-forte" data-start="50.9" data-duration="1.667" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g43-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g43-l0-p0">também</span> <span class="p" id="g43-l0-p1">tem</span> <span class="p" id="g43-l0-p2">um</span> <span class="p" id="g43-l0-p3">resultado</span></div>
+      </div>
+      <div id="g44" class="clip grupo sombra-forte" data-start="52.567" data-duration="1" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g44-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g44-l0-p0">gradativo,</span></div>
+      </div>
+      <div id="g45" class="clip grupo sombra-forte" data-start="53.567" data-duration="0.767" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g45-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g45-l0-p0">podendo</span> <span class="p" id="g45-l0-p1">levar</span> <span class="p" id="g45-l0-p2">de</span></div>
+      </div>
+      <div id="g46" class="clip grupo sombra-forte" data-start="54.333" data-duration="1.133" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g46-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g46-l0-p0">7</span> <span class="p" id="g46-l0-p1">a</span> <span class="p" id="g46-l0-p2">15</span> <span class="p" id="g46-l0-p3">dias</span></div>
+      </div>
+      <div id="g47" class="clip grupo sombra-forte" data-start="55.467" data-duration="1.033" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g47-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g47-l0-p0">pro</span> <span class="p" id="g47-l0-p1">resultado</span> <span class="p" id="g47-l0-p2">final.</span></div>
+      </div>
+      <div id="g48" class="clip grupo sombra-forte" data-start="56.5" data-duration="0.833" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g48-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g48-l0-p0">Então</span> <span class="p" id="g48-l0-p1">ainda</span> <span class="p" id="g48-l0-p2">dá</span> <span class="p" id="g48-l0-p3">tempo</span></div>
+      </div>
+      <div id="g49" class="clip grupo sombra-forte" data-start="57.333" data-duration="0.967" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g49-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g49-l0-p0">de</span> <span class="p" id="g49-l0-p1">fazer</span> <span class="p" id="g49-l0-p2">alguma</span> <span class="p" id="g49-l0-p3">coisa</span></div>
+      </div>
+      <div id="g50" class="clip grupo sombra-forte" data-start="58.3" data-duration="1.07" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g50-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g50-l0-p0">antes</span> <span class="p" id="g50-l0-p1">do</span> <span class="p" id="g50-l0-p2">verão?</span></div>
+      </div>
+      <div id="g51" class="clip grupo sombra-forte" data-start="59.567" data-duration="1.813" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g51-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g51-l0-p0">começando</span> <span class="p" id="g51-l0-p1">agora,</span></div>
+      </div>
+      <div id="g52" class="clip grupo sombra-forte" data-start="61.467" data-duration="0.867" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g52-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g52-l0-p0">dá</span> <span class="p" id="g52-l0-p1">pra</span> <span class="p" id="g52-l0-p2">se</span> <span class="p" id="g52-l0-p3">planejar</span></div>
+      </div>
+      <div id="g53" class="clip grupo sombra-forte" data-start="62.333" data-duration="0.517" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g53-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g53-l0-p0">sim,</span></div>
+      </div>
+      <div id="g54" class="clip grupo sombra-forte" data-start="62.867" data-duration="1.033" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g54-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g54-l0-p0">levando</span> <span class="p" id="g54-l0-p1">em</span> <span class="p" id="g54-l0-p2">consideração</span></div>
+      </div>
+      <div id="g55" class="clip grupo sombra-forte" data-start="63.9" data-duration="2.2" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g55-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g55-l0-p0">a</span> <span class="p" id="g55-l0-p1">evolução</span> <span class="p" id="g55-l0-p2">de</span> <span class="p" id="g55-l0-p3">cada</span> <span class="p" id="g55-l0-p4">paciente,</span></div>
+      </div>
+      <div id="g56" class="clip grupo sombra-forte" data-start="66.167" data-duration="0.7" data-layout-allow-overlap style="top:1157px;">
+        <div class="linha" id="g56-l0" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:46px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g56-l0-p0">que</span> <span class="p" id="g56-l0-p1">é</span> <span class="p" id="g56-l0-p2">algo</span> <span class="p" id="g56-l0-p3">muito</span></div>
+      </div>
+      <div id="g57" class="clip grupo sombra-forte" data-start="66.867" data-duration="0.683" data-layout-allow-overlap style="top:1148px;">
+        <div class="linha" id="g57-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:64px;letter-spacing:-0.04em;color:var(--texto);"><span class="p" id="g57-l0-p0">individual.</span></div>
+      </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 67.5 }, 0);
+    
+    window.__timelines["legendas"] = tl;
+  </script>
+</template>
