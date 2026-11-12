@@ -44,6 +44,8 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
 
 ## Regras
 
+- **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
+
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,
   celulite, flacidez de coxa). As fotos de antes e depois e das famosas são de corpo; enquadre pelo
   corpo (`"foco_fotos": "corpo"`, o padrão) e confira no snapshot que o glúteo aparece, nunca só o
@@ -85,7 +87,15 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     em negrito e o resto regular (estilo `texto`, Poppins 400 44 px, palavras com `"b": true` em
     negrito); as respostas com a mesma tipografia, a palavra que pesa em negrito; cortes secos (sem
     flash) e as reações em preto e branco (`"pb"`), com um whoosh.
-  Modelo: `projetos/bate-bola/montar_plano.py` e `abertura.py`. O vídeo veio com música: o áudio
+  Na terceira versão ela corrigiu: (1) a abertura só começa **depois** de ela dizer o título, como no
+  modelo (pausa de 4,4 s logo depois da fala); (2) no fundo, **trechos dela falando**, nunca a imagem
+  parada (pegou ela de olho fechado): `broll.py`, com a piscada medida quadro a quadro pelo mediapipe
+  (blendshape `eyeBlink` < 0,35 em todos os quadros; precisa de `apt-get install libegl1`; medir pelo
+  escuro do olho falha, os cílios e o delineado dela ficam escuros de olho fechado) e só onde ela fala;
+  (3) **estrelas chapadas como as do modelo** (sem contorno, sem degradê: amarelo #DCAB55 e algumas
+  caramelo #7C4D27, poucas e espalhadas), não douradas com brilho; (4) o fim do modelo é um **emoji**
+  em cima da frase (👀), não aspas: aspas abertas sem fechar ela notou na hora; (5) Resende com S.
+  Modelo: `projetos/bate-bola/montar_plano.py`, `broll.py` e `abertura.py`. O vídeo veio com música: o áudio
   fica como está, só entram a música da abertura e os efeitos.
 - **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o
   `reenquadrar.py` passam tudo para 30 (os da composição) antes de contar quadros.
@@ -98,7 +108,9 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
 - **Tela dividida meio a meio e esfumada** (`corte` 960, `"esfumado": true`, `"dissolve": 0.32`, a divisão bem esfumada na parte da famosa, como ela pediu no envio da Virgínia, referência 1):
   a famosa em cima, com o glúteo no meio da metade dela (`foco` no glúteo e `zoom` ~1.25), a
   biomédica embaixo; só enquanto ela fala do vídeo da famosa.
-- **Dinâmica:** planos alternando a cada 2 a 5 s (`enquadramentos` 1.22/1.5 do 4K), `zoom_lento`
-  0.035, luz quente nas mudanças de assunto, corte com whoosh nos outros (`som_cortes`).
+- **Não corte nem reenquadre o vídeo dela.** No Bate-bola ela pediu o vídeo "do jeito que ele tá":
+  as trocas de plano aberto/fechado (`enquadramentos`), os trancos e o zoom lento pareceram cortes.
+  Deixe um enquadramento só, escala 1, sem `zoom_lento`; o movimento fica nas animações por cima
+  (abertura, textos) e nos efeitos que o modelo usa (preto e branco nas reações).
 - **Fotos de pacientes são sensíveis:** ficam só no projeto local (`fotos-originais/` e
   `assets/fotos/` estão fora do git) e na página de envio; nunca em artefato publicado.
