@@ -30,6 +30,16 @@ próprio). Cada envio é um documento da coleção `envios` (ler com `db_get`/`d
 - `briefing: {tema, destaques, observacoes, musica}`, `status`, `nota` e `entrega` como nas
   páginas da imobiliária (mesmo formato de entrega, partes de até 19 MiB).
 
+**Entrega com as ferramentas novas:** corte o .mp4 em partes de até 19 MiB (nenhuma começando com
+`<`) e suba com `upload_asset`, no máximo 3 partes por chamada (o limite é uns 60 MB por envio); o
+resultado traz o sha256 de cada parte, confira contra o local. Grave `entrega` com `db_write`
+(`ifVersion` da última leitura). Pelo chat vai a versão leve (~45 MB, 5,5 Mbit/s).
+
+**Limpeza do armazenamento:** depois de baixar e conferir, apague com `delete_asset` os ids de
+`partesGrandes` e grave `partesGrandes: []`. Se a página foi fechada no meio da preparação, ficam
+pedaços soltos de uma primeira tentativa, que nenhum documento cita: compare `list_assets` com os
+ids dos documentos antes de apagar.
+
 ## Regras
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,
