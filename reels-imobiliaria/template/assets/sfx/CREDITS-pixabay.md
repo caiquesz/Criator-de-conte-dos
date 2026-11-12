@@ -33,3 +33,5 @@ All files are distributed under the [Pixabay Content License](https://pixabay.co
 - Redistribution as part of derivative works (such as videos rendered with HyperFrames)
 
 without any attribution requirement.
+
+`impacto.mp3` is not from Pixabay: it was synthesized locally (a sine sweep and filtered noise) for the opening of the biomédica series, and has no third-party rights. Rebuild it with `python3 reels-imobiliaria/scripts/sfx_impacto.py <this folder>/impacto.mp3`.

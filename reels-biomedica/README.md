@@ -15,21 +15,24 @@ resultados no momento em que ela fala delas. Os scripts são os mesmos dos Reels
 | 4 (visagismo) | Antes e depois em dois cards inclinados no alto; depois tela dividida com o antes e o depois lado a lado, separados por uma linha branca, e a legenda logo abaixo. |
 | 5 (enxerto) | Foto da famosa no fundo, atrás dela; legenda com tamanhos misturados ("o resultado do / bumbum / **da Virgínia?**"); cena em preto e branco. |
 
-**Legenda:** frases curtas (2 a 4 palavras), brancas, com sombra nas letras, sempre na mesma
-altura (na calça jeans dela, meio do bloco em y ≈ 1320) ou na emenda da tela dividida, sempre
-**na frente** da pessoa (`"legendas_na_frente": true`). Como nas referências, a frase entra
-inteira e troca seca (`"legendas_modo": "corte"`, `"legendas_pop": 0.9`): sem fade, uma nunca
-por cima da outra. Estilos: `legenda` (Poppins 700, 58 px) e `legenda-forte` (800, 80 px) para
-a palavra que pesa, letras juntas (`"tracking": {"legenda": -0.04}`, `"entrelinha": -0.02`).
-A cliente pediu Poppins e não gostou da cursiva (`manuscrita`): não use. Os tempos vêm da voz,
-como nos outros Reels (`scripts/sincronizar.py`).
+**Legenda:** como nas referências, pequena, branca, numa linha (2 a 5 palavras), na altura do
+peito (meio do bloco em y ≈ 1040, no top dela), a mesma em todo o vídeo, sempre **na frente** da
+pessoa (`"legendas_na_frente": true`). A frase entra inteira e troca seca (`"legendas_modo":
+"corte"`), sem fade: uma nunca por cima da outra. Estilos: `legenda` (Poppins 700, 46 px) e
+`legenda-forte` (800, 64 px) para a palavra que pesa, às vezes numa segunda linha (como "bumbum /
+da Virgínia?" da referência 5); letras juntas (`"tracking": {"legenda": -0.04}`, `"entrelinha":
+-0.02`). A cliente pediu Poppins e não gostou da cursiva (`manuscrita`): não use. Os tempos vêm da
+voz (`scripts/sincronizar.py`).
 
-**Motion do quadro "Caso <famosa>":** cada caso leva uma composição feita à mão
-(`compositions/motion.html`, gerada por `motion.py` no projeto; veja o da Virgínia) montada com
-`"extras": [{"id": "motion", "src": "compositions/motion.html", "z": 6}]`, com os sons dela em
-`sfx_extra`: selo do caso, índice dos capítulos, cartão de capítulo com etiqueta no canto, lista
-que cresce na fala, palavras riscadas, linha do tempo, comparação (≠) e o selo de "caso analisado"
-no fim. Branco em vidro escuro, no alto da tela, acima da cabeça dela.
+**Abertura do quadro "Caso <famosa>":** a única animação (sem cards, listas ou selos: a cliente
+recusou). Uma tela cheia logo depois do gancho, numa pausa aberta no vídeo (`"pausas": [{"em":
+8.1333, "dur": 1.8}]`, tempo do original; o `reenquadrar.py` congela a imagem e põe silêncio, e
+grava a voz exata em `assets/video/voz.wav` para o `mixar.py`, via `"video_original"`). Todos os
+tempos do plano depois da pausa andam 1,8 s, menos `enquadramentos` e `pausas`. A tela vem de
+`abertura.py` no projeto (`compositions/abertura.html`, montada com `"extras"`; sons em
+`abertura-sons.json` → `sfx_extra`): o vídeo da famosa em preto e branco no glúteo, cantos de
+enquadramento, "CASO" letra a letra, o nome caindo com o som `impacto` e a frase do gancho; luz na
+entrada e na saída.
 
 ## Fotos no vídeo
 
@@ -65,7 +68,9 @@ de `fotos` no `plano.json`, presa à fala:
   `"foco_fotos": "rosto"` enquadra pelo rosto, para um vídeo que fale de rosto.
 - **Rótulos:** `"rotulos": true` escreve ANTES e DEPOIS nos cards; uma lista troca os nomes
   (`["antes", "30 dias depois"]`). As referências não usam: ligue quando ajudar a entender.
-- **Tela dividida:** `corte` é onde a metade de cima termina (padrão 880 px); o vídeo desce sozinho
+- **Tela dividida:** meio a meio nos vídeos dela (`"corte": 960, "linha": false`, como na
+  referência 3; com uma imagem só e `"saida": "corte"`, ela já abre dividida e sai num corte seco).
+  `corte` é onde a metade de cima termina (padrão 880 px); o vídeo desce sozinho
   para os olhos dela ficarem a 30% da metade de baixo (medido pelo `preparar_fotos.py`; `desce`
   força um valor). A legenda desse trecho vai logo abaixo da linha branca (y ≈ corte + 40).
 - **Atrás dela:** precisa do recorte da pessoa (`scripts/recorte.sh`) e de `recorte` no plano

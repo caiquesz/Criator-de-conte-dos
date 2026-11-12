@@ -58,25 +58,27 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   depois em `cards` na primeira vez e `dividida` quando ela comenta os detalhes; várias famosas em
   `dividida` (carrossel); uma famosa ou um resultado em `atras`; um resultado para impressionar em
   `cheia`, curto (2 a 4 s).
-- **Legendas (pedido dela depois da v1 da Virgínia):** Poppins, letras juntas mas legíveis
-  (`legenda` 700/58 px e `legenda-forte` 800/80 px, `tracking.legenda` -0.04), a frase inteira de
-  uma vez e troca seca (`"legendas_modo": "corte"`, `"legendas_pop": 0.9`): uma legenda nunca
-  aparece com a anterior ainda na tela (na v1, "ter feito" ainda estava saindo quando "harmonização
-  glútea" entrou). **Nada de letra cursiva** (ela não gostou da Caveat em "construção").
-  **Mesma altura em todo o vídeo**, inclusive com foto em tela cheia (na v1 a legenda da foto
-  ficou baixa demais); só na tela dividida ela vai na emenda.
-- **Tela dividida: mais da biomédica que da famosa.** Na v1, metade e metade pareceu Virgínia
-  demais; agora `corte` 700 (famosa com 700 px em cima, ela com 1220) e só enquanto ela fala do
-  vídeo da famosa.
-- **Edição dinâmica, como nas referências:** planos alternando a cada 2 a 5 s (`enquadramentos`
-  1.22/1.5 do 4K), `zoom_lento` 0.035 em cada plano, luz quente nas mudanças de capítulo, corte
-  com whoosh nos outros (`som_cortes`) e som em todo evento (foto entrando e saindo, cada item de
-  motion).
-- **É um quadro: "Caso <famosa>".** Cada vídeo de famosa leva selo do caso, capítulos numerados
-  (cartão grande e depois etiqueta no canto), motion graphics do que ela fala (lista, riscado,
-  linha do tempo, comparação) e o selo "caso analisado" no fim, tudo branco em vidro escuro, no
-  alto da tela (acima da cabeça dela). Modelo: `projetos/gluteo-virginia/motion.py`, que escreve
-  `compositions/motion.html` e os sons (`motion-sons.json` → `sfx_extra`), montado com
-  `"extras"`. Só texto que ela fala: nada de afirmação médica inventada.
+- **Siga as referências à risca.** Nada de cards, listas, selos ou etiquetas animadas (na v2 da
+  Virgínia eu enchi o vídeo de motion e a cliente recusou: "não quero esses cards"). O que entra é
+  o que as referências têm: legenda, tela dividida, foto no fundo ou em tela cheia, troca de plano,
+  luz e flash nas transições, e som em cada evento.
+- **Abertura do quadro:** a única animação. Os vídeos de famosas são um quadro ("Caso <famosa>"),
+  e cada um abre com uma tela cheia, como a vinheta de um quadro de TV, logo depois do gancho (na
+  Virgínia, depois de "mas eu vou te contar agora"). Para não cobrir a fala, o vídeo ganha uma
+  pausa de 1,8 s ali (`"pausas"` no plano, aberta pelo `reenquadrar.py`; a voz não muda, a mixagem
+  lê de `assets/video/voz.wav`). Modelo: `projetos/gluteo-virginia/abertura.py` (o vídeo da famosa
+  em preto e branco no glúteo, "CASO" / nome / a frase do gancho, som de impacto), montado com
+  `"extras"` e com luz na entrada e na saída.
+- **Legendas:** como nas referências, pequenas (Poppins 700, 46 px; `legenda-forte` 800, 64 px
+  para a palavra que pesa), letras juntas (`tracking.legenda` -0.04), numa linha, na altura do
+  peito dela (meio do bloco em y 1040, no top), a mesma em todo o vídeo, inclusive na tela
+  dividida e na foto em tela cheia (na v1 a da foto ficou baixa demais). A frase entra inteira e
+  troca seca (`"legendas_modo": "corte"`): uma nunca aparece com a anterior ainda na tela (na v1,
+  "ter feito" ainda saía quando "harmonização glútea" entrou). **Nada de letra cursiva.**
+- **Tela dividida meio a meio** (`corte` 960, `"linha": false`, corte seco como na referência 3):
+  a famosa em cima, com o glúteo no meio da metade dela (`foco` no glúteo e `zoom` ~1.25), a
+  biomédica embaixo; só enquanto ela fala do vídeo da famosa.
+- **Dinâmica:** planos alternando a cada 2 a 5 s (`enquadramentos` 1.22/1.5 do 4K), `zoom_lento`
+  0.035, luz quente nas mudanças de assunto, corte com whoosh nos outros (`som_cortes`).
 - **Fotos de pacientes são sensíveis:** ficam só no projeto local (`fotos-originais/` e
   `assets/fotos/` estão fora do git) e na página de envio; nunca em artefato publicado.

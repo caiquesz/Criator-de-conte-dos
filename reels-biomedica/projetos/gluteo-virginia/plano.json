@@ -1,7 +1,7 @@
 {
  "video": "assets/video/video.mp4",
  "video_tem_audio": true,
- "duracao": 63.9,
+ "duracao": 65.7,
  "enquadramentos": [
   {
    "de": 0.0,
@@ -151,7 +151,7 @@
  "legendas": [
   {
    "id": "g1",
-   "y": 741,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
@@ -180,7 +180,7 @@
   },
   {
    "id": "g2",
-   "y": 730,
+   "y": 1008,
    "linhas": [
     {
      "estilo": "legenda-forte",
@@ -201,7 +201,7 @@
   },
   {
    "id": "g3",
-   "y": 741,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
@@ -226,7 +226,7 @@
   },
   {
    "id": "g4",
-   "y": 741,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
@@ -247,7 +247,7 @@
   },
   {
    "id": "g5",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
@@ -276,7 +276,7 @@
   },
   {
    "id": "g6",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
@@ -318,7 +318,7 @@
   },
   {
    "id": "g7",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
@@ -355,14 +355,14 @@
   },
   {
    "id": "g8",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "primeiro,",
-       "s": 8.28
+       "s": 10.08
       }
      ]
     },
@@ -371,140 +371,140 @@
      "palavras": [
       {
        "t": "a",
-       "s": 9.14
+       "s": 10.94
       },
       {
        "t": "rotina.",
-       "s": 9.34
+       "s": 11.14
       }
      ]
     }
    ],
-   "fim": 10.24,
+   "fim": 12.04,
    "sombra_forte": true
   },
   {
    "id": "g9",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "Ela",
-       "s": 10.38
+       "s": 12.18
       },
       {
        "t": "treina",
-       "s": 10.44
+       "s": 12.24
       },
       {
        "t": "todos",
-       "s": 10.66
+       "s": 12.46
       },
       {
        "t": "os",
-       "s": 11.08
+       "s": 12.88
       },
       {
        "t": "dias,",
-       "s": 11.24
+       "s": 13.04
       }
      ]
     }
    ],
-   "fim": 11.86,
+   "fim": 13.66,
    "sombra_forte": true
   },
   {
    "id": "g10",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "a",
-       "s": 11.88
+       "s": 13.68
       },
       {
        "t": "academia",
-       "s": 11.94
+       "s": 13.74
       },
       {
        "t": "em",
-       "s": 12.18
+       "s": 13.98
       },
       {
        "t": "casa,",
-       "s": 12.42
+       "s": 14.22
       }
      ]
     }
    ],
-   "fim": 13.0,
+   "fim": 14.8,
    "sombra_forte": true
   },
   {
    "id": "g11",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "se",
-       "s": 13.024
+       "s": 14.824
       },
       {
        "t": "alimenta",
-       "s": 13.16
+       "s": 14.96
       },
       {
        "t": "bem,",
-       "s": 13.62
+       "s": 15.42
       }
      ]
     }
    ],
-   "fim": 14.34,
+   "fim": 16.14,
    "sombra_forte": true
   },
   {
    "id": "g12",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "o",
-       "s": 14.36
+       "s": 16.16
       },
       {
        "t": "descanso,",
-       "s": 14.68
+       "s": 16.48
       }
      ]
     }
    ],
-   "fim": 15.14,
+   "fim": 16.94,
    "sombra_forte": true
   },
   {
    "id": "g13",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "então",
-       "s": 15.16
+       "s": 16.96
       },
       {
        "t": "o",
-       "s": 15.36
+       "s": 17.16
       }
      ]
     },
@@ -513,86 +513,86 @@
      "palavras": [
       {
        "t": "procedimento",
-       "s": 15.6
+       "s": 17.4
       }
      ]
     }
    ],
-   "fim": 16.1,
+   "fim": 17.9,
    "sombra_forte": true
   },
   {
    "id": "g14",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "entra",
-       "s": 16.12
+       "s": 17.92
       },
       {
        "t": "sobre",
-       "s": 16.54
+       "s": 18.34
       },
       {
        "t": "essa",
-       "s": 17.14
+       "s": 18.94
       },
       {
        "t": "base",
-       "s": 17.5
+       "s": 19.3
       }
      ]
     }
    ],
-   "fim": 17.86,
+   "fim": 19.66,
    "sombra_forte": true
   },
   {
    "id": "g15",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "e",
-       "s": 17.88
+       "s": 19.68
       },
       {
        "t": "não",
-       "s": 18.08
+       "s": 19.88
       },
       {
        "t": "no",
-       "s": 18.3
+       "s": 20.1
       },
       {
        "t": "lugar",
-       "s": 18.44
+       "s": 20.24
       },
       {
        "t": "dela.",
-       "s": 18.74
+       "s": 20.54
       }
      ]
     }
    ],
-   "fim": 19.07,
+   "fim": 20.87,
    "sombra_forte": true
   },
   {
    "id": "g16",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "segundo,",
-       "s": 19.24
+       "s": 21.04
       }
      ]
     },
@@ -601,169 +601,169 @@
      "palavras": [
       {
        "t": "a",
-       "s": 19.92
+       "s": 21.72
       },
       {
        "t": "genética.",
-       "s": 20.1
+       "s": 21.9
       }
      ]
     }
    ],
-   "fim": 20.88,
+   "fim": 22.68,
    "sombra_forte": true
   },
   {
    "id": "g17",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "Tem",
-       "s": 20.9
+       "s": 22.7
       },
       {
        "t": "corpos",
-       "s": 21.02
+       "s": 22.82
       },
       {
        "t": "que",
-       "s": 21.48
+       "s": 23.28
       },
       {
        "t": "nascem",
-       "s": 21.72
+       "s": 23.52
       }
      ]
     }
    ],
-   "fim": 21.94,
+   "fim": 23.74,
    "sombra_forte": true
   },
   {
    "id": "g18",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "com",
-       "s": 21.96
+       "s": 23.76
       },
       {
        "t": "mais",
-       "s": 22.18
+       "s": 23.98
       },
       {
        "t": "glúteos",
-       "s": 22.38
+       "s": 24.18
       }
      ]
     }
    ],
-   "fim": 22.88,
+   "fim": 24.68,
    "sombra_forte": true
   },
   {
    "id": "g19",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "e",
-       "s": 22.9
+       "s": 24.7
       },
       {
        "t": "outros",
-       "s": 23.08
+       "s": 24.88
       },
       {
        "t": "não,",
-       "s": 23.46
+       "s": 25.26
       }
      ]
     }
    ],
-   "fim": 24.01,
+   "fim": 25.81,
    "sombra_forte": true
   },
   {
    "id": "g20",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "e",
-       "s": 24.032
+       "s": 25.832
       },
       {
        "t": "isso",
-       "s": 24.26
+       "s": 26.06
       },
       {
        "t": "não",
-       "s": 24.46
+       "s": 26.26
       },
       {
        "t": "é",
-       "s": 24.66
+       "s": 26.46
       },
       {
        "t": "mérito",
-       "s": 24.86
+       "s": 26.66
       }
      ]
     }
    ],
-   "fim": 25.18,
+   "fim": 26.98,
    "sombra_forte": true
   },
   {
    "id": "g21",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "e",
-       "s": 25.2
+       "s": 27.0
       },
       {
        "t": "nem",
-       "s": 25.54
+       "s": 27.34
       },
       {
        "t": "culpa,",
-       "s": 25.72
+       "s": 27.52
       }
      ]
     }
    ],
-   "fim": 26.44,
+   "fim": 28.24,
    "sombra_forte": true
   },
   {
    "id": "g22",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "é",
-       "s": 26.464
+       "s": 28.264
       },
       {
        "t": "o",
-       "s": 26.62
+       "s": 28.42
       }
      ]
     },
@@ -772,107 +772,107 @@
      "palavras": [
       {
        "t": "ponto",
-       "s": 26.74
+       "s": 28.54
       },
       {
        "t": "de",
-       "s": 26.98
+       "s": 28.78
       },
       {
        "t": "partida.",
-       "s": 27.18
+       "s": 28.98
       }
      ]
     }
    ],
-   "fim": 27.7,
+   "fim": 29.5,
    "sombra_forte": true
   },
   {
    "id": "g23",
-   "y": 1280,
+   "y": 1008,
    "linhas": [
     {
      "estilo": "legenda-forte",
      "palavras": [
       {
        "t": "terceiro,",
-       "s": 27.8
+       "s": 29.6
       }
      ]
     }
    ],
-   "fim": 28.78,
+   "fim": 30.58,
    "sombra_forte": true
   },
   {
    "id": "g24",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "e",
-       "s": 28.8
+       "s": 30.6
       },
       {
        "t": "ela",
-       "s": 28.96
+       "s": 30.76
       },
       {
        "t": "mesma",
-       "s": 29.18
+       "s": 30.98
       },
       {
        "t": "contou,",
-       "s": 29.42
+       "s": 31.22
       }
      ]
     }
    ],
-   "fim": 30.24,
+   "fim": 32.04,
    "sombra_forte": true
   },
   {
    "id": "g25",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "o",
-       "s": 30.26
+       "s": 32.06
       },
       {
        "t": "glúteo",
-       "s": 30.34
+       "s": 32.14
       },
       {
        "t": "dela",
-       "s": 30.68
+       "s": 32.48
       },
       {
        "t": "é",
-       "s": 30.92
+       "s": 32.72
       }
      ]
     }
    ],
-   "fim": 31.18,
+   "fim": 32.98,
    "sombra_forte": true
   },
   {
    "id": "g26",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "uma",
-       "s": 31.2
+       "s": 33.0
       }
      ]
     },
@@ -881,124 +881,124 @@
      "palavras": [
       {
        "t": "construção.",
-       "s": 31.58
+       "s": 33.38
       }
      ]
     }
    ],
-   "fim": 32.16,
+   "fim": 33.96,
    "sombra_forte": true
   },
   {
    "id": "g27",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "Ela",
-       "s": 32.18
+       "s": 33.98
       },
       {
        "t": "já",
-       "s": 32.32
+       "s": 34.12
       },
       {
        "t": "mostrou",
-       "s": 32.66
+       "s": 34.46
       }
      ]
     }
    ],
-   "fim": 33.04,
+   "fim": 34.84,
    "sombra_forte": true
   },
   {
    "id": "g28",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "ter",
-       "s": 33.06
+       "s": 34.86
       },
       {
        "t": "feito",
-       "s": 33.32
+       "s": 35.12
       },
       {
        "t": "a",
-       "s": 33.68
+       "s": 35.48
       }
      ]
     }
    ],
-   "fim": 33.88,
+   "fim": 35.68,
    "sombra_forte": true
   },
   {
    "id": "g29",
-   "y": 1280,
+   "y": 1008,
    "linhas": [
     {
      "estilo": "legenda-forte",
      "palavras": [
       {
        "t": "harmonização",
-       "s": 33.9
+       "s": 35.7
       },
       {
        "t": "glútea",
-       "s": 34.38
+       "s": 36.18
       }
      ]
     }
    ],
-   "fim": 35.12,
+   "fim": 36.92,
    "sombra_forte": true
   },
   {
    "id": "g30",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "e",
-       "s": 35.136
+       "s": 36.936
       },
       {
        "t": "hoje",
-       "s": 35.28
+       "s": 37.08
       },
       {
        "t": "mantém",
-       "s": 35.5
+       "s": 37.3
       }
      ]
     }
    ],
-   "fim": 35.9,
+   "fim": 37.7,
    "sombra_forte": true
   },
   {
    "id": "g31",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "com",
-       "s": 35.92
+       "s": 37.72
       },
       {
        "t": "o",
-       "s": 36.1
+       "s": 37.9
       }
      ]
     },
@@ -1007,91 +1007,91 @@
      "palavras": [
       {
        "t": "bioestimulador",
-       "s": 36.24
+       "s": 38.04
       }
      ]
     }
    ],
-   "fim": 36.8,
+   "fim": 38.6,
    "sombra_forte": true
   },
   {
    "id": "g32",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "de",
-       "s": 36.82
+       "s": 38.62
       },
       {
        "t": "colágeno.",
-       "s": 37.04
+       "s": 38.84
       }
      ]
     }
    ],
-   "fim": 37.48,
+   "fim": 39.28,
    "sombra_forte": true
   },
   {
    "id": "g33",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "O",
-       "s": 37.5
+       "s": 39.3
       },
       {
        "t": "preenchedor",
-       "s": 37.64
+       "s": 39.44
       },
       {
        "t": "e",
-       "s": 38.22
+       "s": 40.02
       }
      ]
     }
    ],
-   "fim": 38.34,
+   "fim": 40.14,
    "sombra_forte": true
   },
   {
    "id": "g34",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "o",
-       "s": 38.36
+       "s": 40.16
       },
       {
        "t": "bioestimulador",
-       "s": 38.54
+       "s": 40.34
       }
      ]
     }
    ],
-   "fim": 39.4,
+   "fim": 41.2,
    "sombra_forte": true
   },
   {
    "id": "g35",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "fazem",
-       "s": 39.42
+       "s": 41.22
       }
      ]
     },
@@ -1100,144 +1100,144 @@
      "palavras": [
       {
        "t": "efeitos",
-       "s": 39.88
+       "s": 41.68
       },
       {
        "t": "distintos,",
-       "s": 40.58
+       "s": 42.38
       }
      ]
     }
    ],
-   "fim": 41.48,
+   "fim": 43.28,
    "sombra_forte": true
   },
   {
    "id": "g36",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "mas",
-       "s": 41.7
+       "s": 43.5
       },
       {
        "t": "cada",
-       "s": 41.92
+       "s": 43.72
       },
       {
        "t": "um",
-       "s": 42.3
+       "s": 44.1
       },
       {
        "t": "teve",
-       "s": 42.62
+       "s": 44.42
       }
      ]
     }
    ],
-   "fim": 42.86,
+   "fim": 44.66,
    "sombra_forte": true
   },
   {
    "id": "g37",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "o",
-       "s": 42.88
+       "s": 44.68
       },
       {
        "t": "seu",
-       "s": 43.02
+       "s": 44.82
       },
       {
        "t": "momento",
-       "s": 43.14
+       "s": 44.94
       }
      ]
     }
    ],
-   "fim": 43.48,
+   "fim": 45.28,
    "sombra_forte": true
   },
   {
    "id": "g38",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "na",
-       "s": 43.5
+       "s": 45.3
       },
       {
        "t": "história",
-       "s": 43.74
+       "s": 45.54
       },
       {
        "t": "dela.",
-       "s": 44.04
+       "s": 45.84
       }
      ]
     }
    ],
-   "fim": 44.38,
+   "fim": 46.18,
    "sombra_forte": true
   },
   {
    "id": "g39",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "Isso",
-       "s": 44.4
+       "s": 46.2
       },
       {
        "t": "é",
-       "s": 44.54
+       "s": 46.34
       },
       {
        "t": "um",
-       "s": 44.7
+       "s": 46.5
       },
       {
        "t": "trabalho",
-       "s": 44.82
+       "s": 46.62
       }
      ]
     }
    ],
-   "fim": 45.12,
+   "fim": 46.92,
    "sombra_forte": true
   },
   {
    "id": "g40",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "de",
-       "s": 45.14
+       "s": 46.94
       },
       {
        "t": "anos",
-       "s": 45.46
+       "s": 47.26
       },
       {
        "t": "com",
-       "s": 45.7
+       "s": 47.5
       }
      ]
     },
@@ -1246,86 +1246,86 @@
      "palavras": [
       {
        "t": "acompanhamento.",
-       "s": 46.04
+       "s": 47.84
       }
      ]
     }
    ],
-   "fim": 46.94,
+   "fim": 48.74,
    "sombra_forte": true
   },
   {
    "id": "g41",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "Então",
-       "s": 46.98
+       "s": 48.78
       },
       {
        "t": "quando",
-       "s": 47.18
+       "s": 48.98
       },
       {
        "t": "uma",
-       "s": 47.4
+       "s": 49.2
       },
       {
        "t": "paciente",
-       "s": 47.64
+       "s": 49.44
       }
      ]
     }
    ],
-   "fim": 48.16,
+   "fim": 49.96,
    "sombra_forte": true
   },
   {
    "id": "g42",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "me",
-       "s": 48.18
+       "s": 49.98
       },
       {
        "t": "chega",
-       "s": 48.5
+       "s": 50.3
       },
       {
        "t": "como",
-       "s": 48.74
+       "s": 50.54
       },
       {
        "t": "referência",
-       "s": 49.12
+       "s": 50.92
       }
      ]
     }
    ],
-   "fim": 49.7,
+   "fim": 51.5,
    "sombra_forte": true
   },
   {
    "id": "g43",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "o",
-       "s": 49.72
+       "s": 51.52
       },
       {
        "t": "glúteo",
-       "s": 49.86
+       "s": 51.66
       }
      ]
     },
@@ -1334,315 +1334,315 @@
      "palavras": [
       {
        "t": "da",
-       "s": 50.22
+       "s": 52.02
       },
       {
        "t": "Virgínia,",
-       "s": 50.4
+       "s": 52.2
       }
      ]
     }
    ],
-   "fim": 51.18,
+   "fim": 52.98,
    "sombra_forte": true
   },
   {
    "id": "g44",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "eu",
-       "s": 51.2
+       "s": 53.0
       },
       {
        "t": "já",
-       "s": 51.36
+       "s": 53.16
       },
       {
        "t": "entendo",
-       "s": 51.62
+       "s": 53.42
       }
      ]
     }
    ],
-   "fim": 51.9,
+   "fim": 53.7,
    "sombra_forte": true
   },
   {
    "id": "g45",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "o",
-       "s": 51.92
+       "s": 53.72
       },
       {
        "t": "desejo",
-       "s": 52.14
+       "s": 53.94
       },
       {
        "t": "dela.",
-       "s": 52.44
+       "s": 54.24
       }
      ]
     }
    ],
-   "fim": 52.78,
+   "fim": 54.58,
    "sombra_forte": true
   },
   {
    "id": "g46",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "Mas",
-       "s": 52.8
+       "s": 54.6
       },
       {
        "t": "é",
-       "s": 52.92
+       "s": 54.72
       },
       {
        "t": "importante",
-       "s": 53.18
+       "s": 54.98
       },
       {
        "t": "pontuar",
-       "s": 53.72
+       "s": 55.52
       }
      ]
     }
    ],
-   "fim": 54.32,
+   "fim": 56.12,
    "sombra_forte": true
   },
   {
    "id": "g47",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "a",
-       "s": 54.34
+       "s": 56.14
       },
       {
        "t": "série",
-       "s": 54.56
+       "s": 56.36
       },
       {
        "t": "de",
-       "s": 54.84
+       "s": 56.64
       },
       {
        "t": "cuidados",
-       "s": 55.16
+       "s": 56.96
       }
      ]
     }
    ],
-   "fim": 55.5,
+   "fim": 57.3,
    "sombra_forte": true
   },
   {
    "id": "g48",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "que",
-       "s": 55.52
+       "s": 57.32
       },
       {
        "t": "ela",
-       "s": 55.68
+       "s": 57.48
       },
       {
        "t": "tem",
-       "s": 55.88
+       "s": 57.68
       }
      ]
     }
    ],
-   "fim": 56.08,
+   "fim": 57.88,
    "sombra_forte": true
   },
   {
    "id": "g49",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "com",
-       "s": 56.1
+       "s": 57.9
       },
       {
        "t": "ela",
-       "s": 56.34
+       "s": 58.14
       },
       {
        "t": "mesma.",
-       "s": 56.5
+       "s": 58.3
       }
      ]
     }
    ],
-   "fim": 57.0,
+   "fim": 58.8,
    "sombra_forte": true
   },
   {
    "id": "g50",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "E",
-       "s": 57.02
+       "s": 58.82
       },
       {
        "t": "o",
-       "s": 57.16
+       "s": 58.96
       },
       {
        "t": "seu",
-       "s": 57.3
+       "s": 59.1
       },
       {
        "t": "cuidado",
-       "s": 57.48
+       "s": 59.28
       }
      ]
     }
    ],
-   "fim": 57.96,
+   "fim": 59.76,
    "sombra_forte": true
   },
   {
    "id": "g51",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "também",
-       "s": 57.98
+       "s": 59.78
       },
       {
        "t": "pode",
-       "s": 58.46
+       "s": 60.26
       }
      ]
     }
    ],
-   "fim": 58.72,
+   "fim": 60.52,
    "sombra_forte": true
   },
   {
    "id": "g52",
-   "y": 1280,
+   "y": 1008,
    "linhas": [
     {
      "estilo": "legenda-forte",
      "palavras": [
       {
        "t": "começar",
-       "s": 58.74
+       "s": 60.54
       },
       {
        "t": "agora,",
-       "s": 59.18
+       "s": 60.98
       }
      ]
     }
    ],
-   "fim": 60.0,
+   "fim": 61.8,
    "sombra_forte": true
   },
   {
    "id": "g53",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "assim",
-       "s": 60.02
+       "s": 61.82
       },
       {
        "t": "você",
-       "s": 60.32
+       "s": 62.12
       },
       {
        "t": "terá",
-       "s": 60.74
+       "s": 62.54
       }
      ]
     }
    ],
-   "fim": 61.0,
+   "fim": 62.8,
    "sombra_forte": true
   },
   {
    "id": "g54",
-   "y": 1291,
+   "y": 1017,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "um",
-       "s": 61.02
+       "s": 62.82
       },
       {
        "t": "resultado",
-       "s": 61.2
+       "s": 63.0
       },
       {
        "t": "tão",
-       "s": 61.48
+       "s": 63.28
       },
       {
        "t": "atrativo",
-       "s": 61.88
+       "s": 63.68
       }
      ]
     }
    ],
-   "fim": 62.48,
+   "fim": 64.28,
    "sombra_forte": true
   },
   {
    "id": "g55",
-   "y": 1257,
+   "y": 986,
    "linhas": [
     {
      "estilo": "legenda",
      "palavras": [
       {
        "t": "quanto",
-       "s": 62.5
+       "s": 64.3
       },
       {
        "t": "o",
-       "s": 62.78
+       "s": 64.58
       }
      ]
     },
@@ -1651,16 +1651,16 @@
      "palavras": [
       {
        "t": "da",
-       "s": 62.94
+       "s": 64.74
       },
       {
        "t": "Virgínia.",
-       "s": 63.0
+       "s": 64.8
       }
      ]
     }
    ],
-   "fim": 63.88,
+   "fim": 65.68,
    "sombra_forte": true
   }
  ],
@@ -1668,35 +1668,30 @@
   {
    "id": "f1",
    "layout": "dividida",
-   "esfumado": true,
-   "dissolve": 0.26,
    "inicio": 0.0,
    "fim": 4.7333,
-   "corte": 700,
+   "corte": 960,
+   "linha": false,
+   "saida": "corte",
    "imagens": [
     {
      "src": "assets/fotos/virginia-tela.mp4",
      "foco": [
       0.47,
-      0.62
-     ]
+      0.67
+     ],
+     "zoom": 1.25
     }
-   ],
-   "saida": "corte"
+   ]
   },
   {
    "id": "f2",
    "layout": "cheia",
-   "inicio": 49.7,
-   "fim": 52.0,
-   "centro": [
-    0.5,
-    0.45
-   ],
+   "inicio": 51.5,
+   "fim": 53.8,
    "imagens": [
     {
-     "src": "assets/fotos/virginia-foto.jpg",
-     "zoom": 1.4
+     "src": "assets/fotos/virginia-foto.jpg"
     }
    ]
   }
@@ -1711,68 +1706,71 @@
    "tipo": "luz"
   },
   {
-   "t": 12.9,
-   "tipo": "corte"
-  },
-  {
-   "t": 14.1333,
-   "tipo": "corte"
-  },
-  {
-   "t": 19.0667,
+   "t": 9.9333,
    "tipo": "luz"
   },
   {
-   "t": 23.8667,
+   "t": 14.7,
    "tipo": "corte"
   },
   {
-   "t": 26.2667,
+   "t": 15.9333,
    "tipo": "corte"
   },
   {
-   "t": 27.7,
+   "t": 20.8667,
    "tipo": "luz"
   },
   {
-   "t": 32.0333,
+   "t": 25.6667,
    "tipo": "corte"
   },
   {
-   "t": 35.0667,
+   "t": 28.0667,
    "tipo": "corte"
   },
   {
-   "t": 37.5,
+   "t": 29.5,
+   "tipo": "luz"
+  },
+  {
+   "t": 33.8333,
    "tipo": "corte"
   },
   {
-   "t": 44.3,
+   "t": 36.8667,
    "tipo": "corte"
   },
   {
-   "t": 46.8667,
+   "t": 39.3,
    "tipo": "corte"
   },
   {
-   "t": 51.1333,
+   "t": 46.1,
    "tipo": "corte"
   },
   {
-   "t": 52.7333,
+   "t": 48.6667,
    "tipo": "corte"
   },
   {
-   "t": 56.8667,
+   "t": 52.9333,
    "tipo": "corte"
   },
   {
-   "t": 59.7333,
+   "t": 54.5333,
+   "tipo": "corte"
+  },
+  {
+   "t": 58.6667,
+   "tipo": "corte"
+  },
+  {
+   "t": 61.5333,
    "tipo": "corte"
   }
  ],
  "legendas_modo": "corte",
- "legendas_pop": 0.9,
  "tracking": {
   "legenda": -0.04
  },
@@ -1783,217 +1781,39 @@
  },
  "extras": [
   {
-   "id": "motion",
-   "src": "compositions/motion.html",
+   "id": "abertura",
+   "src": "compositions/abertura.html",
    "z": 6
   }
  ],
  "sfx_extra": [
   {
-   "t": 0.4,
-   "som": "pop",
-   "vol": 0.4
+   "t": 8.553,
+   "som": "impacto",
+   "vol": 0.8
   },
   {
-   "t": 6.6,
-   "som": "click",
-   "vol": 0.4
-  },
-  {
-   "t": 6.85,
-   "som": "click",
-   "vol": 0.4
-  },
-  {
-   "t": 7.1,
-   "som": "click",
-   "vol": 0.4
-  },
-  {
-   "t": 8.3,
-   "som": "pop",
-   "vol": 0.45
-  },
-  {
-   "t": 9.95,
+   "t": 8.873,
    "som": "click",
    "vol": 0.35
   },
   {
-   "t": 19.22,
-   "som": "pop",
-   "vol": 0.45
-  },
-  {
-   "t": 20.8,
-   "som": "click",
-   "vol": 0.35
-  },
-  {
-   "t": 27.88,
-   "som": "pop",
-   "vol": 0.45
-  },
-  {
-   "t": 28.9,
-   "som": "click",
-   "vol": 0.35
-  },
-  {
-   "t": 10.52,
-   "som": "click-agudo",
-   "vol": 0.5
-  },
-  {
-   "t": 12.02,
-   "som": "click-agudo",
-   "vol": 0.5
-  },
-  {
-   "t": 13.14,
-   "som": "click-agudo",
-   "vol": 0.5
-  },
-  {
-   "t": 14.5,
-   "som": "click-agudo",
-   "vol": 0.5
-  },
-  {
-   "t": 15.62,
-   "som": "pop",
-   "vol": 0.5
-  },
-  {
-   "t": 24.86,
-   "som": "click",
-   "vol": 0.4
-  },
-  {
-   "t": 25.18,
-   "som": "click-tecla",
-   "vol": 0.4
-  },
-  {
-   "t": 25.72,
-   "som": "click",
-   "vol": 0.4
-  },
-  {
-   "t": 26.04,
-   "som": "click-tecla",
-   "vol": 0.4
-  },
-  {
-   "t": 26.5,
-   "som": "whoosh-rapido",
-   "vol": 0.35
-  },
-  {
-   "t": 28.98,
-   "som": "whoosh-rapido",
-   "vol": 0.45
-  },
-  {
-   "t": 31.65,
-   "som": "whoosh",
-   "vol": 0.3
-  },
-  {
-   "t": 34.0,
-   "som": "click-agudo",
-   "vol": 0.45
-  },
-  {
-   "t": 36.34,
-   "som": "click-agudo",
-   "vol": 0.45
-  },
-  {
-   "t": 33.6,
-   "som": "whoosh-rapido",
-   "vol": 0.3
-  },
-  {
-   "t": 37.66,
-   "som": "pop",
-   "vol": 0.45
-  },
-  {
-   "t": 38.56,
-   "som": "pop",
-   "vol": 0.45
-  },
-  {
-   "t": 39.9,
-   "som": "click-agudo",
-   "vol": 0.5
-  },
-  {
-   "t": 44.45,
-   "som": "whoosh-rapido",
-   "vol": 0.35
-  },
-  {
-   "t": 45.14,
-   "som": "click",
-   "vol": 0.35
-  },
-  {
-   "t": 54.33,
-   "som": "whoosh-rapido",
-   "vol": 0.35
-  },
-  {
-   "t": 54.56,
-   "som": "click",
-   "vol": 0.32
-  },
-  {
-   "t": 54.8,
-   "som": "click",
-   "vol": 0.32
-  },
-  {
-   "t": 55.04,
-   "som": "click",
-   "vol": 0.32
-  },
-  {
-   "t": 55.28,
-   "som": "click",
-   "vol": 0.32
-  },
-  {
-   "t": 55.52,
-   "som": "click",
-   "vol": 0.32
-  },
-  {
-   "t": 60.1,
-   "som": "pop",
-   "vol": 0.5
-  },
-  {
-   "t": 60.45,
-   "som": "click-agudo",
-   "vol": 0.45
-  },
-  {
-   "t": 0.05,
-   "som": "whoosh-grave",
-   "vol": 0.4
-  },
-  {
-   "t": 52.0,
+   "t": 53.8,
    "som": "whoosh-rapido",
    "vol": 0.4
   }
  ],
  "sfx_remover": [
   {
-   "t": 51.1333
+   "t": 52.9333
   }
  ],
- "entrelinha": -0.02
+ "entrelinha": -0.02,
+ "pausas": [
+  {
+   "em": 8.1333,
+   "dur": 1.8
+  }
+ ],
+ "video_original": "assets/video/voz.wav"
 }

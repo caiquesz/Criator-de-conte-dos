@@ -16,7 +16,17 @@ bordas. O corte sai do original (4K do celular), então o plano fechado não per
 
 Escreve assets/video/video.mp4 (o vídeo sem reenquadrar fica em video-aberto.mp4), com o áudio
 original copiado sem mexer, e confere que o resultado tem os mesmos quadros do original.
+
+"pausas": [{"em": 8.1333, "dur": 1.8}] (tempo do original) abre um respiro no vídeo para uma
+abertura em tela cheia (a abertura do quadro da biomédica): a imagem fica parada e o som em
+silêncio nesse trecho, e o resto anda para a frente. A voz não muda: o áudio do vídeo é
+recodificado para caber o silêncio, então a mixagem lê a voz de assets/video/voz.wav (o original
+decodificado, com zeros exatos na pausa; ponha "video_original": "assets/video/voz.wav" no plano).
+Todos os outros tempos do plano (legendas, fotos, transições) ficam no tempo novo; só os
+"enquadramentos" e as "pausas" ficam no tempo do original.
 """
+
+import numpy as np
 
 import json
 import shutil
@@ -72,16 +82,56 @@ def main():
                        f"crop={cw}:{ch}:{x0}:{y0},scale={L}:{A}:flags=lanczos,setsar=1[v{i}]")
         ramos.append(i)
         print(f"{a / fps:6.2f}–{b / fps:6.2f} s: escala {esc:.2f}, corte {cw}×{ch} em ({x0}, {y0})")
+    pausas = sorted((round(p["em"] * fps), round(p["dur"] * fps)) for p in plano.get("pausas", []))
     grafo = (f"[0:v]split={len(ramos)}" + "".join(f"[s{i}]" for i in ramos) + ";" + ";".join(filtros) + ";"
-             + "".join(f"[v{i}]" for i in ramos) + f"concat=n={len(ramos)}:v=1:a=0,setpts=N/({num}/{den})/TB[o]")
+             + "".join(f"[v{i}]" for i in ramos) + f"concat=n={len(ramos)}:v=1:a=0,setpts=N/({num}/{den})/TB"
+             + ("[o]" if not pausas else "[r]"))
+    audio = ["-map", "0:a:0", "-c:a", "copy"]
+    if pausas:
+        # cada pedaço entre pausas; a imagem do último quadro antes da pausa fica parada nela
+        taxa = int(subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a:0", "-show_entries", "stream=sample_rate",
+                                   "-of", "csv=p=0", str(original)], capture_output=True, text=True, check=True).stdout.strip())
+        cortes = [0] + [q for q, _ in pausas] + [total]
+        k = len(cortes) - 1
+        grafo += f";[r]split={k}" + "".join(f"[r{j}]" for j in range(k)) + f";[0:a:0]asplit={k}" + "".join(f"[a{j}]" for j in range(k))
+        for j in range(k):
+            a, b = cortes[j], cortes[j + 1]
+            para = f",tpad=stop_mode=clone:stop={pausas[j][1]}" if j < len(pausas) else ""
+            grafo += f";[r{j}]trim=start_frame={a}:end_frame={b},setpts=PTS-STARTPTS{para}[w{j}]"
+            sa, sb = round(a / fps * taxa), round(b / fps * taxa)
+            fim_a = f":end_sample={sb}" if j < k - 1 else ""
+            silencio = f",apad=pad_len={round(pausas[j][1] / fps * taxa)}" if j < len(pausas) else ""
+            grafo += f";[a{j}]atrim=start_sample={sa}{fim_a},asetpts=PTS-STARTPTS{silencio}[x{j}]"
+        grafo += ";" + "".join(f"[w{j}][x{j}]" for j in range(k)) + f"concat=n={k}:v=1:a=1[o0][oa]"
+        grafo += f";[o0]setpts=N/({num}/{den})/TB[o]"
+        audio = ["-map", "[oa]", "-c:a", "aac", "-b:a", "320k"]
+        for q, d in pausas:
+            print(f"pausa de {d / fps:.2f} s em {q / fps:.2f} s (imagem parada, silêncio)")
     saida = v / "video.mp4"
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(original), "-filter_complex", grafo, "-map", "[o]",
-                    "-map", "0:a:0", "-fps_mode", "passthrough", "-c:v", "libx264", "-crf", "14", "-preset", "slow",
-                    "-g", "30", "-pix_fmt", "yuv420p", "-c:a", "copy", str(saida)], check=True)
+                    *audio, "-fps_mode", "passthrough", "-c:v", "libx264", "-crf", "14", "-preset", "slow",
+                    "-g", "30", "-pix_fmt", "yuv420p", str(saida)], check=True)
+    esperado = total + sum(d for _, d in pausas)
     n = quadros(saida)
-    if n != total:
-        raise SystemExit(f"o reenquadrado tem {n} quadros, o original {total}: imagem sairia da voz")
-    print(f"ok ({n} quadros, mesmos do original): {saida}")
+    if n != esperado:
+        raise SystemExit(f"o reenquadrado tem {n} quadros, esperava {esperado}: imagem sairia da voz")
+    if pausas:
+        # a voz para a mixagem: o original decodificado como o mixar.py faz, com zeros exatos nas pausas
+        TAXA = 48000
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(original), "-vn", "-ac", "2", "-ar", str(TAXA),
+                              "-f", "f32le", "-"], capture_output=True, check=True).stdout
+        voz = np.frombuffer(raw, np.float32).reshape(-1, 2)
+        partes, ini = [], 0
+        for q, d in pausas:
+            corte = round(q / fps * TAXA)
+            partes += [voz[ini:corte], np.zeros((round(d / fps * TAXA), 2), np.float32)]
+            ini = corte
+        partes.append(voz[ini:])
+        wav = v / "voz.wav"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(TAXA), "-ac", "2", "-i", "-",
+                        "-c:a", "pcm_f32le", str(wav)], input=np.concatenate(partes).tobytes(), check=True)
+        print(f"voz para a mixagem (original com as pausas): {wav}")
+    print(f"ok ({n} quadros{', os do original mais as pausas' if pausas else ', mesmos do original'}): {saida}")
 
 
 if __name__ == "__main__":

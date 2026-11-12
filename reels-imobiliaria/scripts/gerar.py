@@ -41,8 +41,9 @@ ESTILOS = {
     "frase-fina":  {"familia": "Poppins Reels", "peso": 400, "italico": False, "tam": 46, "arquivo": "Poppins-400.ttf"},
     "frase-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 86, "arquivo": "Poppins-800.ttf"},
     # legenda das referências 3 e 4 da biomédica: Poppins negrito, letras juntas, frase inteira
-    "legenda":       {"familia": "Poppins Reels", "peso": 700, "italico": False, "tam": 58, "arquivo": "Poppins-700.ttf"},
-    "legenda-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 80, "arquivo": "Poppins-800.ttf"},
+    # legenda das referências da biomédica: pequena, numa linha, na altura do peito
+    "legenda":       {"familia": "Poppins Reels", "peso": 700, "italico": False, "tam": 46, "arquivo": "Poppins-700.ttf"},
+    "legenda-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 64, "arquivo": "Poppins-800.ttf"},
     # palavra escrita à mão (referência 2 da biomédica)
     "manuscrita":  {"familia": "Caveat", "peso": 600, "italico": False, "tam": 96, "arquivo": "Caveat-600.ttf"},
 }
@@ -51,10 +52,12 @@ ESTILOS = {
 DURACAO_SFX = {
     "click": 0.366, "click-agudo": 0.34, "click-tecla": 0.432, "pop": 0.72,
     "whoosh": 0.575, "whoosh-grave": 0.731, "whoosh-rapido": 0.549, "whoosh-transicao": 1.944,
+    "impacto": 1.4,
 }
 PICO_SFX = {
     "click": 0.073, "click-agudo": 0.062, "click-tecla": 0.076, "pop": 0.12,
     "whoosh": 0.162, "whoosh-grave": 0.197, "whoosh-rapido": 0.14, "whoosh-transicao": 0.803,
+    "impacto": 0.012,
 }
 CLIQUES = ["click", "click-agudo", "click"]
 WHOOSH_TRANSICAO = ["whoosh-transicao", "whoosh-grave"]
@@ -595,8 +598,13 @@ def gerar_fotos(plano, duracao, camada):
                 else:
                     js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.5, ease:"power2.inOut"}}, {num(fim - 0.52)});')
             else:
-                js.append(f'tl.fromTo("#{fid}-p", {{yPercent:-100}}, {{yPercent:0, duration:0.5, ease:"expo.out"}}, {num(ini)});')
-                js.append(f'tl.to("#{fid}-p", {{yPercent:-100, duration:0.42, ease:"expo.in"}}, {num(fim - 0.44)});')
+                # no começo do vídeo já abre dividida (referência 3); depois, o painel desce do alto
+                if ini >= 0.05:
+                    js.append(f'tl.fromTo("#{fid}-p", {{yPercent:-100}}, {{yPercent:0, duration:0.5, ease:"expo.out"}}, {num(ini)});')
+                if f.get("saida") == "corte":   # sai num corte seco, no mesmo quadro do vídeo
+                    js.append(f'tl.to("#{fid}-p", {{opacity:0, duration:0.004}}, {num(fim - 0.006)});')
+                else:
+                    js.append(f'tl.to("#{fid}-p", {{yPercent:-100, duration:0.42, ease:"expo.in"}}, {num(fim - 0.44)});')
 
         elif lay == "atras":
             # a pessoa da foto fica ao lado e acima da cabeça de quem fala, não escondida atrás dela
@@ -702,7 +710,7 @@ def eventos_sfx(plano):
             ev.append((f["inicio"] + 0.08, "whoosh-rapido", 0.45))
             ev.append((f["inicio"] + 0.55, "click", 0.45))
         elif f["layout"] == "dividida":
-            if not (f.get("esfumado") and f["inicio"] < 0.3):   # abrindo o vídeo já dividido: sem whoosh
+            if f["inicio"] >= 0.3:   # abrindo o vídeo já dividido: sem whoosh
                 ev.append((f["inicio"] + 0.05, "whoosh", 0.45))
         elif f["layout"] == "cheia" and f.get("entrada", "flash") == "flash":
             ev.append((f["inicio"], "whoosh-rapido", 0.5))
