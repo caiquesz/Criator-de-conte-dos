@@ -63,19 +63,22 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   o que as referências têm: legenda, tela dividida, foto no fundo ou em tela cheia, troca de plano,
   luz e flash nas transições, e som em cada evento.
 - **Abertura do quadro:** a única animação. Os vídeos de famosas são um quadro ("Caso <famosa>"),
-  e cada um abre com uma tela cheia, como a vinheta de um quadro de TV, logo depois do gancho (na
+  e cada um abre com uma tela cheia, como a vinheta de um quadro, logo depois do gancho (na
   Virgínia, depois de "mas eu vou te contar agora"). Para não cobrir a fala, o vídeo ganha uma
-  pausa de 1,8 s ali (`"pausas"` no plano, aberta pelo `reenquadrar.py`; a voz não muda, a mixagem
-  lê de `assets/video/voz.wav`). Modelo: `projetos/gluteo-virginia/abertura.py` (o vídeo da famosa
-  em preto e branco no glúteo, "CASO" / nome / a frase do gancho, som de impacto), montado com
-  `"extras"` e com luz na entrada e na saída.
+  pausa de 2,4 s ali (`"pausas"` no plano, aberta pelo `reenquadrar.py`; a voz não muda, a mixagem
+  lê de `assets/video/voz.wav`). **Delicada e feminina**, na estética da referência 1: o vídeo da
+  famosa ao fundo em tom quente (ela gostou da famosa atrás), véu nude no alto, luz pêssego,
+  brilhos pequenos, Poppins fina ("CASO" espaçado, o nome, a frase do gancho) entrando em fade com
+  desfoque, som `brilho`, luz com whoosh leve na entrada e na saída. A primeira (preto e branco,
+  letra pesada, tremor, som de impacto) ela achou pesada. Modelo:
+  `projetos/gluteo-virginia/abertura.py`, montado com `"extras"`.
 - **Legendas:** como nas referências, pequenas (Poppins 700, 46 px; `legenda-forte` 800, 64 px
   para a palavra que pesa), letras juntas (`tracking.legenda` -0.04), numa linha, na altura do
   peito dela (meio do bloco em y 1040, no top), a mesma em todo o vídeo, inclusive na tela
   dividida e na foto em tela cheia (na v1 a da foto ficou baixa demais). A frase entra inteira e
   troca seca (`"legendas_modo": "corte"`): uma nunca aparece com a anterior ainda na tela (na v1,
   "ter feito" ainda saía quando "harmonização glútea" entrou). **Nada de letra cursiva.**
-- **Tela dividida meio a meio e esfumada** (`corte` 960, `"esfumado": true`, `"dissolve": 0.2`, como ela pediu no envio da Virgínia, referência 1):
+- **Tela dividida meio a meio e esfumada** (`corte` 960, `"esfumado": true`, `"dissolve": 0.32`, a divisão bem esfumada na parte da famosa, como ela pediu no envio da Virgínia, referência 1):
   a famosa em cima, com o glúteo no meio da metade dela (`foco` no glúteo e `zoom` ~1.25), a
   biomédica embaixo; só enquanto ela fala do vídeo da famosa.
 - **Dinâmica:** planos alternando a cada 2 a 5 s (`enquadramentos` 1.22/1.5 do 4K), `zoom_lento`

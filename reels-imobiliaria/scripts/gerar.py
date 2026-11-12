@@ -52,12 +52,12 @@ ESTILOS = {
 DURACAO_SFX = {
     "click": 0.366, "click-agudo": 0.34, "click-tecla": 0.432, "pop": 0.72,
     "whoosh": 0.575, "whoosh-grave": 0.731, "whoosh-rapido": 0.549, "whoosh-transicao": 1.944,
-    "impacto": 1.4,
+    "impacto": 1.4, "brilho": 1.8,
 }
 PICO_SFX = {
     "click": 0.073, "click-agudo": 0.062, "click-tecla": 0.076, "pop": 0.12,
     "whoosh": 0.162, "whoosh-grave": 0.197, "whoosh-rapido": 0.14, "whoosh-transicao": 0.803,
-    "impacto": 0.012,
+    "impacto": 0.012, "brilho": 0.02,
 }
 CLIQUES = ["click", "click-agudo", "click"]
 WHOOSH_TRANSICAO = ["whoosh-transicao", "whoosh-grave"]
@@ -729,7 +729,7 @@ def eventos_sfx(plano):
         elif tipo == "flash":
             ev.append((t["t"], "whoosh-rapido", 0.5))
         else:
-            ev.append((t["t"], WHOOSH_TRANSICAO[i % len(WHOOSH_TRANSICAO)], 0.6))
+            ev.append((t["t"], t.get("som", WHOOSH_TRANSICAO[i % len(WHOOSH_TRANSICAO)]), t.get("vol", 0.6)))
     for s in plano.get("sfx_extra", []):
         ev.append((s["t"], s["som"], s.get("vol", 0.5)))
     remover = {round(s["t"], 2) for s in plano.get("sfx_remover", [])}

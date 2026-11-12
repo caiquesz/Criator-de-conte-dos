@@ -26,13 +26,14 @@ voz (`scripts/sincronizar.py`).
 
 **Abertura do quadro "Caso <famosa>":** a única animação (sem cards, listas ou selos: a cliente
 recusou). Uma tela cheia logo depois do gancho, numa pausa aberta no vídeo (`"pausas": [{"em":
-8.1333, "dur": 1.8}]`, tempo do original; o `reenquadrar.py` congela a imagem e põe silêncio, e
+8.1333, "dur": 2.4}]`, tempo do original; o `reenquadrar.py` congela a imagem e põe silêncio, e
 grava a voz exata em `assets/video/voz.wav` para o `mixar.py`, via `"video_original"`). Todos os
-tempos do plano depois da pausa andam 1,8 s, menos `enquadramentos` e `pausas`. A tela vem de
+tempos do plano depois da pausa andam 2,4 s, menos `enquadramentos` e `pausas`. A tela vem de
 `abertura.py` no projeto (`compositions/abertura.html`, montada com `"extras"`; sons em
-`abertura-sons.json` → `sfx_extra`): o vídeo da famosa em preto e branco no glúteo, cantos de
-enquadramento, "CASO" letra a letra, o nome caindo com o som `impacto` e a frase do gancho; luz na
-entrada e na saída.
+`abertura-sons.json` → `sfx_extra`) e é delicada, como a referência 1: o vídeo da famosa ao fundo
+em tom quente, véu nude, luz pêssego, brilhos subindo, "CASO" / nome / frase do gancho em Poppins
+fina entrando em fade, som `brilho` (`scripts/sfx_sintetizar.py`); a transição `luz` de entrada e
+saída leva `"som": "whoosh"` (cada transição aceita `som` e `vol`).
 
 ## Fotos no vídeo
 
@@ -68,7 +69,7 @@ de `fotos` no `plano.json`, presa à fala:
   `"foco_fotos": "rosto"` enquadra pelo rosto, para um vídeo que fale de rosto.
 - **Rótulos:** `"rotulos": true` escreve ANTES e DEPOIS nos cards; uma lista troca os nomes
   (`["antes", "30 dias depois"]`). As referências não usam: ligue quando ajudar a entender.
-- **Tela dividida:** meio a meio nos vídeos dela (`"corte": 960`, esfumada com `"dissolve": 0.2`; ou `"linha": false` para o corte seco da
+- **Tela dividida:** meio a meio nos vídeos dela (`"corte": 960`, esfumada com `"dissolve": 0.32`; ou `"linha": false` para o corte seco da
   referência 3; com uma imagem só e `"saida": "corte"`, ela já abre dividida e sai num corte seco).
   `corte` é onde a metade de cima termina (padrão 880 px); o vídeo desce sozinho
   para os olhos dela ficarem a 30% da metade de baixo (medido pelo `preparar_fotos.py`; `desce`
