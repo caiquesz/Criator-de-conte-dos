@@ -1,10 +1,12 @@
 """Sintetiza os efeitos sonoros da abertura do quadro da biomédica (assets/sfx/).
 
-Uso: python3 scripts/sfx_sintetizar.py brilho|impacto PASTA/assets/sfx/NOME.mp3
+Uso: python3 scripts/sfx_sintetizar.py brilho|impacto|bipe PASTA/assets/sfx/NOME.mp3
 
 - brilho: um brilho delicado, de caixinha de música (quatro notas agudas em arpejo rápido, com
   um sopro de ar por baixo). É o som da abertura delicada que a cliente pediu.
 - impacto: um "tum" grave de cinema (a primeira abertura, que ela achou pesada).
+- bipe: o bipe de teste de TV (1 kHz) que toca com as barras coloridas no fim da abertura do
+  bate-bola, como no modelo da doutora.
 
 Feitos aqui, sem direitos de terceiros (os mp3 de efeitos ficam fora do git; estes se refazem
 com este script).
@@ -53,9 +55,16 @@ def brilho():
     return np.stack([esq + ar, dir_ + ar], 1), -7
 
 
+def bipe():
+    t = np.arange(int(0.3 * R)) / R
+    env = np.clip(t / 0.004, 0, 1) * np.clip((0.3 - t) / 0.01, 0, 1)
+    x = (np.sin(2 * np.pi * 1000 * t) + 0.12 * np.sin(2 * np.pi * 3000 * t)) * env
+    return np.stack([x, x], 1), -9
+
+
 def main():
     nome, destino = sys.argv[1], sys.argv[2]
-    x, pico_db = {"brilho": brilho, "impacto": impacto}[nome]()
+    x, pico_db = {"brilho": brilho, "impacto": impacto, "bipe": bipe}[nome]()
     x = x / np.abs(x).max() * 10 ** (pico_db / 20)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(R), "-ac", "2", "-i", "-",
                     "-c:a", "libmp3lame", "-q:a", "2", destino], input=x.astype(np.float32).tobytes(), check=True)

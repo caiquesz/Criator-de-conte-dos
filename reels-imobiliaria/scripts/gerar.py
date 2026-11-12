@@ -44,6 +44,9 @@ ESTILOS = {
     # legenda das referências da biomédica: pequena, numa linha, na altura do peito
     "legenda":       {"familia": "Poppins Reels", "peso": 700, "italico": False, "tam": 46, "arquivo": "Poppins-700.ttf"},
     "legenda-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 64, "arquivo": "Poppins-800.ttf"},
+    # texto do modelo "Nina Secrets" (bate-bola da biomédica): Poppins regular, e as palavras marcadas
+    # com "b": true em negrito no meio da mesma linha ("**Preenchimento glúteo:** quanto tempo...")
+    "texto":         {"familia": "Poppins Reels", "peso": 400, "italico": False, "tam": 44, "arquivo": "Poppins-400.ttf"},
     # palavra escrita à mão (referência 2 da biomédica)
     "manuscrita":  {"familia": "Caveat", "peso": 600, "italico": False, "tam": 96, "arquivo": "Caveat-600.ttf"},
 }
@@ -52,12 +55,12 @@ ESTILOS = {
 DURACAO_SFX = {
     "click": 0.366, "click-agudo": 0.34, "click-tecla": 0.432, "pop": 0.72,
     "whoosh": 0.575, "whoosh-grave": 0.731, "whoosh-rapido": 0.549, "whoosh-transicao": 1.944,
-    "impacto": 1.4, "brilho": 1.8,
+    "impacto": 1.4, "brilho": 1.8, "bipe": 0.3, "musica-abertura": 3.9,
 }
 PICO_SFX = {
     "click": 0.073, "click-agudo": 0.062, "click-tecla": 0.076, "pop": 0.12,
     "whoosh": 0.162, "whoosh-grave": 0.197, "whoosh-rapido": 0.14, "whoosh-transicao": 0.803,
-    "impacto": 0.012, "brilho": 0.02,
+    "impacto": 0.012, "brilho": 0.02, "bipe": 0.004, "musica-abertura": 0.0,
 }
 CLIQUES = ["click", "click-agudo", "click"]
 WHOOSH_TRANSICAO = ["whoosh-transicao", "whoosh-grave"]
@@ -92,6 +95,8 @@ def tracking_em(estilo, plano):
         return t.get("frase", -0.005)
     if estilo in ("legenda", "legenda-forte"):
         return t.get("legenda", -0.04)
+    if estilo == "texto":
+        return t.get("texto", -0.03)
     return t.get("forte", -0.035)
 
 
@@ -162,7 +167,8 @@ def montar_linha(gid, li, linha, plano, js, animar=True):
     spans = []
     for pi, p in enumerate(linha["palavras"]):
         pid = f"{gid}-l{li}-p{pi}"
-        spans.append(f'<span class="p" id="{pid}">{esc(p["t"])}</span>')
+        negrito = ' style="font-weight:700"' if p.get("b") else ""   # negrito no meio da linha (modelo Nina Secrets)
+        spans.append(f'<span class="p" id="{pid}"{negrito}>{esc(p["t"])}</span>')
         if animar:
             js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
                       f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"])});')
@@ -868,6 +874,10 @@ def gerar_index(plano, duracao):
             atraso = 0.0 if tr is None else (0.45 if tr.get("tipo") == "corte" else 0.6)
             if b_ - a_ - atraso > 0.3:
                 js.append(f'tl.fromTo(".cam", {{scale:1}}, {{scale:{1 + zl}, duration:{num(b_ - a_ - atraso)}, ease:"none", immediateRender:false}}, {num(a_ + atraso)});')
+    # trechos em preto e branco (modelo Nina Secrets: as reações ficam em P&B), em corte seco
+    for pb in plano.get("pb", []):
+        js.append(f'tl.set(".cam", {{filter:"grayscale(1) contrast(1.08) brightness(1.03)"}}, {num(pb["de"])});')
+        js.append(f'tl.set(".cam", {{filter:"none"}}, {num(pb["ate"])});')
     # a legenda passa atrás da pessoa (imobiliária) ou fica na frente de tudo (biomédica)
     z_legendas = 7 if plano.get("legendas_na_frente") else 3
 

@@ -1,7 +1,14 @@
 {
  "video": "assets/video/video.mp4",
+ "video_original": "assets/video/voz.wav",
  "video_tem_audio": true,
- "duracao": 67.5,
+ "duracao": 69.1,
+ "pausas": [
+  {
+   "em": 2.9333,
+   "dur": 1.6
+  }
+ ],
  "enquadramentos": [
   {
    "de": 0.0,
@@ -12,7 +19,23 @@
    ]
   },
   {
-   "de": 2.9667,
+   "de": 0.4333,
+   "escala": 1.25,
+   "centro": [
+    0.55,
+    0.42
+   ]
+  },
+  {
+   "de": 0.7667,
+   "escala": 1.6,
+   "centro": [
+    0.55,
+    0.455
+   ]
+  },
+  {
+   "de": 2.9333,
    "escala": 1.15,
    "centro": [
     0.55,
@@ -183,210 +206,170 @@
  "legendas": [
   {
    "id": "g1",
-   "y": 1157,
+   "y": 1187,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Nádia,",
-       "s": 2.98
-      },
-      {
-       "t": "o",
-       "s": 3.48
+       "t": "O",
+       "s": 4.58,
+       "b": true
       },
       {
        "t": "verão",
-       "s": 3.58
+       "s": 4.58,
+       "b": true
+      },
+      {
+       "t": "está",
+       "s": 4.58
+      },
+      {
+       "t": "chegando:",
+       "s": 4.58
+      }
+     ]
+    },
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "ainda",
+       "s": 4.58
+      },
+      {
+       "t": "dá",
+       "s": 4.58
+      },
+      {
+       "t": "tempo",
+       "s": 4.58
+      },
+      {
+       "t": "de",
+       "s": 4.58
+      },
+      {
+       "t": "cuidar",
+       "s": 4.58
+      },
+      {
+       "t": "do",
+       "s": 4.58
+      },
+      {
+       "t": "corpo?",
+       "s": 4.58
       }
      ]
     }
    ],
-   "fim": 4.09,
+   "fim": 8.32,
    "sombra_forte": true
   },
   {
    "id": "g2",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "está",
-       "s": 3.84
-      },
-      {
-       "t": "chegando.",
-       "s": 4.08
-      }
-     ]
-    }
-   ],
-   "fim": 4.97,
-   "sombra_forte": true
-  },
-  {
-   "id": "g3",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "Ainda",
-       "s": 4.82
-      },
-      {
-       "t": "dá",
-       "s": 5.2
-      },
-      {
-       "t": "tempo",
-       "s": 5.38
-      }
-     ]
-    }
-   ],
-   "fim": 5.85,
-   "sombra_forte": true
-  },
-  {
-   "id": "g4",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "de",
-       "s": 5.6
-      },
-      {
-       "t": "cuidar",
-       "s": 5.74
-      },
-      {
-       "t": "do",
-       "s": 6.04
-      },
-      {
-       "t": "corpo?",
-       "s": 6.2
-      }
-     ]
-    }
-   ],
-   "fim": 6.67,
-   "sombra_forte": true
-  },
-  {
-   "id": "g5",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
        "t": "Calma,",
-       "s": 6.58
+       "s": 8.18,
+       "b": true
       },
       {
        "t": "vamos",
-       "s": 6.94
+       "s": 8.54
       },
       {
        "t": "por",
-       "s": 7.22
+       "s": 8.82
       },
       {
        "t": "partes.",
-       "s": 7.54
-      }
-     ]
-    }
-   ],
-   "fim": 8.23,
-   "sombra_forte": true
-  },
-  {
-   "id": "g6",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "Depende",
-       "s": 8.28
-      },
-      {
-       "t": "muito",
-       "s": 8.6
-      }
-     ]
-    }
-   ],
-   "fim": 9.21,
-   "sombra_forte": true
-  },
-  {
-   "id": "g7",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "do",
-       "s": 8.96
-      },
-      {
-       "t": "procedimento.",
        "s": 9.14
       }
      ]
     }
    ],
-   "fim": 10.09,
+   "fim": 9.88,
    "sombra_forte": true
   },
   {
-   "id": "g8",
-   "y": 1148,
+   "id": "g3",
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda-forte",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Preenchimento",
-       "s": 10.0
+       "t": "Depende",
+       "s": 9.88
       },
       {
-       "t": "glúteo.",
-       "s": 10.6
+       "t": "muito",
+       "s": 10.2
       }
      ]
     }
    ],
-   "fim": 11.17,
+   "fim": 10.86,
    "sombra_forte": true
   },
   {
-   "id": "g9",
-   "y": 1157,
+   "id": "g4",
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Quanto",
-       "s": 11.06
+       "t": "do",
+       "s": 10.56
+      },
+      {
+       "t": "procedimento.",
+       "s": 10.74,
+       "b": true
+      }
+     ]
+    }
+   ],
+   "fim": 11.74,
+   "sombra_forte": true
+  },
+  {
+   "id": "g5",
+   "y": 1187,
+   "linhas": [
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "Preenchimento",
+       "s": 11.6,
+       "b": true
+      },
+      {
+       "t": "glúteo:",
+       "s": 11.6,
+       "b": true
+      }
+     ]
+    },
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "quanto",
+       "s": 11.6
       },
       {
        "t": "tempo",
-       "s": 11.34
+       "s": 11.6
       },
       {
        "t": "pra",
@@ -394,1312 +377,1321 @@
       },
       {
        "t": "perceber",
-       "s": 11.8
+       "s": 11.6
+      },
+      {
+       "t": "o",
+       "s": 11.6
+      },
+      {
+       "t": "resultado?",
+       "s": 11.6
       }
      ]
     }
    ],
-   "fim": 12.29,
+   "fim": 14.58,
+   "sombra_forte": true
+  },
+  {
+   "id": "g6",
+   "y": 1208,
+   "linhas": [
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "O",
+       "s": 14.46
+      },
+      {
+       "t": "efeito",
+       "s": 14.6,
+       "b": true
+      },
+      {
+       "t": "de",
+       "s": 14.94
+      },
+      {
+       "t": "volume",
+       "s": 15.16,
+       "b": true
+      }
+     ]
+    }
+   ],
+   "fim": 15.72,
+   "sombra_forte": true
+  },
+  {
+   "id": "g7",
+   "y": 1208,
+   "linhas": [
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "é",
+       "s": 15.42
+      },
+      {
+       "t": "percebido",
+       "s": 15.78,
+       "b": true
+      },
+      {
+       "t": "logo",
+       "s": 16.24
+      }
+     ]
+    }
+   ],
+   "fim": 16.84,
+   "sombra_forte": true
+  },
+  {
+   "id": "g8",
+   "y": 1208,
+   "linhas": [
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "após",
+       "s": 16.54
+      },
+      {
+       "t": "o",
+       "s": 16.94
+      },
+      {
+       "t": "procedimento,",
+       "s": 17.1
+      }
+     ]
+    }
+   ],
+   "fim": 17.98,
+   "sombra_forte": true
+  },
+  {
+   "id": "g9",
+   "y": 1208,
+   "linhas": [
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "mas",
+       "s": 17.74
+      },
+      {
+       "t": "nós",
+       "s": 17.92
+      },
+      {
+       "t": "precisamos",
+       "s": 18.32
+      }
+     ]
+    }
+   ],
+   "fim": 18.96,
    "sombra_forte": true
   },
   {
    "id": "g10",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "o",
-       "s": 12.04
+       "t": "levar",
+       "s": 18.66
       },
       {
-       "t": "resultado?",
-       "s": 12.3
+       "t": "em",
+       "s": 18.96
+      },
+      {
+       "t": "consideração",
+       "s": 19.18,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 12.93,
+   "fim": 20.26,
    "sombra_forte": true
   },
   {
    "id": "g11",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "O",
-       "s": 12.86
+       "t": "7",
+       "s": 19.96,
+       "b": true
       },
       {
-       "t": "efeito",
-       "s": 13.0
+       "t": "a",
+       "s": 20.5,
+       "b": true
       },
       {
-       "t": "de",
-       "s": 13.34
+       "t": "10",
+       "s": 20.82,
+       "b": true
       },
       {
-       "t": "volume",
-       "s": 13.56
+       "t": "dias",
+       "s": 21.1,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 14.07,
+   "fim": 21.84,
    "sombra_forte": true
   },
   {
    "id": "g12",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "é",
-       "s": 13.82
+       "t": "após",
+       "s": 21.54
       },
       {
-       "t": "percebido",
-       "s": 14.18
+       "t": "o",
+       "s": 21.88
       },
       {
-       "t": "logo",
-       "s": 14.64
+       "t": "procedimento",
+       "s": 22.1
       }
      ]
     }
    ],
-   "fim": 15.19,
+   "fim": 22.94,
    "sombra_forte": true
   },
   {
    "id": "g13",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "após",
-       "s": 14.94
+       "t": "pra",
+       "s": 22.64
       },
       {
-       "t": "o",
-       "s": 15.34
-      },
-      {
-       "t": "procedimento,",
-       "s": 15.5
+       "t": "recuperação",
+       "s": 23.16,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 16.33,
+   "fim": 24.32,
    "sombra_forte": true
   },
   {
    "id": "g14",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "mas",
-       "s": 16.14
+       "t": "e",
+       "s": 24.02
       },
       {
-       "t": "nós",
-       "s": 16.32
+       "t": "acomodação",
+       "s": 24.24,
+       "b": true
       },
       {
-       "t": "precisamos",
-       "s": 16.72
+       "t": "do",
+       "s": 24.76
+      },
+      {
+       "t": "produto.",
+       "s": 25.04
       }
      ]
     }
    ],
-   "fim": 17.31,
+   "fim": 25.62,
    "sombra_forte": true
   },
   {
    "id": "g15",
-   "y": 1157,
+   "y": 1187,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "levar",
-       "s": 17.06
+       "t": "Bioestimulador",
+       "s": 25.5,
+       "b": true
       },
       {
-       "t": "em",
-       "s": 17.36
+       "t": "de",
+       "s": 25.5,
+       "b": true
       },
       {
-       "t": "consideração",
-       "s": 17.58
+       "t": "colágeno",
+       "s": 25.5,
+       "b": true
+      }
+     ]
+    },
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "é",
+       "s": 25.5
+      },
+      {
+       "t": "rápido?",
+       "s": 25.5
       }
      ]
     }
    ],
-   "fim": 18.61,
+   "fim": 27.8,
    "sombra_forte": true
   },
   {
    "id": "g16",
-   "y": 1148,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda-forte",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "7",
-       "s": 18.36
+       "t": "O",
+       "s": 27.5
       },
       {
-       "t": "a",
-       "s": 18.9
+       "t": "bioestimulador",
+       "s": 27.8,
+       "b": true
       },
       {
-       "t": "10",
-       "s": 19.22
+       "t": "de",
+       "s": 28.42,
+       "b": true
       },
       {
-       "t": "dias",
-       "s": 19.5
+       "t": "colágeno",
+       "s": 28.6,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 20.19,
+   "fim": 29.46,
    "sombra_forte": true
   },
   {
    "id": "g17",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "após",
-       "s": 19.94
+       "t": "estimula",
+       "s": 29.16,
+       "b": true
       },
       {
        "t": "o",
-       "s": 20.28
+       "s": 29.7
       },
       {
-       "t": "procedimento",
-       "s": 20.5
+       "t": "colágeno",
+       "s": 29.86
       }
      ]
     }
    ],
-   "fim": 21.29,
+   "fim": 30.7,
    "sombra_forte": true
   },
   {
    "id": "g18",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "pra",
-       "s": 21.04
+       "t": "de",
+       "s": 30.4
       },
       {
-       "t": "recuperação",
-       "s": 21.56
+       "t": "forma",
+       "s": 30.54
+      },
+      {
+       "t": "gradativa,",
+       "s": 30.9,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 22.67,
+   "fim": 31.94,
    "sombra_forte": true
   },
   {
    "id": "g19",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "e",
-       "s": 22.42
+       "t": "levando",
+       "s": 32.06
       },
       {
-       "t": "acomodação",
-       "s": 22.64
-      },
-      {
-       "t": "do",
-       "s": 23.16
-      },
-      {
-       "t": "produto.",
-       "s": 23.44
+       "t": "de",
+       "s": 32.56
       }
      ]
     }
    ],
-   "fim": 23.97,
+   "fim": 33.2,
    "sombra_forte": true
   },
   {
    "id": "g20",
-   "y": 1148,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda-forte",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Bioestimulador",
-       "s": 23.9
+       "t": "45",
+       "s": 32.9,
+       "b": true
       },
       {
-       "t": "de",
-       "s": 24.48
+       "t": "a",
+       "s": 33.66,
+       "b": true
       },
       {
-       "t": "colágeno",
-       "s": 24.72
+       "t": "90",
+       "s": 33.82,
+       "b": true
+      },
+      {
+       "t": "dias",
+       "s": 34.22,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 25.47,
+   "fim": 34.96,
    "sombra_forte": true
   },
   {
    "id": "g21",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "é",
-       "s": 25.22
+       "t": "pro",
+       "s": 34.66
       },
       {
-       "t": "rápido?",
-       "s": 25.48
+       "t": "resultado",
+       "s": 34.88,
+       "b": true
+      },
+      {
+       "t": "final.",
+       "s": 35.26,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 26.15,
+   "fim": 35.9,
    "sombra_forte": true
   },
   {
    "id": "g22",
-   "y": 1157,
+   "y": 1187,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "O",
-       "s": 25.9
+       "t": "Subcisão",
+       "s": 35.7,
+       "b": true
       },
       {
-       "t": "bioestimulador",
-       "s": 26.2
+       "t": "pra",
+       "s": 35.7,
+       "b": true
       },
       {
-       "t": "de",
-       "s": 26.82
+       "t": "celulite:",
+       "s": 35.7,
+       "b": true
+      }
+     ]
+    },
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "dá",
+       "s": 35.7
       },
       {
-       "t": "colágeno",
-       "s": 27.0
+       "t": "tempo?",
+       "s": 35.7
       }
      ]
     }
    ],
-   "fim": 27.81,
+   "fim": 38.04,
    "sombra_forte": true
   },
   {
    "id": "g23",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "estimula",
-       "s": 27.56
+       "t": "Na",
+       "s": 37.9
       },
       {
-       "t": "o",
-       "s": 28.1
+       "t": "subcisão",
+       "s": 37.92,
+       "b": true
       },
       {
-       "t": "colágeno",
-       "s": 28.26
+       "t": "nós",
+       "s": 38.54
+      },
+      {
+       "t": "temos",
+       "s": 38.78
       }
      ]
     }
    ],
-   "fim": 29.05,
+   "fim": 39.36,
    "sombra_forte": true
   },
   {
    "id": "g24",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "de",
-       "s": 28.8
+       "t": "também",
+       "s": 39.06
       },
       {
-       "t": "forma",
-       "s": 28.94
+       "t": "um",
+       "s": 39.42
       },
       {
-       "t": "gradativa,",
-       "s": 29.3
+       "t": "resultado",
+       "s": 39.6,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 30.29,
+   "fim": 40.2,
    "sombra_forte": true
   },
   {
    "id": "g25",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "levando",
-       "s": 30.46
+       "t": "como",
+       "s": 39.9
       },
       {
-       "t": "de",
-       "s": 30.96
+       "t": "pós-imediato,",
+       "s": 40.28,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 31.55,
+   "fim": 40.9,
    "sombra_forte": true
   },
   {
    "id": "g26",
-   "y": 1148,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda-forte",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "45",
-       "s": 31.3
+       "t": "mas",
+       "s": 41.66
       },
       {
-       "t": "a",
-       "s": 32.06
+       "t": "nós",
+       "s": 41.86
       },
       {
-       "t": "90",
-       "s": 32.22
-      },
-      {
-       "t": "dias",
-       "s": 32.62
+       "t": "precisamos",
+       "s": 42.22
       }
      ]
     }
    ],
-   "fim": 33.31,
+   "fim": 42.8,
    "sombra_forte": true
   },
   {
    "id": "g27",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "pro",
-       "s": 33.06
+       "t": "levar",
+       "s": 42.5
       },
       {
-       "t": "resultado",
-       "s": 33.28
+       "t": "em",
+       "s": 42.88
       },
       {
-       "t": "final.",
-       "s": 33.66
+       "t": "consideração",
+       "s": 43.08
       }
      ]
     }
    ],
-   "fim": 34.25,
+   "fim": 43.98,
    "sombra_forte": true
   },
   {
    "id": "g28",
-   "y": 1148,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda-forte",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Subcisão",
-       "s": 34.1
+       "t": "o",
+       "s": 43.68
       },
       {
-       "t": "pra",
-       "s": 34.62
+       "t": "tempo",
+       "s": 43.9
       },
       {
-       "t": "celulite.",
-       "s": 34.8
+       "t": "de",
+       "s": 44.14
+      },
+      {
+       "t": "recuperação",
+       "s": 44.4,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 35.69,
+   "fim": 45.24,
    "sombra_forte": true
   },
   {
    "id": "g29",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Dá",
-       "s": 35.58
+       "t": "que",
+       "s": 44.94
       },
       {
-       "t": "tempo?",
-       "s": 35.72
+       "t": "pode",
+       "s": 45.14
+      },
+      {
+       "t": "chegar",
+       "s": 45.28
       }
      ]
     }
    ],
-   "fim": 36.39,
+   "fim": 45.88,
    "sombra_forte": true
   },
   {
    "id": "g30",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Na",
-       "s": 36.3
+       "t": "a",
+       "s": 45.58
       },
       {
-       "t": "subcisão",
-       "s": 36.32
+       "t": "até",
+       "s": 45.74
       },
       {
-       "t": "nós",
-       "s": 36.94
+       "t": "40",
+       "s": 45.84,
+       "b": true
       },
       {
-       "t": "temos",
-       "s": 37.18
+       "t": "dias.",
+       "s": 46.18,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 37.71,
+   "fim": 46.98,
    "sombra_forte": true
   },
   {
    "id": "g31",
-   "y": 1157,
+   "y": 1187,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "também",
-       "s": 37.46
+       "t": "Toxina",
+       "s": 46.86,
+       "b": true
       },
       {
-       "t": "um",
-       "s": 37.82
+       "t": "botulínica",
+       "s": 46.86,
+       "b": true
       },
       {
-       "t": "resultado",
-       "s": 38.0
+       "t": "pra",
+       "s": 46.86,
+       "b": true
+      },
+      {
+       "t": "suor",
+       "s": 46.86,
+       "b": true
+      },
+      {
+       "t": "excessivo:",
+       "s": 46.86,
+       "b": true
+      }
+     ]
+    },
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "quanto",
+       "s": 46.86
+      },
+      {
+       "t": "tempo",
+       "s": 46.86
+      },
+      {
+       "t": "demora?",
+       "s": 46.86
       }
      ]
     }
    ],
-   "fim": 38.55,
+   "fim": 50.52,
    "sombra_forte": true
   },
   {
    "id": "g32",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "como",
-       "s": 38.3
+       "t": "A",
+       "s": 50.22
       },
       {
-       "t": "pós-imediato,",
-       "s": 38.68
+       "t": "toxina",
+       "s": 50.62,
+       "b": true
+      },
+      {
+       "t": "para",
+       "s": 51.12
       }
      ]
     }
    ],
-   "fim": 39.25,
+   "fim": 51.72,
    "sombra_forte": true
   },
   {
    "id": "g33",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "mas",
-       "s": 40.06
+       "t": "a",
+       "s": 51.42
       },
       {
-       "t": "nós",
-       "s": 40.26
-      },
-      {
-       "t": "precisamos",
-       "s": 40.62
+       "t": "hiperidrose",
+       "s": 51.5,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 41.15,
+   "fim": 52.6,
    "sombra_forte": true
   },
   {
    "id": "g34",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "levar",
-       "s": 40.9
+       "t": "também",
+       "s": 52.3
       },
       {
-       "t": "em",
-       "s": 41.28
+       "t": "tem",
+       "s": 53.02
       },
       {
-       "t": "consideração",
-       "s": 41.48
+       "t": "um",
+       "s": 53.48
+      },
+      {
+       "t": "resultado",
+       "s": 53.72,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 42.33,
+   "fim": 54.46,
    "sombra_forte": true
   },
   {
    "id": "g35",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "o",
-       "s": 42.08
-      },
-      {
-       "t": "tempo",
-       "s": 42.3
-      },
-      {
-       "t": "de",
-       "s": 42.54
-      },
-      {
-       "t": "recuperação",
-       "s": 42.8
+       "t": "gradativo,",
+       "s": 54.16,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 43.59,
+   "fim": 55.32,
    "sombra_forte": true
   },
   {
    "id": "g36",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "que",
-       "s": 43.34
+       "t": "podendo",
+       "s": 55.16
       },
       {
-       "t": "pode",
-       "s": 43.54
+       "t": "levar",
+       "s": 55.46
       },
       {
-       "t": "chegar",
-       "s": 43.68
+       "t": "de",
+       "s": 55.74
       }
      ]
     }
    ],
-   "fim": 44.23,
+   "fim": 56.24,
    "sombra_forte": true
   },
   {
    "id": "g37",
-   "y": 1148,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda-forte",
+     "estilo": "texto",
      "palavras": [
       {
+       "t": "7",
+       "s": 55.94,
+       "b": true
+      },
+      {
        "t": "a",
-       "s": 43.98
+       "s": 56.3,
+       "b": true
       },
       {
-       "t": "até",
-       "s": 44.14
+       "t": "15",
+       "s": 56.54,
+       "b": true
       },
       {
-       "t": "40",
-       "s": 44.24
-      },
-      {
-       "t": "dias.",
-       "s": 44.58
+       "t": "dias",
+       "s": 56.8,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 45.33,
+   "fim": 57.36,
    "sombra_forte": true
   },
   {
    "id": "g38",
-   "y": 1148,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda-forte",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Toxina",
-       "s": 45.26
+       "t": "pro",
+       "s": 57.06
       },
       {
-       "t": "botulínica",
-       "s": 45.74
+       "t": "resultado",
+       "s": 57.26,
+       "b": true
+      },
+      {
+       "t": "final.",
+       "s": 57.58,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 46.65,
+   "fim": 58.18,
    "sombra_forte": true
   },
   {
    "id": "g39",
-   "y": 1157,
+   "y": 1187,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "pra",
-       "s": 46.4
+       "t": "Ainda",
+       "s": 58.1,
+       "b": true
       },
       {
-       "t": "suor",
-       "s": 46.64
+       "t": "dá",
+       "s": 58.1,
+       "b": true
       },
       {
-       "t": "excessivo.",
-       "s": 46.96
+       "t": "tempo",
+       "s": 58.1,
+       "b": true
+      }
+     ]
+    },
+    {
+     "estilo": "texto",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 58.1
+      },
+      {
+       "t": "fazer",
+       "s": 58.1
+      },
+      {
+       "t": "alguma",
+       "s": 58.1
+      },
+      {
+       "t": "coisa",
+       "s": 58.1
+      },
+      {
+       "t": "antes",
+       "s": 58.1
+      },
+      {
+       "t": "do",
+       "s": 58.1
+      },
+      {
+       "t": "verão?",
+       "s": 58.1
       }
      ]
     }
    ],
-   "fim": 47.77,
+   "fim": 61.02,
    "sombra_forte": true
   },
   {
    "id": "g40",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "Quanto",
-       "s": 47.72
+       "t": "começando",
+       "s": 61.16,
+       "b": true
       },
       {
-       "t": "tempo",
-       "s": 47.92
-      },
-      {
-       "t": "demora?",
-       "s": 48.18
+       "t": "agora,",
+       "s": 62.14,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 48.87,
+   "fim": 63.02,
    "sombra_forte": true
   },
   {
    "id": "g41",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "A",
-       "s": 48.62
+       "t": "dá",
+       "s": 63.06
       },
       {
-       "t": "toxina",
-       "s": 49.02
+       "t": "pra",
+       "s": 63.1
       },
       {
-       "t": "para",
-       "s": 49.52
+       "t": "se",
+       "s": 63.28
+      },
+      {
+       "t": "planejar",
+       "s": 63.46,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 50.07,
+   "fim": 64.22,
    "sombra_forte": true
   },
   {
    "id": "g42",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "a",
-       "s": 49.82
-      },
-      {
-       "t": "hiperidrose",
-       "s": 49.9
+       "t": "sim,",
+       "s": 63.92,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 50.95,
+   "fim": 64.5,
    "sombra_forte": true
   },
   {
    "id": "g43",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "também",
-       "s": 50.7
+       "t": "levando",
+       "s": 64.46
       },
       {
-       "t": "tem",
-       "s": 51.42
+       "t": "em",
+       "s": 64.74
       },
       {
-       "t": "um",
-       "s": 51.88
-      },
-      {
-       "t": "resultado",
-       "s": 52.12
+       "t": "consideração",
+       "s": 64.84
       }
      ]
     }
    ],
-   "fim": 52.81,
+   "fim": 65.8,
    "sombra_forte": true
   },
   {
    "id": "g44",
-   "y": 1157,
+   "y": 1208,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "gradativo,",
-       "s": 52.56
+       "t": "a",
+       "s": 65.5
+      },
+      {
+       "t": "evolução",
+       "s": 65.66
+      },
+      {
+       "t": "de",
+       "s": 66.34
+      },
+      {
+       "t": "cada",
+       "s": 66.7,
+       "b": true
+      },
+      {
+       "t": "paciente,",
+       "s": 66.9,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 53.67,
+   "fim": 67.76,
    "sombra_forte": true
   },
   {
    "id": "g45",
-   "y": 1157,
+   "y": 1155,
    "linhas": [
     {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
-       "t": "podendo",
-       "s": 53.56
-      },
-      {
-       "t": "levar",
-       "s": 53.86
-      },
-      {
-       "t": "de",
-       "s": 54.14
+       "t": "“",
+       "s": 67.78,
+       "b": true
       }
-     ]
-    }
-   ],
-   "fim": 54.59,
-   "sombra_forte": true
-  },
-  {
-   "id": "g46",
-   "y": 1148,
-   "linhas": [
+     ],
+     "tam": 110
+    },
     {
-     "estilo": "legenda-forte",
-     "palavras": [
-      {
-       "t": "7",
-       "s": 54.34
-      },
-      {
-       "t": "a",
-       "s": 54.7
-      },
-      {
-       "t": "15",
-       "s": 54.94
-      },
-      {
-       "t": "dias",
-       "s": 55.2
-      }
-     ]
-    }
-   ],
-   "fim": 55.71,
-   "sombra_forte": true
-  },
-  {
-   "id": "g47",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "pro",
-       "s": 55.46
-      },
-      {
-       "t": "resultado",
-       "s": 55.66
-      },
-      {
-       "t": "final.",
-       "s": 55.98
-      }
-     ]
-    }
-   ],
-   "fim": 56.53,
-   "sombra_forte": true
-  },
-  {
-   "id": "g48",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "Então",
-       "s": 56.5
-      },
-      {
-       "t": "ainda",
-       "s": 56.7
-      },
-      {
-       "t": "dá",
-       "s": 56.96
-      },
-      {
-       "t": "tempo",
-       "s": 57.08
-      }
-     ]
-    }
-   ],
-   "fim": 57.59,
-   "sombra_forte": true
-  },
-  {
-   "id": "g49",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "de",
-       "s": 57.34
-      },
-      {
-       "t": "fazer",
-       "s": 57.54
-      },
-      {
-       "t": "alguma",
-       "s": 57.76
-      },
-      {
-       "t": "coisa",
-       "s": 57.98
-      }
-     ]
-    }
-   ],
-   "fim": 58.55,
-   "sombra_forte": true
-  },
-  {
-   "id": "g50",
-   "y": 1148,
-   "linhas": [
-    {
-     "estilo": "legenda-forte",
-     "palavras": [
-      {
-       "t": "antes",
-       "s": 58.3
-      },
-      {
-       "t": "do",
-       "s": 58.6
-      },
-      {
-       "t": "verão?",
-       "s": 58.8
-      }
-     ]
-    }
-   ],
-   "fim": 59.37,
-   "sombra_forte": true
-  },
-  {
-   "id": "g51",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "começando",
-       "s": 59.56
-      },
-      {
-       "t": "agora,",
-       "s": 60.54
-      }
-     ]
-    }
-   ],
-   "fim": 61.37,
-   "sombra_forte": true
-  },
-  {
-   "id": "g52",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "dá",
-       "s": 61.46
-      },
-      {
-       "t": "pra",
-       "s": 61.5
-      },
-      {
-       "t": "se",
-       "s": 61.68
-      },
-      {
-       "t": "planejar",
-       "s": 61.86
-      }
-     ]
-    }
-   ],
-   "fim": 62.57,
-   "sombra_forte": true
-  },
-  {
-   "id": "g53",
-   "y": 1148,
-   "linhas": [
-    {
-     "estilo": "legenda-forte",
-     "palavras": [
-      {
-       "t": "sim,",
-       "s": 62.32
-      }
-     ]
-    }
-   ],
-   "fim": 62.85,
-   "sombra_forte": true
-  },
-  {
-   "id": "g54",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "levando",
-       "s": 62.86
-      },
-      {
-       "t": "em",
-       "s": 63.14
-      },
-      {
-       "t": "consideração",
-       "s": 63.24
-      }
-     ]
-    }
-   ],
-   "fim": 64.15,
-   "sombra_forte": true
-  },
-  {
-   "id": "g55",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
-     "palavras": [
-      {
-       "t": "a",
-       "s": 63.9
-      },
-      {
-       "t": "evolução",
-       "s": 64.06
-      },
-      {
-       "t": "de",
-       "s": 64.74
-      },
-      {
-       "t": "cada",
-       "s": 65.1
-      },
-      {
-       "t": "paciente,",
-       "s": 65.3
-      }
-     ]
-    }
-   ],
-   "fim": 66.11,
-   "sombra_forte": true
-  },
-  {
-   "id": "g56",
-   "y": 1157,
-   "linhas": [
-    {
-     "estilo": "legenda",
+     "estilo": "texto",
      "palavras": [
       {
        "t": "que",
-       "s": 66.18
+       "s": 67.78
       },
       {
        "t": "é",
-       "s": 66.18
+       "s": 67.78
       },
       {
        "t": "algo",
-       "s": 66.32
+       "s": 67.92
       },
       {
        "t": "muito",
-       "s": 66.54
-      }
-     ]
-    }
-   ],
-   "fim": 67.13,
-   "sombra_forte": true
-  },
-  {
-   "id": "g57",
-   "y": 1148,
-   "linhas": [
-    {
-     "estilo": "legenda-forte",
-     "palavras": [
+       "s": 68.14
+      },
       {
        "t": "individual.",
-       "s": 66.88
+       "s": 68.48,
+       "b": true
       }
      ]
     }
    ],
-   "fim": 67.55,
+   "fim": 69.2,
    "sombra_forte": true
   }
  ],
  "legendas_modo": "corte",
  "tracking": {
-  "legenda": -0.04
+  "texto": -0.03
  },
  "entrelinha": -0.02,
  "transicoes": [
   {
-   "t": 2.9667,
-   "tipo": "luz",
-   "som": "whoosh",
-   "vol": 0.45
+   "t": 0.4333,
+   "tipo": "corte",
+   "escala": 1.06
   },
   {
-   "t": 6.5,
+   "t": 0.7667,
+   "tipo": "corte",
+   "escala": 1.06
+  },
+  {
+   "t": 3.3,
+   "tipo": "corte",
+   "escala": 1.09
+  },
+  {
+   "t": 3.85,
+   "tipo": "corte",
+   "escala": 1.07
+  },
+  {
+   "t": 4.5333,
    "tipo": "corte"
   },
   {
-   "t": 8.1333,
+   "t": 8.1,
    "tipo": "corte"
   },
   {
-   "t": 9.9333,
-   "tipo": "flash"
-  },
-  {
-   "t": 12.7667,
+   "t": 9.7333,
    "tipo": "corte"
   },
   {
-   "t": 16.1,
+   "t": 11.5333,
    "tipo": "corte"
   },
   {
-   "t": 19.9667,
+   "t": 14.3667,
    "tipo": "corte"
   },
   {
-   "t": 23.8,
-   "tipo": "flash"
-  },
-  {
-   "t": 25.9,
+   "t": 17.7,
    "tipo": "corte"
   },
   {
-   "t": 30.2667,
+   "t": 21.5667,
    "tipo": "corte"
   },
   {
-   "t": 34.0333,
-   "tipo": "flash"
-  },
-  {
-   "t": 36.2,
+   "t": 25.4,
    "tipo": "corte"
   },
   {
-   "t": 40.0,
+   "t": 27.5,
    "tipo": "corte"
   },
   {
-   "t": 45.1667,
-   "tipo": "flash"
-  },
-  {
-   "t": 48.6333,
+   "t": 31.8667,
    "tipo": "corte"
   },
   {
-   "t": 53.5,
+   "t": 35.6333,
    "tipo": "corte"
   },
   {
-   "t": 56.4,
-   "tipo": "flash"
-  },
-  {
-   "t": 59.3333,
+   "t": 37.8,
    "tipo": "corte"
   },
   {
-   "t": 62.7333,
+   "t": 41.6,
    "tipo": "corte"
   },
   {
-   "t": 66.0333,
+   "t": 46.7667,
+   "tipo": "corte"
+  },
+  {
+   "t": 50.2333,
+   "tipo": "corte"
+  },
+  {
+   "t": 55.1,
+   "tipo": "corte"
+  },
+  {
+   "t": 58.0,
+   "tipo": "corte"
+  },
+  {
+   "t": 60.9333,
+   "tipo": "corte"
+  },
+  {
+   "t": 64.3333,
+   "tipo": "corte"
+  },
+  {
+   "t": 67.6333,
    "tipo": "corte"
   }
  ],
- "zoom_lento": 0.035,
+ "pb": [
+  {
+   "de": 8.1,
+   "ate": 9.7333
+  },
+  {
+   "de": 67.6333,
+   "ate": 69.1
+  }
+ ],
+ "zoom_lento": 0.03,
  "som_cortes": {
   "som": "whoosh-rapido",
-  "vol": 0.3
+  "vol": 0.25
  },
  "extras": [
   {
@@ -1710,9 +1702,91 @@
  ],
  "sfx_extra": [
   {
-   "t": 0.3,
+   "t": 0.4333,
+   "som": "click",
+   "vol": 0.6
+  },
+  {
+   "t": 0.7667,
+   "som": "click",
+   "vol": 0.6
+  },
+  {
+   "t": 0.7767000000000001,
+   "som": "musica-abertura",
+   "vol": 0.85
+  },
+  {
+   "t": 0.797,
    "som": "brilho",
+   "vol": 0.4
+  },
+  {
+   "t": 0.94,
+   "som": "pop",
+   "vol": 0.3
+  },
+  {
+   "t": 4.4,
+   "som": "bipe",
    "vol": 0.5
+  },
+  {
+   "t": 8.12,
+   "som": "whoosh",
+   "vol": 0.4
+  },
+  {
+   "t": 67.653,
+   "som": "whoosh",
+   "vol": 0.4
+  },
+  {
+   "t": 4.58,
+   "som": "pop",
+   "vol": 0.5
+  },
+  {
+   "t": 11.6,
+   "som": "pop",
+   "vol": 0.5
+  },
+  {
+   "t": 25.5,
+   "som": "pop",
+   "vol": 0.5
+  },
+  {
+   "t": 35.7,
+   "som": "pop",
+   "vol": 0.5
+  },
+  {
+   "t": 46.86,
+   "som": "pop",
+   "vol": 0.5
+  },
+  {
+   "t": 58.1,
+   "som": "pop",
+   "vol": 0.5
+  }
+ ],
+ "sfx_remover": [
+  {
+   "t": 0.4333
+  },
+  {
+   "t": 0.7667
+  },
+  {
+   "t": 4.5333
+  },
+  {
+   "t": 3.3
+  },
+  {
+   "t": 3.85
   }
  ]
 }

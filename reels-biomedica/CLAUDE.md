@@ -73,12 +73,20 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   letra pesada, tremor, som de impacto) ela achou pesada. Modelo:
   `projetos/gluteo-virginia/abertura.py`, montado com `"extras"`.
 - **Quadro "Bate-bola com Dra. Nádia"** (perguntas rápidas, pergunta fora da câmera e ela
-  responde): ela mesma diz o título no começo, então a abertura delicada fica por cima do vídeo dela
-  (desfocado atrás do véu nude) nesses 3 s, sem pausa, e sai numa luz. Cada pergunta abre num flash
-  branco e no plano aberto ou médio; cada resposta corta para o fechado, com outro corte no meio das
-  longas; a palavra-chave da pergunta e os prazos em `legenda-forte`. Modelo:
-  `projetos/bate-bola/montar_plano.py` e `abertura.py`. O vídeo veio com música (opção "já tem
-  música"): o áudio fica como está, só entram os efeitos.
+  responde). A primeira versão (abertura com véu nude, flash branco, legenda palavra a palavra) ela
+  achou básica e mandou dois modelos para seguir o mais perto possível:
+  - **abertura como a do bate-bola de uma doutora:** cursor de mouse em pixel clica nela duas vezes
+    (cada clique fecha o plano, do 4K), estrelas douradas estouram e ficam girando, imagem quente com
+    grão, "★ Bate Bola com" digitado em Poppins creme e o nome à mão em **Pinyon Script** (ali a
+    letra cursiva é o modelo: ela só não quer cursiva nas legendas), trancos de zoom, barras
+    coloridas de TV com bipe e corte. Música de abertura (CC BY, crédito no post) e pausa de 1,6 s
+    depois do título;
+  - **textos e legendas como os da Nina Secrets:** cada pergunta vira um texto em duas linhas, o tema
+    em negrito e o resto regular (estilo `texto`, Poppins 400 44 px, palavras com `"b": true` em
+    negrito); as respostas com a mesma tipografia, a palavra que pesa em negrito; cortes secos (sem
+    flash) e as reações em preto e branco (`"pb"`), com um whoosh.
+  Modelo: `projetos/bate-bola/montar_plano.py` e `abertura.py`. O vídeo veio com música: o áudio
+  fica como está, só entram a música da abertura e os efeitos.
 - **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o
   `reenquadrar.py` passam tudo para 30 (os da composição) antes de contar quadros.
 - **Legendas:** como nas referências, pequenas (Poppins 700, 46 px; `legenda-forte` 800, 64 px
