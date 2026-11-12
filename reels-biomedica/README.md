@@ -15,12 +15,21 @@ resultados no momento em que ela fala delas. Os scripts são os mesmos dos Reels
 | 4 (visagismo) | Antes e depois em dois cards inclinados no alto; depois tela dividida com o antes e o depois lado a lado, separados por uma linha branca, e a legenda logo abaixo. |
 | 5 (enxerto) | Foto da famosa no fundo, atrás dela; legenda com tamanhos misturados ("o resultado do / bumbum / **da Virgínia?**"); cena em preto e branco. |
 
-**Legenda:** frases curtas (2 a 4 palavras), brancas, com sombra nas letras, no meio da tela ou
-na emenda da tela dividida, sempre **na frente** da pessoa (`"legendas_na_frente": true`).
-Estilos: `frase` (Poppins 600, 54 px), `frase-fina` (400, 46 px) para a linha de cima de duas,
-`frase-forte` (800, 86 px) para a palavra que pesa, e `manuscrita` (Caveat, à mão) para uma
-expressão de destaque, de vez em quando. As palavras entram no tempo da voz, como nos outros
-Reels (`scripts/sincronizar.py`).
+**Legenda:** frases curtas (2 a 4 palavras), brancas, com sombra nas letras, sempre na mesma
+altura (na calça jeans dela, meio do bloco em y ≈ 1320) ou na emenda da tela dividida, sempre
+**na frente** da pessoa (`"legendas_na_frente": true`). Como nas referências, a frase entra
+inteira e troca seca (`"legendas_modo": "corte"`, `"legendas_pop": 0.9`): sem fade, uma nunca
+por cima da outra. Estilos: `legenda` (Poppins 700, 58 px) e `legenda-forte` (800, 80 px) para
+a palavra que pesa, letras juntas (`"tracking": {"legenda": -0.04}`, `"entrelinha": -0.02`).
+A cliente pediu Poppins e não gostou da cursiva (`manuscrita`): não use. Os tempos vêm da voz,
+como nos outros Reels (`scripts/sincronizar.py`).
+
+**Motion do quadro "Caso <famosa>":** cada caso leva uma composição feita à mão
+(`compositions/motion.html`, gerada por `motion.py` no projeto; veja o da Virgínia) montada com
+`"extras": [{"id": "motion", "src": "compositions/motion.html", "z": 6}]`, com os sons dela em
+`sfx_extra`: selo do caso, índice dos capítulos, cartão de capítulo com etiqueta no canto, lista
+que cresce na fala, palavras riscadas, linha do tempo, comparação (≠) e o selo de "caso analisado"
+no fim. Branco em vidro escuro, no alto da tela, acima da cabeça dela.
 
 ## Fotos no vídeo
 

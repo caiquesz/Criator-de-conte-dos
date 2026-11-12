@@ -1,0 +1,161 @@
+<template>
+  <style>
+@font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+@font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+@font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Poppins Reels"; color: #FFFFFF; }
+    .clip, .post { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    .post { width: 300px; height: 518px; padding: 10px; background: #FFFFFF; border-radius: 28px;
+             box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35); overflow: hidden; }
+    .post video { position: absolute; left: 10px; top: 10px; width: 280px; height: 498px; border-radius: 20px; object-fit: cover; }
+    .vidro { position: absolute; border-radius: 34px; overflow: hidden;
+      background: linear-gradient(140deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.08)), rgba(22, 15, 17, 0.56);
+      -webkit-backdrop-filter: blur(22px) saturate(160%); backdrop-filter: blur(22px) saturate(160%);
+      border: 1.5px solid rgba(255, 255, 255, 0.32);
+      box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.45), 0 24px 60px rgba(0, 0, 0, 0.26); }
+    .pilula { position: absolute; display: flex; align-items: center; gap: 12px; padding: 14px 26px 14px 20px; border-radius: 999px;
+      background: rgba(18, 13, 15, 0.5); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(255, 255, 255, 0.34); font-size: 30px; line-height: 1; }
+    .ponto { width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 14px rgba(255,255,255,0.8); }
+    .pil-a { font-weight: 600; letter-spacing: 0.16em; opacity: 0.85; }
+    .pil-b { font-weight: 800; letter-spacing: 0.06em; }
+    .pil-num { font-weight: 800; letter-spacing: -0.02em; padding-right: 12px; border-right: 1.5px solid rgba(255,255,255,0.45); }
+    .capitulo { left: 230px; top: 150px; width: 620px; height: 330px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .mascara { overflow: hidden; }
+    .cap-num { font-weight: 800; font-size: 190px; line-height: 0.86; letter-spacing: -0.05em; }
+    .cap-tit { font-weight: 800; font-size: 68px; line-height: 1.05; letter-spacing: -0.04em; padding-bottom: 6px; }
+    .item { display: flex; align-items: center; gap: 18px; padding: 12px 30px 12px 14px; border-radius: 999px; font-weight: 700; font-size: 44px;
+             letter-spacing: -0.035em; line-height: 1; }
+    .chk { width: 44px; height: 44px; flex: none; }
+    .chk circle { fill: rgba(255,255,255,0.16); stroke: rgba(255,255,255,0.75); stroke-width: 2.5; }
+    .chk path { fill: none; stroke: #FFFFFF; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; }
+    .item.base { padding: 12px 30px 12px 24px; border-color: rgba(255,255,255,0.75); box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.5), 0 0 26px rgba(255,255,255,0.28), 0 24px 60px rgba(0,0,0,0.26); }
+    .item .seta { font-weight: 800; width: 44px; text-align: center; }
+    .item b { font-weight: 800; }
+    .leve { font-weight: 600; font-size: 32px; opacity: 0.85; margin-left: 6px; letter-spacing: -0.02em; }
+    .chip { display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 52px; letter-spacing: -0.04em; }
+    .risco { position: absolute; left: 44px; right: 44px; top: 56px; height: 7px; border-radius: 4px; background: #FFFFFF;
+              transform-origin: 0 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .par-txt { position: absolute; left: 44px; top: 26px; font-weight: 800; font-size: 50px; letter-spacing: -0.04em; }
+    .no { position: absolute; width: 48px; height: 48px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 22px rgba(255,255,255,0.7); }
+    .no.fraco { background: rgba(255,255,255,0.55); box-shadow: none; }
+    .trilho { position: absolute; height: 6px; border-radius: 3px; background: #FFFFFF; transform-origin: 0 50%; }
+    .trilho.fraco { background: rgba(255,255,255,0.25); }
+    .rotulo { position: absolute; left: 44px; top: 28px; font-weight: 700; font-size: 28px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; }
+    .no-txt { position: absolute; text-align: center; font-weight: 700; font-size: 36px; line-height: 1.08; letter-spacing: -0.035em; }
+    .no-txt.fraco { opacity: 0.7; font-weight: 600; }
+    .diferente { display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 800; font-size: 60px; }
+    .anos-txt { position: absolute; left: 44px; top: 30px; font-weight: 800; font-size: 46px; letter-spacing: -0.04em; }
+    .barra { position: absolute; left: 44px; right: 44px; top: 108px; height: 12px; border-radius: 6px; background: rgba(255,255,255,0.22); }
+    .barra.cheia { background: #FFFFFF; transform-origin: 0 50%; }
+    .cuids { position: absolute; left: 40px; right: 40px; top: 90px; text-align: center; line-height: 1; }
+    .cuid { display: inline-block; margin: 10px 8px; padding: 16px 28px; border-radius: 999px; background: rgba(255,255,255,0.16);
+             border: 1.5px solid rgba(255,255,255,0.45); font-weight: 700; font-size: 40px; letter-spacing: -0.035em; }
+    .indice { position: absolute; left: 0; width: 1080px; top: 400px; display: flex; justify-content: center; gap: 16px; }
+    .indice .pilula { position: relative; font-size: 32px; padding: 16px 28px 16px 22px; }
+    .fecho { left: 230px; top: 250px; width: 620px; justify-content: center; height: 190px; display: flex; align-items: center; gap: 30px; padding: 0 44px; }
+    .chk.grande { width: 104px; height: 104px; }
+    .chk.grande path { stroke-width: 3.4; }
+    .fe-a { font-weight: 800; font-size: 50px; letter-spacing: -0.03em; line-height: 1; }
+    .fe-b { font-weight: 600; font-size: 38px; letter-spacing: -0.02em; line-height: 1.1; opacity: 0.85; margin-top: 8px; }
+  </style>
+  <div id="root" data-composition-id="motion" data-width="1080" data-height="1920">
+    <div id="selo" class="clip" data-start="0.3" data-duration="7.65"><div class="pilula" id="selo-p" style="left:48px;top:64px"><span class="ponto" id="selo-d"></span><span class="pil-a">CASO</span><span class="pil-b">VIRGÍNIA</span></div></div>
+    <div id="indice" class="clip" data-start="6.55" data-duration="1.58"><div class="indice"><div class="pilula" id="ind0"><span class="pil-num">01</span><span class="pil-b">rotina</span></div><div class="pilula" id="ind1"><span class="pil-num">02</span><span class="pil-b">genética</span></div><div class="pilula" id="ind2"><span class="pil-num">03</span><span class="pil-b">construção</span></div></div></div>
+    <div id="cap1" class="clip" data-start="8.2" data-duration="1.8"><div class="vidro capitulo" id="cap1-v"><div class="mascara"><div class="cap-num" id="cap1-n">01</div></div><div class="mascara"><div class="cap-tit" id="cap1-t">a rotina</div></div></div></div>
+    <div id="tag1" class="clip" data-start="9.9" data-duration="9.05"><div class="pilula" id="tag1-p" style="left:48px;top:64px"><span class="pil-num">01</span><span class="pil-b">ROTINA</span></div></div>
+    <div id="cap2" class="clip" data-start="19.12" data-duration="1.73"><div class="vidro capitulo" id="cap2-v"><div class="mascara"><div class="cap-num" id="cap2-n">02</div></div><div class="mascara"><div class="cap-tit" id="cap2-t">a genética</div></div></div></div>
+    <div id="tag2" class="clip" data-start="20.75" data-duration="6.87"><div class="pilula" id="tag2-p" style="left:48px;top:64px"><span class="pil-num">02</span><span class="pil-b">GENÉTICA</span></div></div>
+    <div id="cap3" class="clip" data-start="27.78" data-duration="1.17"><div class="vidro capitulo" id="cap3-v"><div class="mascara"><div class="cap-num" id="cap3-n">03</div></div><div class="mascara"><div class="cap-tit" id="cap3-t">a construção</div></div></div></div>
+    <div id="tag3" class="clip" data-start="28.85" data-duration="17.95"><div class="pilula" id="tag3-p" style="left:48px;top:64px"><span class="pil-num">03</span><span class="pil-b">CONSTRUÇÃO</span></div></div>
+    <div id="lista" class="clip" data-start="10.3" data-duration="8.65"><div class="vidro item" id="it0" style="left:100px;top:140px"><svg class="chk" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20"/><path id="it0-c" d="M12.5 22.5 L19 29 L31.5 15.5"/></svg><span>treina todos os dias</span></div><div class="vidro item" id="it1" style="left:100px;top:228px"><svg class="chk" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20"/><path id="it1-c" d="M12.5 22.5 L19 29 L31.5 15.5"/></svg><span>academia em casa</span></div><div class="vidro item" id="it2" style="left:100px;top:316px"><svg class="chk" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20"/><path id="it2-c" d="M12.5 22.5 L19 29 L31.5 15.5"/></svg><span>alimentação</span></div><div class="vidro item" id="it3" style="left:100px;top:404px"><svg class="chk" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20"/><path id="it3-c" d="M12.5 22.5 L19 29 L31.5 15.5"/></svg><span>descanso</span></div><div class="vidro item base" id="proc" style="left:100px;top:492px"><span class="seta">+</span><b>procedimento</b><span class="leve">sobre essa base</span></div></div>
+    <div id="merito" class="clip" data-start="24.78" data-duration="1.6"><div class="vidro chip" id="mer" style="left:150px;top:250px;width:360px;height:116px"><span>mérito</span><i class="risco" id="mer-r"></i></div><div class="vidro chip" id="cul" style="left:570px;top:250px;width:360px;height:116px"><span>culpa</span><i class="risco" id="cul-r"></i></div></div>
+    <div id="partida" class="clip" data-start="26.44" data-duration="1.16"><div class="vidro" id="par-v" style="left:90px;top:240px;width:900px;height:170px"><div class="par-txt">ponto de partida</div><i class="no" id="par-no" style="left:56px;top:112px"></i><i class="trilho" id="par-l" style="left:80px;top:122px;width:770px"></i></div></div>
+    <div id="post" class="post" style="left:620px;top:40px"><video id="post-v" class="clip" src="assets/fotos/virginia-tela.mp4" data-start="28.95" data-duration="3.05" data-media-start="3" muted playsinline></video></div>
+    <div id="linha" class="clip" data-start="33.55" data-duration="3.87"><div class="vidro" id="lin-v" style="left:70px;top:170px;width:940px;height:300px"><div class="rotulo">a construção</div><i class="trilho fraco" style="left:80px;top:128px;width:780px"></i><i class="trilho" id="lin-a" style="left:80px;top:128px;width:390px"></i><i class="trilho" id="lin-b" style="left:470px;top:128px;width:390px"></i><i class="no fraco" style="left:56px;top:104px"></i><i class="no" id="lin-n2" style="left:446px;top:104px"></i><i class="no" id="lin-n3" style="left:836px;top:104px"></i><div class="no-txt fraco" style="left:10px;top:170px;width:160px;text-align:left">partida</div><div class="no-txt" id="lin-t2" style="left:300px;top:170px;width:340px">harmonização<br>glútea</div><div class="no-txt" id="lin-t3" style="left:600px;top:170px;width:320px;text-align:right">bioestimulador<br>de colágeno</div></div></div>
+    <div id="versus" class="clip" data-start="37.55" data-duration="4.3"><div class="vidro chip" id="vs-a" style="left:70px;top:250px;width:420px;height:120px"><span>preenchedor</span></div><div class="vidro chip" id="vs-b" style="left:590px;top:250px;width:420px;height:120px"><span>bioestimulador</span></div><div class="vidro diferente" id="vs-x" style="left:488px;top:258px;width:104px;height:104px"><span>≠</span></div></div>
+    <div id="anos" class="clip" data-start="44.4" data-duration="2.15"><div class="vidro" id="anos-v" style="left:120px;top:240px;width:840px;height:156px"><div class="anos-txt">anos de acompanhamento</div><i class="barra"></i><i class="barra cheia" id="anos-b"></i></div></div>
+    <div id="serie" class="clip" data-start="54.3" data-duration="2.48"><div class="vidro" id="ser-v" style="left:90px;top:170px;width:900px;height:300px"><div class="rotulo">a série de cuidados</div><div class="cuids"><span class="cuid" id="cu0">treino</span><span class="cuid" id="cu1">alimentação</span><span class="cuid" id="cu2">descanso</span><br><span class="cuid" id="cu3">procedimentos</span><span class="cuid" id="cu4">acompanhamento</span></div></div></div>
+    <div id="fecho" class="clip" data-start="60.05" data-duration="3.85"><div class="vidro fecho" id="fe-v"><svg class="chk grande" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20"/><path id="fe-c" d="M12.5 22.5 L19 29 L31.5 15.5"/></svg><div><div class="fe-a">CASO VIRGÍNIA</div><div class="fe-b">analisado</div></div></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 63.9 }, 0);
+    tl.fromTo("#selo-p", {"opacity": 0, "x": -40}, {opacity:1, x:0, y:0, scale:1, duration:0.5, ease:"expo.out"}, 0.35);
+    tl.fromTo("#selo-d", {scale:1}, {scale:1.4, duration:0.5, ease:"sine.inOut", yoyo:true, repeat:9}, 0.9);
+    tl.to("#selo-p", {...{"opacity": 0, "x": -24}, duration:0.3, ease:"power2.in"}, 7.6);
+    tl.fromTo("#ind0", {"opacity": 0, "y": 30, "scale": 0.85}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"back.out(1.8)"}, 6.6);
+    tl.fromTo("#ind1", {"opacity": 0, "y": 30, "scale": 0.85}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"back.out(1.8)"}, 6.85);
+    tl.fromTo("#ind2", {"opacity": 0, "y": 30, "scale": 0.85}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"back.out(1.8)"}, 7.1);
+    tl.to(["#ind0", "#ind1", "#ind2"], {opacity:0, y:-20, duration:0.22, ease:"power2.in", stagger:0.04}, 7.9);
+    tl.fromTo("#cap1-v", {"opacity": 0, "scale": 0.9}, {opacity:1, x:0, y:0, scale:1, duration:0.45, ease:"expo.out"}, 8.2);
+    tl.fromTo("#cap1-n", {yPercent:105}, {yPercent:0, duration:0.55, ease:"expo.out"}, 8.28);
+    tl.fromTo("#cap1-t", {yPercent:110}, {yPercent:0, duration:0.5, ease:"expo.out"}, 8.4);
+    tl.to("#cap1-v", {...{"opacity": 0, "scale": 0.92, "y": -30}, duration:0.3, ease:"power2.in"}, 9.68);
+    tl.fromTo("#tag1-p", {"opacity": 0, "x": -30}, {opacity:1, x:0, y:0, scale:1, duration:0.45, ease:"expo.out"}, 9.9);
+    tl.to("#tag1-p", {...{"opacity": 0, "x": -20}, duration:0.3, ease:"power2.in"}, 18.63);
+    tl.fromTo("#cap2-v", {"opacity": 0, "scale": 0.9}, {opacity:1, x:0, y:0, scale:1, duration:0.45, ease:"expo.out"}, 19.12);
+    tl.fromTo("#cap2-n", {yPercent:105}, {yPercent:0, duration:0.55, ease:"expo.out"}, 19.2);
+    tl.fromTo("#cap2-t", {yPercent:110}, {yPercent:0, duration:0.5, ease:"expo.out"}, 19.32);
+    tl.to("#cap2-v", {...{"opacity": 0, "scale": 0.92, "y": -30}, duration:0.3, ease:"power2.in"}, 20.53);
+    tl.fromTo("#tag2-p", {"opacity": 0, "x": -30}, {opacity:1, x:0, y:0, scale:1, duration:0.45, ease:"expo.out"}, 20.75);
+    tl.to("#tag2-p", {...{"opacity": 0, "x": -20}, duration:0.3, ease:"power2.in"}, 27.3);
+    tl.fromTo("#cap3-v", {"opacity": 0, "scale": 0.9}, {opacity:1, x:0, y:0, scale:1, duration:0.45, ease:"expo.out"}, 27.78);
+    tl.fromTo("#cap3-n", {yPercent:105}, {yPercent:0, duration:0.55, ease:"expo.out"}, 27.86);
+    tl.fromTo("#cap3-t", {yPercent:110}, {yPercent:0, duration:0.5, ease:"expo.out"}, 27.98);
+    tl.to("#cap3-v", {...{"opacity": 0, "scale": 0.92, "y": -30}, duration:0.3, ease:"power2.in"}, 28.63);
+    tl.fromTo("#tag3-p", {"opacity": 0, "x": -30}, {opacity:1, x:0, y:0, scale:1, duration:0.45, ease:"expo.out"}, 28.85);
+    tl.to("#tag3-p", {...{"opacity": 0, "x": -20}, duration:0.3, ease:"power2.in"}, 46.48);
+    tl.fromTo("#it0", {"opacity": 0, "x": -50, "scale": 0.92}, {opacity:1, x:0, y:0, scale:1, duration:0.42, ease:"back.out(1.5)"}, 10.38);
+    tl.fromTo("#it0-c", {strokeDashoffset:40}, {strokeDashoffset:0, duration:0.3, ease:"power2.out"}, 10.52);
+    tl.fromTo("#it1", {"opacity": 0, "x": -50, "scale": 0.92}, {opacity:1, x:0, y:0, scale:1, duration:0.42, ease:"back.out(1.5)"}, 11.88);
+    tl.fromTo("#it1-c", {strokeDashoffset:40}, {strokeDashoffset:0, duration:0.3, ease:"power2.out"}, 12.02);
+    tl.fromTo("#it2", {"opacity": 0, "x": -50, "scale": 0.92}, {opacity:1, x:0, y:0, scale:1, duration:0.42, ease:"back.out(1.5)"}, 13);
+    tl.fromTo("#it2-c", {strokeDashoffset:40}, {strokeDashoffset:0, duration:0.3, ease:"power2.out"}, 13.14);
+    tl.fromTo("#it3", {"opacity": 0, "x": -50, "scale": 0.92}, {opacity:1, x:0, y:0, scale:1, duration:0.42, ease:"back.out(1.5)"}, 14.36);
+    tl.fromTo("#it3-c", {strokeDashoffset:40}, {strokeDashoffset:0, duration:0.3, ease:"power2.out"}, 14.5);
+    tl.fromTo("#proc", {"opacity": 0, "y": 40, "scale": 0.9}, {opacity:1, x:0, y:0, scale:1, duration:0.5, ease:"back.out(1.6)"}, 15.62);
+    tl.to(["#it0", "#it1", "#it2", "#it3", "#proc"], {opacity:0, x:-30, duration:0.26, ease:"power2.in", stagger:0.04}, 18.55);
+    tl.fromTo("#mer", {"opacity": 0, "y": 24, "scale": 0.9}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"back.out(1.5)"}, 24.86);
+    tl.fromTo("#mer-r", {scaleX:0}, {scaleX:1, duration:0.28, ease:"power2.inOut"}, 25.16);
+    tl.fromTo("#cul", {"opacity": 0, "y": 24, "scale": 0.9}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"back.out(1.5)"}, 25.72);
+    tl.fromTo("#cul-r", {scaleX:0}, {scaleX:1, duration:0.28, ease:"power2.inOut"}, 26.02);
+    tl.to("#mer", {...{"opacity": 0, "y": -24}, duration:0.3, ease:"power2.in"}, 26.08);
+    tl.to("#cul", {...{"opacity": 0, "y": -24}, duration:0.3, ease:"power2.in"}, 26.08);
+    tl.fromTo("#par-v", {"opacity": 0, "y": 26}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"expo.out"}, 26.44);
+    tl.fromTo("#par-no", {scale:0}, {scale:1, duration:0.35, ease:"back.out(2)"}, 26.56);
+    tl.fromTo("#par-l", {scaleX:0}, {scaleX:1, duration:0.8, ease:"power2.out"}, 26.7);
+    tl.fromTo("#post", {opacity:0, y:-60, rotation:12, scale:0.85}, {opacity:1, y:0, rotation:5, scale:1, duration:0.6, ease:"back.out(1.4)"}, 28.95);
+    tl.to("#post", {y:-10, rotation:6, duration:2.0, ease:"sine.inOut"}, 29.55);
+    tl.to("#post", {opacity:0, y:-80, scale:0.9, duration:0.35, ease:"power2.in"}, 31.62);
+    tl.fromTo("#lin-v", {"opacity": 0, "y": 26}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"expo.out"}, 33.55);
+    tl.fromTo("#lin-a", {scaleX:0}, {scaleX:1, duration:0.45, ease:"power2.out"}, 33.6);
+    tl.fromTo("#lin-n2", {scale:0}, {scale:1, duration:0.35, ease:"back.out(2)"}, 34);
+    tl.fromTo("#lin-t2", {"opacity": 0, "y": 16}, {opacity:1, x:0, y:0, scale:1, duration:0.35, ease:"expo.out"}, 34.02);
+    tl.fromTo("#lin-b", {scaleX:0}, {scaleX:1, duration:0.45, ease:"power2.out"}, 35.94);
+    tl.fromTo("#lin-n3", {scale:0}, {scale:1, duration:0.35, ease:"back.out(2)"}, 36.34);
+    tl.fromTo("#lin-t3", {"opacity": 0, "y": 16}, {opacity:1, x:0, y:0, scale:1, duration:0.35, ease:"expo.out"}, 36.36);
+    tl.to("#lin-v", {...{"opacity": 0, "y": -24}, duration:0.3, ease:"power2.in"}, 37.1);
+    tl.fromTo("#vs-a", {"opacity": 0, "x": -60}, {opacity:1, x:0, y:0, scale:1, duration:0.45, ease:"expo.out"}, 37.64);
+    tl.fromTo("#vs-b", {"opacity": 0, "x": 60}, {opacity:1, x:0, y:0, scale:1, duration:0.45, ease:"expo.out"}, 38.54);
+    tl.fromTo("#vs-x", {"opacity": 0, "scale": 0.4}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"back.out(2.2)"}, 39.88);
+    tl.to("#vs-a", {...{"opacity": 0, "y": -24}, duration:0.3, ease:"power2.in"}, 41.52);
+    tl.to("#vs-b", {...{"opacity": 0, "y": -24}, duration:0.3, ease:"power2.in"}, 41.52);
+    tl.to("#vs-x", {...{"opacity": 0, "y": -24}, duration:0.3, ease:"power2.in"}, 41.52);
+    tl.fromTo("#anos-v", {"opacity": 0, "y": 26}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"expo.out"}, 44.42);
+    tl.fromTo("#anos-b", {scaleX:0}, {scaleX:1, duration:1.5, ease:"power1.inOut"}, 45.1);
+    tl.to("#anos-v", {...{"opacity": 0, "y": -24}, duration:0.3, ease:"power2.in"}, 46.22);
+    tl.fromTo("#ser-v", {"opacity": 0, "y": 26}, {opacity:1, x:0, y:0, scale:1, duration:0.4, ease:"expo.out"}, 54.3);
+    tl.fromTo("#cu0", {"opacity": 0, "scale": 0.7, "y": 12}, {opacity:1, x:0, y:0, scale:1, duration:0.35, ease:"back.out(2)"}, 54.56);
+    tl.fromTo("#cu1", {"opacity": 0, "scale": 0.7, "y": 12}, {opacity:1, x:0, y:0, scale:1, duration:0.35, ease:"back.out(2)"}, 54.8);
+    tl.fromTo("#cu2", {"opacity": 0, "scale": 0.7, "y": 12}, {opacity:1, x:0, y:0, scale:1, duration:0.35, ease:"back.out(2)"}, 55.04);
+    tl.fromTo("#cu3", {"opacity": 0, "scale": 0.7, "y": 12}, {opacity:1, x:0, y:0, scale:1, duration:0.35, ease:"back.out(2)"}, 55.28);
+    tl.fromTo("#cu4", {"opacity": 0, "scale": 0.7, "y": 12}, {opacity:1, x:0, y:0, scale:1, duration:0.35, ease:"back.out(2)"}, 55.52);
+    tl.to("#ser-v", {...{"opacity": 0, "y": -24}, duration:0.3, ease:"power2.in"}, 56.45);
+    tl.fromTo("#fe-v", {opacity:0, scale:1.35, rotation:-4}, {opacity:1, scale:1, rotation:-2, duration:0.45, ease:"back.out(1.6)"}, 60.08);
+    tl.fromTo("#fe-c", {strokeDashoffset:40}, {strokeDashoffset:0, duration:0.35, ease:"power2.out"}, 60.4);
+    tl.to("#fe-v", {scale:1.03, duration:3.2, ease:"sine.inOut"}, 60.6);
+    window.__timelines["motion"] = tl;
+  </script>
+</template>

@@ -1,0 +1,192 @@
+[
+ {
+  "t": 0.4,
+  "som": "pop",
+  "vol": 0.4
+ },
+ {
+  "t": 6.6,
+  "som": "click",
+  "vol": 0.4
+ },
+ {
+  "t": 6.85,
+  "som": "click",
+  "vol": 0.4
+ },
+ {
+  "t": 7.1,
+  "som": "click",
+  "vol": 0.4
+ },
+ {
+  "t": 8.3,
+  "som": "pop",
+  "vol": 0.45
+ },
+ {
+  "t": 9.95,
+  "som": "click",
+  "vol": 0.35
+ },
+ {
+  "t": 19.22,
+  "som": "pop",
+  "vol": 0.45
+ },
+ {
+  "t": 20.8,
+  "som": "click",
+  "vol": 0.35
+ },
+ {
+  "t": 27.88,
+  "som": "pop",
+  "vol": 0.45
+ },
+ {
+  "t": 28.9,
+  "som": "click",
+  "vol": 0.35
+ },
+ {
+  "t": 10.52,
+  "som": "click-agudo",
+  "vol": 0.5
+ },
+ {
+  "t": 12.02,
+  "som": "click-agudo",
+  "vol": 0.5
+ },
+ {
+  "t": 13.14,
+  "som": "click-agudo",
+  "vol": 0.5
+ },
+ {
+  "t": 14.5,
+  "som": "click-agudo",
+  "vol": 0.5
+ },
+ {
+  "t": 15.62,
+  "som": "pop",
+  "vol": 0.5
+ },
+ {
+  "t": 24.86,
+  "som": "click",
+  "vol": 0.4
+ },
+ {
+  "t": 25.18,
+  "som": "click-tecla",
+  "vol": 0.4
+ },
+ {
+  "t": 25.72,
+  "som": "click",
+  "vol": 0.4
+ },
+ {
+  "t": 26.04,
+  "som": "click-tecla",
+  "vol": 0.4
+ },
+ {
+  "t": 26.5,
+  "som": "whoosh-rapido",
+  "vol": 0.35
+ },
+ {
+  "t": 28.98,
+  "som": "whoosh-rapido",
+  "vol": 0.45
+ },
+ {
+  "t": 31.65,
+  "som": "whoosh",
+  "vol": 0.3
+ },
+ {
+  "t": 34.0,
+  "som": "click-agudo",
+  "vol": 0.45
+ },
+ {
+  "t": 36.34,
+  "som": "click-agudo",
+  "vol": 0.45
+ },
+ {
+  "t": 33.6,
+  "som": "whoosh-rapido",
+  "vol": 0.3
+ },
+ {
+  "t": 37.66,
+  "som": "pop",
+  "vol": 0.45
+ },
+ {
+  "t": 38.56,
+  "som": "pop",
+  "vol": 0.45
+ },
+ {
+  "t": 39.9,
+  "som": "click-agudo",
+  "vol": 0.5
+ },
+ {
+  "t": 44.45,
+  "som": "whoosh-rapido",
+  "vol": 0.35
+ },
+ {
+  "t": 45.14,
+  "som": "click",
+  "vol": 0.35
+ },
+ {
+  "t": 54.33,
+  "som": "whoosh-rapido",
+  "vol": 0.35
+ },
+ {
+  "t": 54.56,
+  "som": "click",
+  "vol": 0.32
+ },
+ {
+  "t": 54.8,
+  "som": "click",
+  "vol": 0.32
+ },
+ {
+  "t": 55.04,
+  "som": "click",
+  "vol": 0.32
+ },
+ {
+  "t": 55.28,
+  "som": "click",
+  "vol": 0.32
+ },
+ {
+  "t": 55.52,
+  "som": "click",
+  "vol": 0.32
+ },
+ {
+  "t": 60.1,
+  "som": "pop",
+  "vol": 0.5
+ },
+ {
+  "t": 60.45,
+  "som": "click-agudo",
+  "vol": 0.45
+ }
+]

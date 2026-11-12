@@ -33,21 +33,21 @@
   </style>
   <div id="root" data-composition-id="fotos" data-width="1080" data-height="1920">
       <div id="f1" class="ft" data-layout-allow-overlap data-layout-allow-overflow>
-        <div class="ft-painel esfumado" id="f1-p" style="height:1000px;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent 100%);mask-image:linear-gradient(to bottom,#000 70%,transparent 100%);">
-          <div class="ft-faixa" id="f1-s"><div class="ft-slot" style="left:0px"><div class="ft-caixa" style="width:1080px;height:1000px"><video id="f1-i0" class="clip" src="assets/fotos/virginia-tela.mp4" data-start="0" data-duration="8.133" data-media-start="0" muted playsinline style="left:0.0px;top:-901.6px;width:1080.0px;height:1920.0px;transform-origin:50.0% 73.0%"></video></div></div></div>
+        <div class="ft-painel esfumado" id="f1-p" style="height:700px;-webkit-mask-image:linear-gradient(to bottom,#000 74%,transparent 100%);mask-image:linear-gradient(to bottom,#000 74%,transparent 100%);">
+          <div class="ft-faixa" id="f1-s"><div class="ft-slot" style="left:0px"><div class="ft-caixa" style="width:1080px;height:700px"><video id="f1-i0" class="clip" src="assets/fotos/virginia-tela.mp4" data-start="0" data-duration="4.733" data-media-start="0" muted playsinline style="left:0.0px;top:-840.4px;width:1080.0px;height:1920.0px;transform-origin:47.0% 62.0%"></video></div></div></div>
         </div>
       </div>
       <div id="f2" class="clip ft" data-start="49.6" data-duration="2.74" data-layout-allow-overlap>
-        <div class="ft-cheia" id="f2-b"><div class="ft-caixa reta" style="width:1080px;height:1920px"><img id="f2-i" src="assets/fotos/virginia-foto.jpg" alt="" style="left:-112.3px;top:0.0px;width:1295.7px;height:1920.0px;transform-origin:50.3% 67.3%"></div></div>
+        <div class="ft-cheia" id="f2-b"><div class="ft-caixa reta" style="width:1080px;height:1920px"><img id="f2-i" src="assets/fotos/virginia-foto.jpg" alt="" style="left:-373.2px;top:-768.0px;width:1814.0px;height:2688.0px;transform-origin:50.3% 67.3%"></div></div>
         <div class="ft-flash" id="f2-f"></div>
       </div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     tl.to({}, { duration: 63.9 }, 0);
-    tl.fromTo("#f1-i0", {scale:1}, {scale:1.04, duration:8.133, ease:"none"}, 0);
+    tl.fromTo("#f1-i0", {scale:1}, {scale:1.04, duration:4.733, ease:"none"}, 0);
     tl.fromTo("#f1-p", {opacity:1}, {opacity:1, duration:0.01, ease:"power2.out"}, 0);
-    tl.to("#f1-p", {opacity:0, duration:0.004}, 8.127);
+    tl.to("#f1-p", {opacity:0, duration:0.004}, 4.727);
     tl.fromTo("#f2-i", {scale:1}, {scale:1.08, duration:2.3, ease:"none"}, 49.7);
     tl.fromTo("#f2-b", {opacity:0}, {opacity:1, duration:0.01}, 49.7);
     tl.fromTo("#f2-f", {opacity:0}, {opacity:0.92, duration:0.09, ease:"power2.in"}, 49.61);

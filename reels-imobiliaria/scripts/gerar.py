@@ -40,6 +40,9 @@ ESTILOS = {
     "frase":       {"familia": "Poppins Reels", "peso": 600, "italico": False, "tam": 54, "arquivo": "Poppins-600.ttf"},
     "frase-fina":  {"familia": "Poppins Reels", "peso": 400, "italico": False, "tam": 46, "arquivo": "Poppins-400.ttf"},
     "frase-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 86, "arquivo": "Poppins-800.ttf"},
+    # legenda das referências 3 e 4 da biomédica: Poppins negrito, letras juntas, frase inteira
+    "legenda":       {"familia": "Poppins Reels", "peso": 700, "italico": False, "tam": 58, "arquivo": "Poppins-700.ttf"},
+    "legenda-forte": {"familia": "Poppins Reels", "peso": 800, "italico": False, "tam": 80, "arquivo": "Poppins-800.ttf"},
     # palavra escrita à mão (referência 2 da biomédica)
     "manuscrita":  {"familia": "Caveat", "peso": 600, "italico": False, "tam": 96, "arquivo": "Caveat-600.ttf"},
 }
@@ -84,6 +87,8 @@ def tracking_em(estilo, plano):
         return 0.32
     if estilo in ("frase", "frase-fina", "manuscrita"):
         return t.get("frase", -0.005)
+    if estilo in ("legenda", "legenda-forte"):
+        return t.get("legenda", -0.04)
     return t.get("forte", -0.035)
 
 
@@ -136,7 +141,7 @@ def entrada_palavra(estilo):
     return {"opacity": 0, "filter": "blur(12px)", "y": 18}
 
 
-def montar_linha(gid, li, linha, plano, js):
+def montar_linha(gid, li, linha, plano, js, animar=True):
     """HTML de uma linha de palavras (e a entrada de cada palavra no tempo da fala)."""
     estilo = linha.get("estilo", "fina")
     e = ESTILOS[estilo]
@@ -155,8 +160,9 @@ def montar_linha(gid, li, linha, plano, js):
     for pi, p in enumerate(linha["palavras"]):
         pid = f"{gid}-l{li}-p{pi}"
         spans.append(f'<span class="p" id="{pid}">{esc(p["t"])}</span>')
-        js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
-                  f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"])});')
+        if animar:
+            js.append(f'tl.fromTo("#{pid}", {json.dumps(entrada_palavra(estilo))}, '
+                      f'{{opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}}, {num(p["s"])});')
     classe = "linha" if not cor.startswith("destaque") else (
         "linha brilho escuro" if cor == "destaque-escuro" else "linha brilho")
     return f'<div class="{classe}" id="{gid}-l{li}" style="{css}">{" ".join(spans)}</div>'
@@ -164,9 +170,27 @@ def montar_linha(gid, li, linha, plano, js):
 
 def gerar_legendas(plano, duracao):
     grupos_html, js = [], []
-    for g in plano.get("legendas", []):
+    corte = plano.get("legendas_modo") == "corte"
+    grupos = plano.get("legendas", [])
+    inicio_de = lambda g: min(p["s"] for l in g["linhas"] for p in l["palavras"])
+    for gi, g in enumerate(grupos):
         gid = g["id"]
         palavras = [p for l in g["linhas"] for p in l["palavras"]]
+        if corte:
+            inicio = round(inicio_de(g) * FPS) / FPS
+            fim = g["fim"]
+            if gi + 1 < len(grupos):
+                fim = min(fim, round(inicio_de(grupos[gi + 1]) * FPS) / FPS)
+            estilo_bloco = f"top:{g['y']}px;"
+            linhas_html = [montar_linha(gid, li, linha, plano, js, animar=False) for li, linha in enumerate(g["linhas"])]
+            pop = plano.get("legendas_pop")
+            if pop:  # a frase inteira entra de uma vez, num estalo curto de escala (sem fade: nada fica por cima da anterior)
+                js.append(f'tl.fromTo("#{gid}", {{scale:{pop}}}, {{scale:1, duration:0.16, ease:"back.out(2.4)"}}, {num(inicio)});')
+            classe_grupo = "clip grupo sombra-forte" if g.get("sombra_forte") else "clip grupo"
+            grupos_html.append(
+                f'<div id="{gid}" class="{classe_grupo}" data-start="{num(inicio)}" data-duration="{num(fim - inicio)}" '
+                f'data-layout-allow-overlap style="{estilo_bloco}">\n        ' + "\n        ".join(linhas_html) + "\n      </div>")
+            continue
         inicio = min(p["s"] for p in palavras) - 0.02
         fim = g["fim"]
         alinhar = g.get("alinhar", "centro")
@@ -684,6 +708,11 @@ def eventos_sfx(plano):
             ev.append((f["inicio"], "whoosh-rapido", 0.5))
         else:
             ev.append((f["inicio"] + 0.05, "whoosh-rapido", 0.35))
+    sc = plano.get("som_cortes")
+    if sc:
+        for t in plano.get("transicoes", []):
+            if t.get("tipo") == "corte":
+                ev.append((t["t"], sc.get("som", "whoosh-rapido"), sc.get("vol", 0.35)))
     grandes = [t for t in plano.get("transicoes", []) if t.get("tipo", "luz") != "corte"]
     for i, t in enumerate(grandes):
         tipo = t.get("tipo", "luz")
@@ -817,6 +846,20 @@ def gerar_index(plano, duracao):
       <div id="fotos" data-composition-id="fotos" data-composition-src="compositions/fotos.html"
         data-start="0" data-duration="{d}" data-track-index="4" data-track-kind="graphics"
         data-width="{w}" data-height="{h}" style="z-index: 5"></div>""".format(d=num(duracao), w=LARGURA, h=ALTURA) if camadas["frente"] else ""
+    # composições extras escritas à mão no projeto (ex.: as animações do quadro da biomédica)
+    extras_html = "".join(f"""
+      <div id="{esc(x['id'])}" data-composition-id="{esc(x['id'])}" data-composition-src="{esc(x['src'])}"
+        data-start="0" data-duration="{num(duracao)}" data-track-index="{20 + i}" data-track-kind="graphics"
+        data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: {x.get('z', 6)}"></div>""" for i, x in enumerate(plano.get("extras", [])))
+    # zoom lento dentro de cada plano (as referências nunca ficam paradas): depois do empurrão de cada corte
+    zl = plano.get("zoom_lento")
+    if zl:
+        marcos = sorted({0.0} | {t["t"] for t in plano.get("transicoes", [])} | {duracao})
+        for a_, b_ in zip(marcos, marcos[1:]):
+            tr = next((t for t in plano.get("transicoes", []) if abs(t["t"] - a_) < 1e-6), None)
+            atraso = 0.0 if tr is None else (0.45 if tr.get("tipo") == "corte" else 0.6)
+            if b_ - a_ - atraso > 0.3:
+                js.append(f'tl.fromTo(".cam", {{scale:1}}, {{scale:{1 + zl}, duration:{num(b_ - a_ - atraso)}, ease:"none", immediateRender:false}}, {num(a_ + atraso)});')
     # a legenda passa atrás da pessoa (imobiliária) ou fica na frente de tudo (biomédica)
     z_legendas = 7 if plano.get("legendas_na_frente") else 3
 
@@ -869,7 +912,7 @@ def gerar_index(plano, duracao):
       <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
         data-start="0" data-duration="{num(duracao)}" data-track-index="2" data-track-kind="captions"
         data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: {z_legendas}"></div>
-{recorte_html}{fotos_html}
+{recorte_html}{fotos_html}{extras_html}
       <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
         data-start="0" data-duration="{num(duracao)}" data-track-index="3" data-track-kind="graphics"
         data-width="{LARGURA}" data-height="{ALTURA}" style="z-index: 6"></div>

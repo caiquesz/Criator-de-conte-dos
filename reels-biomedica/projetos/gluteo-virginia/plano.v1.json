@@ -1,0 +1,1634 @@
+{
+ "video": "assets/video/video.mp4",
+ "video_tem_audio": true,
+ "duracao": 63.9,
+ "enquadramentos": [
+  {
+   "de": 0,
+   "escala": 1.0
+  },
+  {
+   "de": 8.15,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 19.05,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 27.69,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 37.49,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 44.29,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 46.87,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 52.61,
+   "escala": 1.5,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  },
+  {
+   "de": 56.89,
+   "escala": 1.22,
+   "centro": [
+    0.525,
+    0.522
+   ]
+  }
+ ],
+ "legendas_na_frente": true,
+ "foco_fotos": "corpo",
+ "cores": {
+  "texto": "#FFFFFF",
+  "destaque": "#FFFFFF",
+  "destaque_escuro": "#FFFFFF",
+  "brilho": false
+ },
+ "legendas": [
+  {
+   "id": "g1",
+   "y": 1000,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "O",
+       "s": 0.864
+      },
+      {
+       "t": "vídeo",
+       "s": 0.94
+      },
+      {
+       "t": "da",
+       "s": 1.16
+      },
+      {
+       "t": "Virgínia",
+       "s": 1.34
+      }
+     ]
+    }
+   ],
+   "fim": 1.66,
+   "sombra_forte": true
+  },
+  {
+   "id": "g2",
+   "y": 1000,
+   "linhas": [
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "repercutiu",
+       "s": 1.68
+      },
+      {
+       "t": "muito,",
+       "s": 2.38
+      }
+     ]
+    }
+   ],
+   "fim": 3.14,
+   "sombra_forte": true
+  },
+  {
+   "id": "g3",
+   "y": 1000,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "todo",
+       "s": 3.16
+      },
+      {
+       "t": "mundo",
+       "s": 3.26
+      },
+      {
+       "t": "viu",
+       "s": 3.5
+      }
+     ]
+    }
+   ],
+   "fim": 3.7,
+   "sombra_forte": true
+  },
+  {
+   "id": "g4",
+   "y": 1000,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 3.72
+      },
+      {
+       "t": "resultado,",
+       "s": 3.98
+      }
+     ]
+    }
+   ],
+   "fim": 4.72,
+   "sombra_forte": true
+  },
+  {
+   "id": "g5",
+   "y": 1000,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 4.736
+      },
+      {
+       "t": "que",
+       "s": 4.86
+      },
+      {
+       "t": "ninguém",
+       "s": 4.98
+      },
+      {
+       "t": "vê",
+       "s": 5.22
+      }
+     ]
+    }
+   ],
+   "fim": 5.54,
+   "sombra_forte": true
+  },
+  {
+   "id": "g6",
+   "y": 1000,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "é",
+       "s": 5.56
+      },
+      {
+       "t": "o",
+       "s": 5.82
+      },
+      {
+       "t": "que",
+       "s": 5.96
+      },
+      {
+       "t": "vem",
+       "s": 6.1
+      },
+      {
+       "t": "antes",
+       "s": 6.22
+      },
+      {
+       "t": "dele,",
+       "s": 6.52
+      }
+     ]
+    }
+   ],
+   "fim": 7.02,
+   "sombra_forte": true
+  },
+  {
+   "id": "g7",
+   "y": 1000,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "mas",
+       "s": 7.04
+      },
+      {
+       "t": "eu",
+       "s": 7.2
+      },
+      {
+       "t": "vou",
+       "s": 7.36
+      },
+      {
+       "t": "te",
+       "s": 7.44
+      },
+      {
+       "t": "contar",
+       "s": 7.58
+      },
+      {
+       "t": "agora.",
+       "s": 7.8
+      }
+     ]
+    }
+   ],
+   "fim": 8.26,
+   "sombra_forte": true
+  },
+  {
+   "id": "g8",
+   "y": 1300,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "primeiro,",
+       "s": 8.28
+      }
+     ]
+    },
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 9.14
+      },
+      {
+       "t": "rotina.",
+       "s": 9.34
+      }
+     ]
+    }
+   ],
+   "fim": 10.24,
+   "sombra_forte": true
+  },
+  {
+   "id": "g9",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "Ela",
+       "s": 10.38
+      },
+      {
+       "t": "treina",
+       "s": 10.44
+      },
+      {
+       "t": "todos",
+       "s": 10.66
+      },
+      {
+       "t": "os",
+       "s": 11.08
+      },
+      {
+       "t": "dias,",
+       "s": 11.24
+      }
+     ]
+    }
+   ],
+   "fim": 11.86,
+   "sombra_forte": true
+  },
+  {
+   "id": "g10",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 11.88
+      },
+      {
+       "t": "academia",
+       "s": 11.94
+      },
+      {
+       "t": "em",
+       "s": 12.18
+      },
+      {
+       "t": "casa,",
+       "s": 12.42
+      }
+     ]
+    }
+   ],
+   "fim": 13.0,
+   "sombra_forte": true
+  },
+  {
+   "id": "g11",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "se",
+       "s": 13.024
+      },
+      {
+       "t": "alimenta",
+       "s": 13.16
+      },
+      {
+       "t": "bem,",
+       "s": 13.62
+      }
+     ]
+    }
+   ],
+   "fim": 14.34,
+   "sombra_forte": true
+  },
+  {
+   "id": "g12",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 14.36
+      },
+      {
+       "t": "descanso,",
+       "s": 14.68
+      }
+     ]
+    }
+   ],
+   "fim": 15.14,
+   "sombra_forte": true
+  },
+  {
+   "id": "g13",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "então",
+       "s": 15.16
+      },
+      {
+       "t": "o",
+       "s": 15.36
+      },
+      {
+       "t": "procedimento",
+       "s": 15.6
+      }
+     ]
+    }
+   ],
+   "fim": 16.1,
+   "sombra_forte": true
+  },
+  {
+   "id": "g14",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "entra",
+       "s": 16.12
+      },
+      {
+       "t": "sobre",
+       "s": 16.54
+      },
+      {
+       "t": "essa",
+       "s": 17.14
+      },
+      {
+       "t": "base",
+       "s": 17.5
+      }
+     ]
+    }
+   ],
+   "fim": 17.86,
+   "sombra_forte": true
+  },
+  {
+   "id": "g15",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 17.88
+      },
+      {
+       "t": "não",
+       "s": 18.08
+      },
+      {
+       "t": "no",
+       "s": 18.3
+      },
+      {
+       "t": "lugar",
+       "s": 18.44
+      },
+      {
+       "t": "dela.",
+       "s": 18.74
+      }
+     ]
+    }
+   ],
+   "fim": 19.22,
+   "sombra_forte": true
+  },
+  {
+   "id": "g16",
+   "y": 1200,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "segundo,",
+       "s": 19.24
+      }
+     ]
+    },
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 19.92
+      },
+      {
+       "t": "genética.",
+       "s": 20.1
+      }
+     ]
+    }
+   ],
+   "fim": 20.88,
+   "sombra_forte": true
+  },
+  {
+   "id": "g17",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "Tem",
+       "s": 20.9
+      },
+      {
+       "t": "corpos",
+       "s": 21.02
+      },
+      {
+       "t": "que",
+       "s": 21.48
+      },
+      {
+       "t": "nascem",
+       "s": 21.72
+      }
+     ]
+    }
+   ],
+   "fim": 21.94,
+   "sombra_forte": true
+  },
+  {
+   "id": "g18",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 21.96
+      },
+      {
+       "t": "mais",
+       "s": 22.18
+      },
+      {
+       "t": "glúteos",
+       "s": 22.38
+      }
+     ]
+    }
+   ],
+   "fim": 22.88,
+   "sombra_forte": true
+  },
+  {
+   "id": "g19",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 22.9
+      },
+      {
+       "t": "outros",
+       "s": 23.08
+      },
+      {
+       "t": "não,",
+       "s": 23.46
+      }
+     ]
+    }
+   ],
+   "fim": 24.01,
+   "sombra_forte": true
+  },
+  {
+   "id": "g20",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 24.032
+      },
+      {
+       "t": "isso",
+       "s": 24.26
+      },
+      {
+       "t": "não",
+       "s": 24.46
+      },
+      {
+       "t": "é",
+       "s": 24.66
+      },
+      {
+       "t": "mérito",
+       "s": 24.86
+      }
+     ]
+    }
+   ],
+   "fim": 25.18,
+   "sombra_forte": true
+  },
+  {
+   "id": "g21",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 25.2
+      },
+      {
+       "t": "nem",
+       "s": 25.54
+      },
+      {
+       "t": "culpa,",
+       "s": 25.72
+      }
+     ]
+    }
+   ],
+   "fim": 26.44,
+   "sombra_forte": true
+  },
+  {
+   "id": "g22",
+   "y": 1200,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "é",
+       "s": 26.464
+      },
+      {
+       "t": "o",
+       "s": 26.62
+      }
+     ]
+    },
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "ponto",
+       "s": 26.74
+      },
+      {
+       "t": "de",
+       "s": 26.98
+      },
+      {
+       "t": "partida.",
+       "s": 27.18
+      }
+     ]
+    }
+   ],
+   "fim": 27.78,
+   "sombra_forte": true
+  },
+  {
+   "id": "g23",
+   "y": 1300,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "terceiro,",
+       "s": 27.8
+      }
+     ]
+    },
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 28.8
+      },
+      {
+       "t": "ela",
+       "s": 28.96
+      },
+      {
+       "t": "mesma",
+       "s": 29.18
+      },
+      {
+       "t": "contou,",
+       "s": 29.42
+      }
+     ]
+    }
+   ],
+   "fim": 30.24,
+   "sombra_forte": true
+  },
+  {
+   "id": "g24",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 30.26
+      },
+      {
+       "t": "glúteo",
+       "s": 30.34
+      },
+      {
+       "t": "dela",
+       "s": 30.68
+      },
+      {
+       "t": "é",
+       "s": 30.92
+      }
+     ]
+    }
+   ],
+   "fim": 31.18,
+   "sombra_forte": true
+  },
+  {
+   "id": "g25",
+   "y": 1300,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "uma",
+       "s": 31.2
+      }
+     ]
+    },
+    {
+     "estilo": "manuscrita",
+     "palavras": [
+      {
+       "t": "construção.",
+       "s": 31.58
+      }
+     ]
+    }
+   ],
+   "fim": 32.16,
+   "sombra_forte": true
+  },
+  {
+   "id": "g26",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "Ela",
+       "s": 32.18
+      },
+      {
+       "t": "já",
+       "s": 32.32
+      },
+      {
+       "t": "mostrou",
+       "s": 32.66
+      }
+     ]
+    }
+   ],
+   "fim": 33.04,
+   "sombra_forte": true
+  },
+  {
+   "id": "g27",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "ter",
+       "s": 33.06
+      },
+      {
+       "t": "feito",
+       "s": 33.32
+      },
+      {
+       "t": "a",
+       "s": 33.68
+      }
+     ]
+    }
+   ],
+   "fim": 33.88,
+   "sombra_forte": true
+  },
+  {
+   "id": "g28",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "harmonização",
+       "s": 33.9
+      },
+      {
+       "t": "glútea",
+       "s": 34.38
+      }
+     ]
+    }
+   ],
+   "fim": 35.12,
+   "sombra_forte": true
+  },
+  {
+   "id": "g29",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 35.136
+      },
+      {
+       "t": "hoje",
+       "s": 35.28
+      },
+      {
+       "t": "mantém",
+       "s": 35.5
+      }
+     ]
+    }
+   ],
+   "fim": 35.9,
+   "sombra_forte": true
+  },
+  {
+   "id": "g30",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 35.92
+      },
+      {
+       "t": "o",
+       "s": 36.1
+      },
+      {
+       "t": "bioestimulador",
+       "s": 36.24
+      }
+     ]
+    }
+   ],
+   "fim": 36.8,
+   "sombra_forte": true
+  },
+  {
+   "id": "g31",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 36.82
+      },
+      {
+       "t": "colágeno.",
+       "s": 37.04
+      }
+     ]
+    }
+   ],
+   "fim": 37.48,
+   "sombra_forte": true
+  },
+  {
+   "id": "g32",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "O",
+       "s": 37.5
+      },
+      {
+       "t": "preenchedor",
+       "s": 37.64
+      },
+      {
+       "t": "e",
+       "s": 38.22
+      }
+     ]
+    }
+   ],
+   "fim": 38.34,
+   "sombra_forte": true
+  },
+  {
+   "id": "g33",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 38.36
+      },
+      {
+       "t": "bioestimulador",
+       "s": 38.54
+      }
+     ]
+    }
+   ],
+   "fim": 39.4,
+   "sombra_forte": true
+  },
+  {
+   "id": "g34",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "fazem",
+       "s": 39.42
+      },
+      {
+       "t": "efeitos",
+       "s": 39.88
+      },
+      {
+       "t": "distintos,",
+       "s": 40.58
+      }
+     ]
+    }
+   ],
+   "fim": 41.48,
+   "sombra_forte": true
+  },
+  {
+   "id": "g35",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "mas",
+       "s": 41.7
+      },
+      {
+       "t": "cada",
+       "s": 41.92
+      },
+      {
+       "t": "um",
+       "s": 42.3
+      },
+      {
+       "t": "teve",
+       "s": 42.62
+      }
+     ]
+    }
+   ],
+   "fim": 42.86,
+   "sombra_forte": true
+  },
+  {
+   "id": "g36",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 42.88
+      },
+      {
+       "t": "seu",
+       "s": 43.02
+      },
+      {
+       "t": "momento",
+       "s": 43.14
+      }
+     ]
+    }
+   ],
+   "fim": 43.48,
+   "sombra_forte": true
+  },
+  {
+   "id": "g37",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "na",
+       "s": 43.5
+      },
+      {
+       "t": "história",
+       "s": 43.74
+      },
+      {
+       "t": "dela.",
+       "s": 44.04
+      }
+     ]
+    }
+   ],
+   "fim": 44.38,
+   "sombra_forte": true
+  },
+  {
+   "id": "g38",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "Isso",
+       "s": 44.4
+      },
+      {
+       "t": "é",
+       "s": 44.54
+      },
+      {
+       "t": "um",
+       "s": 44.7
+      },
+      {
+       "t": "trabalho",
+       "s": 44.82
+      }
+     ]
+    }
+   ],
+   "fim": 45.12,
+   "sombra_forte": true
+  },
+  {
+   "id": "g39",
+   "y": 1300,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "de",
+       "s": 45.14
+      },
+      {
+       "t": "anos",
+       "s": 45.46
+      },
+      {
+       "t": "com",
+       "s": 45.7
+      }
+     ]
+    },
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "acompanhamento.",
+       "s": 46.04
+      }
+     ]
+    }
+   ],
+   "fim": 46.94,
+   "sombra_forte": true
+  },
+  {
+   "id": "g40",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "Então",
+       "s": 46.98
+      },
+      {
+       "t": "quando",
+       "s": 47.18
+      },
+      {
+       "t": "uma",
+       "s": 47.4
+      },
+      {
+       "t": "paciente",
+       "s": 47.64
+      }
+     ]
+    }
+   ],
+   "fim": 48.16,
+   "sombra_forte": true
+  },
+  {
+   "id": "g41",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "me",
+       "s": 48.18
+      },
+      {
+       "t": "chega",
+       "s": 48.5
+      },
+      {
+       "t": "como",
+       "s": 48.74
+      },
+      {
+       "t": "referência",
+       "s": 49.12
+      }
+     ]
+    }
+   ],
+   "fim": 49.7,
+   "sombra_forte": true
+  },
+  {
+   "id": "g42",
+   "y": 1650,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 49.72
+      },
+      {
+       "t": "glúteo",
+       "s": 49.86
+      }
+     ]
+    },
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "da",
+       "s": 50.22
+      },
+      {
+       "t": "Virgínia,",
+       "s": 50.4
+      }
+     ]
+    }
+   ],
+   "fim": 51.18,
+   "sombra_forte": true
+  },
+  {
+   "id": "g43",
+   "y": 1690,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "eu",
+       "s": 51.2
+      },
+      {
+       "t": "já",
+       "s": 51.36
+      },
+      {
+       "t": "entendo",
+       "s": 51.62
+      }
+     ]
+    }
+   ],
+   "fim": 51.9,
+   "sombra_forte": true
+  },
+  {
+   "id": "g44",
+   "y": 1690,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 51.92
+      },
+      {
+       "t": "desejo",
+       "s": 52.14
+      },
+      {
+       "t": "dela.",
+       "s": 52.44
+      }
+     ]
+    }
+   ],
+   "fim": 52.78,
+   "sombra_forte": true
+  },
+  {
+   "id": "g45",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "Mas",
+       "s": 52.8
+      },
+      {
+       "t": "é",
+       "s": 52.92
+      },
+      {
+       "t": "importante",
+       "s": 53.18
+      },
+      {
+       "t": "pontuar",
+       "s": 53.72
+      }
+     ]
+    }
+   ],
+   "fim": 54.32,
+   "sombra_forte": true
+  },
+  {
+   "id": "g46",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 54.34
+      },
+      {
+       "t": "série",
+       "s": 54.56
+      },
+      {
+       "t": "de",
+       "s": 54.84
+      },
+      {
+       "t": "cuidados",
+       "s": 55.16
+      }
+     ]
+    }
+   ],
+   "fim": 55.5,
+   "sombra_forte": true
+  },
+  {
+   "id": "g47",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "que",
+       "s": 55.52
+      },
+      {
+       "t": "ela",
+       "s": 55.68
+      },
+      {
+       "t": "tem",
+       "s": 55.88
+      }
+     ]
+    }
+   ],
+   "fim": 56.08,
+   "sombra_forte": true
+  },
+  {
+   "id": "g48",
+   "y": 1340,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 56.1
+      },
+      {
+       "t": "ela",
+       "s": 56.34
+      },
+      {
+       "t": "mesma.",
+       "s": 56.5
+      }
+     ]
+    }
+   ],
+   "fim": 57.0,
+   "sombra_forte": true
+  },
+  {
+   "id": "g49",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 57.02
+      },
+      {
+       "t": "o",
+       "s": 57.16
+      },
+      {
+       "t": "seu",
+       "s": 57.3
+      },
+      {
+       "t": "cuidado",
+       "s": 57.48
+      }
+     ]
+    }
+   ],
+   "fim": 57.96,
+   "sombra_forte": true
+  },
+  {
+   "id": "g50",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "também",
+       "s": 57.98
+      },
+      {
+       "t": "pode",
+       "s": 58.46
+      }
+     ]
+    }
+   ],
+   "fim": 58.72,
+   "sombra_forte": true
+  },
+  {
+   "id": "g51",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "começar",
+       "s": 58.74
+      },
+      {
+       "t": "agora,",
+       "s": 59.18
+      }
+     ]
+    }
+   ],
+   "fim": 60.0,
+   "sombra_forte": true
+  },
+  {
+   "id": "g52",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "assim",
+       "s": 60.02
+      },
+      {
+       "t": "você",
+       "s": 60.32
+      },
+      {
+       "t": "terá",
+       "s": 60.74
+      }
+     ]
+    }
+   ],
+   "fim": 61.0,
+   "sombra_forte": true
+  },
+  {
+   "id": "g53",
+   "y": 1240,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "um",
+       "s": 61.02
+      },
+      {
+       "t": "resultado",
+       "s": 61.2
+      },
+      {
+       "t": "tão",
+       "s": 61.48
+      },
+      {
+       "t": "atrativo",
+       "s": 61.88
+      }
+     ]
+    }
+   ],
+   "fim": 62.48,
+   "sombra_forte": true
+  },
+  {
+   "id": "g54",
+   "y": 1200,
+   "linhas": [
+    {
+     "estilo": "frase",
+     "palavras": [
+      {
+       "t": "quanto",
+       "s": 62.5
+      },
+      {
+       "t": "o",
+       "s": 62.78
+      }
+     ]
+    },
+    {
+     "estilo": "frase-forte",
+     "palavras": [
+      {
+       "t": "da",
+       "s": 62.94
+      },
+      {
+       "t": "Virgínia.",
+       "s": 63.0
+      }
+     ]
+    }
+   ],
+   "fim": 63.88,
+   "sombra_forte": true
+  }
+ ],
+ "fotos": [
+  {
+   "id": "f1",
+   "layout": "dividida",
+   "esfumado": true,
+   "inicio": 0.0,
+   "fim": 8.1333,
+   "corte": 1000,
+   "imagens": [
+    {
+     "src": "assets/fotos/virginia-tela.mp4",
+     "foco": [
+      0.5,
+      0.73
+     ]
+    }
+   ],
+   "saida": "corte"
+  },
+  {
+   "id": "f2",
+   "layout": "cheia",
+   "inicio": 49.7,
+   "fim": 52.0,
+   "imagens": [
+    "assets/fotos/virginia-foto.jpg"
+   ]
+  }
+ ],
+ "transicoes": [
+  {
+   "t": 8.1333,
+   "tipo": "corte"
+  },
+  {
+   "t": 19.0667,
+   "tipo": "corte"
+  },
+  {
+   "t": 27.7,
+   "tipo": "corte"
+  },
+  {
+   "t": 37.5,
+   "tipo": "corte"
+  },
+  {
+   "t": 44.3,
+   "tipo": "corte"
+  },
+  {
+   "t": 46.8667,
+   "tipo": "corte"
+  },
+  {
+   "t": 52.6,
+   "tipo": "corte"
+  },
+  {
+   "t": 56.9,
+   "tipo": "corte"
+  }
+ ]
+}

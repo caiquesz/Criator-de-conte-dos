@@ -58,5 +58,25 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   depois em `cards` na primeira vez e `dividida` quando ela comenta os detalhes; várias famosas em
   `dividida` (carrossel); uma famosa ou um resultado em `atras`; um resultado para impressionar em
   `cheia`, curto (2 a 4 s).
+- **Legendas (pedido dela depois da v1 da Virgínia):** Poppins, letras juntas mas legíveis
+  (`legenda` 700/58 px e `legenda-forte` 800/80 px, `tracking.legenda` -0.04), a frase inteira de
+  uma vez e troca seca (`"legendas_modo": "corte"`, `"legendas_pop": 0.9`): uma legenda nunca
+  aparece com a anterior ainda na tela (na v1, "ter feito" ainda estava saindo quando "harmonização
+  glútea" entrou). **Nada de letra cursiva** (ela não gostou da Caveat em "construção").
+  **Mesma altura em todo o vídeo**, inclusive com foto em tela cheia (na v1 a legenda da foto
+  ficou baixa demais); só na tela dividida ela vai na emenda.
+- **Tela dividida: mais da biomédica que da famosa.** Na v1, metade e metade pareceu Virgínia
+  demais; agora `corte` 700 (famosa com 700 px em cima, ela com 1220) e só enquanto ela fala do
+  vídeo da famosa.
+- **Edição dinâmica, como nas referências:** planos alternando a cada 2 a 5 s (`enquadramentos`
+  1.22/1.5 do 4K), `zoom_lento` 0.035 em cada plano, luz quente nas mudanças de capítulo, corte
+  com whoosh nos outros (`som_cortes`) e som em todo evento (foto entrando e saindo, cada item de
+  motion).
+- **É um quadro: "Caso <famosa>".** Cada vídeo de famosa leva selo do caso, capítulos numerados
+  (cartão grande e depois etiqueta no canto), motion graphics do que ela fala (lista, riscado,
+  linha do tempo, comparação) e o selo "caso analisado" no fim, tudo branco em vidro escuro, no
+  alto da tela (acima da cabeça dela). Modelo: `projetos/gluteo-virginia/motion.py`, que escreve
+  `compositions/motion.html` e os sons (`motion-sons.json` → `sfx_extra`), montado com
+  `"extras"`. Só texto que ela fala: nada de afirmação médica inventada.
 - **Fotos de pacientes são sensíveis:** ficam só no projeto local (`fotos-originais/` e
   `assets/fotos/` estão fora do git) e na página de envio; nunca em artefato publicado.
