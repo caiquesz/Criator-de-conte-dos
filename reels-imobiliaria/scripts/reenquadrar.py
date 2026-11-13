@@ -28,6 +28,10 @@ Todos os outros tempos do plano (legendas, fotos, transições) ficam no tempo n
 
 import numpy as np
 
+# rampa de entrada e saída do som em cada emenda de pausa: ponha a pausa num silêncio da fala (fundo baixo),
+# nunca no começo de uma palavra; a rampa só tira o estalo do corte, não mexe na voz
+FADE = 0.025
+
 import json
 import shutil
 import subprocess
@@ -103,7 +107,10 @@ def main():
             sa, sb = round(a / fps * taxa), round(b / fps * taxa)
             fim_a = f":end_sample={sb}" if j < k - 1 else ""
             silencio = f",apad=pad_len={round(pausas[j][1] / fps * taxa)}" if j < len(pausas) else ""
-            grafo += f";[a{j}]atrim=start_sample={sa}{fim_a},asetpts=PTS-STARTPTS{silencio}[x{j}]"
+            # rampas curtas nas emendas (sem elas o corte seco no meio da onda estala)
+            entra = f",afade=t=in:d={FADE}" if j > 0 else ""
+            sai = f",afade=t=out:st={(b - a) / fps - FADE:.5f}:d={FADE}" if j < len(pausas) else ""
+            grafo += f";[a{j}]atrim=start_sample={sa}{fim_a},asetpts=PTS-STARTPTS{entra}{sai}{silencio}[x{j}]"
         grafo += ";" + "".join(f"[w{j}][x{j}]" for j in range(k)) + f"concat=n={k}:v=1:a=1[o0][oa]"
         grafo += f";[o0]setpts=N/({num}/{den})/TB[o]"
         audio = ["-map", "[oa]", "-c:a", "aac", "-b:a", "320k"]
@@ -124,11 +131,19 @@ def main():
                               "-f", "f32le", "-"], capture_output=True, check=True).stdout
         voz = np.frombuffer(raw, np.float32).reshape(-1, 2)
         partes, ini = [], 0
+        rampa = np.linspace(0, 1, round(FADE * TAXA), dtype=np.float32)[:, None]
         for q, d in pausas:
             corte = round(q / fps * TAXA)
-            partes += [voz[ini:corte], np.zeros((round(d / fps * TAXA), 2), np.float32)]
+            trecho = voz[ini:corte].copy()
+            trecho[-len(rampa):] *= rampa[::-1]                 # some em 25 ms antes da pausa
+            if ini > 0:
+                trecho[:len(rampa)] *= rampa                    # e volta em 25 ms depois dela
+            partes += [trecho, np.zeros((round(d / fps * TAXA), 2), np.float32)]
             ini = corte
-        partes.append(voz[ini:])
+        fim = voz[ini:].copy()
+        if ini > 0:
+            fim[:len(rampa)] *= rampa
+        partes.append(fim)
         wav = v / "voz.wav"
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(TAXA), "-ac", "2", "-i", "-",
                         "-c:a", "pcm_f32le", str(wav)], input=np.concatenate(partes).tobytes(), check=True)

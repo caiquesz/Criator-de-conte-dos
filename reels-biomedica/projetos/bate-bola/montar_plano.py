@@ -17,7 +17,10 @@ from pathlib import Path
 
 AQUI = Path(__file__).parent
 ws = [w for s in json.loads((AQUI / "transcricao.json").read_text()) for w in s["palavras"]]
-PAUSA_EM, PAUSA = 2.9333, 4.4            # a abertura vem depois de ela dizer o título (como no modelo)
+# a abertura vem depois de ela dizer o título (como no modelo). A emenda fica num silêncio: a frase dela
+# acaba em 2,56 s e a pergunta começa em 2,90 s (em 2,93 a emenda cortava o começo do "Nádia" e estalava);
+# e o último quadro antes dela (2,80 s) está de olho aberto (de 2,87 a 2,97 ela pisca)
+PAUSA_EM, PAUSA = 2.8333, 4.4
 desloca = lambda t: round(t + PAUSA, 4) if t >= PAUSA_EM - 1e-6 else t
 q = lambda t: round(round(t * 30) / 30, 4)
 

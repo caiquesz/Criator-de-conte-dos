@@ -97,6 +97,12 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   frase, maior e em negrito (aspas abertas sem fechar ela notou na hora, e pediu para tirar o ✨ que pus no
   lugar); (5) Resende com S; (6) **um clique só**: o cursor clica e no mesmo instante entra a abertura
   inteira (com dois cliques o vídeo pulava para o trecho de perto sem nada e ela achou que bugou).
+  (7) **emenda sem tranco:** depois ela notou um pico no som na entrada do quadro: a pausa caía no começo do
+  "Nádia" da pergunta seguinte (a palavra partia ao meio) e o corte seco estalava. A pausa vai num silêncio
+  medido (a frase acaba em 2,56 s, a pergunta começa em 2,90: pausa em 2,83, último quadro de olho aberto),
+  com rampas de 25 ms (`reenquadrar.py`, só no fundo, nunca na voz); a música sobe do silêncio meio segundo
+  antes do clique e a batida forte cai nele (`PICO_SFX` 0,5333); e a troca para o trecho de perto é uma
+  transição de zoom (o quadro dela mergulha com desfoque e o trecho chega focando), sem esmaecer duplo.
   Modelo: `projetos/bate-bola/montar_plano.py`, `broll.py` e `abertura.py`. O vídeo veio com música: o áudio
   fica como está, só entram a música da abertura e os efeitos.
 - **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o

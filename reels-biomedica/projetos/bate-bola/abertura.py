@@ -19,13 +19,18 @@ Como no modelo (conferido quadro a quadro e com a transcrição dele):
 import json
 import math
 import random
+import subprocess
 from pathlib import Path
 
 AQUI = Path(__file__).parent
-FALA_FIM = 2.9333                     # ela termina "Resende" em 2,90: aqui começa a pausa da abertura
+_plano = json.loads((AQUI / "plano.json").read_text())
+FALA_FIM = _plano["pausas"][0]["em"]    # a pausa da abertura (montar_plano.py), num silêncio depois do título
 CLIQUE = FALA_FIM                     # um clique só: no clique entra a abertura inteira (estrelas, trecho de perto, música)
-TROCAS = [4.8333, 6.0333]             # os trechos do broll.py: 1,9 + 1,2 + 1,1667 s
-BARRAS, FIM = 7.2, 7.3333             # as barras ficam 4 quadros; FIM = fim da pausa (primeira pergunta)
+TROCA_ZOOM = 4 / 30                   # a transição de zoom: 4 quadros mergulhando no quadro dela, e o trecho de perto chega
+
+FIM = round(FALA_FIM + _plano["pausas"][0]["dur"], 4)   # fim da pausa: a primeira pergunta
+BARRAS = round(FIM - 4 / 30, 4)       # as barras ficam 4 quadros
+TROCAS = [round(CLIQUE + 1.9, 4), round(CLIQUE + 3.1, 4)]   # os trechos do broll.py: 1,9 + 1,2 + 1,1667 s
 TITULO1, TITULO2 = "Bate Bola com", "Dra Nádia Resende"
 AMARELO, CARAMELO = "#DCAB55", "#7C4D27"   # medidos nas estrelas do modelo
 
@@ -79,7 +84,7 @@ for k, (x, y) in enumerate(LUGARES):
     stars.append(f'<svg id="st{k}" class="estrela" viewBox="-58 -58 116 116" width="{tam}" height="{tam}"{desf}>'
                  f'<path d="{ESTRELA}" fill="{cor}" stroke="{cor}" stroke-width="7" stroke-linejoin="round"/></svg>')
     rot = rnd.uniform(-35, 35)
-    t_in = CLIQUE + 0.012 * k           # todas estouram logo depois do clique, quase juntas
+    t_in = CLIQUE + TROCA_ZOOM + 0.012 * k   # todas estouram logo depois do clique, quase juntas, quando o trecho de perto chega
     js_estrelas += [
         f'tl.fromTo("#st{k}", {{x:{x - tam / 2:.0f}, y:{y - tam / 2:.0f}, scale:0, rotation:{rot - 40:.0f}, opacity:1}}, '
         f'{{scale:1, rotation:{rot:.0f}, duration:0.22, ease:"back.out(2.2)"}}, {n(t_in)});',
@@ -97,7 +102,7 @@ rosa = (f'<svg id="rosa" class="rosa" viewBox="-60 -60 120 120" width="56" heigh
 traco = ('<svg id="traco" class="traco" viewBox="0 0 240 40" width="240" height="40"><path id="traco-p" '
          'd="M4,30 C60,12 130,10 236,16 M36,36 C90,24 150,22 200,26" fill="none" stroke="#FBE3EC" stroke-width="3.2" '
          'stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg>')
-T1, T2 = 3.3, 4.1
+T1, T2 = round(CLIQUE + 0.37, 4), round(CLIQUE + 1.17, 4)
 js_titulo = [f'tl.fromTo("#rosa", {{scale:0, rotation:-50}}, {{scale:1, rotation:-12, duration:0.32, ease:"back.out(2.4)"}}, {n(T1 - 0.07)});']
 js_titulo += [f'tl.set("#a{k}", {{opacity:1}}, {n(T1 + 0.05 * k)});' for k in range(len(TITULO1))]
 js_titulo += [f'tl.fromTo("#b{k}", {{opacity:0}}, {{opacity:1, duration:0.07, ease:"none"}}, {n(T2 + 0.065 * k)});' for k in range(len(TITULO2))]
@@ -122,6 +127,7 @@ html = f"""<div id="ab">
           data-media-start="0" muted playsinline></video></div></div>
         <div class="quente"></div><div class="grao" id="grao"></div>
       </div>
+      <img id="congela" class="congela" src="assets/video/abertura-quadro.jpg" alt="">
       {"".join(stars)}
       <div class="titulo" id="tit">
         <div class="l1">{rosa}<span class="t1">{t1}</span></div>
@@ -136,8 +142,16 @@ x1, y1 = em(600, 1180)                # o peito dela no vídeo normal
 js = [
     'tl.set("#ab", {opacity:1}, 0);',
     f'tl.set("#ab", {{opacity:0}}, {n(FIM)});',
+    # transição de zoom no clique: o quadro dela (o mesmo que fica parado na pausa) mergulha num zoom com
+    # desfoque e o trecho de perto chega saindo desse zoom, focando (no esmaecer simples ficava imagem dupla)
+    'tl.set("#congela", {opacity:0}, 0);',
+    f'tl.set("#congela", {{opacity:1}}, {n(CLIQUE)});',
+    # (a troca é seca no auge do desfoque, 4 quadros depois do clique: as duas nunca aparecem juntas)
+    f'tl.fromTo("#congela", {{scale:1, filter:"blur(0px)"}}, {{scale:1.45, filter:"blur(16px)", duration:{TROCA_ZOOM:.4f}, ease:"power2.in"}}, {n(CLIQUE)});',
+    f'tl.set("#congela", {{opacity:0}}, {n(CLIQUE + TROCA_ZOOM)});',
     'tl.set("#broll", {opacity:0}, 0);',
-    f'tl.set("#broll", {{opacity:1}}, {n(CLIQUE)});',
+    f'tl.set("#broll", {{opacity:1}}, {n(CLIQUE + TROCA_ZOOM)});',
+    f'tl.fromTo("#broll", {{filter:"blur(16px)"}}, {{filter:"blur(0px)", duration:0.28, ease:"power2.out"}}, {n(CLIQUE + TROCA_ZOOM)});',
     # cursor: sobe enquanto ela termina o título, clica uma vez e some (a abertura entra no clique;
     # na versão anterior havia dois cliques e o vídeo pulava para o trecho de perto sem nada, o que parecia um erro)
     f'tl.fromTo("#cur", {{x:{x0:.0f}, y:{y0:.0f}, opacity:0}}, {{x:{x1:.0f}, y:{y1:.0f}, opacity:1, duration:0.5, ease:"power2.out"}}, {n(CLIQUE - 0.68)});',
@@ -145,8 +159,8 @@ js = [
     f'tl.to("#cur", {{scale:1, duration:0.06, ease:"power1.out"}}, {n(CLIQUE)});',
     f'tl.to("#cur", {{opacity:0, duration:0.12, ease:"power1.in"}}, {n(CLIQUE + 0.06)});',
     # trechos de perto: salto de zoom em cada clique e em cada troca, e um empurrão lento dentro de cada um
-    f'tl.fromTo("#zoom", {{scale:1.22}}, {{scale:1.14, duration:0.3, ease:"expo.out"}}, {n(CLIQUE)});',
-    f'tl.to("#zoom", {{scale:1.2, duration:{TROCAS[0] - CLIQUE - 0.3:.2f}, ease:"none"}}, {n(CLIQUE + 0.3)});',
+    f'tl.fromTo("#zoom", {{scale:1.45}}, {{scale:1.14, duration:0.4, ease:"expo.out"}}, {n(CLIQUE + TROCA_ZOOM)});',
+    f'tl.to("#zoom", {{scale:1.2, duration:{TROCAS[0] - CLIQUE - 0.5:.2f}, ease:"none"}}, {n(CLIQUE + 0.5)});',
 ]
 for a, b in zip(TROCAS, TROCAS[1:] + [BARRAS]):
     js += [f'tl.fromTo("#zoom", {{scale:1.26}}, {{scale:1.14, duration:0.3, ease:"expo.out", immediateRender:false}}, {n(a)});',
@@ -179,6 +193,7 @@ saida = f"""<template>
     .grao {{ position: absolute; left: 0; top: 0; width: 1200px; height: 2040px; mix-blend-mode: overlay;
              background-image: url("{GRAO}"); background-size: 300px 300px; }}
     .estrela {{ position: absolute; left: 0; top: 0; opacity: 0; }}
+    .congela {{ position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; opacity: 0; transform-origin: 52% 40%; }}
     .titulo {{ position: absolute; left: 0; top: 930px; width: 1080px; text-align: center;
                text-shadow: 0 2px 4px rgba(40, 20, 10, 0.35), 0 6px 22px rgba(40, 20, 10, 0.35); }}
     .l1 {{ font-family: "Poppins Reels"; font-weight: 600; font-size: 80px; letter-spacing: -0.035em; line-height: 1; color: #FDF3CB;
@@ -205,10 +220,15 @@ saida = f"""<template>
 """
 sons = [
     {"t": CLIQUE, "som": "click", "vol": 0.6},
-    {"t": round(CLIQUE + 0.01, 3), "som": "musica-abertura", "vol": 1.0},
+    # a música já vem subindo do silêncio meio segundo antes (o arquivo começa 0,5 s antes da batida forte,
+    # que cai no clique: PICO_SFX do gerar.py), para a fala dela emendar na abertura sem tranco
+    {"t": CLIQUE, "som": "musica-abertura", "vol": 0.8},
     {"t": round(T1 - 0.05, 3), "som": "pop", "vol": 0.3},
-    {"t": BARRAS, "som": "bipe", "vol": 0.5},
+    {"t": BARRAS, "som": "bipe", "vol": 0.35},
 ]
+# o quadro parado da pausa (o último antes da emenda), para a transição de zoom no clique
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{FALA_FIM + 0.5:.3f}", "-i", str(AQUI / "assets" / "video" / "video.mp4"),
+                "-frames:v", "1", "-q:v", "2", str(AQUI / "assets" / "video" / "abertura-quadro.jpg")], check=True)
 (AQUI / "compositions").mkdir(exist_ok=True)
 (AQUI / "compositions" / "abertura.html").write_text(saida)
 (AQUI / "abertura-sons.json").write_text(json.dumps(sons, ensure_ascii=False, indent=1))
