@@ -6,9 +6,9 @@ Uso: python3 broll.py; python3 abertura.py   (na pasta do projeto; depois montar
 Como no modelo (conferido quadro a quadro e com a transcrição dele):
 - primeiro ela diz o título ("Bate bola com doutora Nádia Resende", 0 a 2,93 s) no vídeo normal, sem
   nada por cima: a abertura só vem depois da fala (na primeira versão as estrelas entravam no meio);
-- no fim da fala o cursor em pixel (a mãozinha branca) sobe e clica nela: o vídeo dá um salto de zoom
-  para trechos dela falando, mais de perto (broll.py, olhos abertos; na pausa a imagem parada pegou
-  ela de olho fechado); no segundo clique entra a música e aparecem as estrelas;
+- no fim da fala o cursor em pixel (a mãozinha branca) sobe e clica nela uma vez, e no clique entra
+  tudo junto: trechos dela falando, mais de perto (broll.py, olhos abertos; na pausa a imagem parada
+  pegou ela de olho fechado), as estrelas, a música e a imagem quente com grão;
 - as estrelas são como as do modelo: chapadas, sem contorno nem brilho, amarelo-ouro e algumas
   caramelo, poucas e espalhadas, girando e flutuando devagar;
 - "★ Bate Bola com" digitado (Poppins creme, estrelinha rosa com contorno), o nome à mão em Pinyon
@@ -23,7 +23,7 @@ from pathlib import Path
 
 AQUI = Path(__file__).parent
 FALA_FIM = 2.9333                     # ela termina "Resende" em 2,90: aqui começa a pausa da abertura
-CLIQUE1, CLIQUE2 = FALA_FIM, 3.3
+CLIQUE = FALA_FIM                     # um clique só: no clique entra a abertura inteira (estrelas, trecho de perto, música)
 TROCAS = [4.8333, 6.0333]             # os trechos do broll.py: 1,9 + 1,2 + 1,1667 s
 BARRAS, FIM = 7.2, 7.3333             # as barras ficam 4 quadros; FIM = fim da pausa (primeira pergunta)
 TITULO1, TITULO2 = "Bate Bola com", "Dra Nádia Resende"
@@ -79,13 +79,13 @@ for k, (x, y) in enumerate(LUGARES):
     stars.append(f'<svg id="st{k}" class="estrela" viewBox="-58 -58 116 116" width="{tam}" height="{tam}"{desf}>'
                  f'<path d="{ESTRELA}" fill="{cor}" stroke="{cor}" stroke-width="7" stroke-linejoin="round"/></svg>')
     rot = rnd.uniform(-35, 35)
-    t_in = CLIQUE2 + 0.03 + 0.035 * k
+    t_in = CLIQUE + 0.012 * k           # todas estouram logo depois do clique, quase juntas
     js_estrelas += [
         f'tl.fromTo("#st{k}", {{x:{x - tam / 2:.0f}, y:{y - tam / 2:.0f}, scale:0, rotation:{rot - 40:.0f}, opacity:1}}, '
-        f'{{scale:1, rotation:{rot:.0f}, duration:0.35, ease:"back.out(2)"}}, {n(t_in)});',
+        f'{{scale:1, rotation:{rot:.0f}, duration:0.22, ease:"back.out(2.2)"}}, {n(t_in)});',
         # deriva em valores absolutos (relativos "+=" pegam a base errada quando o tween anterior ainda corre)
         f'tl.to("#st{k}", {{x:{x - tam / 2 + rnd.uniform(-45, 45):.0f}, y:{y - tam / 2 + rnd.uniform(-60, 30):.0f}, '
-        f'rotation:{rot + rnd.choice([-1, 1]) * rnd.uniform(25, 70):.0f}, duration:{BARRAS - t_in - 0.36:.2f}, ease:"sine.inOut"}}, {n(t_in + 0.36)});',
+        f'rotation:{rot + rnd.choice([-1, 1]) * rnd.uniform(25, 70):.0f}, duration:{BARRAS - t_in - 0.23:.2f}, ease:"sine.inOut"}}, {n(t_in + 0.23)});',
     ]
 
 # ── título ────────────────────────────────────────────────────────────────────────────────────────
@@ -97,7 +97,7 @@ rosa = (f'<svg id="rosa" class="rosa" viewBox="-60 -60 120 120" width="56" heigh
 traco = ('<svg id="traco" class="traco" viewBox="0 0 240 40" width="240" height="40"><path id="traco-p" '
          'd="M4,30 C60,12 130,10 236,16 M36,36 C90,24 150,22 200,26" fill="none" stroke="#FBE3EC" stroke-width="3.2" '
          'stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg>')
-T1, T2 = 3.9, 4.7
+T1, T2 = 3.3, 4.1
 js_titulo = [f'tl.fromTo("#rosa", {{scale:0, rotation:-50}}, {{scale:1, rotation:-12, duration:0.32, ease:"back.out(2.4)"}}, {n(T1 - 0.07)});']
 js_titulo += [f'tl.set("#a{k}", {{opacity:1}}, {n(T1 + 0.05 * k)});' for k in range(len(TITULO1))]
 js_titulo += [f'tl.fromTo("#b{k}", {{opacity:0}}, {{opacity:1, duration:0.07, ease:"none"}}, {n(T2 + 0.065 * k)});' for k in range(len(TITULO2))]
@@ -118,7 +118,7 @@ for c, frac in baixo:
 
 html = f"""<div id="ab">
       <div class="broll" id="broll"><div class="balanco" id="bal"><div class="zoom" id="zoom">
-        <video id="br" class="clip" src="assets/video/broll.mp4" data-start="{n(CLIQUE1)}" data-duration="{n(BARRAS - CLIQUE1)}"
+        <video id="br" class="clip" src="assets/video/broll.mp4" data-start="{n(CLIQUE)}" data-duration="{n(BARRAS - CLIQUE)}"
           data-media-start="0" muted playsinline></video></div></div>
         <div class="quente"></div><div class="grao" id="grao"></div>
       </div>
@@ -133,35 +133,30 @@ html = f"""<div id="ab">
 
 x0, y0 = em(960, 1880)
 x1, y1 = em(600, 1180)                # o peito dela no vídeo normal
-x2, y2 = em(560, 860)                 # o rosto dela no trecho de perto
-x3, y3 = em(1020, 1600)
 js = [
     'tl.set("#ab", {opacity:1}, 0);',
     f'tl.set("#ab", {{opacity:0}}, {n(FIM)});',
     'tl.set("#broll", {opacity:0}, 0);',
-    f'tl.set("#broll", {{opacity:1}}, {n(CLIQUE1)});',
-    # cursor: sobe enquanto ela termina o título, clica, vai para o rosto, clica de novo e sai
-    f'tl.fromTo("#cur", {{x:{x0:.0f}, y:{y0:.0f}, opacity:0}}, {{x:{x1:.0f}, y:{y1:.0f}, opacity:1, duration:0.5, ease:"power2.out"}}, {n(CLIQUE1 - 0.68)});',
-    f'tl.to("#cur", {{scale:0.84, duration:0.05, ease:"power1.in", transformOrigin:"32% 3%"}}, {n(CLIQUE1 - 0.05)});',
-    f'tl.to("#cur", {{scale:1, duration:0.08, ease:"power1.out"}}, {n(CLIQUE1)});',
-    f'tl.to("#cur", {{x:{x2:.0f}, y:{y2:.0f}, duration:0.24, ease:"power2.inOut"}}, {n(CLIQUE1 + 0.06)});',
-    f'tl.to("#cur", {{scale:0.84, duration:0.05, ease:"power1.in"}}, {n(CLIQUE2 - 0.05)});',
-    f'tl.to("#cur", {{scale:1, duration:0.08, ease:"power1.out"}}, {n(CLIQUE2)});',
-    f'tl.to("#cur", {{x:{x3:.0f}, y:{y3:.0f}, opacity:0, duration:0.3, ease:"power2.in"}}, {n(CLIQUE2 + 0.1)});',
+    f'tl.set("#broll", {{opacity:1}}, {n(CLIQUE)});',
+    # cursor: sobe enquanto ela termina o título, clica uma vez e some (a abertura entra no clique;
+    # na versão anterior havia dois cliques e o vídeo pulava para o trecho de perto sem nada, o que parecia um erro)
+    f'tl.fromTo("#cur", {{x:{x0:.0f}, y:{y0:.0f}, opacity:0}}, {{x:{x1:.0f}, y:{y1:.0f}, opacity:1, duration:0.5, ease:"power2.out"}}, {n(CLIQUE - 0.68)});',
+    f'tl.to("#cur", {{scale:0.84, duration:0.05, ease:"power1.in", transformOrigin:"32% 3%"}}, {n(CLIQUE - 0.05)});',
+    f'tl.to("#cur", {{scale:1, duration:0.06, ease:"power1.out"}}, {n(CLIQUE)});',
+    f'tl.to("#cur", {{opacity:0, duration:0.12, ease:"power1.in"}}, {n(CLIQUE + 0.06)});',
     # trechos de perto: salto de zoom em cada clique e em cada troca, e um empurrão lento dentro de cada um
-    f'tl.fromTo("#zoom", {{scale:1.12}}, {{scale:1.08, duration:0.25, ease:"expo.out"}}, {n(CLIQUE1)});',
-    f'tl.fromTo("#zoom", {{scale:1.22}}, {{scale:1.14, duration:0.3, ease:"expo.out", immediateRender:false}}, {n(CLIQUE2)});',
-    f'tl.to("#zoom", {{scale:1.2, duration:{TROCAS[0] - CLIQUE2 - 0.3:.2f}, ease:"none"}}, {n(CLIQUE2 + 0.3)});',
+    f'tl.fromTo("#zoom", {{scale:1.22}}, {{scale:1.14, duration:0.3, ease:"expo.out"}}, {n(CLIQUE)});',
+    f'tl.to("#zoom", {{scale:1.2, duration:{TROCAS[0] - CLIQUE - 0.3:.2f}, ease:"none"}}, {n(CLIQUE + 0.3)});',
 ]
 for a, b in zip(TROCAS, TROCAS[1:] + [BARRAS]):
     js += [f'tl.fromTo("#zoom", {{scale:1.26}}, {{scale:1.14, duration:0.3, ease:"expo.out", immediateRender:false}}, {n(a)});',
            f'tl.to("#zoom", {{scale:1.21, duration:{b - a - 0.3:.2f}, ease:"none"}}, {n(a + 0.3)});']
 # balanço de câmera na mão, devagar
 js.append(f'tl.fromTo("#bal", {{x:0, y:0, rotation:0}}, {{keyframes:{{x:[0, 10, -6, 8, -4, 0], y:[0, -8, 6, -4, 8, 0], '
-          f'rotation:[0, 0.6, -0.5, 0.4, -0.6, 0]}}, duration:{BARRAS - CLIQUE1:.2f}, ease:"none"}}, {n(CLIQUE1)});')
+          f'rotation:[0, 0.6, -0.5, 0.4, -0.6, 0]}}, duration:{BARRAS - CLIQUE:.2f}, ease:"none"}}, {n(CLIQUE)});')
 # grão pulando a cada dois quadros
-js += [f'tl.set("#grao", {{x:{rnd.randint(-60, 0)}, y:{rnd.randint(-60, 0)}}}, {n(CLIQUE1 + k / 30)});'
-       for k in range(0, int((BARRAS - CLIQUE1) * 30), 2)]
+js += [f'tl.set("#grao", {{x:{rnd.randint(-60, 0)}, y:{rnd.randint(-60, 0)}}}, {n(CLIQUE + k / 30)});'
+       for k in range(0, int((BARRAS - CLIQUE) * 30), 2)]
 js += js_estrelas + js_titulo
 js.append(f'tl.set("#barras", {{opacity:1}}, {n(BARRAS)});')
 
@@ -209,13 +204,12 @@ saida = f"""<template>
 </template>
 """
 sons = [
-    {"t": CLIQUE1, "som": "click", "vol": 0.6},
-    {"t": CLIQUE2, "som": "click", "vol": 0.6},
-    {"t": round(CLIQUE2 + 0.01, 3), "som": "musica-abertura", "vol": 1.0},
+    {"t": CLIQUE, "som": "click", "vol": 0.6},
+    {"t": round(CLIQUE + 0.01, 3), "som": "musica-abertura", "vol": 1.0},
     {"t": round(T1 - 0.05, 3), "som": "pop", "vol": 0.3},
     {"t": BARRAS, "som": "bipe", "vol": 0.5},
 ]
 (AQUI / "compositions").mkdir(exist_ok=True)
 (AQUI / "compositions" / "abertura.html").write_text(saida)
 (AQUI / "abertura-sons.json").write_text(json.dumps(sons, ensure_ascii=False, indent=1))
-print(f"ok: compositions/abertura.html (cursor {n(CLIQUE1 - 0.68)} s, abertura {n(CLIQUE1)}–{n(FIM)} s), {len(sons)} sons")
+print(f"ok: compositions/abertura.html (cursor {n(CLIQUE - 0.68)} s, clique e abertura {n(CLIQUE)}–{n(FIM)} s), {len(sons)} sons")

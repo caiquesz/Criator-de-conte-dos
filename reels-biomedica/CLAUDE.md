@@ -93,8 +93,10 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   (blendshape `eyeBlink` < 0,35 em todos os quadros; precisa de `apt-get install libegl1`; medir pelo
   escuro do olho falha, os cílios e o delineado dela ficam escuros de olho fechado) e só onde ela fala;
   (3) **estrelas chapadas como as do modelo** (sem contorno, sem degradê: amarelo #DCAB55 e algumas
-  caramelo #7C4D27, poucas e espalhadas), não douradas com brilho; (4) o fim do modelo é um **emoji**
-  em cima da frase (👀), não aspas: aspas abertas sem fechar ela notou na hora; (5) Resende com S.
+  caramelo #7C4D27, poucas e espalhadas), não douradas com brilho; (4) no fim, **nem aspas nem emoji**: só a
+  frase, maior e em negrito (aspas abertas sem fechar ela notou na hora, e pediu para tirar o ✨ que pus no
+  lugar); (5) Resende com S; (6) **um clique só**: o cursor clica e no mesmo instante entra a abertura
+  inteira (com dois cliques o vídeo pulava para o trecho de perto sem nada e ela achou que bugou).
   Modelo: `projetos/bate-bola/montar_plano.py`, `broll.py` e `abertura.py`. O vídeo veio com música: o áudio
   fica como está, só entram a música da abertura e os efeitos.
 - **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o

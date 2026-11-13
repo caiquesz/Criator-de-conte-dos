@@ -55,7 +55,7 @@ ESTILOS = {
 DURACAO_SFX = {
     "click": 0.366, "click-agudo": 0.34, "click-tecla": 0.432, "pop": 0.72,
     "whoosh": 0.575, "whoosh-grave": 0.731, "whoosh-rapido": 0.549, "whoosh-transicao": 1.944,
-    "impacto": 1.4, "brilho": 1.8, "bipe": 0.3, "musica-abertura": 3.9,
+    "impacto": 1.4, "brilho": 1.8, "bipe": 0.3, "musica-abertura": 4.3,
 }
 PICO_SFX = {
     "click": 0.073, "click-agudo": 0.062, "click-tecla": 0.076, "pop": 0.12,

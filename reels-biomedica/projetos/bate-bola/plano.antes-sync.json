@@ -1351,18 +1351,8 @@
   },
   {
    "id": "g45",
-   "y": 1161,
+   "y": 1202,
    "linhas": [
-    {
-     "estilo": "texto",
-     "palavras": [
-      {
-       "t": "✨",
-       "s": 70.58
-      }
-     ],
-     "tam": 84
-    },
     {
      "estilo": "texto",
      "palavras": [
@@ -1429,17 +1419,12 @@
    "vol": 0.6
   },
   {
-   "t": 3.3,
-   "som": "click",
-   "vol": 0.6
-  },
-  {
-   "t": 3.31,
+   "t": 2.943,
    "som": "musica-abertura",
    "vol": 1.0
   },
   {
-   "t": 3.85,
+   "t": 3.25,
    "som": "pop",
    "vol": 0.3
   },

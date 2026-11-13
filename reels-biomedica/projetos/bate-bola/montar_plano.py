@@ -71,19 +71,20 @@ G = [  # cada item: lista de linhas (cada linha, lista de palavras)
     pergunta(11, "*Ainda *dá *tempo", "de fazer alguma coisa antes do verão?"),
     [fala(5, textos=["começando", "", "", "", "agora,"], negrito=[0, 4], so=[0, 4])], [fala(4, negrito=[3])], [fala(1, negrito=[0])],
     [fala(3)], [fala(5, negrito=[3, 4])],
-    # o fim em preto e branco como o "👀 / e o que é isso, ein?" do modelo: emoji em cima, frase maior e em negrito
-    [[{"t": "✨", "s": desloca(ws[i]["s"]), "e": desloca(ws[i]["e"])}], fala(5, negrito=[0, 1, 2, 3, 4])],
+    # o fim em preto e branco como o "e o que é isso, ein?" do modelo: frase maior e em negrito (sem emoji: ela
+    # pediu para tirar a estrelinha)
+    [fala(5, negrito=[0, 1, 2, 3, 4])],
 ]
 assert i == len(ws), (i, len(ws))
 CENTRO = 1230          # no top escuro dela (aberto e médio) e no colo no fechado, a mesma altura sempre
 legendas = []
 for k, linhas in enumerate(G, 1):
-    fim_ = linhas[0][0]["t"] == "✨"
-    alt = (84 + 56) * 0.98 if fim_ else sum(44 for ln in linhas) * 0.98
+    fim_ = k == len(G)                   # a frase final, maior
+    alt = 56 if fim_ else sum(44 for ln in linhas) * 0.98
     ultima = max(w["e"] for ln in linhas for w in ln)
     legendas.append({"id": f"g{k}", "y": round(CENTRO - alt / 2),
                      "linhas": [dict({"estilo": T, "palavras": [{kk: v for kk, v in w.items() if kk != "e"} for w in ln]},
-                                     **({"tam": 84 if ln[0]["t"] == "✨" else 56} if fim_ else {})) for ln in linhas],
+                                     **({"tam": 56} if fim_ else {})) for ln in linhas],
                      "fim": round(ultima + 0.3, 3), "sombra_forte": True})
 
 # o vídeo dela fica como veio: sem cortes, sem trocar de plano e sem zoom (pedido da cliente na 2ª
@@ -96,7 +97,7 @@ pb = [{"de": desloca(q(a)), "ate": desloca(q(b)) if b < 67.5 else fim_video} for
 for t in pb:
     sfx.append({"t": round(t["de"] + 0.02, 3), "som": "whoosh", "vol": 0.4})
 for g in legendas:                 # cada pergunta entra com um pop, como os textos do modelo
-    if len(g["linhas"]) == 2 and g["linhas"][0]["palavras"][0].get("b") and g["linhas"][0]["palavras"][0]["t"] != "✨":
+    if len(g["linhas"]) == 2 and g["linhas"][0]["palavras"][0].get("b") and True:
         sfx.append({"t": g["linhas"][0]["palavras"][0]["s"], "som": "pop", "vol": 0.5})
 
 plano = {
