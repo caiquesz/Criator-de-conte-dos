@@ -219,10 +219,10 @@ saida = f"""<template>
 </template>
 """
 sons = [
-    {"t": CLIQUE, "som": "click", "vol": 0.6},
+    {"t": CLIQUE, "som": "click", "vol": 0.45},
     # a música já vem subindo do silêncio meio segundo antes (o arquivo começa 0,5 s antes da batida forte,
     # que cai no clique: PICO_SFX do gerar.py), para a fala dela emendar na abertura sem tranco
-    {"t": CLIQUE, "som": "musica-abertura", "vol": 0.8},
+    {"t": CLIQUE, "som": "musica-abertura", "vol": 0.65},
     {"t": round(T1 - 0.05, 3), "som": "pop", "vol": 0.3},
     {"t": BARRAS, "som": "bipe", "vol": 0.35},
 ]
