@@ -103,6 +103,13 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   com rampas de 25 ms (`reenquadrar.py`, só no fundo, nunca na voz); a música sobe do silêncio meio segundo
   antes do clique e a batida forte cai nele (`PICO_SFX` 0,5333); e a troca para o trecho de perto é uma
   transição de zoom (o quadro dela mergulha com desfoque e o trecho chega focando), sem esmaecer duplo.
+  (8) **Sem estrelas e sem barras de TV:** em 16/11 a cliente recusou as estrelas, a entrada do quadro e a
+  "tela falhada" (as barras coloridas com bipe), mesmo sendo do modelo. Pediu opções: o `abertura.py` tem quatro
+  estilos (`python3 abertura.py ESTILO`): `pincel` (pinceladas nude e rosé cobrem e revelam, o título numa
+  pincelada clara como o marca-texto da matéria), `luz` (luz dourada que acende e revela, bolinhas de luz
+  subindo), `arco` (o vídeo encolhe para uma moldura em arco sobre fundo nude, título em marrom) e `clique` (o
+  clique do modelo abrindo um círculo do dedo, sem enfeites). Mandei uma prévia de cada; use o que ela escolher
+  como padrão do script. Fica de todos: o título dito antes, os trechos de perto, a música, o nome em Pinyon.
   Modelo: `projetos/bate-bola/montar_plano.py`, `broll.py` e `abertura.py`. O vídeo veio com música: o áudio
   fica como está, só entram a música da abertura e os efeitos.
 - **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o
