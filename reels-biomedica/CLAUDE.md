@@ -28,7 +28,10 @@ próprio). Cada envio é um documento da coleção `envios` (ler com `db_get`/`d
   foto inteira); `emPedacos: true` significa juntar com `cat`; `convertida: true`, que a página
   já mandou em JPEG. Salve em `projetos/NOME/fotos-originais/`.
 - `briefing: {tema, destaques, observacoes, musica}`, `status`, `nota` e `entrega` como nas
-  páginas da imobiliária (mesmo formato de entrega, partes de até 19 MiB).
+  páginas da imobiliária (mesmo formato de entrega, partes de até 19 MiB). Para mandar mais de uma
+  versão para a cliente escolher, grave `entregas: [{rotulo, arquivo, tamanho, sha256, descricao, partes}]`
+  (um botão "Baixar <rotulo>" para cada; com `entregas`, apague `entrega`). Foi assim no Bate-bola, em 16/11:
+  opção A (arco) e opção B (tela cheia).
 
 **Entrega com as ferramentas novas:** corte o .mp4 em partes de até 19 MiB (nenhuma começando com
 `<`) e suba com `upload_asset`, no máximo 3 partes por chamada (o limite é uns 60 MB por envio); o

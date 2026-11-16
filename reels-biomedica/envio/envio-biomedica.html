@@ -794,20 +794,23 @@
         m.textContent = "Preparando para a edição: deixe esta página aberta até aparecer \"Envio preparado\" lá em cima, perto do botão Enviar.";
         item.append(m);
       }
-      const ent = v.entrega;
-      if (ent && Array.isArray(ent.partes) && ent.partes.length && ent.arquivo) {
+      // uma entrega (entrega) ou várias versões para escolher (entregas, cada uma com rotulo)
+      const ents = (Array.isArray(v.entregas) && v.entregas.length ? v.entregas : [v.entrega])
+        .filter((e) => e && Array.isArray(e.partes) && e.partes.length && e.arquivo);
+      ents.forEach((ent, i) => {
+        const chave = ents.length > 1 ? d.id + "-" + i : d.id;
         const caixa = document.createElement("div"); caixa.className = "entrega";
         const bt = document.createElement("button"); bt.type = "button"; bt.className = "btn";
-        bt.id = "baixar-" + d.id;
-        bt.textContent = `Baixar vídeo editado${ent.tamanho ? " · " + fmtMB(ent.tamanho) : ""}`;
-        const aviso = document.createElement("p"); aviso.className = "aviso-baixar"; aviso.id = "aviso-" + d.id;
+        bt.id = "baixar-" + chave;
+        bt.textContent = `Baixar ${ent.rotulo || "vídeo editado"}${ent.tamanho ? " · " + fmtMB(ent.tamanho) : ""}`;
+        const aviso = document.createElement("p"); aviso.className = "aviso-baixar"; aviso.id = "aviso-" + chave;
         aviso.setAttribute("role", "status"); aviso.setAttribute("aria-live", "polite");
-        const est = estadoBaixar[d.id];
+        const est = estadoBaixar[chave];
         if (est) { aviso.textContent = est.texto; if (est.tipo) aviso.classList.add(est.tipo); bt.disabled = est.ocupado; }
         else aviso.textContent = ent.descricao || "";
-        bt.addEventListener("click", () => baixarEntrega(d.id, ent));
+        bt.addEventListener("click", () => baixarEntrega(chave, ent));
         caixa.append(bt, aviso); item.append(caixa);
-      }
+      });
       els.items.append(item);
     });
   }
