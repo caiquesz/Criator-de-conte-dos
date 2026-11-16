@@ -104,12 +104,15 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   antes do clique e a batida forte cai nele (`PICO_SFX` 0,5333); e a troca para o trecho de perto é uma
   transição de zoom (o quadro dela mergulha com desfoque e o trecho chega focando), sem esmaecer duplo.
   (8) **Sem estrelas e sem barras de TV:** em 16/11 a cliente recusou as estrelas, a entrada do quadro e a
-  "tela falhada" (as barras coloridas com bipe), mesmo sendo do modelo. Pediu opções: o `abertura.py` tem quatro
-  estilos (`python3 abertura.py ESTILO`): `pincel` (pinceladas nude e rosé cobrem e revelam, o título numa
-  pincelada clara como o marca-texto da matéria), `luz` (luz dourada que acende e revela, bolinhas de luz
-  subindo), `arco` (o vídeo encolhe para uma moldura em arco sobre fundo nude, título em marrom) e `clique` (o
-  clique do modelo abrindo um círculo do dedo, sem enfeites). Mandei uma prévia de cada; use o que ela escolher
-  como padrão do script. Fica de todos: o título dito antes, os trechos de perto, a música, o nome em Pinyon.
+  "tela falhada" (as barras coloridas com bipe), mesmo sendo do modelo. Quatro opções que mandei (pinceladas,
+  luz dourada com bolinhas, moldura em arco, clique abrindo um círculo) ela achou **infantis**: quer algo
+  **profissional, como a abertura de um programa de TV**. Gostou mais do arco (mas "bugou": dentro dele o trecho
+  de perto se misturava com a imagem parada, imagem dupla) e da moldura de papel do título nas pinceladas. Agora
+  o `abertura.py` tem `tv-arco` e `tv-cheia` (`python3 abertura.py ESTILO`): painéis retos caramelo/marrom com
+  creme por cima sobem e revelam, o título na moldura de papel com as palavras subindo de uma máscara e um
+  brilho, e os painéis voltam para a pergunta; toda troca de imagem fica escondida atrás dos painéis (nada de
+  esmaecer uma imagem sobre a outra). Use o que ela escolher como padrão do script. Fica de todos: o título
+  dito antes, os trechos de perto, a música, o nome em Pinyon.
   Modelo: `projetos/bate-bola/montar_plano.py`, `broll.py` e `abertura.py`. O vídeo veio com música: o áudio
   fica como está, só entram a música da abertura e os efeitos.
 - **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o
