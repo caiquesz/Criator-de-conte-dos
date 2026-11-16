@@ -125,9 +125,11 @@ if ARCO:
 else:
     cena = f'<div id="cena" class="camada" style="opacity:0">{broll}</div>'
     js_cena = []
-    # (a moldura um pouco abaixo da das pinceladas: lá ela encostava na boca dela no trecho de perto)
-    CARTAO_Y, CARTAO_X, CARTAO_COR, CARTAO_LARG = 1094, (40, 1040), "#F4E7DB", 290
-    TIT_TOPO, TAM1, TAM2 = 980, 74, 124
+    # a moldura abaixo do queixo dela: o queixo chega a y 1015 nos trechos de perto (mediapipe, ponto 152, todos os
+    # quadros do broll.mp4), uns 1040 com o zoom lento; a borda de cima da moldura (Y - 145 da largura - 19 do papel)
+    # fica uns 40 px abaixo disso (em 1094 ela "ficou bem no queixo da Nádia", pediu a cliente)
+    CARTAO_Y, CARTAO_X, CARTAO_COR, CARTAO_LARG = 1244, (40, 1040), "#F4E7DB", 290
+    TIT_TOPO, TAM1, TAM2 = 1130, 74, 124
 js_cena.append(f'tl.fromTo("#cena", {{scale:1}}, {{scale:1.03, duration:{TROCA_OUT - TROCA_IN:.2f}, ease:"none"}}, {n(TROCA_IN)});')
 
 # ── a moldura do título (a de papel que ela gostou nas pinceladas), com o brilho passando ─────────────────
