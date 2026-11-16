@@ -2,8 +2,21 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v9.mp4`.** O vídeo tem 40,1 s e foi gravado no deck de madeira. É H.264 Main@4.0, 1080x1920 a 30 fps, e tem só uma faixa de áudio em silêncio, para abrir em qualquer celular.
-As versões anteriores ficaram no histórico do git (v8 `5433ec7`, v7 `6ecc477`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+**Entrega atual: `casa-marina-unboxing-v10.mp4`.** O vídeo tem 39,1 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
+As versões anteriores ficaram no histórico do git (v9 `2120ca6`, v8 `5433ec7`, v7 `6ecc477`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v10: ajustes sobre a v9
+- **Tapetes redondos menores mais naturais** (`scripts/menores_live.py`):
+  - saiu o efeito de pop com escala; agora é stop motion com o **vídeo real**;
+  - para cada tapete já parado no deck entra um trechinho ao vivo (~0,4 s), com a câmera estabilizada (SIFT + homografia) e recortada na área comum;
+  - os trechos são ligados por corte seco: o deck fica parado e o tapete novo simplesmente está lá.
+- **Sem zoom no adesivo.**
+- **Inícios cortados:** cada take começa no momento em que ela **passa a mão** nos tapetes. Isso vale para o sousplat cru e o vermelho, o redondo teal e o cru, o retangular marinho e o vermelho, o geométrico, a passadeira e os ovais.
+- **Color grading** (`scripts/grade.py`), suave e quente, sem mudar a cor das peças:
+  - pretos levemente levantados e altas luzes mais suaves, porque o sol no deck estava forte;
+  - um toque de calor nos meios-tons e nas altas luzes;
+  - saturação -5% no geral e um pouco menos nos verdes e cianos (grama e grade), para manter as cores do crochê fiéis.
+- **Pendente:** o take da Débora abrindo o tapete para sala não está na pasta do Drive. Os vídeos de 6884 a 6889 não subiram. Por enquanto, o tapete para sala continua com o take 6890.
 
 ## v9: ajustes sobre a v8
 - **Abertura:** saiu o véu branco. Agora aparece só a logo, branca e com sombra difusa, por cima do deck vazio. Ela some rápido (até 1,6 s) enquanto a caixa é colocada no chão.
