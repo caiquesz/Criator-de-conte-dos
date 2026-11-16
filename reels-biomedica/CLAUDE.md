@@ -113,6 +113,12 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   brilho, e os painéis voltam para a pergunta; toda troca de imagem fica escondida atrás dos painéis (nada de
   esmaecer uma imagem sobre a outra). Use o que ela escolher como padrão do script. Fica de todos: o título
   dito antes, os trechos de perto, a música, o nome em Pinyon.
+  (9) **Sem bug nenhum:** ela notou o rosto parado, a música demorando a começar e a pele "muito branca, sem
+  saturação" no quadro. Regras: **nunca uma imagem parada à vista** (na pausa o vídeo para: os painéis cobrem o
+  rosto antes de ela parar e só descobrem com o vídeo andando; confira com `freezedetect` no render final);
+  **a música entra quando ela termina a fala** (2,56 s; a batida forte do arquivo em 0,33 s) e a cauda some
+  por baixo da pergunta, sem buraco de silêncio; **a cor do vídeo dela nunca muda** (nada de sépia, filtro
+  quente, vinheta ou grão nos trechos de perto: eles têm que ficar iguais ao vídeo; grão só no fundo nude).
   Modelo: `projetos/bate-bola/montar_plano.py`, `broll.py` e `abertura.py`. O vídeo veio com música: o áudio
   fica como está, só entram a música da abertura e os efeitos.
 - **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o

@@ -25,7 +25,6 @@ imagem acontece embaixo dos painéis.
 """
 
 import json
-import random
 import sys
 from pathlib import Path
 
@@ -41,8 +40,8 @@ DURACAO = _plano["duracao"]
 ENTRA = _plano["pausas"][0]["em"]                     # a pausa (montar_plano.py), num silêncio depois do título
 FIM = round(ENTRA + _plano["pausas"][0]["dur"], 4)    # fim da pausa: a primeira pergunta
 BROLL_TOTAL = 128 / 30                                # broll.py: trechos de 1,9 + 1,2 + 1,1667 s
+FALA_FIM = 2.56                                       # ela termina de dizer o título (medido no som; o Whisper diz 2,9)
 TITULO1, TITULO2 = "Bate Bola com", "Dra Nádia Resende"
-rnd = random.Random(8)
 
 
 def n(x):
@@ -74,10 +73,13 @@ def passar_paineis(ini):
     return js, round(ini + 0.42, 4), round(ini + 0.04 * (COLUNAS - 1) + 0.47 + 0.34, 4)
 
 
-js_in, TROCA_IN, _ = passar_paineis(ENTRA)
-# os painéis terminam de revelar o quadro dela no fim da pausa: logo depois ela pisca (2,87 a 2,97 s no original), e
-# a piscada no vídeo andando é natural; revelada aos poucos, o rosto aparecia de olho fechado
-SAI = round(FIM - 0.89, 4)
+# nenhum quadro parado à vista (a cliente viu "o rosto dela parado"): na pausa o vídeo fica parado de ENTRA a FIM,
+# então os painéis começam a subir 1/3 s antes, ainda com ela se mexendo, e cobrem o rosto antes de a imagem parar
+# (o rosto, no alto, é o último a ser coberto); na volta só começam a descobrir no fim da pausa, de baixo para cima:
+# a mesa (parada de todo jeito) aparece um instante antes, as mãos e o rosto já com o vídeo andando
+ENTRA_PAINEIS = round(ENTRA - 1 / 3, 4)
+js_in, TROCA_IN, _ = passar_paineis(ENTRA_PAINEIS)
+SAI = round(FIM - 0.62, 4)
 js_out, TROCA_OUT, FIM_AB = passar_paineis(SAI)
 
 # ── trechos de perto ──────────────────────────────────────────────────────────────────────────────
@@ -86,16 +88,13 @@ BROLL_FIM = round(min(FIM, BROLL_INI + BROLL_TOTAL), 4)
 TROCAS = [round(BROLL_INI + d, 4) for d in (1.9, 3.1) if BROLL_INI + d < TROCA_OUT - 0.3]
 broll = (f'<div class="broll" id="broll"><div class="zoom" id="zoom">'
          f'<video id="br" class="clip" src="assets/video/broll.mp4" data-start="{n(BROLL_INI)}" '
-         f'data-duration="{n(BROLL_FIM - BROLL_INI)}" data-media-start="0" muted playsinline></video></div>'
-         f'<div class="quente"></div><div class="grao" id="grao"></div></div>')
+         f'data-duration="{n(BROLL_FIM - BROLL_INI)}" data-media-start="0" muted playsinline></video></div></div>')
 js_broll = [f'tl.fromTo("#zoom", {{scale:1.05}}, {{scale:1, duration:0.7, ease:"expo.out"}}, {n(BROLL_INI)});']
 marcos = [BROLL_INI] + TROCAS + [TROCA_OUT]
 for k, (a, b) in enumerate(zip(marcos, marcos[1:])):
     if k > 0:   # corte seco entre os trechos, com um assentar de zoom leve
         js_broll.append(f'tl.fromTo("#zoom", {{scale:1.05}}, {{scale:1, duration:0.6, ease:"expo.out", immediateRender:false}}, {n(a)});')
     js_broll.append(f'tl.fromTo("#zoom", {{scale:1}}, {{scale:1.03, duration:{b - a - 0.6:.2f}, ease:"none", immediateRender:false}}, {n(a + 0.6)});')
-js_broll += [f'tl.set("#grao", {{x:{rnd.randint(-60, 0)}, y:{rnd.randint(-60, 0)}}}, {n(BROLL_INI + k / 30)});'
-             for k in range(0, int((TROCA_OUT - BROLL_INI) * 30), 2)]
 
 # ── cenário ───────────────────────────────────────────────────────────────────────────────────────
 if ARCO:
@@ -124,7 +123,7 @@ if ARCO:
     CARTAO_Y, CARTAO_X, CARTAO_COR, CARTAO_LARG = 1365, (70, 1010), "#FBF6F0", 280
     TIT_TOPO, TAM1, TAM2 = 1262, 62, 108
 else:
-    cena = f'<div id="cena" class="camada" style="opacity:0">{broll}<div class="vinheta"></div></div>'
+    cena = f'<div id="cena" class="camada" style="opacity:0">{broll}</div>'
     js_cena = []
     # (a moldura um pouco abaixo da das pinceladas: lá ela encostava na boca dela no trecho de perto)
     CARTAO_Y, CARTAO_X, CARTAO_COR, CARTAO_LARG = 1094, (40, 1040), "#F4E7DB", 290
@@ -198,15 +197,11 @@ saida = f"""<template>
     #cena {{ transform-origin: 50% 40%; }}
     .broll {{ position: absolute; inset: 0; overflow: hidden; opacity: 0; background: #2A1E16; }}
     .zoom {{ position: absolute; inset: 0; transform-origin: 52% 40%; }}
-    .zoom video {{ position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover;
-                   filter: sepia(0.14) saturate(1.04) contrast(1.04) brightness(1.03); }}
-    .quente {{ position: absolute; inset: 0; mix-blend-mode: multiply;
-      background: radial-gradient(ellipse 80% 70% at 50% 45%, rgba(255, 205, 160, 0.04) 0%, rgba(120, 72, 34, 0.2) 100%); }}
+    .zoom video {{ position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }}
     .grao {{ position: absolute; left: 0; top: 0; width: 1200px; height: 2040px; mix-blend-mode: overlay; opacity: 0.45;
              background-image: url("{GRAO}"); background-size: 300px 300px; }}
-    .vinheta {{ position: absolute; inset: 0; background: radial-gradient(ellipse 85% 75% at 50% 45%, transparent 60%, rgba(40, 22, 12, 0.28) 100%); }}
     .fundo {{ background: radial-gradient(ellipse 120% 80% at 50% 36%, #F6EEE6 0%, #ECDDCF 58%, #DEC8B4 100%); overflow: hidden; }}
-    .fundo .grao {{ opacity: 0.3; }}
+    .fundo .grao {{ opacity: 0.3; }}   /* só no fundo nude, nunca no vídeo dela */
     .luzfundo {{ position: absolute; left: 0; top: -340px; width: 640px; height: 2600px;
                  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 252, 246, 0.42) 50%, rgba(255, 255, 255, 0) 100%); }}
     .arco {{ position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; clip-path: inset(0 round 540px 540px 40px 40px); }}
@@ -235,10 +230,11 @@ saida = f"""<template>
 </template>
 """
 sons = [
-    # a música sobe do silêncio meio segundo antes da entrada (PICO_SFX do gerar.py), para a fala dela emendar
-    # na abertura sem tranco
-    {"t": ENTRA, "som": "musica-abertura", "vol": 0.65},
-    {"t": round(ENTRA + 0.3, 3), "som": "whoosh", "vol": 0.32},
+    # a batida forte da música cai quando ela termina o título (o arquivo sobe do silêncio 0,33 s antes: PICO_SFX do
+    # gerar.py) e a cauda vai até depois do fim da pausa, sumindo por baixo da pergunta: sem buraco de silêncio antes
+    # nem depois (a cliente achou que "a música demora a começar")
+    {"t": FALA_FIM, "som": "musica-abertura", "vol": 0.65},
+    {"t": round(ENTRA_PAINEIS + 0.3, 3), "som": "whoosh", "vol": 0.32},
     {"t": round(BRILHO + 0.3, 3), "som": "brilho", "vol": 0.16},
     {"t": round(SAI + 0.3, 3), "som": "whoosh", "vol": 0.3},
 ]

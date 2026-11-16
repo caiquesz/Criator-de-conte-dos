@@ -2,9 +2,8 @@
 reenquadrar.py, o sincronizar.py e o gerar.py).
 
 Segunda versão, nos dois modelos que a cliente mandou (a primeira ela achou básica):
-- abertura como a do bate-bola da doutora (abertura.py), que só começa depois de ela dizer o título
-  (0 a 2,93 s): uma pausa de 4,4 s ("pausas") em que passam trechos dela falando (broll.py), o
-  cursor, as estrelas, o título digitado e as barras de TV;
+- a abertura (abertura.py; hoje no estilo de programa de TV) só começa depois de ela dizer o título
+  (0 a 2,56 s): uma pausa de 4,4 s ("pausas") em que passam trechos dela falando (broll.py) e o título;
 - o resto como o bate-bola da Nina Secrets: cada pergunta vira um texto em duas linhas (o tema em
   negrito, o resto regular), as respostas têm legenda no mesmo tipo (as palavras que pesam em
   negrito) e as reações em preto e branco. Sem cortes nem troca de plano no vídeo dela (3ª versão:
