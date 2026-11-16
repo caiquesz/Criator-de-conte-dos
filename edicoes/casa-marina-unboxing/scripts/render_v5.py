@@ -46,16 +46,22 @@ class CenteredLabel:
         self.fast = fast
         self.sh = (shadow_blur, shadow_alpha)
         a1, p1 = R.text_layer(caps, F_CAPS, R.LIGHT)
-        a2, p2 = R.text_layer(hand, F_HAND, R.LIGHT)
         bb1 = a1.getchannel("A").getbbox()
-        bb2 = a2.getchannel("A").getbbox()
-        w1, w2 = bb1[2] - bb1[0], bb2[2] - bb2[0]
+        w1 = bb1[2] - bb1[0]
         self.l1 = (a1, round(cx - w1 / 2 - bb1[0]), y - bb1[1])
-        y2 = y + (bb1[3] - bb1[1]) + GAP
-        self.l2 = (a2, round(cx - w2 / 2 - bb2[0]), y2 - bb2[1])
-        self.bottom = y2 + (bb2[3] - bb2[1])
         self.sh1 = R.Label._shadow(a1, blur=shadow_blur, alpha=shadow_alpha)
-        self.sh2 = R.Label._shadow(a2, blur=shadow_blur, alpha=shadow_alpha)
+        if hand:
+            a2, p2 = R.text_layer(hand, F_HAND, R.LIGHT)
+            bb2 = a2.getchannel("A").getbbox()
+            w2 = bb2[2] - bb2[0]
+            y2 = y + (bb1[3] - bb1[1]) + GAP
+            self.l2 = (a2, round(cx - w2 / 2 - bb2[0]), y2 - bb2[1])
+            self.bottom = y2 + (bb2[3] - bb2[1])
+            self.sh2 = R.Label._shadow(a2, blur=shadow_blur, alpha=shadow_alpha)
+        else:                                          # single-line label
+            w2 = 0
+            self.l2 = None
+            self.bottom = y + (bb1[3] - bb1[1])
         self.width = max(w1, w2)
 
     def stroke(self):
@@ -84,8 +90,10 @@ class CenteredLabel:
             e = (p[0], p[1] + (q[1] - p[1]) * lk)
             R.draw_line(frame, p, e, R.LIGHT, out_k, True)
         rise = -1 if self.line == "down" else 1
-        for (layer, x, y), (a0, a1), (s_img, pad) in ((self.l1, tm["t1"], self.sh1),
-                                                       (self.l2, tm["t2"], self.sh2)):
+        parts = [(self.l1, tm["t1"], self.sh1)]
+        if self.l2 is not None:
+            parts.append((self.l2, tm["t2"], self.sh2))
+        for (layer, x, y), (a0, a1), (s_img, pad) in parts:
             k = R.ease_out_cubic((lt - a0) / (a1 - a0))
             if k <= 0:
                 continue

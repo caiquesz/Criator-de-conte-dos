@@ -2,8 +2,33 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v8-deck.mp4`.** Feita com os vídeos regravados no deck de madeira. Tem 54,7 s, em H.264 1080x1920 a 30 fps (~8 Mbps), e **não tem áudio**.
-A versão com o piso original (`casa-marina-unboxing-editado-v5.mp4`) continua na pasta. As versões com troca de piso por IA ficaram no histórico do git (v7 `6ecc477`, v6 `1950980`).
+**Entrega atual: `casa-marina-unboxing-v9.mp4`.** O vídeo tem 40,1 s e foi gravado no deck de madeira. É H.264 Main@4.0, 1080x1920 a 30 fps, e tem só uma faixa de áudio em silêncio, para abrir em qualquer celular.
+As versões anteriores ficaram no histórico do git (v8 `5433ec7`, v7 `6ecc477`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v9: ajustes sobre a v8
+- **Abertura:** saiu o véu branco. Agora aparece só a logo, branca e com sombra difusa, por cima do deck vazio. Ela some rápido (até 1,6 s) enquanto a caixa é colocada no chão.
+- **Jogo de passadeira:** o nome agora está no **conjunto de 3 peças** vinho e branco (6862). O tapete cinza e vermelho (6890) entrou como produto separado: **TAPETE PARA SALA** (nome em uma linha).
+- **Mais curto:** de 54,7 s para 40,1 s.
+  - A tirada do sousplat da caixa caiu para 0,9 s em cada cor, porque ele já aparece em destaque na mesa.
+  - Todos os outros takes também foram enxugados.
+- **Tapetes redondos menores aparecendo um a um** (`scripts/menores_fx.py`): em vez de mostrar ela jogando, os tapetes surgem no deck um de cada vez.
+  - Foram escolhidos 7 momentos do vídeo 6871 com os tapetes já parados, sem mão nem tapete no ar.
+  - A câmera foi alinhada entre esses momentos (SIFT + homografia), e o enquadramento é a área que todos têm em comum, renderizada direto do 4K.
+  - Cada tapete novo "surge": entra com fade e uma leve escala de 0,9 para 1. Um push-in suave dá movimento ao trecho.
+- O final continua igual: véu branco com a logo.
+
+| Saída | Trecho |
+|---|---|
+| 0,0 a 4,2 s | Deck vazio + logo → caixa chegando → zoom no adesivo |
+| 4,2 a 6,9 s | Abre a caixa → papel de seda |
+| 6,9 a 11,7 s | Sousplat: tira o cru e o vermelho (rápido) → mesinha de madeira (nome) |
+| 11,7 a 16,1 s | Tapete redondo: tira o teal e o cru → cru no deck (nome) |
+| 16,1 a 21,0 s | Tapete retangular: tira o marinho → vermelho e marinho no deck (nome) |
+| 21,0 a 24,8 s | Tapete geométrico: tira da caixa → aberto no deck (nome) |
+| 24,8 a 28,6 s | Jogo de passadeira: tira da caixa → as 3 peças no deck (nome) |
+| 28,6 a 30,6 s | Tapete para sala (nome) |
+| 30,6 a 35,3 s | Tapete redondo menor: os tapetes vão aparecendo um a um (nome) |
+| 35,3 a 40,1 s | Fecho: ovais verde, cru e teal → véu branco com a logo |
 
 ## v8: regravação no deck de madeira
 Os vídeos novos (pasta do Drive, 30 clipes, 4K, iPhone) foram gravados direto no fundo de madeira. Por isso **não teve troca de piso nem IA**. O único take reaproveitado do vídeo antigo é o do **sousplat na mesinha de madeira** (prato e close do vermelho).
