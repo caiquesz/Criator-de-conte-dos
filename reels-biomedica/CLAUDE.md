@@ -124,6 +124,17 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   quente, vinheta ou grão nos trechos de perto: eles têm que ficar iguais ao vídeo; grão só no fundo nude).
   Modelo: `projetos/bate-bola/montar_plano.py`, `broll.py` e `abertura.py`. O vídeo veio com música: o áudio
   fica como está, só entram a música da abertura e os efeitos.
+- **Vídeo já montado, em vários takes, com luz e enquadramento diferentes** (Caso de paciente, 16/11: "uniformize a
+  iluminação e os tons... e o enquadramento"): `scripts/separar_takes.py` corta o original 4K nos cortes do
+  `analisar.py` (no quadro exato, passando antes para 30 quadros/s) e o `enquadrar.py` iguala os takes. Opções que
+  esse vídeo pediu: `--passar 06` (a foto da paciente que a própria cliente pôs no meio entra como veio),
+  `--sem-tripe 01,03,10,11` (câmera andando de propósito atrás dela: o tripé desfaria o movimento),
+  `--tamanho mediana` (um take bem mais perto puxaria todos para um zoom forte) e `--cor-pela pele` (três takes
+  na frente da madeira e um com a sala inteira: pela parede o take saía azulado e com o fundo clareado). Confira
+  numa grade antes/depois com um quadro de cada take. O vídeo sem ajuste fica em `video-sem-ajuste.mp4`; a voz
+  vem do original (`"video_original": "assets/video/original.mov"`). Modelo: `projetos/caso-paciente/montar_plano.py`.
+- **Legenda no top escuro dela** quando o colo e a parede são claros (y ≈ 1290 no Caso de paciente); na tela
+  dividida o vídeo desce e o rosto dela fica nessa altura: ali a legenda sobe para logo abaixo da emenda (y ≈ 1010).
 - **Celular em 31,58 quadros/s:** o Bate-bola chegou em 600/19 fps. O `novo_projeto.sh` e o
   `reenquadrar.py` passam tudo para 30 (os da composição) antes de contar quadros.
 - **Legendas:** como nas referências, pequenas (Poppins 700, 46 px; `legenda-forte` 800, 64 px

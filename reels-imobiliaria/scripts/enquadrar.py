@@ -2,6 +2,8 @@
 
 Uso: python3 scripts/enquadrar.py PASTA [--analise] [--olhos-y 0.42] [--folga-x 12] [--folga-y 30]
                                          [--folga-tamanho 0.06] [--zoom-max 1.6] [--brilho-rosto 70] [--sem-cor]
+                                         [--tamanho maior|mediana] [--passar 06,09] [--sem-tripe 01,10]
+                                         [--cor-pela pele|parede]
 
 Lê PASTA/takes/*.mov (na ordem do nome) e escreve PASTA/renders/enquadrado.mp4.
 A medição de cada take fica em PASTA/analise/ (refazer o enquadramento não mede de novo);
@@ -33,6 +35,19 @@ gravada. --sem-cor desliga.
 
 O áudio de cada take entra como está (só 4 ms de rampa nas emendas, para não estalar) e
 cada take mantém a duração, a velocidade e a ordem.
+
+--passar: takes que entram como vieram, só em 1080×1920 (sem tripé, enquadramento nem cor), como uma
+foto ou um vídeo da paciente que a cliente já pôs no meio do vídeo (veja separar_takes.py, que corta
+um vídeo montado em takes). --tamanho mediana: o rosto de todos vai ao tamanho do take do meio, não
+ao do maior: um take gravado bem mais perto que os outros (no Caso de paciente, o 11) puxaria todos
+para um zoom forte; com a mediana ele fica um pouco mais perto e o resto quase não muda.
+--sem-tripe: takes em que a câmera anda de propósito (acompanhando a pessoa que caminha): o tripé
+travaria o fundo e desfaria o movimento; neles só entram o zoom e a posição fixos do take, e a cor.
+--cor-pela pele: quando os takes não têm o mesmo fundo (no Caso de paciente, três foram gravados em
+frente à madeira e um mostra a sala inteira), a parede engana: a madeira quente parece luz amarela e o
+take sai azulado, saturado e com o fundo clareado. Pela pele, o balanço de branco leva a cor do rosto de
+cada take à mediana dos takes (a mesma pessoa, a mesma maquiagem) e a luz é um ganho só por take,
+medido no rosto: o fundo de cada um continua com a cor dele.
 """
 
 import argparse
@@ -248,7 +263,7 @@ def medir_cor_guardado(take, caixas, pasta):
     return rosto, parede
 
 
-def ajustes_cor(medidas, brilho_pct):
+def ajustes_cor(medidas, brilho_pct, pela="parede"):
     """Um ajuste por take para todos ficarem com a mesma luz:
     1. balanço de branco pela parede (a mesma parede branca em todos): ganhos por canal, verde = 1;
     2. saturação pela pele (o celular deixa a pele mais ou menos quente de um take para outro);
@@ -258,6 +273,15 @@ def ajustes_cor(medidas, brilho_pct):
     lin = lambda v: (np.asarray(v, float) / 255) ** 2.2
     m = [(lin(np.nanmedian(r, 0)), lin(np.nanmedian(pa, 0))) for r, pa in medidas]
     crom = lambda v: np.log(v / v[1])
+    if pela == "pele":
+        alvo_pele = np.median([crom(r) for r, _ in m], 0)
+        wbs = [np.exp(alvo_pele - crom(r)) for r, _ in m]
+        F = [float((r * wb) @ LUM) for (r, _), wb in zip(m, wbs)]
+        Wp = [float((pa * wb) @ LUM) for (_, pa), wb in zip(m, wbs)]
+        Ft = np.percentile(F, brilho_pct)
+        gs = [float(np.clip(Ft / f, 0.7, 1.4)) for f in F]
+        return [dict(wb=[float(v) for v in wb], sat=1.0, ganho_rosto=g, ganho_parede=g, tom_rosto=f, tom_parede=w)
+                for wb, g, f, w in zip(wbs, gs, F, Wp)]
     alvo_wb = np.median([crom(pa) for _, pa in m], 0)
     wbs = [np.exp(alvo_wb - crom(pa)) for _, pa in m]
     # saturação: a cor da pele (já com o balanço) em relação à luminância
@@ -322,20 +346,35 @@ def main():
     ap.add_argument("--brilho-rosto", type=float, default=70,
                     help="brilho do rosto em todos: o do take neste percentil (50 = o take do meio)")
     ap.add_argument("--analise", action="store_true", help="só mede e mostra o zoom de cada take, sem renderizar")
+    ap.add_argument("--tamanho", choices=["maior", "mediana"], default="maior",
+                    help="tamanho do rosto em todos: o do maior take (padrão) ou o do take do meio")
+    ap.add_argument("--passar", default="", help="takes (nomes sem extensão, separados por vírgula) que entram como vieram")
+    ap.add_argument("--sem-tripe", default="", help="takes com câmera andando de propósito: sem travar o fundo")
+    ap.add_argument("--cor-pela", choices=["parede", "pele"], default="parede",
+                    help="referência para igualar a cor: a parede (o mesmo fundo em todos) ou a pele")
     ap.add_argument("--modelo", default=str(Path(__file__).parent / "modelos" / "face_detection_yunet_2023mar.onnx"))
     a = ap.parse_args()
 
     pasta = Path(a.pasta).resolve()
     takes = sorted((pasta / "takes").glob("*.mov"))
     detector = cv2.FaceDetectorYN.create(a.modelo, "", (AW, AH), 0.6, 0.3, 50)
+    passar = {x.strip() for x in a.passar.split(",") if x.strip()}
+    sem_tripe = {x.strip() for x in a.sem_tripe.split(",") if x.strip()}
 
-    dados = []
+    dados, todos = [], []
     for t in takes:
+        if t.stem in passar:
+            n = sum(1 for _ in quadros(t, AW // 4, AH // 4))
+            todos.append(dict(take=t, n=n, passa=True))
+            print(f"{t.name}: {n} quadros, entra como veio", flush=True)
+            continue
         olhos, dist, caixas, pos, qualidade, area = analisar_guardado(t, detector, pasta)
         n = len(pos)
         traj = suavizar(pos, 1.5)                                # posição da câmera (sem o ruído da medida)
         # tripé: cada quadro volta a uma posição fixa, a do meio do caminho da câmera (pede a menor correção)
         corr = (traj.max(0) + traj.min(0)) / 2 - traj
+        if t.stem in sem_tripe:                                  # a câmera anda de propósito: fica como foi gravada
+            corr = np.zeros_like(traj)
         Ss = [estab(c) for c in corr]
         ok = ~np.isnan(dist)
         if ok.sum() < n * 0.5:
@@ -347,6 +386,7 @@ def main():
         bal = np.hypot(*(pos - suavizar(pos, 8))[:, :2].T).mean()
         dados.append(dict(take=t, n=n, Ss=Ss, Si=inversas(Ss), E=Em, D=Dm, deriva=float(np.abs(corr[:, :2]).max()),
                           tremor=float(bal), rosto=float(ok.mean()), caixas=caixas))
+        todos.append(dados[-1])
         print(f"{t.name}: {n} quadros, rosto em {ok.mean() * 100:.0f}%, olhos em ({Em[0]:.0f}, {Em[1]:.0f}), "
               f"entre os olhos {Dm:.0f}px, câmera mexe até {dados[-1]['deriva']:.0f}px (tremor {bal:.1f}px) "
               f"(alinhamento {qualidade:.3f}, fundo {area}% do quadro)", flush=True)
@@ -358,10 +398,12 @@ def main():
     for d in dados:
         _, d["zmin"] = melhor_alvo(d["Si"], d["E"], alvo, a.folga_x, a.folga_y)
     # tamanho do rosto: todos dentro de uma faixa estreita, cada take com o menor zoom que a alcança
-    Dalvo = max(d["D"] * d["zmin"] for d in dados) / (1 + a.folga_tamanho)
+    tamanhos = [d["D"] * d["zmin"] for d in dados]
+    Dalvo = (max(tamanhos) if a.tamanho == "maior" else float(np.median(tamanhos))) / (1 + a.folga_tamanho)
     zs = [min(max(d["zmin"], Dalvo / d["D"]), a.zoom_max) for d in dados]
     for d, z in zip(dados, zs):
         d["alvo"] = alvo_mais_perto(d["Si"], d["E"], alvo, z, a.folga_x, a.folga_y)
+        d["z"] = z
     print(f"rosto padrão: {Dalvo:.0f}–{Dalvo * (1 + a.folga_tamanho):.0f}px entre os olhos; "
           f"olhos em ({alvo[0]:.0f}, {alvo[1]:.0f}) ± ({a.folga_x:.0f}, {a.folga_y:.0f})")
     for d, z in zip(dados, zs):
@@ -370,7 +412,7 @@ def main():
     print(f"zoom: média {np.mean(zs):.3f}, maior {max(zs):.3f}")
 
     if not a.sem_cor:
-        ajs = ajustes_cor([medir_cor_guardado(d["take"], d["caixas"], pasta) for d in dados], a.brilho_rosto)
+        ajs = ajustes_cor([medir_cor_guardado(d["take"], d["caixas"], pasta) for d in dados], a.brilho_rosto, a.cor_pela)
         for d, aj in zip(dados, ajs):
             d["cor"] = aj
             print(f"  {d['take'].name}: balanço de branco R {aj['wb'][0]:.3f} B {aj['wb'][2]:.3f}, saturação {aj['sat']:.2f}, "
@@ -381,28 +423,40 @@ def main():
     renders = pasta / "renders"
     renders.mkdir(exist_ok=True)
     partes, audios, relatorio = [], [], []
-    for d, z in zip(dados, zs):
-        F = enquadra(z, d["E"], d["alvo"])
+    for d in todos:
         saida = renders / f"take-{d['take'].stem}.mp4"
-        enc = subprocess.Popen(
-            ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-framerate", str(FPS),
-             "-i", "-", "-vf", "scale=out_range=tv:out_color_matrix=bt709,format=yuv420p", "-c:v", "libx264",
-             "-crf", "15", "-preset", "slow", "-g", "30", "-color_primaries", "bt709", "-color_trc", "bt709",
-             "-colorspace", "bt709", "-color_range", "tv", "-video_track_timescale", "15360", str(saida)],
-            stdin=subprocess.PIPE)
-        prep = preparar_cor(d["cor"]) if "cor" in d else None
-        n = 0
-        for rgb, S in zip(quadros(d["take"], 2 * W, 2 * H), d["Ss"]):
-            M = compor(F, S)[:2].copy()
-            M[:, 2] *= 2                                   # em 4K: mesma transformação, coordenadas ×2
-            grande = cv2.warpAffine(rgb, M, (2 * W, 2 * H), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
-            q = cv2.resize(grande, (W, H), interpolation=cv2.INTER_AREA)
-            enc.stdin.write((corrigir_cor(q, prep) if prep else q).tobytes())
-            n += 1
-        enc.stdin.close(); enc.wait()
-        if n != d["n"]:
-            raise SystemExit(f"{d['take'].name}: {n} quadros no 4K, {d['n']} na análise")
-        partes.append(saida)
+        if d.get("passa"):
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(d["take"]), "-map", "0:v:0", "-vf",
+                            f"fps={FPS},scale={W}:{H}:flags=lanczos,setsar=1,format=yuv420p", "-c:v", "libx264", "-crf", "15",
+                            "-preset", "slow", "-g", "30", "-color_primaries", "bt709", "-color_trc", "bt709",
+                            "-colorspace", "bt709", "-color_range", "tv", "-video_track_timescale", "15360", str(saida)], check=True)
+            n = int(subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
+                                    "stream=nb_read_frames", "-of", "csv=p=0", str(saida)], capture_output=True, text=True).stdout.strip())
+            if n != d["n"]:
+                raise SystemExit(f"{d['take'].name}: {n} quadros, {d['n']} na contagem")
+            partes.append(saida)
+        else:
+            z = d["z"]
+            F = enquadra(z, d["E"], d["alvo"])
+            enc = subprocess.Popen(
+                ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-framerate", str(FPS),
+                 "-i", "-", "-vf", "scale=out_range=tv:out_color_matrix=bt709,format=yuv420p", "-c:v", "libx264",
+                 "-crf", "15", "-preset", "slow", "-g", "30", "-color_primaries", "bt709", "-color_trc", "bt709",
+                 "-colorspace", "bt709", "-color_range", "tv", "-video_track_timescale", "15360", str(saida)],
+                stdin=subprocess.PIPE)
+            prep = preparar_cor(d["cor"]) if "cor" in d else None
+            n = 0
+            for rgb, S in zip(quadros(d["take"], 2 * W, 2 * H), d["Ss"]):
+                M = compor(F, S)[:2].copy()
+                M[:, 2] *= 2                                   # em 4K: mesma transformação, coordenadas ×2
+                grande = cv2.warpAffine(rgb, M, (2 * W, 2 * H), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+                q = cv2.resize(grande, (W, H), interpolation=cv2.INTER_AREA)
+                enc.stdin.write((corrigir_cor(q, prep) if prep else q).tobytes())
+                n += 1
+            enc.stdin.close(); enc.wait()
+            if n != d["n"]:
+                raise SystemExit(f"{d['take'].name}: {n} quadros no 4K, {d['n']} na análise")
+            partes.append(saida)
         # áudio do take, do começo, com a duração exata dos quadros
         raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(d["take"]), "-map", "0:a:0", "-ac", "1", "-ar", str(TAXA),
                               "-f", "f32le", "-"], capture_output=True, check=True).stdout
@@ -412,6 +466,10 @@ def main():
         r = int(0.004 * TAXA)
         x[:r] *= np.linspace(0, 1, r); x[-r:] *= np.linspace(1, 0, r)
         audios.append(x)
+        if d.get("passa"):
+            relatorio.append({"take": d["take"].name, "quadros": n, "entra_como_veio": True})
+            print(f"{d['take'].name}: como veio, {n} quadros", flush=True)
+            continue
         relatorio.append({"take": d["take"].name, "quadros": n, "zoom": round(z, 3), "zoom_minimo": round(d["zmin"], 3),
                           "olhos_antes": [round(v) for v in d["E"]], "olhos_depois": [round(v) for v in d["alvo"]],
                           "entre_olhos_antes": round(d["D"]), "entre_olhos_depois": round(d["D"] * z),
