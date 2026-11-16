@@ -2,8 +2,29 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entregas atuais: `casa-marina-unboxing-editado-v7-madeira.mp4` (piso de madeira em todos os takes) e `casa-marina-unboxing-editado-v5.mp4` (piso original).** Os dois têm 46,4 s, em H.264 1080x1920 a 30 fps (~7 Mbps), e **não tem áudio**.
-As versões anteriores ficaram no histórico do git (v6 `1950980`, v4 `c79e0aa`, v3 `ac19ed4`, v2 `f1ea05a`, v1 `a6061e1`).
+**Entrega atual: `casa-marina-unboxing-v8-deck.mp4`.** Feita com os vídeos regravados no deck de madeira. Tem 54,7 s, em H.264 1080x1920 a 30 fps (~8 Mbps), e **não tem áudio**.
+A versão com o piso original (`casa-marina-unboxing-editado-v5.mp4`) continua na pasta. As versões com troca de piso por IA ficaram no histórico do git (v7 `6ecc477`, v6 `1950980`).
+
+## v8: regravação no deck de madeira
+Os vídeos novos (pasta do Drive, 30 clipes, 4K, iPhone) foram gravados direto no fundo de madeira. Por isso **não teve troca de piso nem IA**. O único take reaproveitado do vídeo antigo é o do **sousplat na mesinha de madeira** (prato e close do vermelho).
+
+Montagem (mesma proposta "tira da caixa → peça no ambiente"):
+| Saída | Trecho | Clipes |
+|---|---|---|
+| 0,0 a 8,0 s | Caixa chegando no tapete de fibra (com a logo e o véu branco) → zoom suave no adesivo → abre a caixa → papel de seda | 6847, 6849, 6850, 6851 |
+| 8,0 a 14,5 s | **Sousplat**: tira o cru → tira o vermelho → mesinha de madeira (prato e close do vermelho). Nome no close | 6852, 6853, vídeo antigo |
+| 14,5 a 20,4 s | **Tapete redondo**: tira o teal → tira o cru → cru no deck. Nome no deck | 6854, 6855, 6872 |
+| 20,4 a 26,8 s | **Tapete retangular**: tira o marinho → vermelho e marinho no deck. Nome no marinho | 6861, 6875, 6876 |
+| 26,8 a 31,6 s | **Tapete geométrico**: tira da caixa → aberto no deck. Nome no deck | 6857, 6868 |
+| 31,6 a 39,3 s | **Jogo de passadeira**: tira da caixa → vinho e branco no deck → cinza e vermelho. Nome no último | 6859, 6862, 6866, 6890 |
+| 39,3 a 48,9 s | **Tapete redondo menor**: o cru cai no deck → laranja, taupe, pink e azul vão caindo → pilha | 6870, 6871 |
+| 48,9 a 54,7 s | Fecho: ovais verde, cru e teal sendo arrumados → véu branco com a logo | 6883 |
+
+- `scripts/build_master_v8.py` monta a base limpa a partir dos clipes. A lista de cortes está em `EDL` e as cores são as originais, sem color grading.
+- `scripts/render_v8.py` aplica por cima os mesmos efeitos da v5:
+  - logo e véu branco na abertura e no final;
+  - zoom suave de 1,3x no adesivo, seguindo o adesivo (`track_sticker_v8.py`);
+  - nomes em Unbounded + Coming Soon, brancos, com risquinho reto e parado, e sombra difusa mais forte por causa do sol no deck. As posições foram escolhidas com `place_search_v8.py`.
 
 ## v7: piso de laminado de madeira em todos os takes
 Mesma edição da v5. O piso de cerâmica branca virou laminado de carvalho claro em todos os takes em que o chão aparece. A troca é feita em duas camadas:
