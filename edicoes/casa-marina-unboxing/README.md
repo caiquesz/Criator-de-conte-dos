@@ -2,8 +2,21 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v12.mp4`.** O vídeo tem 40,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
-As versões anteriores ficaram no histórico do git (v11 `ef70f53`, v10 `9b82e24`, v9 `2120ca6`, v8 `5433ec7`, v7 `6ecc477`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+**Entrega atual: `casa-marina-unboxing-v13.mp4`.** O vídeo tem 41,1 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
+As versões anteriores ficaram no histórico do git (v12 `f3abec4`, v11 `ef70f53`, v10 `9b82e24`, v9 `2120ca6`, v8 `5433ec7`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v13: ajustes sobre a v12
+- **Vermelho estourado corrigido** (`scripts/grade_v13.py`):
+  - o celular já grava o canal vermelho dos tapetes vermelhos no limite quando estão no sol (25 a 37% da peça);
+  - na v12, o tone mapping empurrava esse canal ainda mais e o vermelho ficava chapado, com cara de neon e puxando para o laranja;
+  - agora nenhuma etapa que clareia passa um canal de 0,95, o split tone age só nos tons neutros, os vermelhos saturados têm uma leve rolagem que devolve a textura do crochê, o brilho nas altas luzes ficou menor e há um soft clip que preserva a luminância;
+  - o resto do look da v12 continua igual.
+- **Tapete vermelho com o azul:** saiu o 6875 e entrou o **6877** (0,5 a 2,0 s). Ele tem o vermelho mais profundo e menos estourado, com a câmera passando devagar pelos dois tapetes.
+- **Nomes por mais tempo:**
+  - cada nome entra assim que ela tira a peça da caixa e fica até o fim do take da peça no ambiente. O sousplat, por exemplo, passou de ~2 s para ~5 s;
+  - o texto fica parado na mesma posição ao longo dos cortes;
+  - a posição de cada nome foi escolhida para ficar legível em todos os takes que ele atravessa (`scripts/label_spots_v13.py`). Fica no centro o retangular; sobem um pouco o sousplat, o geométrico, a passadeira, a sala, o redondo menor e o redondo.
+- **Tapete para sala:** agora com a medida, **"medida 1,50 x 2,00 m"**, na linha manuscrita.
 
 ## v12: ajustes sobre a v11
 - **Color grading profissional** (`scripts/grade_v12.py`), em duas etapas, como uma árvore de nós de colorista. O antes/depois está em `assets/antes_depois_grading_v12.jpg`.
