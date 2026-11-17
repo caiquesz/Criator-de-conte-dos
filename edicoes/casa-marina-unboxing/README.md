@@ -2,8 +2,35 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v10.mp4`.** O vídeo tem 39,1 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
-As versões anteriores ficaram no histórico do git (v9 `2120ca6`, v8 `5433ec7`, v7 `6ecc477`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+**Entrega atual: `casa-marina-unboxing-v11.mp4`.** O vídeo tem 41,2 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
+As versões anteriores ficaram no histórico do git (v10 `9b82e24`, v9 `2120ca6`, v8 `5433ec7`, v7 `6ecc477`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v11: ajustes sobre a v10
+- **Adesivo em câmera lenta:** o trecho 1,0 a 2,75 s do 6849 roda a 0,6x, com interpolação de movimento (`minterpolate`, sem fantasmas no adesivo). Ficam 2,6 s na tela, então dá para ler "Casa Marina" com calma.
+- **"Piscar" antes do TAPETE GEOMÉTRICO:** na v10 o risquinho aparecia sozinho por ~5 quadros antes do texto, junto com uma sombra escura forte, e isso parecia uma falha. Agora o texto entra num único fade suave (nome, e a linha de baixo 0,12 s depois), sem nenhum elemento aparecendo sozinho, e com a sombra bem mais difusa.
+- **Saiu o take do tapete branco** (6872), que era o mesmo tapete dos redondos menores.
+- **Tapetes redondos maiores no fecho:** a tirada da caixa do verde/teal (6854) e do cru (6855) foi para o fim, logo antes do vídeo novo **6882** (ela folheando os 3 redondos maiores: verde, cru e teal). O 6882 substitui os ovais (6883) e leva o nome **TAPETE REDONDO / de crochê**.
+- **Débora abrindo o tapete para sala** (vídeo novo **6884**, 1,9 a 4,5 s) entra antes do 6890.
+- **Fonte nova, no estilo da referência Westwing:**
+  - nome do produto em **Cormorant Garamond** (serifada fina, caixa alta, letras espaçadas);
+  - material em **Allura** (manuscrita elegante), logo abaixo;
+  - branco, sem contorno, só uma sombra bem difusa.
+- **Sem risquinho:** o texto fica centralizado, no alto do quadro, sobre o deck (opção C). Assim não cobre a peça.
+  - As outras opções estão em `assets/opcoes_risquinho_v11.jpg`: A com risquinho reto, B no centro do vídeo, C centralizado no alto, D no alto com um fio fino entre as linhas.
+  - Qualquer uma sai com `python3 scripts/render_v11.py CLEAN.mp4 OUT.mp4 --style line|center|top|divider`.
+
+| Saída | Trecho |
+|---|---|
+| 0,0 a 2,6 s | Deck + logo → caixa chegando |
+| 2,6 a 5,2 s | Adesivo em câmera lenta |
+| 5,2 a 7,9 s | Abre a caixa → papel de seda |
+| 7,9 a 13,1 s | Sousplat: tira o cru e o vermelho → mesinha de madeira (nome) |
+| 13,1 a 18,0 s | Tapete retangular: tira o marinho → vermelho e marinho no deck (nome) |
+| 18,0 a 21,8 s | Tapete geométrico: tira da caixa → aberto no deck (nome) |
+| 21,8 a 25,4 s | Jogo de passadeira: tira da caixa → as 3 peças no deck (nome) |
+| 25,4 a 30,0 s | Tapete para sala: a Débora abre o tapete (6884) → tapete estendido (6890, nome) |
+| 30,0 a 33,6 s | Tapete redondo menor: os tapetes vão aparecendo um a um (nome) |
+| 33,6 a 41,2 s | Tapete redondo: tira o teal e o cru → ela folheando os 3 redondos maiores (6882, nome) → véu branco com a logo |
 
 ## v10: ajustes sobre a v9
 - **Tapetes redondos menores mais naturais** (`scripts/menores_live.py`):
@@ -16,7 +43,7 @@ As versões anteriores ficaram no histórico do git (v9 `2120ca6`, v8 `5433ec7`,
   - pretos levemente levantados e altas luzes mais suaves, porque o sol no deck estava forte;
   - um toque de calor nos meios-tons e nas altas luzes;
   - saturação -5% no geral e um pouco menos nos verdes e cianos (grama e grade), para manter as cores do crochê fiéis.
-- **Pendente:** o take da Débora abrindo o tapete para sala não está na pasta do Drive. Os vídeos de 6884 a 6889 não subiram. Por enquanto, o tapete para sala continua com o take 6890.
+- O take da Débora abrindo o tapete para sala ainda não estava no Drive (entrou na v11).
 
 ## v9: ajustes sobre a v8
 - **Abertura:** saiu o véu branco. Agora aparece só a logo, branca e com sombra difusa, por cima do deck vazio. Ela some rápido (até 1,6 s) enquanto a caixa é colocada no chão.
