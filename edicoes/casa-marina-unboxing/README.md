@@ -2,8 +2,13 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v14.mp4`.** O vídeo tem 38,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
-As versões anteriores ficaram no histórico do git (v13 `aac6a06`, v12 `f3abec4`, v11 `ef70f53`, v10 `9b82e24`, v9 `2120ca6`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+**Entrega atual: `casa-marina-unboxing-v15.mp4`.** O vídeo tem 38,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
+As versões anteriores ficaram no histórico do git (v14 `b6eea67`, v13 `aac6a06`, v12 `f3abec4`, v11 `ef70f53`, v10 `9b82e24`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v15: ajustes sobre a v14
+- **Logo de abertura no centro da tela:** a posição passou de (540, 600) para (540, 960).
+  - Ali a logo fica em cima do tapete de fibra claro, então ganhou uma sombra difusa em duas escalas (larga + média), sem contorno, para não perder contraste.
+  - Cortes, grading e nomes continuam os da v14 (`scripts/render_v15.py` sobre o mesmo master limpo da v14).
 
 ## v14: ajustes sobre a v13
 - **Adesivo mais curto:** continua em câmera lenta (0,6x), mas agora fica 1,6 s na tela em vez de 2,6 s. É o trecho 0,6 a 2,2 s do `adesivo_slow.mp4`, em que o adesivo aparece inteiro.
