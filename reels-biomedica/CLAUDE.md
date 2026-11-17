@@ -109,6 +109,10 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   **nunca mude a altura da voz** (é o que soaria artificial). O resto sai idêntico ao original, amostra por
   amostra; o plano lê a voz de `assets/video/voz-igualada.wav`. Modelo: `projetos/caso-paciente/igualar_voz.py`.
 - **Som do lápis baixo:** a 0,75 ela achou alto; 0,3 (uns 17 dB abaixo da voz) ficou o volume.
+- **Efeitos sonoros mais baixos** (8ª versão: "tô achando eles muito altos"): depois de pedir mais efeitos na 3ª, ela
+  achou altos os volumes que eu pus (P&B 0,9, whoosh 0,4–0,7, cliques 0,6–0,7). Ficou `"volume_efeitos": 0.5` no
+  plano (todos 6 dB abaixo, o equilíbrio entre eles igual; o `gerar.py` aplica o fator em todos os efeitos). Comece
+  os próximos vídeos dela já nesse nível.
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,

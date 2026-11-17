@@ -751,7 +751,10 @@ def eventos_sfx(plano):
         if som.startswith("click") and (t - ultimo_whoosh < 0.2 or t - ultimo_clique < 0.2):
             continue
         limpo.append((t, som, vol))
-    return limpo
+    # "volume_efeitos" no plano: um fator para todos os efeitos de uma vez, mantendo o equilíbrio entre eles
+    # (Caso de paciente, 8ª versão: "dá uma diminuidazinha nos efeitos sonoros, tô achando eles muito altos")
+    fator = plano.get("volume_efeitos", 1.0)
+    return [(t, som, round(vol * fator, 4)) for t, som, vol in limpo]
 
 
 def gerar_index(plano, duracao):

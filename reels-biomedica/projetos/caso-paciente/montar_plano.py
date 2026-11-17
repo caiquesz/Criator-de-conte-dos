@@ -330,6 +330,8 @@ plano = {
                {"id": "marcacao", "src": "compositions/marcacao.html", "z": 6},
                {"id": "legendas-ref", "src": "compositions/legendas-ref.html", "z": 7}],
     "sfx_extra": sons,
+    # 8ª versão: "dá uma diminuidazinha nos efeitos sonoros": todos pela metade (−6 dB), o equilíbrio entre eles igual
+    "volume_efeitos": 0.5,
 }
 (AQUI / "plano.json").write_text(json.dumps(plano, ensure_ascii=False, indent=1))
 subprocess.run(["python3", str(SCRIPTS / "gerar.py"), str(AQUI)], check=True)
