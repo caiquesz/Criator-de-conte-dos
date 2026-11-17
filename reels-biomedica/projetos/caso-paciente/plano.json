@@ -42,6 +42,11 @@
    "z": 5
   },
   {
+   "id": "marcacao",
+   "src": "compositions/marcacao.html",
+   "z": 6
+  },
+  {
    "id": "legendas-ref",
    "src": "compositions/legendas-ref.html",
    "z": 7
@@ -97,6 +102,16 @@
    "t": 31.2,
    "som": "whoosh-rapido",
    "vol": 0.7
+  },
+  {
+   "t": 31.4,
+   "som": "lapis",
+   "vol": 0.75
+  },
+  {
+   "t": 32.38,
+   "som": "lapis",
+   "vol": 0.75
   },
   {
    "t": 33.08,

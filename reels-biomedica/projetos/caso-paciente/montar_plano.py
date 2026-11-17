@@ -20,8 +20,8 @@ from pathlib import Path
 
 from PIL import ImageFont
 
-from roteiro import (BASE_COM_FOTO, BASE_LEGENDA, FOTO_CHEIA, FOTO_FAIXA, FOTO_PAR, FOTO_UNICA, LEGENDAS, PLANOS,
-                     TEXTO, TOTAL, TRANSICOES)
+from roteiro import (BASE_COM_FOTO, BASE_LEGENDA, FOTO_CHEIA, FOTO_FAIXA, FOTO_PAR, FOTO_UNICA, LEGENDAS, MARCACAO,
+                     PLANOS, TEXTO, TOTAL, TRANSICOES)
 
 AQUI = Path(__file__).parent
 SCRIPTS = AQUI.parent.parent.parent / "reels-imobiliaria" / "scripts"
@@ -197,6 +197,86 @@ js_f = [
 ]
 (AQUI / "compositions" / "fotos-ref.html").write_text(composicao("fotos-ref", css_f, fotos_html, js_f))
 
+# ── marcação do hip dips: o lapisinho (veja MARCACAO no roteiro.py) ───────────────────────────────────────────
+def curva(pontos, por_trecho=14):
+    """Catmull-Rom pelos pontos (o último igual ao primeiro: curva fechada), em polilinha densa."""
+    import numpy as np
+    P = np.array(pontos[:-1], float)
+    n_ = len(P)
+    out = []
+    for i in range(n_):
+        p0, p1, p2, p3 = P[(i - 1) % n_], P[i], P[(i + 1) % n_], P[(i + 2) % n_]
+        for k in range(por_trecho):
+            t = k / por_trecho
+            out.append(0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t
+                              + (-p0 + 3 * p1 - 3 * p2 + p3) * t ** 3))
+    out.append(out[0])
+    return np.array(out)
+
+
+def ponto_em(poli, frac):
+    import numpy as np
+    seg = np.hypot(*np.diff(poli, axis=0).T)
+    acum = np.concatenate([[0], np.cumsum(seg)])
+    alvo = frac * acum[-1]
+    i = min(np.searchsorted(acum, alvo, side="right") - 1, len(seg) - 1)
+    u = (alvo - acum[i]) / seg[i] if seg[i] else 0
+    return poli[i] + u * (poli[i + 1] - poli[i]), acum[-1]
+
+
+m0, m1 = MARCACAO["plano"]
+cx, cy = MARCACAO["centro"]
+paths, js_m = [], [f'tl.set("#marc", {{opacity:1}}, {n(m0)});', f'tl.set("#marc", {{opacity:0}}, {n(m1)});',
+                   # a marcação cresce junto com o empurrão da foto (o mesmo do montar_video.py: escala em volta do centro)
+                   f'tl.fromTo("#zoom", {{scale:1}}, {{scale:{1 + MARCACAO["zoom"]}, duration:{n((round(m1 * 30) - round(m0 * 30) - 1) / 30)}, '
+                   f'ease:"none"}}, {n(m0)});']
+lapis_pos = []
+for i, lado in enumerate(MARCACAO["lados"]):
+    poli = curva(lado["pontos"])
+    _, L = ponto_em(poli, 1)
+    d = "M " + " L ".join(f"{x:.1f} {y:.1f}" for x, y in poli)
+    paths.append(f'<path id="mk{i}" class="traco" d="{d}" style="stroke-dasharray:{L:.1f} {L:.1f}; stroke-dashoffset:{L:.1f}; opacity:0"/>')
+    js_m += [f'tl.set("#mk{i}", {{opacity:1}}, {n(lado["ini"])});',
+             f'tl.to("#mk{i}", {{strokeDashoffset:0, duration:{lado["dur"]}, ease:"none"}}, {n(lado["ini"])});']
+    passos = round(lado["dur"] * 30)
+    for k in range(passos + 1):
+        (x, y), _ = ponto_em(poli, k / passos)
+        lapis_pos.append((lado["ini"] + k / 30, x, y))
+# o lapisinho: entra pela direita, segue a ponta da linha, pula de um lado para o outro e sai
+t_ini, x_ini, y_ini = lapis_pos[0]
+js_m.append(f'tl.fromTo("#lapis", {{opacity:0, x:{x_ini + 120:.1f}, y:{y_ini - 90:.1f}}}, {{opacity:1, x:{x_ini:.1f}, y:{y_ini:.1f}, '
+            f'duration:0.18, ease:"power2.out"}}, {n(t_ini - 0.18)});')
+for (t0_, x0_, y0_), (t1_, x1_, y1_) in zip(lapis_pos, lapis_pos[1:]):
+    js_m.append(f'tl.to("#lapis", {{x:{x1_:.1f}, y:{y1_:.1f}, duration:{max(t1_ - t0_, 1 / 30):.3f}, ease:"{"none" if t1_ - t0_ < 0.05 else "power1.inOut"}"}}, {n(t0_)});')
+t_fim, x_fim, y_fim = lapis_pos[-1]
+js_m.append(f'tl.to("#lapis", {{opacity:0, x:{x_fim + 110:.1f}, y:{y_fim - 80:.1f}, duration:0.22, ease:"power2.in"}}, {n(t_fim + 0.04)});')
+LAPIS = """<svg width="40" height="160" viewBox="-20 -150 40 160" style="position:absolute; left:-20px; top:-150px; overflow:visible">
+        <g transform="rotate(28)">
+          <rect x="-9" y="-142" width="18" height="12" rx="3" fill="#E9BCAA"/>
+          <rect x="-9.5" y="-131" width="19" height="12" fill="#EED6A4"/>
+          <rect x="-9" y="-119" width="18" height="89" fill="#FAF7F2"/>
+          <rect x="3" y="-119" width="6" height="89" fill="#E9E2D6"/>
+          <polygon points="-9,-30 9,-30 3.4,-9 -3.4,-9" fill="#E6C69C"/>
+          <polygon points="-3.4,-9 3.4,-9 0,0" fill="#FFFFFF" stroke="#BFB4A6" stroke-width="0.8"/>
+        </g>
+      </svg>"""
+css_m = """    #marc { position: absolute; inset: 0; opacity: 0; }
+    #zoom { position: absolute; inset: 0; transform-origin: 540px 768px; }
+    #zoom svg.linhas { position: absolute; left: 0; top: 0; overflow: visible;
+                       filter: drop-shadow(0 1px 2px rgba(70, 35, 20, 0.55)) drop-shadow(0 0 6px rgba(70, 35, 20, 0.25)); }
+    .traco { fill: none; stroke: #FFFFFF; stroke-width: 5.5; stroke-linecap: round; stroke-linejoin: round; }
+    #lapis { position: absolute; left: 0; top: 0; opacity: 0; filter: drop-shadow(-4px 8px 7px rgba(40, 20, 10, 0.4)); }"""
+corpo_m = f"""    <div id="marc"><div id="zoom">
+      <svg class="linhas" width="1080" height="1920" viewBox="0 0 1080 1920">
+        <defs><filter id="lapis-textura" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="ruido"/>
+          <feDisplacementMap in="SourceGraphic" in2="ruido" scale="2.6"/></filter></defs>
+        <g filter="url(#lapis-textura)">{"".join(paths)}</g>
+      </svg>
+      <div id="lapis">{LAPIS}</div>
+    </div></div>"""
+(AQUI / "compositions" / "marcacao.html").write_text(composicao("marcacao", css_m, corpo_m, js_m))
+
 # ── sons ──────────────────────────────────────────────────────────────────────────────────────────
 # 3ª versão (17/11: "senti falta de efeitos sonoros"): na 2ª eram poucos e a 0,2–0,3, e o mixar.py ainda baixa os
 # efeitos 14 dB, porque a voz dela foi gravada 14 dB abaixo da do André (os efeitos acompanham a voz): quase não se
@@ -227,9 +307,11 @@ entradas = [l["s"] for g in grupos for l in g["linhas"] if l["estilo"] in "Fbs"]
 for t in entradas[:-1]:
     candidatos.append((t, "click-agudo", 0.7))                           # a palavra que pesa
 candidatos.append((entradas[-1], "brilho", 0.6))                         # "cada paciente", no fim
+for lado in MARCACAO["lados"]:
+    candidatos.append((lado["ini"], "lapis", 0.75))                      # o lápis riscando a marcação
 aceitos = []
 for t, som, vol in candidatos:
-    if all(abs(t - x[0]) >= 0.4 or (som == "click" and x[1] == "whoosh-rapido" and t - x[0] >= 0.39)
+    if som == "lapis" or all(abs(t - x[0]) >= 0.4 or (som == "click" and x[1] == "whoosh-rapido" and t - x[0] >= 0.39)
            or (som == "brilho" and x[1] == "transicao") for x in aceitos):
         aceitos.append((t, som, vol))
 sons = [{"t": round(t, 3), "som": som, "vol": vol} for t, som, vol in sorted(aceitos) if som != "transicao"]
@@ -244,6 +326,7 @@ plano = {
     "fotos": [],
     "transicoes": TRANSICOES,
     "extras": [{"id": "fotos-ref", "src": "compositions/fotos-ref.html", "z": 5},
+               {"id": "marcacao", "src": "compositions/marcacao.html", "z": 6},
                {"id": "legendas-ref", "src": "compositions/legendas-ref.html", "z": 7}],
     "sfx_extra": sons,
 }

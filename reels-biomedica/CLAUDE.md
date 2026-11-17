@@ -92,6 +92,14 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     cheia esmaecendo. Nada de cards inclinados, molduras ou sombras, e **nada de recorte da pessoa** (o antes
     atrás dela, recortado, ficou feio na borda).
   Modelo: `projetos/caso-paciente/roteiro.py`, `montar_video.py` e `montar_plano.py` (5ª versão).
+- **Marcação com lápis na foto** (Caso de paciente, 6ª versão: "um lapisinho passando, como se fosse uma marcação,
+  marcando o hip dips"): um lápis branco pequeno (como o dermográfico da clínica) contorna a região numa linha branca
+  com textura de traço e sombra marrom leve, um lado de cada vez, ~0,8 s por lado, com som de lápis (`lapis.mp3`,
+  sintetizado). A posição sai do contorno do corpo na foto (onde a borda fica reta logo abaixo do quadril) e a
+  marcação acompanha o empurrão do plano. Modelo: `MARCACAO` no `roteiro.py` e `compositions/marcacao.html`.
+- **Foto que a cliente retocou** (6ª versão: tirou uma manchinha que a paciente não quer mostrar): troque a original
+  em `fotos-originais/` pela retocada (mesmo nome), rode `preparar_fotos.converter` e o `cortar_fotos.py`, e não
+  guarde a versão sem retoque em lugar nenhum.
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,

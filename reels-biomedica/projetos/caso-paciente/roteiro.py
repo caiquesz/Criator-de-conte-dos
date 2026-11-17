@@ -133,3 +133,22 @@ FOTO_FAIXA = (0.000, 3.933)          # o antes no alto, enquanto ela diz "essa p
 FOTO_PAR = (36.800, 40.433)          # antes e depois da 1ª sessão, na fala da 1ª sessão
 FOTO_UNICA = (48.200, 53.500)        # o antes da 2ª etapa, na fala da 2ª sessão
 FOTO_CHEIA = (53.500, 56.967)        # o resultado de hoje: "que foi a queixa dela desde o início. e não termina aí"
+
+# ── marcação do hip dips (6ª versão, 17/11: "uma animação como se fosse um lapisinho passando, marcando o hip dips, a
+# depressão lateral da paciente") ────────────────────────────────────────────────────────────────────────────────
+# Na foto que a cliente pôs no vídeo (o plano "foto", com o empurrão de 1 a 1,08 em volta de (540, 768)), um
+# lapisinho branco, como o lápis dermográfico da clínica, contorna a depressão de cada lado: a linha de dentro
+# acompanha a curva para dentro, a de fora volta rente à borda do corpo. Pontos em px da tela no início do plano
+# (escala 1), achados pelo contorno do corpo: de cada lado a borda fica reta logo abaixo do quadril (esquerda
+# y 940–1170, direita y 900–1140), antes de abrir na coxa; é ali a depressão.
+MARCACAO = {
+    "plano": (31.200, 33.633), "zoom": 0.08, "centro": (540, 768),
+    "lados": [
+        {"ini": 31.40, "dur": 0.80, "pontos": [(162, 935), (178, 965), (198, 1010), (206, 1055), (197, 1100), (176, 1142),
+                                                (148, 1175), (141, 1150), (146, 1110), (152, 1065), (154, 1020), (155, 980),
+                                                (162, 935)]},
+        {"ini": 32.38, "dur": 0.80, "pontos": [(906, 905), (890, 935), (868, 982), (860, 1027), (868, 1072), (889, 1112),
+                                                (928, 1142), (933, 1118), (925, 1080), (915, 1040), (908, 1000), (906, 950),
+                                                (906, 905)]},
+    ],
+}
