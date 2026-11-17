@@ -2,8 +2,25 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v11.mp4`.** O vídeo tem 41,2 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
-As versões anteriores ficaram no histórico do git (v10 `9b82e24`, v9 `2120ca6`, v8 `5433ec7`, v7 `6ecc477`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+**Entrega atual: `casa-marina-unboxing-v12.mp4`.** O vídeo tem 40,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
+As versões anteriores ficaram no histórico do git (v11 `ef70f53`, v10 `9b82e24`, v9 `2120ca6`, v8 `5433ec7`, v7 `6ecc477`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v12: ajustes sobre a v11
+- **Color grading profissional** (`scripts/grade_v12.py`), em duas etapas, como uma árvore de nós de colorista. O antes/depois está em `assets/antes_depois_grading_v12.jpg`.
+  - **Primária, por take (casamento dos planos):**
+    - balanço de branco: as áreas neutras de cada take (deck, caixa, parede) são puxadas 60% em direção a um mesmo branco levemente quente, com limite de ±6%, para as cores das peças não mudarem. Os takes do retangular na sombra (mais azulados) passam a combinar com os de sol;
+    - exposição: o meio-tom das áreas neutras é igualado entre os takes, para não haver saltos de brilho nos cortes.
+  - **Look (todos os quadros), editorial suave, na linha da referência da Westwing:**
+    - tone mapping local com filtro guiado (respeita bordas, sem halo): suaviza o contraste do sol forte, abre as sombras e mantém a textura dos pontos de crochê;
+    - curva fílmica: pretos levemente levantados e altas luzes com rolagem longa;
+    - split tone: sombras neutras-quentes e altas luzes cremosas;
+    - "de-vibrance": o fundo de baixa saturação (madeira, grama, pele) fica mais contido e as cores fortes das peças ficam fiéis;
+    - leve brilho nas altas luzes e uma vinheta bem sutil.
+- **Take com falha (geométrico saindo da caixa):** no trecho usado antes (6857, 5,4 s), a dobra do tapete com a sombra do braço parecia uma dupla exposição. Isso está no próprio vídeo e não tem como consertar. Agora o take usa o final limpo do mesmo vídeo (7,0 a 8,25 s), com o tapete esticado e a mão na borda.
+- **Textos na opção B:** sem risquinho e centralizados no meio do vídeo. Nos takes em que o meio é claro ou muito estampado, o texto sobe para uma área mais calma.
+  - A posição foi escolhida medindo brilho e textura no master graduado.
+  - Ficam no centro: sousplat, retangular e redondo.
+  - Sobem: geométrico, passadeira, sala e redondo menor.
 
 ## v11: ajustes sobre a v10
 - **Adesivo em câmera lenta:** o trecho 1,0 a 2,75 s do 6849 roda a 0,6x, com interpolação de movimento (`minterpolate`, sem fantasmas no adesivo). Ficam 2,6 s na tela, então dá para ler "Casa Marina" com calma.
