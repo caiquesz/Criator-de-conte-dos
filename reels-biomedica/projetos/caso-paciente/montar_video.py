@@ -66,6 +66,11 @@ def main():
     saida = V / "video.mp4"
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(tmp / "lista.txt"),
                     "-c", "copy", "-movflags", "+faststart", str(saida)], check=True)
+    # o som do original vai junto (o HyperFrames pede som no vídeo; a mixagem final lê a voz do original, intacta)
+    com_som = V / "_com_som.mp4"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(saida), "-i", str(V / "original.mov"), "-map", "0:v", "-map", "1:a",
+                    "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-shortest", "-movflags", "+faststart", str(com_som)], check=True)
+    com_som.replace(saida)
     n = quadros(saida)
     if n != TOTAL:
         raise SystemExit(f"o vídeo saiu com {n} quadros, esperava {TOTAL}")

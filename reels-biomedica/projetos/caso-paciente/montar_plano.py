@@ -166,7 +166,7 @@ sons += [{"t": FOTO_PAR[0], "som": "whoosh-rapido", "vol": 0.2}, {"t": FOTO_UNIC
 plano = {
     "video": "assets/video/video.mp4",
     "video_original": "assets/video/original.mov",
-    "video_tem_audio": True,
+    "video_tem_audio": True,          # o som do original vai junto no vídeo-base (o HyperFrames pede); a mixagem lê a voz do original
     "duracao": DUR,
     "cores": {"texto": "#FFFFFF", "destaque": "#FFFFFF", "destaque_escuro": "#FFFFFF", "brilho": False, "vazamento": "#FF8A3D"},
     "legendas": [],
