@@ -59,7 +59,9 @@ TRANSICOES = [
 # Cada legenda é uma lista de linhas; cada linha, de trechos (primeira palavra, última palavra, estilo):
 #   f fina (Poppins Light itálica, branca) · n negrito (Poppins ExtraBold itálica, branca, mesmo tamanho)
 #   F forte (a frase sozinha, ExtraBold itálica maior, com borrão de lado) · b bege (ExtraBold reta #EED6A4, grande,
-#   entra seca na palavra dela) · s serifa (Playfair Display itálica, branca, grande)
+#   entra seca na palavra dela) · s serifa (Playfair Display itálica; fora desde a 5ª versão)
+# 5ª versão (17/11): um padrão só de cor, a fala branca e tudo o que pesa bege (n, F e b; a serifada branca saiu,
+# "harmonioso" virou bege como as outras palavras grandes), e letras e linhas mais juntas (montar_plano.py).
 f, n, F, b, s = "f", "n", "F", "b", "s"
 LEGENDAS = [
     [[(0, 4, f)]],                              # Essa paciente chegou até mim
@@ -93,7 +95,7 @@ LEGENDAS = [
     [[(106, 110, f)]],                          # essa região superior do glúteo
     [[(111, 114, f), (115, 115, n)]],           # sem antes tratar o hip dips
     [[(116, 120, f)]],                          # faz com que o resultado
-    [[(121, 122, f)], [(123, 123, s)]],         # não fique / harmonioso
+    [[(121, 122, f)], [(123, 123, b)]],         # não fique / harmonioso
     [[(124, 127, f)]],                          # já na segunda sessão,
     [[(128, 131, f)]],                          # com a base pronta,
     [[(132, 134, f)]],                          # nós conseguimos trabalhar

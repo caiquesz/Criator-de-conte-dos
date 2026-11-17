@@ -55,19 +55,24 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     clarão ou esmaecendo escurecido para a cor), luz quente nas transições, as legendas dela (abaixo) e um som
     em cada evento. **Sem color grade:** a cor da moça de blazer (pele dourada, vinheta) ela recusou na 3ª versão;
     vale a regra do Bate-bola, a cor do vídeo dela nunca muda.
-  - **legendas = as da referência, só a fonte trocada por Poppins** (4ª versão, 17/11: "as legendas que você fez
-    não têm nada a ver com as que eu pedi; a única coisa que eu falei foi para usar a Poppins"). Na 2ª eu fiz
-    palavra por palavra do desfoque e linhas grandes coladas; na 3ª, Poppins 400 com −0,045em e entrelinha 1,05
-    ("espaçamento entre linhas bem diminuído"), sem vírgula nenhuma. Medido na referência, quadro a quadro: **uma
-    frase curta por vez** (2 a 6 palavras, cortadas nas pausas), numa linha, centralizada, com o meio da linha fina
-    a ~78% da altura (y ≈ 1500); **a frase inteira de uma vez e troca em corte seco**; fina **itálica Light
-    minúscula** (Poppins 300 itálica, 45 px, −0,02em); a palavra que pesa em **ExtraBold itálica do mesmo tamanho**,
-    dentro da frase; de vez em quando a frase sozinha em ExtraBold itálica maior (58 px) entrando com borrão de lado;
-    a palavra de impacto em **ExtraBold reta bege #EED6A4** (~1,75x, até 65% da largura) com a fina pequena em
-    cima, entrando seca na palavra dela; uma serifada itálica branca (Playfair) raríssima; duas linhas só no fim,
-    **entrelinha 1,45**; **com as vírgulas da fala** e sem ponto final; só a primeira palavra do vídeo com
-    maiúscula. Modelo: `LEGENDAS` no `roteiro.py` do Caso de paciente. Poppins ExtraBold itálica vem do npm
-    (`@fontsource/poppins`; o GitHub dá 403);
+  - **legendas = o formato da referência, em Poppins, com o gosto dela** (4ª e 5ª versões, 17/11). Na 4ª: "as
+    legendas que você fez não têm nada a ver com as que eu pedi; a única coisa que eu falei foi para usar a
+    Poppins" (na 2ª eu fiz palavra por palavra do desfoque; na 3ª, sem vírgula nenhuma). Medido na referência,
+    quadro a quadro, e é o formato: **uma frase curta por vez** (2 a 6 palavras, cortadas nas pausas), numa linha,
+    centralizada, com o meio da linha fina a ~78% da altura (y ≈ 1500); **a frase inteira de uma vez e troca em
+    corte seco**; fina **itálica Light minúscula** (Poppins 300 itálica, 45 px); a palavra que pesa em **ExtraBold
+    itálica do mesmo tamanho**, dentro da frase; de vez em quando a frase sozinha em ExtraBold itálica maior (58 px)
+    entrando com borrão de lado; a palavra de impacto em **ExtraBold reta grande** (~1,75x, até 65% da largura) com
+    a fina pequena em cima, entrando seca na palavra dela; duas linhas só no fim; **com as vírgulas da fala** e sem
+    ponto final; só a primeira palavra do vídeo com maiúscula. **O gosto dela, por cima da referência (5ª versão):**
+    (a) **letras juntinhas** ("gosto muito da estética quando elas ficam mais juntinhas": −0,045em na fina, −0,04em
+    no negrito, −0,05em na grande) e **linhas próximas** (entrelinha 1,08; a grande 0,98). Na 3ª ela já tinha pedido
+    "espaçamento entre linhas bem diminuído" e eu li como reclamação e abri para 1,45 na 4ª: era pedido; (b) **um
+    padrão só de cor**: a fala **sempre branca** e tudo o que pesa **sempre bege #EED6A4** (o negrito dentro da
+    frase, a frase forte e a palavra grande), com a sombra no tom escuro do bege ("uma hora a fonte tá bege, na outra
+    tá branca, não tem um padrão": na 4ª o negrito e a frase forte eram brancos e a grande, bege); sem serifada (a
+    "harmonioso" em Playfair branca saiu). Modelo: `LEGENDAS` no `roteiro.py` e o CSS do `montar_plano.py` do Caso
+    de paciente. Poppins ExtraBold itálica vem do npm (`@fontsource/poppins`; o GitHub dá 403);
   - **cor do vídeo e das fotos igual à que ela mandou:** o vídeo dela vem em **faixa limitada (16–235) e Display P3**,
     e as fotos do iPhone em P3. O `enquadrar.py` lia como faixa cheia e sem converter o P3, e o `preparar_fotos.py`
     jogava fora o perfil: tudo saía lavado ("você tirou a saturação do vídeo"). Agora os dois leem a etiqueta e
@@ -86,7 +91,7 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     dela e crescendo de leve; uma foto só em faixa de cantos arredondados, entrando do desfoque; a foto em tela
     cheia esmaecendo. Nada de cards inclinados, molduras ou sombras, e **nada de recorte da pessoa** (o antes
     atrás dela, recortado, ficou feio na borda).
-  Modelo: `projetos/caso-paciente/roteiro.py`, `montar_video.py` e `montar_plano.py` (4ª versão).
+  Modelo: `projetos/caso-paciente/roteiro.py`, `montar_video.py` e `montar_plano.py` (5ª versão).
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,

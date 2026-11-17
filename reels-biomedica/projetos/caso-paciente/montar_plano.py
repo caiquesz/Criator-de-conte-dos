@@ -57,7 +57,11 @@ def plano_em(t):
 
 # ── legendas (referência B, em Poppins; veja LEGENDAS no roteiro.py) ─────────────────────────────────
 TAM_FINA, TAM_FORTE, TAM_SERIFA, BEGE_MAX, LARGURA = 45, 58, 84, 78, 700   # bege: ~1,75x a fina e até 65% da largura, como na referência
-TRACK_FINA, TRACK_BEGE = -0.02, -0.03
+# 5ª versão (17/11): "eu gosto muito da estética quando as letras ficam mais juntinhas" e "o espaçamento entre linhas
+# pode diminuir também": letras juntas como na 3ª versão e entrelinha apertada (na 3ª ela já tinha pedido isso: li
+# "espaçamento entre linhas bem diminuído" como reclamação e abri para 1,45 na 4ª)
+TRACK_FINA, TRACK_NEGRITO, TRACK_BEGE = -0.045, -0.04, -0.05
+ENTRELINHA = 1.08
 FONTE_BEGE = ImageFont.truetype(str(AQUI / "assets" / "fonts" / "Poppins-800.ttf"), 100)
 
 
@@ -133,14 +137,30 @@ def composicao(cid, css, corpo, js):
 """
 
 
+# um padrão só de cor (5ª versão: "uma hora a fonte tá bege, na outra tá branca, não tem um padrão"): a fala
+# sempre branca; tudo o que pesa sempre bege (o negrito dentro da frase, a frase forte e a palavra grande), com a
+# sombra no tom escuro do próprio bege (regra do cliente: palavra colorida nunca leva sombra preta)
 BEGE = "#EED6A4"
+
+
+def sombra_da_cor(hexa, alfa):
+    import colorsys
+    r, g, b = (int(hexa[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    h, l, s_ = colorsys.rgb_to_hls(r, g, b)
+    r, g, b = colorsys.hls_to_rgb(h, 0.2, min(1.0, s_ + 0.1))
+    return f"rgba({round(r * 255)}, {round(g * 255)}, {round(b * 255)}, {alfa})"
+
+
+SOMBRA_BEGE = f"0 1px 3px {sombra_da_cor(BEGE, 0.55)}, 0 2px 16px {sombra_da_cor(BEGE, 0.45)}"
 css_l = f"""    .g {{ position: absolute; left: 40px; width: 1000px; opacity: 0; transform: translateY(-100%); text-align: center;
          color: #FFFFFF; text-shadow: 0 1px 3px rgba(20, 12, 8, 0.4), 0 2px 16px rgba(20, 12, 8, 0.4); }}
-    .ln {{ font-family: "Poppins Ref"; font-style: italic; font-weight: 300; font-size: {TAM_FINA}px; line-height: 1.45;
+    .ln {{ font-family: "Poppins Ref"; font-style: italic; font-weight: 300; font-size: {TAM_FINA}px; line-height: {ENTRELINHA};
           letter-spacing: {TRACK_FINA}em; white-space: nowrap; }}
-    .ln .n {{ font-weight: 800; }}
-    .ln.forte {{ font-weight: 800; font-size: {TAM_FORTE}px; line-height: 1.3; }}
-    .ln.bege {{ font-style: normal; font-weight: 800; line-height: 1.12; letter-spacing: {TRACK_BEGE}em; color: {BEGE}; }}
+    .ln .n {{ font-weight: 800; letter-spacing: {TRACK_NEGRITO}em; color: {BEGE}; text-shadow: {SOMBRA_BEGE}; }}
+    .ln.forte {{ font-weight: 800; font-size: {TAM_FORTE}px; line-height: {ENTRELINHA}; letter-spacing: {TRACK_NEGRITO}em;
+                color: {BEGE}; text-shadow: {SOMBRA_BEGE}; }}
+    .ln.bege {{ font-style: normal; font-weight: 800; line-height: 0.98; letter-spacing: {TRACK_BEGE}em; color: {BEGE};
+               text-shadow: {SOMBRA_BEGE}; }}
     .ln.serifa {{ font-family: "Playfair Ref"; font-weight: 400; font-size: {TAM_SERIFA}px; line-height: 1.1; letter-spacing: 0; }}"""
 (AQUI / "compositions" / "legendas-ref.html").write_text(
     composicao("legendas-ref", css_l, "    " + "\n    ".join(html_l), js_l))
