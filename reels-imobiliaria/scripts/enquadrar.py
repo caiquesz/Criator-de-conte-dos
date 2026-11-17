@@ -3,7 +3,7 @@
 Uso: python3 scripts/enquadrar.py PASTA [--analise] [--olhos-y 0.42] [--folga-x 12] [--folga-y 30]
                                          [--folga-tamanho 0.06] [--zoom-max 1.6] [--brilho-rosto 70] [--sem-cor]
                                          [--tamanho maior|mediana] [--passar 06,09] [--sem-tripe 01,10]
-                                         [--cor-pela pele|parede]
+                                         [--cor-pela pele|parede] [--fechar 1.5 --saida enquadrado-fechado]
 
 Lê PASTA/takes/*.mov (na ordem do nome) e escreve PASTA/renders/enquadrado.mp4.
 A medição de cada take fica em PASTA/analise/ (refazer o enquadramento não mede de novo);
@@ -48,6 +48,9 @@ frente à madeira e um mostra a sala inteira), a parede engana: a madeira quente
 take sai azulado, saturado e com o fundo clareado. Pela pele, o balanço de branco leva a cor do rosto de
 cada take à mediana dos takes (a mesma pessoa, a mesma maquiagem) e a luz é um ganho só por take,
 medido no rosto: o fundo de cada um continua com a cor dele.
+--fechar 1.5: a mesma montagem num plano mais fechado (o rosto 1,5x maior, os olhos a --olhos-fechado da
+altura), tirado do 4K, para alternar plano aberto e fechado na edição (o "zoom in, zoom out" das
+referências) sem perder nitidez; --saida dá o nome do arquivo em renders/.
 """
 
 import argparse
@@ -350,6 +353,9 @@ def main():
                     help="tamanho do rosto em todos: o do maior take (padrão) ou o do take do meio")
     ap.add_argument("--passar", default="", help="takes (nomes sem extensão, separados por vírgula) que entram como vieram")
     ap.add_argument("--sem-tripe", default="", help="takes com câmera andando de propósito: sem travar o fundo")
+    ap.add_argument("--fechar", type=float, default=1.0, help="plano mais fechado: o rosto este tanto maior")
+    ap.add_argument("--olhos-fechado", type=float, default=0.36, help="altura dos olhos no plano fechado (fração)")
+    ap.add_argument("--saida", default="enquadrado", help="nome do vídeo em renders/ (sem .mp4)")
     ap.add_argument("--cor-pela", choices=["parede", "pele"], default="parede",
                     help="referência para igualar a cor: a parede (o mesmo fundo em todos) ou a pele")
     ap.add_argument("--modelo", default=str(Path(__file__).parent / "modelos" / "face_detection_yunet_2023mar.onnx"))
@@ -438,6 +444,10 @@ def main():
         else:
             z = d["z"]
             F = enquadra(z, d["E"], d["alvo"])
+            if a.fechar > 1:                               # o mesmo quadro, mais perto, em volta dos olhos
+                G = np.array([[a.fechar, 0, W / 2 - a.fechar * d["alvo"][0]],
+                              [0, a.fechar, a.olhos_fechado * H - a.fechar * d["alvo"][1]]])
+                F = compor(G, F)[:2]
             enc = subprocess.Popen(
                 ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-framerate", str(FPS),
                  "-i", "-", "-vf", "scale=out_range=tv:out_color_matrix=bt709,format=yuv420p", "-c:v", "libx264",
@@ -483,14 +493,14 @@ def main():
     wav = renders / "audio.wav"
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(TAXA), "-ac", "1", "-i", "-",
                     "-c:a", "pcm_f32le", str(wav)], input=np.concatenate(audios).astype(np.float32).tobytes(), check=True)
-    final = renders / "enquadrado.mp4"
+    final = renders / f"{a.saida}.mp4"
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lista), "-i", str(wav),
                     "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-movflags", "+faststart",
                     "-shortest", str(final)], check=True)
     wav.unlink(); lista.unlink()
     for p in partes:
         p.unlink()
-    (pasta / "enquadramento.json").write_text(json.dumps({"olhos_alvo": [round(v) for v in alvo], "folga": [a.folga_x, a.folga_y],
+    (pasta / ("enquadramento.json" if a.saida == "enquadrado" else f"{a.saida}.json")).write_text(json.dumps({"olhos_alvo": [round(v) for v in alvo], "folga": [a.folga_x, a.folga_y],
                                                           "entre_olhos_alvo": [round(Dalvo, 1), round(Dalvo * (1 + a.folga_tamanho), 1)],
                                                           "takes": relatorio}, ensure_ascii=False, indent=1))
     print("ok:", final)

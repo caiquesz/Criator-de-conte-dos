@@ -47,6 +47,21 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
 
 ## Regras
 
+- **Siga as referências que ela manda, à risca, e estude cada uma antes de editar** (17/11: "até agora você não
+  fez nenhum vídeo com base nas referências"). Grade a 2 quadros/s, tiras a 10–15 quadros/s nas transições,
+  letras de perto. As duas de 17/11 valem daqui para a frente:
+  - `referencias/ref-blazer-marrom.mp4` (a moça sentada de blazer marrom): **a estética de tudo** — planos
+    aberto e fechado alternando em corte seco (zoom in, zoom out), P&B nas falas de drama (entra seco; sai num
+    clarão ou esmaecendo escurecido para a cor), luz quente nas transições, legendas em **Montserrat** Light
+    minúscula pequena entrando palavra por palavra do desfoque, a que pesa em negrito ou em creme (#EED6A4)
+    maior, uma ou outra em serifada itálica (Playfair Display), e a cor: fundo frio e neutro, pele dourada,
+    mais contraste, vinheta leve;
+  - `referencias/ref-dentista-antes-depois.mp4`: **o antes e depois**, minimalista e delicado — a foto numa
+    faixa no alto com ela embaixo; o par lado a lado, encostado, com um fio branco no meio, atravessando o peito
+    dela e crescendo de leve; uma foto só em faixa de cantos arredondados, entrando do desfoque; a foto em tela
+    cheia esmaecendo. Nada de cards inclinados, molduras ou sombras, e **nada de recorte da pessoa** (o antes
+    atrás dela, recortado, ficou feio na borda).
+  Modelo: `projetos/caso-paciente/roteiro.py`, `montar_video.py` e `montar_plano.py` (2ª versão).
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,

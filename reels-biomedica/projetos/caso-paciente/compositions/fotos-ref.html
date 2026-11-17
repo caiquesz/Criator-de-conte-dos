@@ -1,0 +1,35 @@
+<template>
+  <style>
+    @font-face { font-family: "Montserrat Ref"; font-weight: 100 900; font-style: normal; src: url("assets/fonts/Montserrat-VF.ttf"); }
+    @font-face { font-family: "Playfair Ref"; font-weight: 400 900; font-style: italic; src: url("assets/fonts/PlayfairDisplay-Italic-VF.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    .foto, .par, .cheia { position: absolute; opacity: 0; }
+    #faixa { left: 0; top: 0; width: 1080px; height: 560px; object-fit: cover; }
+    .par { left: 100px; top: 1185px; width: 880px; height: 373px; display: flex; background: #FFFFFF; }
+    .par img { width: 438px; height: 373px; object-fit: cover; display: block; }
+    .par i { width: 4px; flex: none; }
+    .unica { left: 150px; top: 1160px; width: 780px; height: 503px; object-fit: cover; border-radius: 26px; }
+    .cheia { left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+    .cheia img { width: 1080px; height: 1920px; object-fit: cover; transform-origin: 50% 50%; }
+  </style>
+  <div id="root" data-composition-id="fotos-ref" data-width="1080" data-height="1920">
+    <img id="faixa" class="foto" src="assets/fotos/faixas/banda-antes.jpg" alt="">
+    <div id="par" class="par"><img src="assets/fotos/faixas/par-antes.jpg" alt=""><i></i><img src="assets/fotos/faixas/par-depois.jpg" alt=""></div>
+    <img id="unica" class="foto unica" src="assets/fotos/faixas/unica-antes2.jpg" alt="">
+    <div id="cheia" class="cheia"><img id="cheia-img" src="assets/fotos/faixas/cheia-depois2.jpg" alt=""></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 79.5 }, 0);
+    tl.set("#faixa", {opacity:1}, 0);
+    tl.set("#faixa", {opacity:0}, 3.933);
+    tl.fromTo("#par", {opacity:0, scale:0.84}, {opacity:1, scale:1, duration:0.4, ease:"power2.out"}, 36.8);
+    tl.set("#par", {opacity:0}, 40.433);
+    tl.fromTo("#unica", {opacity:0, scale:1.05, filter:"blur(16px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.5, ease:"power2.out"}, 48.2);
+    tl.set("#unica", {opacity:0}, 53.95);
+    tl.fromTo("#cheia", {opacity:0, filter:"blur(12px)"}, {opacity:1, filter:"blur(0px)", duration:0.45, ease:"sine.inOut"}, 53.5);
+    tl.fromTo("#cheia-img", {scale:1}, {scale:1.06, duration:3.47, ease:"none"}, 53.5);
+    tl.set("#cheia", {opacity:0}, 56.967);
+    window.__timelines["fotos-ref"] = tl;
+  </script>
+</template>
