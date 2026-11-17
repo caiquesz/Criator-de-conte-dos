@@ -33,4 +33,4 @@ All files are distributed under the [Pixabay Content License](https://pixabay.co
 - Redistribution as part of derivative works (such as videos rendered with HyperFrames)
 
 without any attribution requirement.
-- lapis.mp3: sintetizado aqui (ruído filtrado com textura de risco de lápis), sem licença de terceiros.
+- lapis.mp3: sintetizado aqui com `reels-imobiliaria/scripts/som_lapis.py` (ruído filtrado com textura de risco de lápis), sem licença de terceiros.
