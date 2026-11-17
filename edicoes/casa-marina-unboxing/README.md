@@ -2,8 +2,13 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v13.mp4`.** O vídeo tem 41,1 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
-As versões anteriores ficaram no histórico do git (v12 `f3abec4`, v11 `ef70f53`, v10 `9b82e24`, v9 `2120ca6`, v8 `5433ec7`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+**Entrega atual: `casa-marina-unboxing-v14.mp4`.** O vídeo tem 38,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
+As versões anteriores ficaram no histórico do git (v13 `aac6a06`, v12 `f3abec4`, v11 `ef70f53`, v10 `9b82e24`, v9 `2120ca6`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v14: ajustes sobre a v13
+- **Adesivo mais curto:** continua em câmera lenta (0,6x), mas agora fica 1,6 s na tela em vez de 2,6 s. É o trecho 0,6 a 2,2 s do `adesivo_slow.mp4`, em que o adesivo aparece inteiro.
+- **Saiu o tapete branco tirado da caixa** (6855) na parte do tapete redondo. A sequência agora é: tira o teal da caixa → ela folheando os 3 redondos maiores (6882).
+- O master limpo da v14 é cortado direto do master graduado da v13, com o mesmo grading (quadros 0 a 77, 90 a 137, 156 a 1042 e 1079 a 1231). As legendas são as mesmas da v13 (`scripts/render_v14.py`).
 
 ## v13: ajustes sobre a v12
 - **Vermelho estourado corrigido** (`scripts/grade_v13.py`):
