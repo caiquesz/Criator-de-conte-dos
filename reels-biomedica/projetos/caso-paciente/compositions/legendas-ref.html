@@ -1,18 +1,23 @@
 <template>
   <style>
-    @font-face { font-family: "Montserrat Ref"; font-weight: 100 900; font-style: normal; src: url("assets/fonts/Montserrat-VF.ttf"); }
-    @font-face { font-family: "Playfair Ref"; font-weight: 400 900; font-style: italic; src: url("assets/fonts/PlayfairDisplay-Italic-VF.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 400; font-style: italic; src: url("assets/fonts/Poppins-400i.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
     #root { position: absolute; inset: 0; overflow: hidden; }
     .g { position: absolute; left: 60px; width: 960px; opacity: 0; transform: translateY(-50%); text-align: center;
          color: #FFFFFF; text-shadow: 0 1px 2px rgba(20, 12, 8, 0.45), 0 2px 18px rgba(20, 12, 8, 0.5); }
-    .linha { font-family: "Montserrat Ref"; font-size: 42px; line-height: 1.15; letter-spacing: -0.005em; }
+    .linha { font-family: "Poppins Ref"; font-size: 42px; line-height: 1.15; letter-spacing: -0.045em; }
     .grande-l { margin-top: -2px; line-height: 1.05; }
     .w { display: inline-block; }
-    .fina { font-weight: 300; }
-    .negrito { font-weight: 700; }
-    .grande { font-family: "Montserrat Ref"; font-weight: 800; font-size: 62px; letter-spacing: -0.02em; }
-    .creme { font-family: "Montserrat Ref"; font-weight: 800; font-size: 62px; letter-spacing: -0.02em; color: #EED6A4; }
-    .serifa { font-family: "Playfair Ref"; font-style: italic; font-weight: 500; font-size: 72px; color: #F1DDB2; letter-spacing: 0; }
+    .fina { font-weight: 400; }
+    .negrito { font-weight: 700; color: #EED6A4; }
+    .grande, .creme { font-family: "Poppins Ref"; font-weight: 800; font-size: 60px; letter-spacing: -0.055em; color: #EED6A4; }
+    .serifa { font-family: "Poppins Ref"; font-style: italic; font-weight: 400; font-size: 62px; letter-spacing: -0.05em;
+              color: #EED6A4; }
   </style>
   <div id="root" data-composition-id="legendas-ref" data-width="1080" data-height="1920">
     <div class="g" id="l1" style="top:1340px"><div class="linha" id="l1b0"><span class="w fina" id="l1w1">essa</span> <span class="w fina" id="l1w2">paciente</span></div></div>

@@ -6,9 +6,10 @@
   de cantos arredondados que entra saindo do desfoque; o resultado em tela cheia, esmaecendo;
 - todo o resto como o vídeo da moça de blazer marrom (referência B): planos aberto e fechado alternando em
   corte seco (o "zoom in, zoom out"), preto e branco nas falas de drama (entra seco, sai num clarão ou num
-  esmaecer escurecido para a cor), luz quente nas transições, legendas em Montserrat fina e minúscula
-  entrando palavra por palavra do desfoque, as que pesam em negrito ou em creme maior, uma ou outra em
-  serifada itálica, e a cor dela (fundo frio, pele dourada, mais contraste).
+  esmaecer escurecido para a cor), luz quente nas transições, legendas minúsculas entrando palavra por
+  palavra do desfoque, as que pesam em negrito ou maiores em creme, uma ou outra em itálico.
+  Na 3ª versão (17/11) a cliente tirou a cor da referência B (fica a cor original) e pediu Poppins com as
+  letras juntas, mantendo o bege, e mais efeitos sonoros.
 
 Tempos em segundos no vídeo (30 quadros/s); os cortes caem nos silêncios entre palavras (VAD do sincronizar.py).
 """
@@ -43,15 +44,15 @@ PLANOS = [
 # transições por cima (gerar.py): luz quente nas trocas de take sem fala cortada, clarão na saída do 1º P&B
 TRANSICOES = [
     {"t": 7.400, "tipo": "flash", "zoom": False, "som": "brilho", "vol": 0.25},
-    {"t": 26.833, "tipo": "luz", "zoom": False, "som": "whoosh-transicao", "vol": 0.3},
-    {"t": 47.867, "tipo": "luz", "zoom": False, "som": "whoosh-transicao", "vol": 0.3},
+    {"t": 26.833, "tipo": "luz", "zoom": False, "som": "whoosh-transicao", "vol": 0.8},
+    {"t": 47.867, "tipo": "luz", "zoom": False, "som": "whoosh-transicao", "vol": 0.8},
 ]
 # legenda: altura do meio do bloco em cada plano (no top jeans dela; no fechado ele desce)
 ALTURA = {"a": 1340, "f": 1500, "foto": 1340}
 
 # frases (primeira palavra, última palavra, linhas): cada linha é (primeira, última, estilo); estilos:
-# fina (Montserrat 300), negrito (700, a palavra que pesa, no mesmo tamanho), grande (800, 1,45x),
-# creme (800, 1,45x, creme), serifa (Playfair Display itálica, 1,6x, creme)
+# fina (Poppins 400, branca), negrito (700 bege, a palavra que pesa, no mesmo tamanho), grande e creme (800 bege,
+# 1,43x), serifa (Poppins 400 itálica bege, 1,48x; era a Playfair na 2ª versão)
 F, N, G, C, S = "fina", "negrito", "grande", "creme", "serifa"
 FRASES = [
     [(0, 1, F)], [(2, 6, F)], [(7, 9, C)],

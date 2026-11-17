@@ -52,16 +52,27 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   letras de perto. As duas de 17/11 valem daqui para a frente:
   - `referencias/ref-blazer-marrom.mp4` (a moça sentada de blazer marrom): **a estética de tudo** — planos
     aberto e fechado alternando em corte seco (zoom in, zoom out), P&B nas falas de drama (entra seco; sai num
-    clarão ou esmaecendo escurecido para a cor), luz quente nas transições, legendas em **Montserrat** Light
-    minúscula pequena entrando palavra por palavra do desfoque, a que pesa em negrito ou em creme (#EED6A4)
-    maior, uma ou outra em serifada itálica (Playfair Display), e a cor: fundo frio e neutro, pele dourada,
-    mais contraste, vinheta leve;
+    clarão ou esmaecendo escurecido para a cor), luz quente nas transições, legendas minúsculas pequenas
+    entrando palavra por palavra do desfoque, a que pesa em negrito ou maior, e um som em cada evento.
+    **Duas exceções que ela mesma pediu na 3ª versão (17/11):** (a) **sem color grade**, a cor fica a original
+    ("não gostei dele, deixa original mesmo"; a cor da moça de blazer, pele dourada e vinheta, ela recusou: vale
+    a regra do Bate-bola, a cor do vídeo dela nunca muda; só a padronização entre takes que ela pede); (b) a letra
+    é **Poppins com as letras juntas** (letter-spacing −0,045em na fala, −0,055em nas grandes), não Montserrat nem
+    Playfair: branco na fala e **bege #EED6A4** no que pesa (negrito, as grandes e a itálica; "gostei desse tom de
+    amarelo bege");
+  - **efeitos sonoros que se ouçam:** a voz dela é gravada ~14 dB abaixo da do André e o `mixar.py` baixa os
+    efeitos junto; na 2ª versão, a 0,2–0,3, quase não se ouviam ("senti falta de efeitos sonoros"). Um som em
+    cada evento (grave no P&B a 0,9, whoosh nas trocas de plano a 0,4–0,5, whoosh e clique nas fotos a 0,6–0,7,
+    clique agudo nas palavras que pesam a 0,7, brilho no resultado, transições a 0,8), nunca dois a menos de 0,4 s;
+  - **zoom sem tremor:** nunca `zoompan` do ffmpeg num zoom lento (arredonda a posição e a imagem treme ~2 px a
+    cada quadro; ela viu na foto). Use o `empurrar()` do `montar_video.py` (warpAffine fracionário no YUV) ou a
+    escala do GSAP, e meça com `scripts/medir_tremor.py` (ECC quadro a quadro);
   - `referencias/ref-dentista-antes-depois.mp4`: **o antes e depois**, minimalista e delicado — a foto numa
     faixa no alto com ela embaixo; o par lado a lado, encostado, com um fio branco no meio, atravessando o peito
     dela e crescendo de leve; uma foto só em faixa de cantos arredondados, entrando do desfoque; a foto em tela
     cheia esmaecendo. Nada de cards inclinados, molduras ou sombras, e **nada de recorte da pessoa** (o antes
     atrás dela, recortado, ficou feio na borda).
-  Modelo: `projetos/caso-paciente/roteiro.py`, `montar_video.py` e `montar_plano.py` (2ª versão).
+  Modelo: `projetos/caso-paciente/roteiro.py`, `montar_video.py` e `montar_plano.py` (3ª versão).
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,

@@ -5,8 +5,10 @@ referência A), o plano.json e roda o gerar.py.
 Uso: python3 cortar_fotos.py; python3 montar_video.py; python3 montar_plano.py   (na pasta do projeto)
 
 A 1ª versão (legendas Poppins no top dela, o antes atrás dela com recorte, cards inclinados, tela dividida e
-flash branco) a cliente recusou: "até agora você não fez nenhum vídeo com base nas referências". Nesta, tudo
-sai das duas referências que ela mandou; a voz e a música do vídeo continuam as do original.
+flash branco) a cliente recusou: "até agora você não fez nenhum vídeo com base nas referências". Na 2ª, tudo
+saiu das duas referências que ela mandou. Na 3ª (17/11) ela tirou o color grade (cor original), trocou a letra
+por Poppins com as letras juntas (o bege das palavras que pesam ela gostou), pediu mais efeitos sonoros e
+notou a foto tremendo (o zoompan; veja montar_video.py). A voz e a música do vídeo continuam as do original.
 """
 import json
 import re
@@ -89,9 +91,12 @@ for g in grupos:                # as palavras das linhas grandes, que não têm 
     html_l.append(f'<div class="g" id="{g["id"]}" style="top:{g["y"]}px">{"".join(linhas_html)}</div>')
     js_l += [f'tl.set("#{g["id"]}", {{opacity:1}}, {n(g["ini"])});', f'tl.set("#{g["id"]}", {{opacity:0}}, {n(g["fim"])});']
 
-FONTES = """
-    @font-face { font-family: "Montserrat Ref"; font-weight: 100 900; font-style: normal; src: url("assets/fonts/Montserrat-VF.ttf"); }
-    @font-face { font-family: "Playfair Ref"; font-weight: 400 900; font-style: italic; src: url("assets/fonts/PlayfairDisplay-Italic-VF.ttf"); }"""
+# 3ª versão (17/11): "a gente pode usar a fonte Poppins, espaçamento diminuído entre as letras, e eu gostei desse
+# tom de amarelo bege na fonte": tudo em Poppins com as letras juntas; branco na fala, bege (#EED6A4) no que pesa
+FONTES = "".join(
+    f'\n    @font-face {{ font-family: "Poppins Ref"; font-weight: {p}; font-style: {"italic" if i else "normal"}; '
+    f'src: url("assets/fonts/Poppins-{p}{"i" if i else ""}.ttf"); }}'
+    for p, i in ((300, 0), (300, 1), (400, 0), (400, 1), (600, 0), (700, 0), (800, 0)))
 
 
 def composicao(cid, css, corpo, js):
@@ -113,16 +118,17 @@ def composicao(cid, css, corpo, js):
 """
 
 
-css_l = """    .g { position: absolute; left: 60px; width: 960px; opacity: 0; transform: translateY(-50%); text-align: center;
-         color: #FFFFFF; text-shadow: 0 1px 2px rgba(20, 12, 8, 0.45), 0 2px 18px rgba(20, 12, 8, 0.5); }
-    .linha { font-family: "Montserrat Ref"; font-size: 42px; line-height: 1.15; letter-spacing: -0.005em; }
-    .grande-l { margin-top: -2px; line-height: 1.05; }
-    .w { display: inline-block; }
-    .fina { font-weight: 300; }
-    .negrito { font-weight: 700; }
-    .grande { font-family: "Montserrat Ref"; font-weight: 800; font-size: 62px; letter-spacing: -0.02em; }
-    .creme { font-family: "Montserrat Ref"; font-weight: 800; font-size: 62px; letter-spacing: -0.02em; color: #EED6A4; }
-    .serifa { font-family: "Playfair Ref"; font-style: italic; font-weight: 500; font-size: 72px; color: #F1DDB2; letter-spacing: 0; }"""
+BEGE = "#EED6A4"
+css_l = f"""    .g {{ position: absolute; left: 60px; width: 960px; opacity: 0; transform: translateY(-50%); text-align: center;
+         color: #FFFFFF; text-shadow: 0 1px 2px rgba(20, 12, 8, 0.45), 0 2px 18px rgba(20, 12, 8, 0.5); }}
+    .linha {{ font-family: "Poppins Ref"; font-size: 42px; line-height: 1.15; letter-spacing: -0.045em; }}
+    .grande-l {{ margin-top: -2px; line-height: 1.05; }}
+    .w {{ display: inline-block; }}
+    .fina {{ font-weight: 400; }}
+    .negrito {{ font-weight: 700; color: {BEGE}; }}
+    .grande, .creme {{ font-family: "Poppins Ref"; font-weight: 800; font-size: 60px; letter-spacing: -0.055em; color: {BEGE}; }}
+    .serifa {{ font-family: "Poppins Ref"; font-style: italic; font-weight: 400; font-size: 62px; letter-spacing: -0.05em;
+              color: {BEGE}; }}"""
 (AQUI / "compositions" / "legendas-ref.html").write_text(
     composicao("legendas-ref", css_l, "    " + "\n    ".join(html_l), js_l))
 
@@ -159,9 +165,41 @@ js_f = [
 (AQUI / "compositions" / "fotos-ref.html").write_text(composicao("fotos-ref", css_f, fotos_html, js_f))
 
 # ── sons ──────────────────────────────────────────────────────────────────────────────────────────
-sons = [{"t": a, "som": "impacto", "vol": 0.22} for a, b, p, ef in PLANOS if ef == "pb"]     # o drama entra com um grave
-sons += [{"t": FOTO_PAR[0], "som": "whoosh-rapido", "vol": 0.2}, {"t": FOTO_UNICA[0], "som": "whoosh-rapido", "vol": 0.2},
-         {"t": FOTO_CHEIA[0], "som": "brilho", "vol": 0.18}]
+# 3ª versão (17/11: "senti falta de efeitos sonoros"): na 2ª eram poucos e a 0,2–0,3, e o mixar.py ainda baixa os
+# efeitos 14 dB, porque a voz dela foi gravada 14 dB abaixo da do André (os efeitos acompanham a voz): quase não se
+# ouviam. Agora há um som em cada evento, como na referência B, num volume que aparece por baixo da voz. Ordem de
+# prioridade: transições, P&B, fotos, trocas de plano, palavras que pesam; dois sons nunca a menos de 0,4 s.
+candidatos = [(t["t"], "transicao", None) for t in TRANSICOES]          # o gerar.py põe o whoosh delas
+candidatos.append((TRANSICOES[0]["t"], "brilho", 0.55))                  # o clarão que tira do 1º P&B
+for k in range(1, len(PLANOS)):
+    a, _, p, ef = PLANOS[k]
+    if ef == "pb":
+        candidatos.append((a, "impacto", 0.9))                           # o drama entra com um grave
+    elif ef == "volta":
+        candidatos.append((a, "whoosh-grave", 0.6))                      # e a cor volta com um sopro grave
+for t, som, vol in [(FOTO_PAR[0], "whoosh-rapido", 0.7), (FOTO_PAR[0] + 0.4, "click", 0.6),
+                    (FOTO_UNICA[0] + 0.3, "click", 0.6), (FOTO_CHEIA[0], "brilho", 0.7)]:
+    candidatos.append((t, som, vol))
+for k in range(1, len(PLANOS)):
+    a, _, p, ef = PLANOS[k]
+    if ef in ("pb", "volta") or p == PLANOS[k - 1][2]:
+        continue
+    if p == "foto":
+        candidatos.append((a, "whoosh-rapido", 0.7))                     # a foto que a cliente pôs
+    elif p == "f":
+        candidatos.append((a, "whoosh-rapido", 0.5))                     # zoom in
+    else:
+        candidatos.append((a, "whoosh", 0.4))                            # zoom out
+entradas = [p["s"] for g in grupos for bl in g["blocos"] if bl["grande"] for p in bl["trechos"][0]["palavras"][:1]]
+for t in entradas[:-1]:
+    candidatos.append((t, "click-agudo", 0.7))                           # a palavra que pesa
+candidatos.append((entradas[-1], "brilho", 0.6))                         # "cada paciente", no fim
+aceitos = []
+for t, som, vol in candidatos:
+    if all(abs(t - x[0]) >= 0.4 or (som == "click" and x[1] == "whoosh-rapido" and t - x[0] >= 0.39)
+           or (som == "brilho" and x[1] == "transicao") for x in aceitos):
+        aceitos.append((t, som, vol))
+sons = [{"t": round(t, 3), "som": som, "vol": vol} for t, som, vol in sorted(aceitos) if som != "transicao"]
 
 plano = {
     "video": "assets/video/video.mp4",
