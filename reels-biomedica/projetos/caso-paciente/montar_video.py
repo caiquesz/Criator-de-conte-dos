@@ -6,7 +6,9 @@ Uso: python3 montar_video.py   (na pasta do projeto, depois do enquadrar.py nas 
 Escreve assets/video/video.mp4 com os mesmos 2385 quadros (a voz continua a do original, intacta).
 
 Sem color grade (3ª versão, 17/11: "pode tirar o color grade, não gostei dele; deixa original mesmo"): a cor é a
-dos takes, só igualada entre eles pelo enquadrar.py. Na 2ª versão entrava a cor da referência B (pele dourada,
+dos takes como ela mandou, só com a luz igualada entre eles pelo enquadrar.py (--cor-pela luz, 4ª versão: "deixe
+igual eu te mandei, alterando apenas a iluminação"; o enquadrar.py agora lê a faixa limitada e converte o Display
+P3 do iPhone para BT.709, que antes saíam lavados). Na 2ª versão entrava a cor da referência B (pele dourada,
 fundo frio, vinheta), que a cliente recusou.
 
 O empurrão é feito aqui, em Python, com posição fracionária (warpAffine em cada plano do YUV, sem passar por

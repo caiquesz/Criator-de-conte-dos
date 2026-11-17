@@ -49,11 +49,6 @@
  ],
  "sfx_extra": [
   {
-   "t": 2.26,
-   "som": "click-agudo",
-   "vol": 0.7
-  },
-  {
    "t": 3.967,
    "som": "impacto",
    "vol": 0.9
@@ -114,11 +109,6 @@
    "vol": 0.5
   },
   {
-   "t": 35.44,
-   "som": "click-agudo",
-   "vol": 0.7
-  },
-  {
    "t": 36.8,
    "som": "whoosh-rapido",
    "vol": 0.7
@@ -164,7 +154,7 @@
    "vol": 0.7
   },
   {
-   "t": 64.92,
+   "t": 65.26,
    "som": "click-agudo",
    "vol": 0.7
   },
@@ -187,11 +177,6 @@
    "t": 71.8,
    "som": "whoosh-grave",
    "vol": 0.6
-  },
-  {
-   "t": 75.44,
-   "som": "click-agudo",
-   "vol": 0.7
   },
   {
    "t": 76.833,

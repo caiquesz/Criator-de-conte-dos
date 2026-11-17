@@ -38,9 +38,22 @@ LADO_MAX = 2400
 EXTENSOES = {".jpg", ".jpeg", ".png", ".webp", ".heic", ".heif"}
 
 
+def para_srgb(im):
+    """Converte do perfil de cor da foto (o iPhone grava em Display P3) para sRGB. Sem isso o perfil se perdia
+    ao salvar e a foto em P3 era lida como sRGB: cor lavada, sem saturação (Caso de paciente, 17/11)."""
+    from io import BytesIO
+    from PIL import ImageCms
+    icc = im.info.get("icc_profile")
+    if not icc:
+        return im.convert("RGB")
+    origem = ImageCms.ImageCmsProfile(BytesIO(icc))
+    return ImageCms.profileToProfile(im.convert("RGB"), origem, ImageCms.createProfile("sRGB"),
+                                     renderingIntent=ImageCms.Intent.RELATIVE_COLORIMETRIC, outputMode="RGB")
+
+
 def converter(origem, destino):
     with Image.open(origem) as im:
-        im = ImageOps.exif_transpose(im).convert("RGB")
+        im = para_srgb(ImageOps.exif_transpose(im))
         if max(im.size) > LADO_MAX:
             im.thumbnail((LADO_MAX, LADO_MAX), Image.LANCZOS)
         im.save(destino, "JPEG", quality=92)

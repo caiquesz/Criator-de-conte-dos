@@ -6,10 +6,10 @@
   de cantos arredondados que entra saindo do desfoque; o resultado em tela cheia, esmaecendo;
 - todo o resto como o vídeo da moça de blazer marrom (referência B): planos aberto e fechado alternando em
   corte seco (o "zoom in, zoom out"), preto e branco nas falas de drama (entra seco, sai num clarão ou num
-  esmaecer escurecido para a cor), luz quente nas transições, legendas minúsculas entrando palavra por
-  palavra do desfoque, as que pesam em negrito ou maiores em creme, uma ou outra em itálico.
-  Na 3ª versão (17/11) a cliente tirou a cor da referência B (fica a cor original) e pediu Poppins com as
-  letras juntas, mantendo o bege, e mais efeitos sonoros.
+  esmaecer escurecido para a cor), luz quente nas transições e as legendas da referência (veja LEGENDAS).
+  Na 3ª versão (17/11) a cliente tirou a cor da referência B (fica a cor original) e pediu Poppins e mais
+  efeitos sonoros; na 4ª, a cor igual à que ela mandou (só a luz igualada entre os takes) e as legendas iguais
+  às da referência, só que em Poppins.
 
 Tempos em segundos no vídeo (30 quadros/s); os cortes caem nos silêncios entre palavras (VAD do sincronizar.py).
 """
@@ -47,40 +47,87 @@ TRANSICOES = [
     {"t": 26.833, "tipo": "luz", "zoom": False, "som": "whoosh-transicao", "vol": 0.8},
     {"t": 47.867, "tipo": "luz", "zoom": False, "som": "whoosh-transicao", "vol": 0.8},
 ]
-# legenda: altura do meio do bloco em cada plano (no top jeans dela; no fechado ele desce)
-ALTURA = {"a": 1340, "f": 1500, "foto": 1340}
-
-# frases (primeira palavra, última palavra, linhas): cada linha é (primeira, última, estilo); estilos:
-# fina (Poppins 400, branca), negrito (700 bege, a palavra que pesa, no mesmo tamanho), grande e creme (800 bege,
-# 1,43x), serifa (Poppins 400 itálica bege, 1,48x; era a Playfair na 2ª versão)
-F, N, G, C, S = "fina", "negrito", "grande", "creme", "serifa"
-FRASES = [
-    [(0, 1, F)], [(2, 6, F)], [(7, 9, C)],
-    [(10, 13, F)], [(14, 17, F)], [(18, 19, G), (20, 21, F)],
-    [(22, 26, F), (27, 27, N)],
-    [(28, 30, F), (31, 32, N)], [(33, 36, F)], [(37, 39, F)], [(40, 43, F), (44, 44, N)],
-    [(45, 47, F)], [(48, 49, F), (50, 50, N)], [(51, 52, F), (53, 55, C)],
-    [(56, 58, F)], [(59, 61, F)], [(62, 64, F), (65, 65, N)], [(66, 68, F), (69, 71, N)],
-    [(72, 74, F)], [(75, 77, F)], [(78, 80, F), (81, 81, N)], [(82, 82, F), (83, 84, C)], [(85, 87, F), (88, 88, S)],
-    [(89, 91, F)], [(92, 93, F), (94, 95, C)],
-    [(96, 98, N)], [(99, 101, F), (102, 103, N)],
-    [(104, 106, F)], [(107, 110, F)], [(111, 114, F), (115, 115, N)], [(116, 120, F)], [(121, 122, F), (123, 123, S)],
-    [(124, 125, F), (126, 127, G)], [(128, 131, F)], [(132, 134, F)], [(135, 137, F)],
-    [(138, 140, F), (141, 141, N), (142, 142, F)], [(143, 145, F)],
-    [(146, 149, C)],
-    [(150, 153, F), (154, 154, N)], [(155, 156, F)], [(157, 160, F)], [(161, 162, F), (163, 164, N)],
-    [(165, 167, F)], [(168, 171, G)], [(172, 174, S)],
-    [(175, 179, F)], [(180, 181, F), (182, 182, N)],
-    [(183, 188, F)], [(189, 190, F), (191, 193, C)],
-    [(194, 196, F)], [(197, 199, F), (200, 200, N)], [(201, 203, F), (204, 206, G)],
-    [(207, 209, F)], [(210, 211, F), (212, 213, C)],
+# ── legendas: como as da referência B (a moça de blazer marrom), só que em Poppins ──────────────────
+# 4ª versão (17/11): "as legendas que você fez não têm nada a ver com as das referências; a única coisa que eu
+# falei foi para usar a fonte Poppins", "espaçamento entre linhas bem diminuído", "não colocou vírgulas".
+# Medido na referência, quadro a quadro: uma frase curta por vez (2 a 6 palavras, entre as pausas), numa linha,
+# centralizada, perto da altura das mãos (~78% da tela); troca em corte seco, a frase inteira de uma vez (nada de
+# palavra por palavra); letra fina itálica minúscula (~45 px em 1080); a palavra que pesa em negrito itálico do
+# mesmo tamanho; de vez em quando uma frase curta sozinha em negrito itálico maior, entrando com um borrão de lado;
+# a palavra de impacto grande, em negrito reto bege, com a palavra fina pequena em cima; uma serifada itálica
+# ("leve e harmonioso" lá, "harmonioso" aqui). Duas linhas só no fim, com entrelinha normal (~1,45).
+# Cada legenda é uma lista de linhas; cada linha, de trechos (primeira palavra, última palavra, estilo):
+#   f fina (Poppins Light itálica, branca) · n negrito (Poppins ExtraBold itálica, branca, mesmo tamanho)
+#   F forte (a frase sozinha, ExtraBold itálica maior, com borrão de lado) · b bege (ExtraBold reta #EED6A4, grande,
+#   entra seca na palavra dela) · s serifa (Playfair Display itálica, branca, grande)
+f, n, F, b, s = "f", "n", "F", "b", "s"
+LEGENDAS = [
+    [[(0, 4, f)]],                              # Essa paciente chegou até mim
+    [[(5, 6, f), (7, 9, n)]],                   # me pedindo projeção no glúteo
+    [[(10, 13, f)]],                            # e a primeira coisa
+    [[(14, 17, f)]],                            # que eu fiz foi
+    [[(18, 21, F)]],                            # não colocar a projeção (P&B)
+    [[(22, 27, f)]],                            # e hoje eu vou te explicar
+    [[(28, 30, f), (31, 32, n)]],               # essa paciente tem 29 anos,
+    [[(33, 36, f)]],                            # treina, se alimenta bem,
+    [[(37, 39, f)]],                            # cuida do corpo
+    [[(40, 44, f)]],                            # e o pedido era preciso
+    [[(45, 47, f)]],                            # melhorar o contorno
+    [[(48, 50, f)]],                            # e ganhar projeção
+    [[(51, 52, f)], [(53, 55, b)]],             # na parte / superior do glúteo
+    [[(56, 59, f)]],                            # mas antes de definir
+    [[(60, 61, f)]],                            # qualquer procedimento
+    [[(62, 65, f)]],                            # eu avaliei as características
+    [[(66, 69, f), (70, 71, n)]],               # e as proporções de cada corpo
+    [[(72, 74, f)]],                            # e nesse caso,
+    [[(75, 77, f)]],                            # antes da proporção
+    [[(78, 80, f), (81, 81, n)]],               # havia algo pedindo atenção,
+    [[(82, 84, f)]],                            # a depressão lateral
+    [[(85, 87, f)], [(88, 88, b)]],             # que chamamos de / hip dips
+    [[(89, 91, f)]],                            # então o planejamento
+    [[(92, 93, f), (94, 95, n)]],               # foi construído em etapas
+    [[(96, 98, f)]],                            # na primeira sessão,
+    [[(99, 100, f)]],                           # nós trabalhamos
+    [[(101, 101, f), (102, 103, n)]],           # o contorno lateral,
+    [[(104, 105, f)]],                          # porque projetar
+    [[(106, 110, f)]],                          # essa região superior do glúteo
+    [[(111, 114, f), (115, 115, n)]],           # sem antes tratar o hip dips
+    [[(116, 120, f)]],                          # faz com que o resultado
+    [[(121, 122, f)], [(123, 123, s)]],         # não fique / harmonioso
+    [[(124, 127, f)]],                          # já na segunda sessão,
+    [[(128, 131, f)]],                          # com a base pronta,
+    [[(132, 134, f)]],                          # nós conseguimos trabalhar
+    [[(135, 137, f)]],                          # essa região superior
+    [[(138, 142, f)]],                          # que foi a queixa dela
+    [[(143, 145, f)]],                          # desde o início
+    [[(146, 149, F)]],                          # e não termina aí
+    [[(150, 152, f)]],                          # essa paciente segue
+    [[(153, 154, f)]],                          # em tratamento
+    [[(155, 158, f)]],                          # e manutenções de acordo
+    [[(159, 164, f)]],                          # com o que o corpo responde
+    [[(165, 167, f)]],                          # a harmonização glútea (P&B)
+    [[(168, 171, F)]],                          # não é um evento,
+    [[(172, 173, f)], [(174, 174, b)]],         # é um / processo
+    [[(175, 179, f)]],                          # o que ela me pediu
+    [[(180, 181, f), (182, 182, n)]],           # era o destino,
+    [[(183, 188, f)]],                          # o que o corpo dela precisava (P&B)
+    [[(189, 190, f)], [(191, 193, b)]],         # era o / ponto de partida
+    [[(194, 196, f)]],                          # um bom resultado
+    [[(197, 200, f)]],                          # não começa na aplicação,
+    [[(201, 203, f)], [(204, 204, f), (205, 206, n)]],   # começa com uma / avaliação bem feita
+    [[(207, 210, f)]],                          # e um planejamento pensado
+    [[(211, 211, f)], [(212, 213, b)]],         # para / cada paciente
 ]
-GRANDES = {G, C, S}             # estilos que vão numa linha própria, embaixo da fina
+# o texto: minúsculo (só a primeira palavra do vídeo com maiúscula, como o "Deixa" da referência), com as vírgulas
+# da fala e sem ponto final; correções do Whisper e vírgulas que faltavam:
+TEXTO = {88: "hip dips", 115: "hip dips", 98: "sessão,"}
+# a base da legenda (a borda de baixo da última linha), em px: a linha fina fica com o meio em ~1500, como na
+# referência; com o par e a foto única na tela, logo acima da foto, como na referência A
+BASE_LEGENDA = 1530
+BASE_COM_FOTO = 1105
 
 # as fotos (estilo da referência A), presas à fala
 FOTO_FAIXA = (0.000, 3.933)          # o antes no alto, enquanto ela diz "essa paciente... projeção no glúteo"
 FOTO_PAR = (36.800, 40.433)          # antes e depois da 1ª sessão, na fala da 1ª sessão
 FOTO_UNICA = (48.200, 53.500)        # o antes da 2ª etapa, na fala da 2ª sessão
 FOTO_CHEIA = (53.500, 56.967)        # o resultado de hoje: "que foi a queixa dela desde o início. e não termina aí"
-# durante o par e a foto única a legenda sobe para logo acima da foto, como na referência A
-ALTURA_COM_FOTO = 1075

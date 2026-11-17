@@ -52,14 +52,28 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   letras de perto. As duas de 17/11 valem daqui para a frente:
   - `referencias/ref-blazer-marrom.mp4` (a moça sentada de blazer marrom): **a estética de tudo** — planos
     aberto e fechado alternando em corte seco (zoom in, zoom out), P&B nas falas de drama (entra seco; sai num
-    clarão ou esmaecendo escurecido para a cor), luz quente nas transições, legendas minúsculas pequenas
-    entrando palavra por palavra do desfoque, a que pesa em negrito ou maior, e um som em cada evento.
-    **Duas exceções que ela mesma pediu na 3ª versão (17/11):** (a) **sem color grade**, a cor fica a original
-    ("não gostei dele, deixa original mesmo"; a cor da moça de blazer, pele dourada e vinheta, ela recusou: vale
-    a regra do Bate-bola, a cor do vídeo dela nunca muda; só a padronização entre takes que ela pede); (b) a letra
-    é **Poppins com as letras juntas** (letter-spacing −0,045em na fala, −0,055em nas grandes), não Montserrat nem
-    Playfair: branco na fala e **bege #EED6A4** no que pesa (negrito, as grandes e a itálica; "gostei desse tom de
-    amarelo bege");
+    clarão ou esmaecendo escurecido para a cor), luz quente nas transições, as legendas dela (abaixo) e um som
+    em cada evento. **Sem color grade:** a cor da moça de blazer (pele dourada, vinheta) ela recusou na 3ª versão;
+    vale a regra do Bate-bola, a cor do vídeo dela nunca muda.
+  - **legendas = as da referência, só a fonte trocada por Poppins** (4ª versão, 17/11: "as legendas que você fez
+    não têm nada a ver com as que eu pedi; a única coisa que eu falei foi para usar a Poppins"). Na 2ª eu fiz
+    palavra por palavra do desfoque e linhas grandes coladas; na 3ª, Poppins 400 com −0,045em e entrelinha 1,05
+    ("espaçamento entre linhas bem diminuído"), sem vírgula nenhuma. Medido na referência, quadro a quadro: **uma
+    frase curta por vez** (2 a 6 palavras, cortadas nas pausas), numa linha, centralizada, com o meio da linha fina
+    a ~78% da altura (y ≈ 1500); **a frase inteira de uma vez e troca em corte seco**; fina **itálica Light
+    minúscula** (Poppins 300 itálica, 45 px, −0,02em); a palavra que pesa em **ExtraBold itálica do mesmo tamanho**,
+    dentro da frase; de vez em quando a frase sozinha em ExtraBold itálica maior (58 px) entrando com borrão de lado;
+    a palavra de impacto em **ExtraBold reta bege #EED6A4** (~1,75x, até 65% da largura) com a fina pequena em
+    cima, entrando seca na palavra dela; uma serifada itálica branca (Playfair) raríssima; duas linhas só no fim,
+    **entrelinha 1,45**; **com as vírgulas da fala** e sem ponto final; só a primeira palavra do vídeo com
+    maiúscula. Modelo: `LEGENDAS` no `roteiro.py` do Caso de paciente. Poppins ExtraBold itálica vem do npm
+    (`@fontsource/poppins`; o GitHub dá 403);
+  - **cor do vídeo e das fotos igual à que ela mandou:** o vídeo dela vem em **faixa limitada (16–235) e Display P3**,
+    e as fotos do iPhone em P3. O `enquadrar.py` lia como faixa cheia e sem converter o P3, e o `preparar_fotos.py`
+    jogava fora o perfil: tudo saía lavado ("você tirou a saturação do vídeo"). Agora os dois leem a etiqueta e
+    convertem para BT.709/sRGB. Na padronização de takes, **só a luz** (`--cor-pela luz`: um ganho por take, igual
+    nos três canais; "alterando apenas a iluminação"): nada de balanço de branco nem saturação. Confira a saturação
+    (média de máx−mín do RGB) contra o original lido certo antes de entregar;
   - **efeitos sonoros que se ouçam:** a voz dela é gravada ~14 dB abaixo da do André e o `mixar.py` baixa os
     efeitos junto; na 2ª versão, a 0,2–0,3, quase não se ouviam ("senti falta de efeitos sonoros"). Um som em
     cada evento (grave no P&B a 0,9, whoosh nas trocas de plano a 0,4–0,5, whoosh e clique nas fotos a 0,6–0,7,
@@ -72,7 +86,7 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     dela e crescendo de leve; uma foto só em faixa de cantos arredondados, entrando do desfoque; a foto em tela
     cheia esmaecendo. Nada de cards inclinados, molduras ou sombras, e **nada de recorte da pessoa** (o antes
     atrás dela, recortado, ficou feio na borda).
-  Modelo: `projetos/caso-paciente/roteiro.py`, `montar_video.py` e `montar_plano.py` (3ª versão).
+  Modelo: `projetos/caso-paciente/roteiro.py`, `montar_video.py` e `montar_plano.py` (4ª versão).
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,
@@ -155,8 +169,9 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   `analisar.py` (no quadro exato, passando antes para 30 quadros/s) e o `enquadrar.py` iguala os takes. Opções que
   esse vídeo pediu: `--passar 06` (a foto da paciente que a própria cliente pôs no meio entra como veio),
   `--sem-tripe 01,03,10,11` (câmera andando de propósito atrás dela: o tripé desfaria o movimento),
-  `--tamanho mediana` (um take bem mais perto puxaria todos para um zoom forte) e `--cor-pela pele` (três takes
-  na frente da madeira e um com a sala inteira: pela parede o take saía azulado e com o fundo clareado). Confira
+  `--tamanho mediana` (um take bem mais perto puxaria todos para um zoom forte) e `--cor-pela luz` (só o brilho;
+  a 1ª versão usou `--cor-pela pele`, que mexia no balanço de branco, e ela pediu "alterando apenas a iluminação";
+  pela parede, três takes na frente da madeira e um com a sala inteira saíam azulados). Confira
   numa grade antes/depois com um quadro de cada take. O vídeo sem ajuste fica em `video-sem-ajuste.mp4`; a voz
   vem do original (`"video_original": "assets/video/original.mov"`). Modelo: `projetos/caso-paciente/montar_plano.py`.
 - **Legenda no top escuro dela** quando o colo e a parede são claros (y ≈ 1290 no Caso de paciente); na tela

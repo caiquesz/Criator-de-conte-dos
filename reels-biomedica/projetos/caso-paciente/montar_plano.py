@@ -8,7 +8,9 @@ A 1ª versão (legendas Poppins no top dela, o antes atrás dela com recorte, ca
 flash branco) a cliente recusou: "até agora você não fez nenhum vídeo com base nas referências". Na 2ª, tudo
 saiu das duas referências que ela mandou. Na 3ª (17/11) ela tirou o color grade (cor original), trocou a letra
 por Poppins com as letras juntas (o bege das palavras que pesam ela gostou), pediu mais efeitos sonoros e
-notou a foto tremendo (o zoompan; veja montar_video.py). A voz e a música do vídeo continuam as do original.
+notou a foto tremendo (o zoompan; veja montar_video.py). Na 4ª, as legendas iguais às da referência B, só que
+em Poppins (veja LEGENDAS no roteiro.py), e a cor igual à que ela mandou. A voz e a música do vídeo continuam as
+do original.
 """
 import json
 import re
@@ -16,8 +18,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from roteiro import (ALTURA, ALTURA_COM_FOTO, FOTO_CHEIA, FOTO_FAIXA, FOTO_PAR, FOTO_UNICA, FRASES, GRANDES, PLANOS,
-                     TOTAL, TRANSICOES)
+from PIL import ImageFont
+
+from roteiro import (BASE_COM_FOTO, BASE_LEGENDA, FOTO_CHEIA, FOTO_FAIXA, FOTO_PAR, FOTO_UNICA, LEGENDAS, PLANOS,
+                     TEXTO, TOTAL, TRANSICOES)
 
 AQUI = Path(__file__).parent
 SCRIPTS = AQUI.parent.parent.parent / "reels-imobiliaria" / "scripts"
@@ -34,10 +38,13 @@ for w in ws:
     ant = w["s"]
 
 
-def texto(w):
-    """Como na referência B: minúsculas, sem pontuação; "hipdips" do Whisper vira "hip dips"."""
-    t = re.sub(r"[.,:;!?]", "", w["t"]).lower()
-    return "hip dips" if t == "hipdips" else t
+def texto(i):
+    """Como na referência B: minúsculas (só a primeira palavra do vídeo com maiúscula), sem ponto final; as vírgulas
+    da fala ficam (4ª versão: "você não colocou vírgulas em alguns lugares")."""
+    if i in TEXTO:
+        return TEXTO[i]
+    t = re.sub(r"[.;:!?]+$", "", ws[i]["t"])
+    return t if i == 0 else t.lower()
 
 
 def n(x):
@@ -48,55 +55,63 @@ def plano_em(t):
     return next(p for a, b, p, _ in PLANOS if a <= t < b)
 
 
-# ── legendas (referência B) ───────────────────────────────────────────────────────────────────────
-assert [f[0][0] for f in FRASES[1:]] == [f[-1][1] + 1 for f in FRASES[:-1]] and FRASES[-1][-1][1] == len(ws) - 1
+# ── legendas (referência B, em Poppins; veja LEGENDAS no roteiro.py) ─────────────────────────────────
+TAM_FINA, TAM_FORTE, TAM_SERIFA, BEGE_MAX, LARGURA = 45, 58, 84, 78, 700   # bege: ~1,75x a fina e até 65% da largura, como na referência
+TRACK_FINA, TRACK_BEGE = -0.02, -0.03
+FONTE_BEGE = ImageFont.truetype(str(AQUI / "assets" / "fonts" / "Poppins-800.ttf"), 100)
+
+
+def tamanho_bege(txt):
+    """A palavra bege o maior possível (até BEGE_MAX px) sem passar da largura."""
+    larg100 = FONTE_BEGE.getlength(txt) + TRACK_BEGE * 100 * (len(txt) - 1)
+    return min(BEGE_MAX, int(LARGURA * 100 / larg100))
+
+
+assert [l[0][0][0] for l in LEGENDAS[1:]] == [l[-1][-1][1] + 1 for l in LEGENDAS[:-1]] and LEGENDAS[-1][-1][-1][1] == len(ws) - 1
 grupos = []
-for k, linhas in enumerate(FRASES):
-    ini = ws[linhas[0][0]]["s"]
-    ult = ws[linhas[-1][1]]
-    prox = ws[FRASES[k + 1][0][0]]["s"] if k + 1 < len(FRASES) else DUR
-    fim = prox if prox - ult["e"] < 0.7 else round(ult["e"] + 0.35, 3)
+for k, linhas in enumerate(LEGENDAS):
+    pri, ult = linhas[0][0][0], linhas[-1][-1][1]
+    ini = ws[pri]["s"]
+    prox = ws[LEGENDAS[k + 1][0][0][0]]["s"] if k + 1 < len(LEGENDAS) else DUR
+    fim = prox if prox - ws[ult]["e"] < 0.7 else round(ws[ult]["e"] + 0.35, 3)
     com_foto = FOTO_PAR[0] - 0.05 <= ini < FOTO_PAR[1] or FOTO_UNICA[0] - 0.05 <= ini < FOTO_UNICA[1]
-    y = ALTURA_COM_FOTO if com_foto else ALTURA[plano_em(ini)]
-    # as linhas finas seguidas ficam na mesma linha; um estilo grande vai numa linha própria, embaixo
-    blocos = []
-    for a, b, est in linhas:
-        pal = [{"t": texto(ws[i]), "s": ws[i]["s"]} for i in range(a, b + 1)]
-        if est in GRANDES or not blocos or blocos[-1]["grande"]:
-            blocos.append({"grande": est in GRANDES, "trechos": []})
-        blocos[-1]["trechos"].append({"estilo": est, "palavras": pal})
-    grupos.append({"id": f"l{k + 1}", "ini": ini, "fim": round(min(fim, DUR), 3), "y": y, "blocos": blocos})
+    lins = []
+    for trechos_l in linhas:
+        est = trechos_l[0][2] if len(trechos_l) == 1 and trechos_l[0][2] in "Fbs" else "f"
+        lins.append({"estilo": est, "s": ws[trechos_l[0][0]]["s"],
+                     "trechos": [{"estilo": e, "texto": " ".join(texto(i) for i in range(a, b + 1))} for a, b, e in trechos_l]})
+    grupos.append({"id": f"l{k + 1}", "ini": ini, "fim": round(min(fim, DUR), 3),
+                   "base": BASE_COM_FOTO if com_foto else BASE_LEGENDA, "linhas": lins})
 (AQUI / "legendas-ref.json").write_text(json.dumps(grupos, ensure_ascii=False, indent=1))
 
 html_l, js_l = [], []
-cont = 0                        # id de cada palavra (um contador próprio: pelo tamanho da lista de animações,
-for g in grupos:                # as palavras das linhas grandes, que não têm animação própria, repetiam id)
+for g in grupos:
     linhas_html = []
-    for bi, bl in enumerate(g["blocos"]):
-        spans = []
-        for tr in bl["trechos"]:
-            for j, p in enumerate(tr["palavras"]):
-                cont += 1
-                pid = f'{g["id"]}w{cont}'
-                spans.append(f'<span class="w {tr["estilo"]}" id="{pid}">{p["t"]}</span>')
-                if bl["grande"]:
-                    if j == 0:     # a linha grande entra inteira, do desfoque, na primeira palavra dela
-                        js_l.append(f'tl.fromTo("#{g["id"]}b{bi}", {{opacity:0, scale:0.94, filter:"blur(14px)"}}, '
-                                    f'{{opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}}, {n(p["s"])});')
-                else:              # as finas entram palavra por palavra, do desfoque
-                    js_l.append(f'tl.fromTo("#{pid}", {{opacity:0, y:8, filter:"blur(10px)"}}, '
-                                f'{{opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}}, {n(p["s"])});')
-        cls = "linha grande-l" if bl["grande"] else "linha"
-        linhas_html.append(f'<div class="{cls}" id="{g["id"]}b{bi}">{" ".join(spans)}</div>')
-    html_l.append(f'<div class="g" id="{g["id"]}" style="top:{g["y"]}px">{"".join(linhas_html)}</div>')
+    for li, l in enumerate(g["linhas"]):
+        lid = f'{g["id"]}x{li}'
+        if l["estilo"] == "b":
+            txt = l["trechos"][0]["texto"]
+            linhas_html.append(f'<div class="ln bege" id="{lid}" style="font-size:{tamanho_bege(txt)}px">{txt}</div>')
+        elif l["estilo"] in "Fs":
+            cls = {"F": "forte", "s": "serifa"}[l["estilo"]]
+            linhas_html.append(f'<div class="ln {cls}" id="{lid}">{l["trechos"][0]["texto"]}</div>')
+        else:
+            spans = " ".join(f'<span class="{"n" if t["estilo"] == "n" else "f"}">{t["texto"]}</span>' for t in l["trechos"])
+            linhas_html.append(f'<div class="ln" id="{lid}">{spans}</div>')
+        atraso = l["s"] - g["ini"] > 0.08
+        if l["estilo"] == "F":       # a frase forte entra com um borrão de lado, como "prevenção" na referência
+            js_l.append(f'tl.fromTo("#{lid}", {{opacity:0, x:-40, filter:"blur(10px)"}}, '
+                        f'{{opacity:1, x:0, filter:"blur(0px)", duration:0.2, ease:"power2.out"}}, {n(l["s"])});')
+        elif atraso:                 # a palavra grande entra seca quando ela fala, como "complexos" na referência
+            js_l += [f'tl.set("#{lid}", {{opacity:0}}, {n(g["ini"])});', f'tl.set("#{lid}", {{opacity:1}}, {n(l["s"])});']
+    html_l.append(f'<div class="g" id="{g["id"]}" style="top:{g["base"]}px">{"".join(linhas_html)}</div>')
     js_l += [f'tl.set("#{g["id"]}", {{opacity:1}}, {n(g["ini"])});', f'tl.set("#{g["id"]}", {{opacity:0}}, {n(g["fim"])});']
 
-# 3ª versão (17/11): "a gente pode usar a fonte Poppins, espaçamento diminuído entre as letras, e eu gostei desse
-# tom de amarelo bege na fonte": tudo em Poppins com as letras juntas; branco na fala, bege (#EED6A4) no que pesa
-FONTES = "".join(
-    f'\n    @font-face {{ font-family: "Poppins Ref"; font-weight: {p}; font-style: {"italic" if i else "normal"}; '
-    f'src: url("assets/fonts/Poppins-{p}{"i" if i else ""}.ttf"); }}'
-    for p, i in ((300, 0), (300, 1), (400, 0), (400, 1), (600, 0), (700, 0), (800, 0)))
+FONTES = """
+    @font-face { font-family: "Poppins Ref"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 800; font-style: italic; src: url("assets/fonts/Poppins-800i.woff2") format("woff2"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+    @font-face { font-family: "Playfair Ref"; font-weight: 400 900; font-style: italic; src: url("assets/fonts/PlayfairDisplay-Italic-VF.ttf"); }"""
 
 
 def composicao(cid, css, corpo, js):
@@ -119,16 +134,14 @@ def composicao(cid, css, corpo, js):
 
 
 BEGE = "#EED6A4"
-css_l = f"""    .g {{ position: absolute; left: 60px; width: 960px; opacity: 0; transform: translateY(-50%); text-align: center;
-         color: #FFFFFF; text-shadow: 0 1px 2px rgba(20, 12, 8, 0.45), 0 2px 18px rgba(20, 12, 8, 0.5); }}
-    .linha {{ font-family: "Poppins Ref"; font-size: 42px; line-height: 1.15; letter-spacing: -0.045em; }}
-    .grande-l {{ margin-top: -2px; line-height: 1.05; }}
-    .w {{ display: inline-block; }}
-    .fina {{ font-weight: 400; }}
-    .negrito {{ font-weight: 700; color: {BEGE}; }}
-    .grande, .creme {{ font-family: "Poppins Ref"; font-weight: 800; font-size: 60px; letter-spacing: -0.055em; color: {BEGE}; }}
-    .serifa {{ font-family: "Poppins Ref"; font-style: italic; font-weight: 400; font-size: 62px; letter-spacing: -0.05em;
-              color: {BEGE}; }}"""
+css_l = f"""    .g {{ position: absolute; left: 40px; width: 1000px; opacity: 0; transform: translateY(-100%); text-align: center;
+         color: #FFFFFF; text-shadow: 0 1px 3px rgba(20, 12, 8, 0.4), 0 2px 16px rgba(20, 12, 8, 0.4); }}
+    .ln {{ font-family: "Poppins Ref"; font-style: italic; font-weight: 300; font-size: {TAM_FINA}px; line-height: 1.45;
+          letter-spacing: {TRACK_FINA}em; white-space: nowrap; }}
+    .ln .n {{ font-weight: 800; }}
+    .ln.forte {{ font-weight: 800; font-size: {TAM_FORTE}px; line-height: 1.3; }}
+    .ln.bege {{ font-style: normal; font-weight: 800; line-height: 1.12; letter-spacing: {TRACK_BEGE}em; color: {BEGE}; }}
+    .ln.serifa {{ font-family: "Playfair Ref"; font-weight: 400; font-size: {TAM_SERIFA}px; line-height: 1.1; letter-spacing: 0; }}"""
 (AQUI / "compositions" / "legendas-ref.html").write_text(
     composicao("legendas-ref", css_l, "    " + "\n    ".join(html_l), js_l))
 
@@ -190,7 +203,7 @@ for k in range(1, len(PLANOS)):
         candidatos.append((a, "whoosh-rapido", 0.5))                     # zoom in
     else:
         candidatos.append((a, "whoosh", 0.4))                            # zoom out
-entradas = [p["s"] for g in grupos for bl in g["blocos"] if bl["grande"] for p in bl["trechos"][0]["palavras"][:1]]
+entradas = [l["s"] for g in grupos for l in g["linhas"] if l["estilo"] in "Fbs"]
 for t in entradas[:-1]:
     candidatos.append((t, "click-agudo", 0.7))                           # a palavra que pesa
 candidatos.append((entradas[-1], "brilho", 0.6))                         # "cada paciente", no fim

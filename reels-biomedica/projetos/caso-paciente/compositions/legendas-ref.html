@@ -1,386 +1,205 @@
 <template>
   <style>
-    @font-face { font-family: "Poppins Ref"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
     @font-face { font-family: "Poppins Ref"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
-    @font-face { font-family: "Poppins Ref"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
-    @font-face { font-family: "Poppins Ref"; font-weight: 400; font-style: italic; src: url("assets/fonts/Poppins-400i.ttf"); }
-    @font-face { font-family: "Poppins Ref"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
-    @font-face { font-family: "Poppins Ref"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+    @font-face { font-family: "Poppins Ref"; font-weight: 800; font-style: italic; src: url("assets/fonts/Poppins-800i.woff2") format("woff2"); }
     @font-face { font-family: "Poppins Ref"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+    @font-face { font-family: "Playfair Ref"; font-weight: 400 900; font-style: italic; src: url("assets/fonts/PlayfairDisplay-Italic-VF.ttf"); }
     #root { position: absolute; inset: 0; overflow: hidden; }
-    .g { position: absolute; left: 60px; width: 960px; opacity: 0; transform: translateY(-50%); text-align: center;
-         color: #FFFFFF; text-shadow: 0 1px 2px rgba(20, 12, 8, 0.45), 0 2px 18px rgba(20, 12, 8, 0.5); }
-    .linha { font-family: "Poppins Ref"; font-size: 42px; line-height: 1.15; letter-spacing: -0.045em; }
-    .grande-l { margin-top: -2px; line-height: 1.05; }
-    .w { display: inline-block; }
-    .fina { font-weight: 400; }
-    .negrito { font-weight: 700; color: #EED6A4; }
-    .grande, .creme { font-family: "Poppins Ref"; font-weight: 800; font-size: 60px; letter-spacing: -0.055em; color: #EED6A4; }
-    .serifa { font-family: "Poppins Ref"; font-style: italic; font-weight: 400; font-size: 62px; letter-spacing: -0.05em;
-              color: #EED6A4; }
+    .g { position: absolute; left: 40px; width: 1000px; opacity: 0; transform: translateY(-100%); text-align: center;
+         color: #FFFFFF; text-shadow: 0 1px 3px rgba(20, 12, 8, 0.4), 0 2px 16px rgba(20, 12, 8, 0.4); }
+    .ln { font-family: "Poppins Ref"; font-style: italic; font-weight: 300; font-size: 45px; line-height: 1.45;
+          letter-spacing: -0.02em; white-space: nowrap; }
+    .ln .n { font-weight: 800; }
+    .ln.forte { font-weight: 800; font-size: 58px; line-height: 1.3; }
+    .ln.bege { font-style: normal; font-weight: 800; line-height: 1.12; letter-spacing: -0.03em; color: #EED6A4; }
+    .ln.serifa { font-family: "Playfair Ref"; font-weight: 400; font-size: 84px; line-height: 1.1; letter-spacing: 0; }
   </style>
   <div id="root" data-composition-id="legendas-ref" data-width="1080" data-height="1920">
-    <div class="g" id="l1" style="top:1340px"><div class="linha" id="l1b0"><span class="w fina" id="l1w1">essa</span> <span class="w fina" id="l1w2">paciente</span></div></div>
-    <div class="g" id="l2" style="top:1340px"><div class="linha" id="l2b0"><span class="w fina" id="l2w3">chegou</span> <span class="w fina" id="l2w4">até</span> <span class="w fina" id="l2w5">mim</span> <span class="w fina" id="l2w6">me</span> <span class="w fina" id="l2w7">pedindo</span></div></div>
-    <div class="g" id="l3" style="top:1340px"><div class="linha grande-l" id="l3b0"><span class="w creme" id="l3w8">projeção</span> <span class="w creme" id="l3w9">no</span> <span class="w creme" id="l3w10">glúteo</span></div></div>
-    <div class="g" id="l4" style="top:1500px"><div class="linha" id="l4b0"><span class="w fina" id="l4w11">e</span> <span class="w fina" id="l4w12">a</span> <span class="w fina" id="l4w13">primeira</span> <span class="w fina" id="l4w14">coisa</span></div></div>
-    <div class="g" id="l5" style="top:1500px"><div class="linha" id="l5b0"><span class="w fina" id="l5w15">que</span> <span class="w fina" id="l5w16">eu</span> <span class="w fina" id="l5w17">fiz</span> <span class="w fina" id="l5w18">foi</span></div></div>
-    <div class="g" id="l6" style="top:1500px"><div class="linha grande-l" id="l6b0"><span class="w grande" id="l6w19">não</span> <span class="w grande" id="l6w20">colocar</span></div><div class="linha" id="l6b1"><span class="w fina" id="l6w21">a</span> <span class="w fina" id="l6w22">projeção</span></div></div>
-    <div class="g" id="l7" style="top:1340px"><div class="linha" id="l7b0"><span class="w fina" id="l7w23">e</span> <span class="w fina" id="l7w24">hoje</span> <span class="w fina" id="l7w25">eu</span> <span class="w fina" id="l7w26">vou</span> <span class="w fina" id="l7w27">te</span> <span class="w negrito" id="l7w28">explicar</span></div></div>
-    <div class="g" id="l8" style="top:1500px"><div class="linha" id="l8b0"><span class="w fina" id="l8w29">essa</span> <span class="w fina" id="l8w30">paciente</span> <span class="w fina" id="l8w31">tem</span> <span class="w negrito" id="l8w32">29</span> <span class="w negrito" id="l8w33">anos</span></div></div>
-    <div class="g" id="l9" style="top:1500px"><div class="linha" id="l9b0"><span class="w fina" id="l9w34">treina</span> <span class="w fina" id="l9w35">se</span> <span class="w fina" id="l9w36">alimenta</span> <span class="w fina" id="l9w37">bem</span></div></div>
-    <div class="g" id="l10" style="top:1500px"><div class="linha" id="l10b0"><span class="w fina" id="l10w38">cuida</span> <span class="w fina" id="l10w39">do</span> <span class="w fina" id="l10w40">corpo</span></div></div>
-    <div class="g" id="l11" style="top:1500px"><div class="linha" id="l11b0"><span class="w fina" id="l11w41">e</span> <span class="w fina" id="l11w42">o</span> <span class="w fina" id="l11w43">pedido</span> <span class="w fina" id="l11w44">era</span> <span class="w negrito" id="l11w45">preciso</span></div></div>
-    <div class="g" id="l12" style="top:1500px"><div class="linha" id="l12b0"><span class="w fina" id="l12w46">melhorar</span> <span class="w fina" id="l12w47">o</span> <span class="w fina" id="l12w48">contorno</span></div></div>
-    <div class="g" id="l13" style="top:1500px"><div class="linha" id="l13b0"><span class="w fina" id="l13w49">e</span> <span class="w fina" id="l13w50">ganhar</span> <span class="w negrito" id="l13w51">projeção</span></div></div>
-    <div class="g" id="l14" style="top:1500px"><div class="linha" id="l14b0"><span class="w fina" id="l14w52">na</span> <span class="w fina" id="l14w53">parte</span></div><div class="linha grande-l" id="l14b1"><span class="w creme" id="l14w54">superior</span> <span class="w creme" id="l14w55">do</span> <span class="w creme" id="l14w56">glúteo</span></div></div>
-    <div class="g" id="l15" style="top:1340px"><div class="linha" id="l15b0"><span class="w fina" id="l15w57">mas</span> <span class="w fina" id="l15w58">antes</span> <span class="w fina" id="l15w59">de</span></div></div>
-    <div class="g" id="l16" style="top:1340px"><div class="linha" id="l16b0"><span class="w fina" id="l16w60">definir</span> <span class="w fina" id="l16w61">qualquer</span> <span class="w fina" id="l16w62">procedimento</span></div></div>
-    <div class="g" id="l17" style="top:1500px"><div class="linha" id="l17b0"><span class="w fina" id="l17w63">eu</span> <span class="w fina" id="l17w64">avaliei</span> <span class="w fina" id="l17w65">as</span> <span class="w negrito" id="l17w66">características</span></div></div>
-    <div class="g" id="l18" style="top:1500px"><div class="linha" id="l18b0"><span class="w fina" id="l18w67">e</span> <span class="w fina" id="l18w68">as</span> <span class="w fina" id="l18w69">proporções</span> <span class="w negrito" id="l18w70">de</span> <span class="w negrito" id="l18w71">cada</span> <span class="w negrito" id="l18w72">corpo</span></div></div>
-    <div class="g" id="l19" style="top:1340px"><div class="linha" id="l19b0"><span class="w fina" id="l19w73">e</span> <span class="w fina" id="l19w74">nesse</span> <span class="w fina" id="l19w75">caso</span></div></div>
-    <div class="g" id="l20" style="top:1340px"><div class="linha" id="l20b0"><span class="w fina" id="l20w76">antes</span> <span class="w fina" id="l20w77">da</span> <span class="w fina" id="l20w78">proporção</span></div></div>
-    <div class="g" id="l21" style="top:1340px"><div class="linha" id="l21b0"><span class="w fina" id="l21w79">havia</span> <span class="w fina" id="l21w80">algo</span> <span class="w fina" id="l21w81">pedindo</span> <span class="w negrito" id="l21w82">atenção</span></div></div>
-    <div class="g" id="l22" style="top:1340px"><div class="linha" id="l22b0"><span class="w fina" id="l22w83">a</span></div><div class="linha grande-l" id="l22b1"><span class="w creme" id="l22w84">depressão</span> <span class="w creme" id="l22w85">lateral</span></div></div>
-    <div class="g" id="l23" style="top:1340px"><div class="linha" id="l23b0"><span class="w fina" id="l23w86">que</span> <span class="w fina" id="l23w87">chamamos</span> <span class="w fina" id="l23w88">de</span></div><div class="linha grande-l" id="l23b1"><span class="w serifa" id="l23w89">hip dips</span></div></div>
-    <div class="g" id="l24" style="top:1500px"><div class="linha" id="l24b0"><span class="w fina" id="l24w90">então</span> <span class="w fina" id="l24w91">o</span> <span class="w fina" id="l24w92">planejamento</span></div></div>
-    <div class="g" id="l25" style="top:1500px"><div class="linha" id="l25b0"><span class="w fina" id="l25w93">foi</span> <span class="w fina" id="l25w94">construído</span></div><div class="linha grande-l" id="l25b1"><span class="w creme" id="l25w95">em</span> <span class="w creme" id="l25w96">etapas</span></div></div>
-    <div class="g" id="l26" style="top:1075px"><div class="linha" id="l26b0"><span class="w negrito" id="l26w97">na</span> <span class="w negrito" id="l26w98">primeira</span> <span class="w negrito" id="l26w99">sessão</span></div></div>
-    <div class="g" id="l27" style="top:1075px"><div class="linha" id="l27b0"><span class="w fina" id="l27w100">nós</span> <span class="w fina" id="l27w101">trabalhamos</span> <span class="w fina" id="l27w102">o</span> <span class="w negrito" id="l27w103">contorno</span> <span class="w negrito" id="l27w104">lateral</span></div></div>
-    <div class="g" id="l28" style="top:1340px"><div class="linha" id="l28b0"><span class="w fina" id="l28w105">porque</span> <span class="w fina" id="l28w106">projetar</span> <span class="w fina" id="l28w107">essa</span></div></div>
-    <div class="g" id="l29" style="top:1340px"><div class="linha" id="l29b0"><span class="w fina" id="l29w108">região</span> <span class="w fina" id="l29w109">superior</span> <span class="w fina" id="l29w110">do</span> <span class="w fina" id="l29w111">glúteo</span></div></div>
-    <div class="g" id="l30" style="top:1500px"><div class="linha" id="l30b0"><span class="w fina" id="l30w112">sem</span> <span class="w fina" id="l30w113">antes</span> <span class="w fina" id="l30w114">tratar</span> <span class="w fina" id="l30w115">o</span> <span class="w negrito" id="l30w116">hip dips</span></div></div>
-    <div class="g" id="l31" style="top:1500px"><div class="linha" id="l31b0"><span class="w fina" id="l31w117">faz</span> <span class="w fina" id="l31w118">com</span> <span class="w fina" id="l31w119">que</span> <span class="w fina" id="l31w120">o</span> <span class="w fina" id="l31w121">resultado</span></div></div>
-    <div class="g" id="l32" style="top:1500px"><div class="linha" id="l32b0"><span class="w fina" id="l32w122">não</span> <span class="w fina" id="l32w123">fique</span></div><div class="linha grande-l" id="l32b1"><span class="w serifa" id="l32w124">harmonioso</span></div></div>
-    <div class="g" id="l33" style="top:1075px"><div class="linha" id="l33b0"><span class="w fina" id="l33w125">já</span> <span class="w fina" id="l33w126">na</span></div><div class="linha grande-l" id="l33b1"><span class="w grande" id="l33w127">segunda</span> <span class="w grande" id="l33w128">sessão</span></div></div>
-    <div class="g" id="l34" style="top:1075px"><div class="linha" id="l34b0"><span class="w fina" id="l34w129">com</span> <span class="w fina" id="l34w130">a</span> <span class="w fina" id="l34w131">base</span> <span class="w fina" id="l34w132">pronta</span></div></div>
-    <div class="g" id="l35" style="top:1075px"><div class="linha" id="l35b0"><span class="w fina" id="l35w133">nós</span> <span class="w fina" id="l35w134">conseguimos</span> <span class="w fina" id="l35w135">trabalhar</span></div></div>
-    <div class="g" id="l36" style="top:1075px"><div class="linha" id="l36b0"><span class="w fina" id="l36w136">essa</span> <span class="w fina" id="l36w137">região</span> <span class="w fina" id="l36w138">superior</span></div></div>
-    <div class="g" id="l37" style="top:1340px"><div class="linha" id="l37b0"><span class="w fina" id="l37w139">que</span> <span class="w fina" id="l37w140">foi</span> <span class="w fina" id="l37w141">a</span> <span class="w negrito" id="l37w142">queixa</span> <span class="w fina" id="l37w143">dela</span></div></div>
-    <div class="g" id="l38" style="top:1340px"><div class="linha" id="l38b0"><span class="w fina" id="l38w144">desde</span> <span class="w fina" id="l38w145">o</span> <span class="w fina" id="l38w146">início</span></div></div>
-    <div class="g" id="l39" style="top:1340px"><div class="linha grande-l" id="l39b0"><span class="w creme" id="l39w147">e</span> <span class="w creme" id="l39w148">não</span> <span class="w creme" id="l39w149">termina</span> <span class="w creme" id="l39w150">aí</span></div></div>
-    <div class="g" id="l40" style="top:1340px"><div class="linha" id="l40b0"><span class="w fina" id="l40w151">essa</span> <span class="w fina" id="l40w152">paciente</span> <span class="w fina" id="l40w153">segue</span> <span class="w fina" id="l40w154">em</span> <span class="w negrito" id="l40w155">tratamento</span></div></div>
-    <div class="g" id="l41" style="top:1340px"><div class="linha" id="l41b0"><span class="w fina" id="l41w156">e</span> <span class="w fina" id="l41w157">manutenções</span></div></div>
-    <div class="g" id="l42" style="top:1340px"><div class="linha" id="l42b0"><span class="w fina" id="l42w158">de</span> <span class="w fina" id="l42w159">acordo</span> <span class="w fina" id="l42w160">com</span> <span class="w fina" id="l42w161">o</span></div></div>
-    <div class="g" id="l43" style="top:1340px"><div class="linha" id="l43b0"><span class="w fina" id="l43w162">que</span> <span class="w fina" id="l43w163">o</span> <span class="w negrito" id="l43w164">corpo</span> <span class="w negrito" id="l43w165">responde</span></div></div>
-    <div class="g" id="l44" style="top:1500px"><div class="linha" id="l44b0"><span class="w fina" id="l44w166">a</span> <span class="w fina" id="l44w167">harmonização</span> <span class="w fina" id="l44w168">glútea</span></div></div>
-    <div class="g" id="l45" style="top:1500px"><div class="linha grande-l" id="l45b0"><span class="w grande" id="l45w169">não</span> <span class="w grande" id="l45w170">é</span> <span class="w grande" id="l45w171">um</span> <span class="w grande" id="l45w172">evento</span></div></div>
-    <div class="g" id="l46" style="top:1500px"><div class="linha grande-l" id="l46b0"><span class="w serifa" id="l46w173">é</span> <span class="w serifa" id="l46w174">um</span> <span class="w serifa" id="l46w175">processo</span></div></div>
-    <div class="g" id="l47" style="top:1340px"><div class="linha" id="l47b0"><span class="w fina" id="l47w176">o</span> <span class="w fina" id="l47w177">que</span> <span class="w fina" id="l47w178">ela</span> <span class="w fina" id="l47w179">me</span> <span class="w fina" id="l47w180">pediu</span></div></div>
-    <div class="g" id="l48" style="top:1340px"><div class="linha" id="l48b0"><span class="w fina" id="l48w181">era</span> <span class="w fina" id="l48w182">o</span> <span class="w negrito" id="l48w183">destino</span></div></div>
-    <div class="g" id="l49" style="top:1500px"><div class="linha" id="l49b0"><span class="w fina" id="l49w184">o</span> <span class="w fina" id="l49w185">que</span> <span class="w fina" id="l49w186">o</span> <span class="w fina" id="l49w187">corpo</span> <span class="w fina" id="l49w188">dela</span> <span class="w fina" id="l49w189">precisava</span></div></div>
-    <div class="g" id="l50" style="top:1500px"><div class="linha" id="l50b0"><span class="w fina" id="l50w190">era</span> <span class="w fina" id="l50w191">o</span></div><div class="linha grande-l" id="l50b1"><span class="w creme" id="l50w192">ponto</span> <span class="w creme" id="l50w193">de</span> <span class="w creme" id="l50w194">partida</span></div></div>
-    <div class="g" id="l51" style="top:1340px"><div class="linha" id="l51b0"><span class="w fina" id="l51w195">um</span> <span class="w fina" id="l51w196">bom</span> <span class="w fina" id="l51w197">resultado</span></div></div>
-    <div class="g" id="l52" style="top:1340px"><div class="linha" id="l52b0"><span class="w fina" id="l52w198">não</span> <span class="w fina" id="l52w199">começa</span> <span class="w fina" id="l52w200">na</span> <span class="w negrito" id="l52w201">aplicação</span></div></div>
-    <div class="g" id="l53" style="top:1340px"><div class="linha" id="l53b0"><span class="w fina" id="l53w202">começa</span> <span class="w fina" id="l53w203">com</span> <span class="w fina" id="l53w204">uma</span></div><div class="linha grande-l" id="l53b1"><span class="w grande" id="l53w205">avaliação</span> <span class="w grande" id="l53w206">bem</span> <span class="w grande" id="l53w207">feita</span></div></div>
-    <div class="g" id="l54" style="top:1340px"><div class="linha" id="l54b0"><span class="w fina" id="l54w208">e</span> <span class="w fina" id="l54w209">um</span> <span class="w fina" id="l54w210">planejamento</span></div></div>
-    <div class="g" id="l55" style="top:1500px"><div class="linha" id="l55b0"><span class="w fina" id="l55w211">pensado</span> <span class="w fina" id="l55w212">para</span></div><div class="linha grande-l" id="l55b1"><span class="w creme" id="l55w213">cada</span> <span class="w creme" id="l55w214">paciente</span></div></div>
+    <div class="g" id="l1" style="top:1530px"><div class="ln" id="l1x0"><span class="f">Essa paciente chegou até mim</span></div></div>
+    <div class="g" id="l2" style="top:1530px"><div class="ln" id="l2x0"><span class="f">me pedindo</span> <span class="n">projeção no glúteo</span></div></div>
+    <div class="g" id="l3" style="top:1530px"><div class="ln" id="l3x0"><span class="f">e a primeira coisa</span></div></div>
+    <div class="g" id="l4" style="top:1530px"><div class="ln" id="l4x0"><span class="f">que eu fiz foi</span></div></div>
+    <div class="g" id="l5" style="top:1530px"><div class="ln forte" id="l5x0">não colocar a projeção</div></div>
+    <div class="g" id="l6" style="top:1530px"><div class="ln" id="l6x0"><span class="f">e hoje eu vou te explicar</span></div></div>
+    <div class="g" id="l7" style="top:1530px"><div class="ln" id="l7x0"><span class="f">essa paciente tem</span> <span class="n">29 anos,</span></div></div>
+    <div class="g" id="l8" style="top:1530px"><div class="ln" id="l8x0"><span class="f">treina, se alimenta bem,</span></div></div>
+    <div class="g" id="l9" style="top:1530px"><div class="ln" id="l9x0"><span class="f">cuida do corpo</span></div></div>
+    <div class="g" id="l10" style="top:1530px"><div class="ln" id="l10x0"><span class="f">e o pedido era preciso</span></div></div>
+    <div class="g" id="l11" style="top:1530px"><div class="ln" id="l11x0"><span class="f">melhorar o contorno</span></div></div>
+    <div class="g" id="l12" style="top:1530px"><div class="ln" id="l12x0"><span class="f">e ganhar projeção</span></div></div>
+    <div class="g" id="l13" style="top:1530px"><div class="ln" id="l13x0"><span class="f">na parte</span></div><div class="ln bege" id="l13x1" style="font-size:78px">superior do glúteo</div></div>
+    <div class="g" id="l14" style="top:1530px"><div class="ln" id="l14x0"><span class="f">mas antes de definir</span></div></div>
+    <div class="g" id="l15" style="top:1530px"><div class="ln" id="l15x0"><span class="f">qualquer procedimento</span></div></div>
+    <div class="g" id="l16" style="top:1530px"><div class="ln" id="l16x0"><span class="f">eu avaliei as características</span></div></div>
+    <div class="g" id="l17" style="top:1530px"><div class="ln" id="l17x0"><span class="f">e as proporções de</span> <span class="n">cada corpo</span></div></div>
+    <div class="g" id="l18" style="top:1530px"><div class="ln" id="l18x0"><span class="f">e nesse caso,</span></div></div>
+    <div class="g" id="l19" style="top:1530px"><div class="ln" id="l19x0"><span class="f">antes da proporção</span></div></div>
+    <div class="g" id="l20" style="top:1530px"><div class="ln" id="l20x0"><span class="f">havia algo pedindo</span> <span class="n">atenção,</span></div></div>
+    <div class="g" id="l21" style="top:1530px"><div class="ln" id="l21x0"><span class="f">a depressão lateral</span></div></div>
+    <div class="g" id="l22" style="top:1530px"><div class="ln" id="l22x0"><span class="f">que chamamos de</span></div><div class="ln bege" id="l22x1" style="font-size:78px">hip dips</div></div>
+    <div class="g" id="l23" style="top:1530px"><div class="ln" id="l23x0"><span class="f">então o planejamento</span></div></div>
+    <div class="g" id="l24" style="top:1530px"><div class="ln" id="l24x0"><span class="f">foi construído</span> <span class="n">em etapas</span></div></div>
+    <div class="g" id="l25" style="top:1105px"><div class="ln" id="l25x0"><span class="f">na primeira sessão,</span></div></div>
+    <div class="g" id="l26" style="top:1105px"><div class="ln" id="l26x0"><span class="f">nós trabalhamos</span></div></div>
+    <div class="g" id="l27" style="top:1105px"><div class="ln" id="l27x0"><span class="f">o</span> <span class="n">contorno lateral,</span></div></div>
+    <div class="g" id="l28" style="top:1530px"><div class="ln" id="l28x0"><span class="f">porque projetar</span></div></div>
+    <div class="g" id="l29" style="top:1530px"><div class="ln" id="l29x0"><span class="f">essa região superior do glúteo</span></div></div>
+    <div class="g" id="l30" style="top:1530px"><div class="ln" id="l30x0"><span class="f">sem antes tratar o</span> <span class="n">hip dips</span></div></div>
+    <div class="g" id="l31" style="top:1530px"><div class="ln" id="l31x0"><span class="f">faz com que o resultado</span></div></div>
+    <div class="g" id="l32" style="top:1530px"><div class="ln" id="l32x0"><span class="f">não fique</span></div><div class="ln serifa" id="l32x1">harmonioso</div></div>
+    <div class="g" id="l33" style="top:1105px"><div class="ln" id="l33x0"><span class="f">já na segunda sessão,</span></div></div>
+    <div class="g" id="l34" style="top:1105px"><div class="ln" id="l34x0"><span class="f">com a base pronta,</span></div></div>
+    <div class="g" id="l35" style="top:1105px"><div class="ln" id="l35x0"><span class="f">nós conseguimos trabalhar</span></div></div>
+    <div class="g" id="l36" style="top:1105px"><div class="ln" id="l36x0"><span class="f">essa região superior</span></div></div>
+    <div class="g" id="l37" style="top:1530px"><div class="ln" id="l37x0"><span class="f">que foi a queixa dela</span></div></div>
+    <div class="g" id="l38" style="top:1530px"><div class="ln" id="l38x0"><span class="f">desde o início</span></div></div>
+    <div class="g" id="l39" style="top:1530px"><div class="ln forte" id="l39x0">e não termina aí</div></div>
+    <div class="g" id="l40" style="top:1530px"><div class="ln" id="l40x0"><span class="f">essa paciente segue</span></div></div>
+    <div class="g" id="l41" style="top:1530px"><div class="ln" id="l41x0"><span class="f">em tratamento</span></div></div>
+    <div class="g" id="l42" style="top:1530px"><div class="ln" id="l42x0"><span class="f">e manutenções de acordo</span></div></div>
+    <div class="g" id="l43" style="top:1530px"><div class="ln" id="l43x0"><span class="f">com o que o corpo responde</span></div></div>
+    <div class="g" id="l44" style="top:1530px"><div class="ln" id="l44x0"><span class="f">a harmonização glútea</span></div></div>
+    <div class="g" id="l45" style="top:1530px"><div class="ln forte" id="l45x0">não é um evento,</div></div>
+    <div class="g" id="l46" style="top:1530px"><div class="ln" id="l46x0"><span class="f">é um</span></div><div class="ln bege" id="l46x1" style="font-size:78px">processo</div></div>
+    <div class="g" id="l47" style="top:1530px"><div class="ln" id="l47x0"><span class="f">o que ela me pediu</span></div></div>
+    <div class="g" id="l48" style="top:1530px"><div class="ln" id="l48x0"><span class="f">era o</span> <span class="n">destino,</span></div></div>
+    <div class="g" id="l49" style="top:1530px"><div class="ln" id="l49x0"><span class="f">o que o corpo dela precisava</span></div></div>
+    <div class="g" id="l50" style="top:1530px"><div class="ln" id="l50x0"><span class="f">era o</span></div><div class="ln bege" id="l50x1" style="font-size:78px">ponto de partida</div></div>
+    <div class="g" id="l51" style="top:1530px"><div class="ln" id="l51x0"><span class="f">um bom resultado</span></div></div>
+    <div class="g" id="l52" style="top:1530px"><div class="ln" id="l52x0"><span class="f">não começa na aplicação,</span></div></div>
+    <div class="g" id="l53" style="top:1530px"><div class="ln" id="l53x0"><span class="f">começa com uma</span></div><div class="ln" id="l53x1"><span class="f">avaliação</span> <span class="n">bem feita</span></div></div>
+    <div class="g" id="l54" style="top:1530px"><div class="ln" id="l54x0"><span class="f">e um planejamento pensado</span></div></div>
+    <div class="g" id="l55" style="top:1530px"><div class="ln" id="l55x0"><span class="f">para</span></div><div class="ln bege" id="l55x1" style="font-size:78px">cada paciente</div></div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     tl.to({}, { duration: 79.5 }, 0);
-    tl.fromTo("#l1w1", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 0.384);
-    tl.fromTo("#l1w2", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 0.46);
     tl.set("#l1", {opacity:1}, 0.384);
-    tl.set("#l1", {opacity:0}, 0.9);
-    tl.fromTo("#l2w3", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 0.9);
-    tl.fromTo("#l2w4", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 1.22);
-    tl.fromTo("#l2w5", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 1.5);
-    tl.fromTo("#l2w6", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 1.74);
-    tl.fromTo("#l2w7", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 1.96);
-    tl.set("#l2", {opacity:1}, 0.9);
-    tl.set("#l2", {opacity:0}, 2.26);
-    tl.fromTo("#l3b0", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 2.26);
-    tl.set("#l3", {opacity:1}, 2.26);
-    tl.set("#l3", {opacity:0}, 4.128);
-    tl.fromTo("#l4w11", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 4.128);
-    tl.fromTo("#l4w12", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 4.24);
-    tl.fromTo("#l4w13", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 4.42);
-    tl.fromTo("#l4w14", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 4.62);
-    tl.set("#l4", {opacity:1}, 4.128);
-    tl.set("#l4", {opacity:0}, 4.84);
-    tl.fromTo("#l5w15", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 4.84);
-    tl.fromTo("#l5w16", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 4.98);
-    tl.fromTo("#l5w17", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 5.16);
-    tl.fromTo("#l5w18", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 5.728);
-    tl.set("#l5", {opacity:1}, 4.84);
-    tl.set("#l5", {opacity:0}, 5.86);
-    tl.fromTo("#l6b0", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 5.86);
-    tl.fromTo("#l6w21", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 6.6);
-    tl.fromTo("#l6w22", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 6.84);
-    tl.set("#l6", {opacity:1}, 5.86);
-    tl.set("#l6", {opacity:0}, 7.584);
-    tl.fromTo("#l7w23", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 7.584);
-    tl.fromTo("#l7w24", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 7.72);
-    tl.fromTo("#l7w25", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 7.86);
-    tl.fromTo("#l7w26", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 8.02);
-    tl.fromTo("#l7w27", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 8.1);
-    tl.fromTo("#l7w28", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 8.36);
-    tl.set("#l7", {opacity:1}, 7.584);
-    tl.set("#l7", {opacity:0}, 9.06);
-    tl.fromTo("#l8w29", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 9.06);
-    tl.fromTo("#l8w30", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 9.14);
-    tl.fromTo("#l8w31", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 9.58);
-    tl.fromTo("#l8w32", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 9.78);
-    tl.fromTo("#l8w33", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 10.36);
-    tl.set("#l8", {opacity:1}, 9.06);
-    tl.set("#l8", {opacity:0}, 11.18);
-    tl.fromTo("#l9w34", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 11.18);
-    tl.fromTo("#l9w35", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 11.66);
-    tl.fromTo("#l9w36", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 11.78);
-    tl.fromTo("#l9w37", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 12.24);
-    tl.set("#l9", {opacity:1}, 11.18);
-    tl.set("#l9", {opacity:0}, 12.7);
-    tl.fromTo("#l10w38", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 12.7);
-    tl.fromTo("#l10w39", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 12.9);
-    tl.fromTo("#l10w40", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 13.12);
-    tl.set("#l10", {opacity:1}, 12.7);
-    tl.set("#l10", {opacity:0}, 13.52);
-    tl.fromTo("#l11w41", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 13.52);
-    tl.fromTo("#l11w42", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 13.98);
-    tl.fromTo("#l11w43", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 14.2);
-    tl.fromTo("#l11w44", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 14.54);
-    tl.fromTo("#l11w45", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 14.976);
-    tl.set("#l11", {opacity:1}, 13.52);
-    tl.set("#l11", {opacity:0}, 15.82);
-    tl.fromTo("#l12w46", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 15.82);
-    tl.fromTo("#l12w47", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 16.18);
-    tl.fromTo("#l12w48", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 16.38);
-    tl.set("#l12", {opacity:1}, 15.82);
-    tl.set("#l12", {opacity:0}, 16.82);
-    tl.fromTo("#l13w49", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 16.82);
-    tl.fromTo("#l13w50", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 17.08);
-    tl.fromTo("#l13w51", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 17.5);
-    tl.set("#l13", {opacity:1}, 16.82);
-    tl.set("#l13", {opacity:0}, 18.46);
-    tl.fromTo("#l14w52", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 18.46);
-    tl.fromTo("#l14w53", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 18.74);
-    tl.fromTo("#l14b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 19.02);
-    tl.set("#l14", {opacity:1}, 18.46);
-    tl.set("#l14", {opacity:0}, 20.384);
-    tl.fromTo("#l15w57", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 20.384);
-    tl.fromTo("#l15w58", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 20.6);
-    tl.fromTo("#l15w59", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 20.96);
-    tl.set("#l15", {opacity:1}, 20.384);
-    tl.set("#l15", {opacity:0}, 21.24);
-    tl.fromTo("#l16w60", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 21.24);
-    tl.fromTo("#l16w61", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 21.62);
-    tl.fromTo("#l16w62", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 22.16);
-    tl.set("#l16", {opacity:1}, 21.24);
-    tl.set("#l16", {opacity:0}, 23.02);
-    tl.fromTo("#l17w63", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 23.02);
-    tl.fromTo("#l17w64", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 23.32);
-    tl.fromTo("#l17w65", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 23.7);
-    tl.fromTo("#l17w66", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 23.9);
-    tl.set("#l17", {opacity:1}, 23.02);
-    tl.set("#l17", {opacity:0}, 24.6);
-    tl.fromTo("#l18w67", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 24.6);
-    tl.fromTo("#l18w68", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 24.94);
-    tl.fromTo("#l18w69", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 25.14);
-    tl.fromTo("#l18w70", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 25.66);
-    tl.fromTo("#l18w71", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 25.96);
-    tl.fromTo("#l18w72", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 26.2);
-    tl.set("#l18", {opacity:1}, 24.6);
-    tl.set("#l18", {opacity:0}, 26.912);
-    tl.fromTo("#l19w73", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 26.912);
-    tl.fromTo("#l19w74", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 27.02);
-    tl.fromTo("#l19w75", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 27.34);
-    tl.set("#l19", {opacity:1}, 26.912);
-    tl.set("#l19", {opacity:0}, 28.14);
-    tl.fromTo("#l20w76", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 28.14);
-    tl.fromTo("#l20w77", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 28.36);
-    tl.fromTo("#l20w78", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 28.6);
-    tl.set("#l20", {opacity:1}, 28.14);
-    tl.set("#l20", {opacity:0}, 29.46);
-    tl.fromTo("#l21w79", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 29.46);
-    tl.fromTo("#l21w80", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 29.8);
-    tl.fromTo("#l21w81", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 30.06);
-    tl.fromTo("#l21w82", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 30.44);
-    tl.set("#l21", {opacity:1}, 29.46);
-    tl.set("#l21", {opacity:0}, 31.1);
-    tl.fromTo("#l22w83", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 31.1);
-    tl.fromTo("#l22b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 31.28);
-    tl.set("#l22", {opacity:1}, 31.1);
-    tl.set("#l22", {opacity:0}, 32.16);
-    tl.fromTo("#l23w86", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 32.16);
-    tl.fromTo("#l23w87", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 32.46);
-    tl.fromTo("#l23w88", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 32.86);
-    tl.fromTo("#l23b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 33.08);
-    tl.set("#l23", {opacity:1}, 32.16);
-    tl.set("#l23", {opacity:0}, 33.66);
-    tl.fromTo("#l24w90", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 33.66);
-    tl.fromTo("#l24w91", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 33.9);
-    tl.fromTo("#l24w92", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 34.06);
-    tl.set("#l24", {opacity:1}, 33.66);
-    tl.set("#l24", {opacity:0}, 34.76);
-    tl.fromTo("#l25w93", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 34.76);
-    tl.fromTo("#l25w94", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 34.98);
-    tl.fromTo("#l25b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 35.44);
-    tl.set("#l25", {opacity:1}, 34.76);
-    tl.set("#l25", {opacity:0}, 36.8);
-    tl.fromTo("#l26w97", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 36.8);
-    tl.fromTo("#l26w98", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 36.9);
-    tl.fromTo("#l26w99", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 37.3);
-    tl.set("#l26", {opacity:1}, 36.8);
-    tl.set("#l26", {opacity:0}, 37.96);
-    tl.fromTo("#l27w100", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 37.96);
-    tl.fromTo("#l27w101", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 38.32);
-    tl.fromTo("#l27w102", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 38.72);
-    tl.fromTo("#l27w103", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 39.02);
-    tl.fromTo("#l27w104", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 39.46);
-    tl.set("#l27", {opacity:1}, 37.96);
+    tl.set("#l1", {opacity:0}, 1.74);
+    tl.set("#l2", {opacity:1}, 1.74);
+    tl.set("#l2", {opacity:0}, 4.128);
+    tl.set("#l3", {opacity:1}, 4.128);
+    tl.set("#l3", {opacity:0}, 4.84);
+    tl.set("#l4", {opacity:1}, 4.84);
+    tl.set("#l4", {opacity:0}, 5.86);
+    tl.fromTo("#l5x0", {opacity:0, x:-40, filter:"blur(10px)"}, {opacity:1, x:0, filter:"blur(0px)", duration:0.2, ease:"power2.out"}, 5.86);
+    tl.set("#l5", {opacity:1}, 5.86);
+    tl.set("#l5", {opacity:0}, 7.584);
+    tl.set("#l6", {opacity:1}, 7.584);
+    tl.set("#l6", {opacity:0}, 9.06);
+    tl.set("#l7", {opacity:1}, 9.06);
+    tl.set("#l7", {opacity:0}, 11.18);
+    tl.set("#l8", {opacity:1}, 11.18);
+    tl.set("#l8", {opacity:0}, 12.7);
+    tl.set("#l9", {opacity:1}, 12.7);
+    tl.set("#l9", {opacity:0}, 13.52);
+    tl.set("#l10", {opacity:1}, 13.52);
+    tl.set("#l10", {opacity:0}, 15.82);
+    tl.set("#l11", {opacity:1}, 15.82);
+    tl.set("#l11", {opacity:0}, 16.82);
+    tl.set("#l12", {opacity:1}, 16.82);
+    tl.set("#l12", {opacity:0}, 18.46);
+    tl.set("#l13x1", {opacity:0}, 18.46);
+    tl.set("#l13x1", {opacity:1}, 19.02);
+    tl.set("#l13", {opacity:1}, 18.46);
+    tl.set("#l13", {opacity:0}, 20.384);
+    tl.set("#l14", {opacity:1}, 20.384);
+    tl.set("#l14", {opacity:0}, 21.62);
+    tl.set("#l15", {opacity:1}, 21.62);
+    tl.set("#l15", {opacity:0}, 23.02);
+    tl.set("#l16", {opacity:1}, 23.02);
+    tl.set("#l16", {opacity:0}, 24.6);
+    tl.set("#l17", {opacity:1}, 24.6);
+    tl.set("#l17", {opacity:0}, 26.912);
+    tl.set("#l18", {opacity:1}, 26.912);
+    tl.set("#l18", {opacity:0}, 28.14);
+    tl.set("#l19", {opacity:1}, 28.14);
+    tl.set("#l19", {opacity:0}, 29.46);
+    tl.set("#l20", {opacity:1}, 29.46);
+    tl.set("#l20", {opacity:0}, 31.1);
+    tl.set("#l21", {opacity:1}, 31.1);
+    tl.set("#l21", {opacity:0}, 32.16);
+    tl.set("#l22x1", {opacity:0}, 32.16);
+    tl.set("#l22x1", {opacity:1}, 33.08);
+    tl.set("#l22", {opacity:1}, 32.16);
+    tl.set("#l22", {opacity:0}, 33.66);
+    tl.set("#l23", {opacity:1}, 33.66);
+    tl.set("#l23", {opacity:0}, 34.76);
+    tl.set("#l24", {opacity:1}, 34.76);
+    tl.set("#l24", {opacity:0}, 36.8);
+    tl.set("#l25", {opacity:1}, 36.8);
+    tl.set("#l25", {opacity:0}, 37.96);
+    tl.set("#l26", {opacity:1}, 37.96);
+    tl.set("#l26", {opacity:0}, 38.72);
+    tl.set("#l27", {opacity:1}, 38.72);
     tl.set("#l27", {opacity:0}, 40.54);
-    tl.fromTo("#l28w105", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 40.54);
-    tl.fromTo("#l28w106", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 40.8);
-    tl.fromTo("#l28w107", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 41.38);
     tl.set("#l28", {opacity:1}, 40.54);
-    tl.set("#l28", {opacity:0}, 41.56);
-    tl.fromTo("#l29w108", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 41.56);
-    tl.fromTo("#l29w109", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 42.02);
-    tl.fromTo("#l29w110", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 42.64);
-    tl.fromTo("#l29w111", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 42.84);
-    tl.set("#l29", {opacity:1}, 41.56);
+    tl.set("#l28", {opacity:0}, 41.38);
+    tl.set("#l29", {opacity:1}, 41.38);
     tl.set("#l29", {opacity:0}, 43.584);
-    tl.fromTo("#l30w112", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 43.584);
-    tl.fromTo("#l30w113", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 43.8);
-    tl.fromTo("#l30w114", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 44.16);
-    tl.fromTo("#l30w115", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 44.58);
-    tl.fromTo("#l30w116", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 44.76);
     tl.set("#l30", {opacity:1}, 43.584);
     tl.set("#l30", {opacity:0}, 45.728);
-    tl.fromTo("#l31w117", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 45.728);
-    tl.fromTo("#l31w118", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 45.88);
-    tl.fromTo("#l31w119", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 46.06);
-    tl.fromTo("#l31w120", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 46.16);
-    tl.fromTo("#l31w121", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 46.36);
     tl.set("#l31", {opacity:1}, 45.728);
     tl.set("#l31", {opacity:0}, 46.62);
-    tl.fromTo("#l32w122", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 46.62);
-    tl.fromTo("#l32w123", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 46.94);
-    tl.fromTo("#l32b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 47.14);
+    tl.set("#l32x1", {opacity:0}, 46.62);
+    tl.set("#l32x1", {opacity:1}, 47.14);
     tl.set("#l32", {opacity:1}, 46.62);
     tl.set("#l32", {opacity:0}, 48.256);
-    tl.fromTo("#l33w125", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 48.256);
-    tl.fromTo("#l33w126", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 48.54);
-    tl.fromTo("#l33b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 48.72);
     tl.set("#l33", {opacity:1}, 48.256);
     tl.set("#l33", {opacity:0}, 49.82);
-    tl.fromTo("#l34w129", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 49.82);
-    tl.fromTo("#l34w130", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 50.1);
-    tl.fromTo("#l34w131", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 50.24);
-    tl.fromTo("#l34w132", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 50.44);
     tl.set("#l34", {opacity:1}, 49.82);
     tl.set("#l34", {opacity:0}, 51.28);
-    tl.fromTo("#l35w133", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 51.28);
-    tl.fromTo("#l35w134", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 51.52);
-    tl.fromTo("#l35w135", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 51.94);
     tl.set("#l35", {opacity:1}, 51.28);
     tl.set("#l35", {opacity:0}, 52.32);
-    tl.fromTo("#l36w136", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 52.32);
-    tl.fromTo("#l36w137", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 52.58);
-    tl.fromTo("#l36w138", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 52.98);
     tl.set("#l36", {opacity:1}, 52.32);
     tl.set("#l36", {opacity:0}, 53.792);
-    tl.fromTo("#l37w139", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 53.792);
-    tl.fromTo("#l37w140", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 53.9);
-    tl.fromTo("#l37w141", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 54.08);
-    tl.fromTo("#l37w142", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 54.26);
-    tl.fromTo("#l37w143", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 54.54);
     tl.set("#l37", {opacity:1}, 53.792);
     tl.set("#l37", {opacity:0}, 54.78);
-    tl.fromTo("#l38w144", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 54.78);
-    tl.fromTo("#l38w145", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 55.12);
-    tl.fromTo("#l38w146", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 55.32);
     tl.set("#l38", {opacity:1}, 54.78);
     tl.set("#l38", {opacity:0}, 55.808);
-    tl.fromTo("#l39b0", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 55.808);
+    tl.fromTo("#l39x0", {opacity:0, x:-40, filter:"blur(10px)"}, {opacity:1, x:0, filter:"blur(0px)", duration:0.2, ease:"power2.out"}, 55.808);
     tl.set("#l39", {opacity:1}, 55.808);
     tl.set("#l39", {opacity:0}, 57.08);
-    tl.fromTo("#l40w151", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 57.08);
-    tl.fromTo("#l40w152", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 57.2);
-    tl.fromTo("#l40w153", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 57.76);
-    tl.fromTo("#l40w154", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 58.12);
-    tl.fromTo("#l40w155", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 58.28);
     tl.set("#l40", {opacity:1}, 57.08);
-    tl.set("#l40", {opacity:0}, 58.88);
-    tl.fromTo("#l41w156", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 58.88);
-    tl.fromTo("#l41w157", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 59.26);
-    tl.set("#l41", {opacity:1}, 58.88);
-    tl.set("#l41", {opacity:0}, 59.94);
-    tl.fromTo("#l42w158", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 59.94);
-    tl.fromTo("#l42w159", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 60.3);
-    tl.fromTo("#l42w160", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 60.54);
-    tl.fromTo("#l42w161", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 60.72);
-    tl.set("#l42", {opacity:1}, 59.94);
-    tl.set("#l42", {opacity:0}, 60.86);
-    tl.fromTo("#l43w162", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 60.86);
-    tl.fromTo("#l43w163", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 60.92);
-    tl.fromTo("#l43w164", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 60.98);
-    tl.fromTo("#l43w165", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 61.2);
-    tl.set("#l43", {opacity:1}, 60.86);
+    tl.set("#l40", {opacity:0}, 58.12);
+    tl.set("#l41", {opacity:1}, 58.12);
+    tl.set("#l41", {opacity:0}, 58.88);
+    tl.set("#l42", {opacity:1}, 58.88);
+    tl.set("#l42", {opacity:0}, 60.54);
+    tl.set("#l43", {opacity:1}, 60.54);
     tl.set("#l43", {opacity:0}, 62.32);
-    tl.fromTo("#l44w166", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 62.32);
-    tl.fromTo("#l44w167", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 62.52);
-    tl.fromTo("#l44w168", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 62.96);
     tl.set("#l44", {opacity:1}, 62.32);
     tl.set("#l44", {opacity:0}, 63.46);
-    tl.fromTo("#l45b0", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 63.46);
+    tl.fromTo("#l45x0", {opacity:0, x:-40, filter:"blur(10px)"}, {opacity:1, x:0, filter:"blur(0px)", duration:0.2, ease:"power2.out"}, 63.46);
     tl.set("#l45", {opacity:1}, 63.46);
     tl.set("#l45", {opacity:0}, 64.92);
-    tl.fromTo("#l46b0", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 64.92);
+    tl.set("#l46x1", {opacity:0}, 64.92);
+    tl.set("#l46x1", {opacity:1}, 65.26);
     tl.set("#l46", {opacity:1}, 64.92);
     tl.set("#l46", {opacity:0}, 65.88);
-    tl.fromTo("#l47w176", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 65.88);
-    tl.fromTo("#l47w177", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 66.06);
-    tl.fromTo("#l47w178", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 66.2);
-    tl.fromTo("#l47w179", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 66.42);
-    tl.fromTo("#l47w180", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 66.72);
     tl.set("#l47", {opacity:1}, 65.88);
     tl.set("#l47", {opacity:0}, 67.616);
-    tl.fromTo("#l48w181", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 67.616);
-    tl.fromTo("#l48w182", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 67.82);
-    tl.fromTo("#l48w183", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 68.08);
     tl.set("#l48", {opacity:1}, 67.616);
     tl.set("#l48", {opacity:0}, 68.8);
-    tl.fromTo("#l49w184", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 68.8);
-    tl.fromTo("#l49w185", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 68.86);
-    tl.fromTo("#l49w186", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 68.92);
-    tl.fromTo("#l49w187", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 68.98);
-    tl.fromTo("#l49w188", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 69.16);
-    tl.fromTo("#l49w189", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 69.48);
     tl.set("#l49", {opacity:1}, 68.8);
     tl.set("#l49", {opacity:0}, 70.656);
-    tl.fromTo("#l50w190", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 70.656);
-    tl.fromTo("#l50w191", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 70.88);
-    tl.fromTo("#l50b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 71);
+    tl.set("#l50x1", {opacity:0}, 70.656);
+    tl.set("#l50x1", {opacity:1}, 71);
     tl.set("#l50", {opacity:1}, 70.656);
     tl.set("#l50", {opacity:0}, 72);
-    tl.fromTo("#l51w195", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 72);
-    tl.fromTo("#l51w196", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 72.22);
-    tl.fromTo("#l51w197", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 72.44);
     tl.set("#l51", {opacity:1}, 72);
     tl.set("#l51", {opacity:0}, 72.96);
-    tl.fromTo("#l52w198", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 72.96);
-    tl.fromTo("#l52w199", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 73.3);
-    tl.fromTo("#l52w200", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 73.74);
-    tl.fromTo("#l52w201", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 73.92);
     tl.set("#l52", {opacity:1}, 72.96);
     tl.set("#l52", {opacity:0}, 74.82);
-    tl.fromTo("#l53w202", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 74.82);
-    tl.fromTo("#l53w203", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 75.06);
-    tl.fromTo("#l53w204", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 75.32);
-    tl.fromTo("#l53b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 75.44);
+    tl.set("#l53x1", {opacity:0}, 74.82);
+    tl.set("#l53x1", {opacity:1}, 75.44);
     tl.set("#l53", {opacity:1}, 74.82);
     tl.set("#l53", {opacity:0}, 76.66);
-    tl.fromTo("#l54w208", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 76.66);
-    tl.fromTo("#l54w209", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 76.86);
-    tl.fromTo("#l54w210", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 76.98);
     tl.set("#l54", {opacity:1}, 76.66);
-    tl.set("#l54", {opacity:0}, 77.54);
-    tl.fromTo("#l55w211", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 77.54);
-    tl.fromTo("#l55w212", {opacity:0, y:8, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.28, ease:"power2.out"}, 78.14);
-    tl.fromTo("#l55b1", {opacity:0, scale:0.94, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:0.32, ease:"power2.out"}, 78.46);
-    tl.set("#l55", {opacity:1}, 77.54);
+    tl.set("#l54", {opacity:0}, 78.14);
+    tl.set("#l55x1", {opacity:0}, 78.14);
+    tl.set("#l55x1", {opacity:1}, 78.46);
+    tl.set("#l55", {opacity:1}, 78.14);
     tl.set("#l55", {opacity:0}, 79.5);
     window.__timelines["legendas-ref"] = tl;
   </script>

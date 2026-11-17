@@ -31,15 +31,15 @@
    "tremor_px": 1.9,
    "cor": {
     "wb": [
-     0.9788,
      1.0,
-     1.0548
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.1458,
-    "ganho_parede": 1.1458,
-    "tom_rosto": 0.3161,
-    "tom_parede": 0.664
+    "ganho_rosto": 1.1604,
+    "ganho_parede": 1.1604,
+    "tom_rosto": 0.344,
+    "tom_parede": 0.7759
    }
   },
   {
@@ -61,15 +61,15 @@
    "tremor_px": 1.2,
    "cor": {
     "wb": [
-     0.9551,
      1.0,
-     1.0448
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.2726,
-    "ganho_parede": 1.2726,
-    "tom_rosto": 0.2846,
-    "tom_parede": 0.6389
+    "ganho_rosto": 1.2853,
+    "ganho_parede": 1.2853,
+    "tom_rosto": 0.3106,
+    "tom_parede": 0.7416
    }
   },
   {
@@ -91,15 +91,15 @@
    "tremor_px": 1.1,
    "cor": {
     "wb": [
-     0.9798,
      1.0,
-     0.9935
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.0365,
-    "ganho_parede": 1.0365,
-    "tom_rosto": 0.3494,
-    "tom_parede": 0.8118
+    "ganho_rosto": 1.0338,
+    "ganho_parede": 1.0338,
+    "tom_rosto": 0.3861,
+    "tom_parede": 0.9636
    }
   },
   {
@@ -121,15 +121,15 @@
    "tremor_px": 0.8,
    "cor": {
     "wb": [
-     1.0415,
      1.0,
-     1.0654
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 0.896,
-    "ganho_parede": 0.896,
-    "tom_rosto": 0.4042,
-    "tom_parede": 0.6726
+    "ganho_rosto": 0.8998,
+    "ganho_parede": 0.8998,
+    "tom_rosto": 0.4437,
+    "tom_parede": 0.7631
    }
   },
   {
@@ -151,15 +151,15 @@
    "tremor_px": 0.5,
    "cor": {
     "wb": [
-     1.0004,
      1.0,
-     0.9307
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.1733,
-    "ganho_parede": 1.1733,
-    "tom_rosto": 0.3087,
-    "tom_parede": 0.6962
+    "ganho_rosto": 1.1959,
+    "ganho_parede": 1.1959,
+    "tom_rosto": 0.3338,
+    "tom_parede": 0.8106
    }
   },
   {
@@ -186,15 +186,15 @@
    "tremor_px": 0.6,
    "cor": {
     "wb": [
-     1.0136,
+     1.0,
      1.0,
      1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 0.9912,
-    "ganho_parede": 0.9912,
-    "tom_rosto": 0.3654,
-    "tom_parede": 0.6736
+    "ganho_rosto": 0.9986,
+    "ganho_parede": 0.9986,
+    "tom_rosto": 0.3997,
+    "tom_parede": 0.7867
    }
   },
   {
@@ -216,15 +216,15 @@
    "tremor_px": 0.6,
    "cor": {
     "wb": [
-     1.0234,
      1.0,
-     0.8715
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.0365,
-    "ganho_parede": 1.0365,
-    "tom_rosto": 0.3494,
-    "tom_parede": 0.7124
+    "ganho_rosto": 1.0482,
+    "ganho_parede": 1.0482,
+    "tom_rosto": 0.3808,
+    "tom_parede": 0.8317
    }
   },
   {
@@ -246,15 +246,15 @@
    "tremor_px": 0.5,
    "cor": {
     "wb": [
-     1.0386,
      1.0,
-     0.9327
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.1368,
-    "ganho_parede": 1.1368,
-    "tom_rosto": 0.3186,
-    "tom_parede": 0.6781
+    "ganho_rosto": 1.1632,
+    "ganho_parede": 1.1632,
+    "tom_rosto": 0.3432,
+    "tom_parede": 0.7839
    }
   },
   {
@@ -278,13 +278,13 @@
     "wb": [
      1.0,
      1.0,
-     0.9556
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.2518,
-    "ganho_parede": 1.2518,
-    "tom_rosto": 0.2893,
-    "tom_parede": 0.5175
+    "ganho_rosto": 1.2887,
+    "ganho_parede": 1.2887,
+    "tom_rosto": 0.3097,
+    "tom_parede": 0.5927
    }
   },
   {
@@ -306,15 +306,15 @@
    "tremor_px": 3.3,
    "cor": {
     "wb": [
-     1.0376,
      1.0,
-     0.994
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 0.9087,
-    "ganho_parede": 0.9087,
-    "tom_rosto": 0.3985,
-    "tom_parede": 0.6686
+    "ganho_rosto": 0.9079,
+    "ganho_parede": 0.9079,
+    "tom_rosto": 0.4397,
+    "tom_parede": 0.7734
    }
   },
   {
@@ -336,15 +336,15 @@
    "tremor_px": 0.7,
    "cor": {
     "wb": [
-     0.953,
      1.0,
-     1.0086
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.0211,
-    "ganho_parede": 1.0211,
-    "tom_rosto": 0.3547,
-    "tom_parede": 0.5117
+    "ganho_rosto": 1.001,
+    "ganho_parede": 1.001,
+    "tom_rosto": 0.3988,
+    "tom_parede": 0.5878
    }
   },
   {
@@ -366,15 +366,15 @@
    "tremor_px": 0.8,
    "cor": {
     "wb": [
-     0.9987,
      1.0,
-     1.0042
+     1.0,
+     1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 1.006,
-    "ganho_parede": 1.006,
-    "tom_rosto": 0.36,
-    "tom_parede": 0.5161
+    "ganho_rosto": 1.0074,
+    "ganho_parede": 1.0074,
+    "tom_rosto": 0.3963,
+    "tom_parede": 0.5888
    }
   },
   {
@@ -396,15 +396,15 @@
    "tremor_px": 0.6,
    "cor": {
     "wb": [
-     0.9714,
+     1.0,
      1.0,
      1.0
     ],
     "sat": 1.0,
-    "ganho_rosto": 0.9912,
-    "ganho_parede": 0.9912,
-    "tom_rosto": 0.3654,
-    "tom_parede": 0.498
+    "ganho_rosto": 0.975,
+    "ganho_parede": 0.975,
+    "tom_rosto": 0.4094,
+    "tom_parede": 0.5708
    }
   }
  ]

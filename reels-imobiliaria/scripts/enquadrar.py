@@ -3,7 +3,7 @@
 Uso: python3 scripts/enquadrar.py PASTA [--analise] [--olhos-y 0.42] [--folga-x 12] [--folga-y 30]
                                          [--folga-tamanho 0.06] [--zoom-max 1.6] [--brilho-rosto 70] [--sem-cor]
                                          [--tamanho maior|mediana] [--passar 06,09] [--sem-tripe 01,10]
-                                         [--cor-pela pele|parede] [--fechar 1.5 --saida enquadrado-fechado]
+                                         [--cor-pela pele|parede|luz] [--fechar 1.5 --saida enquadrado-fechado]
 
 Lê PASTA/takes/*.mov (na ordem do nome) e escreve PASTA/renders/enquadrado.mp4.
 A medição de cada take fica em PASTA/analise/ (refazer o enquadramento não mede de novo);
@@ -48,6 +48,14 @@ frente à madeira e um mostra a sala inteira), a parede engana: a madeira quente
 take sai azulado, saturado e com o fundo clareado. Pela pele, o balanço de branco leva a cor do rosto de
 cada take à mediana dos takes (a mesma pessoa, a mesma maquiagem) e a luz é um ganho só por take,
 medido no rosto: o fundo de cada um continua com a cor dele.
+--cor-pela luz: só a luz, nada de cor (Caso de paciente, 3ª versão: "deixe igual eu te mandei, alterando apenas a
+iluminação"): o mesmo ganho por take, medido no rosto, igual nos três canais; balanço de branco e saturação ficam
+os do take.
+
+Faixa e espaço de cor: cada take é lido pelo que o arquivo diz (color_range e color_primaries). O vídeo do Caso de
+paciente veio em faixa limitada (16–235) e em Display P3 (smpte432), e era lido como faixa cheia e sem converter
+o P3: o preto subia, o contraste caía e a cor saía lavada no celular ("você tirou a saturação do vídeo"). Agora a
+faixa vem da etiqueta e o P3 vira BT.709 (zscale, em luz linear) antes de qualquer conta; a saída é BT.709.
 --fechar 1.5: a mesma montagem num plano mais fechado (o rosto 1,5x maior, os olhos a --olhos-fechado da
 altura), tirado do 4K, para alternar plano aberto e fechado na edição (o "zoom in, zoom out" das
 referências) sem perder nitidez; --saida dá o nome do arquivo em renders/.
@@ -78,10 +86,37 @@ def ler(cmd, w, h, canais):
     p.wait()
 
 
+_COR_FONTE = {}
+
+
+def cor_da_fonte(take):
+    """Faixa e primárias do vídeo, pela etiqueta do arquivo (sem etiqueta de faixa: cheia, como os iPhones antigos)."""
+    if take not in _COR_FONTE:
+        out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+                              "stream=color_range,color_primaries", "-of", "default=nw=1", str(take)],
+                             capture_output=True, text=True).stdout
+        d = dict(l.split("=", 1) for l in out.split() if "=" in l)
+        _COR_FONTE[take] = ("tv" if d.get("color_range") == "tv" else "pc", d.get("color_primaries", "bt709"))
+    return _COR_FONTE[take]
+
+
+def para_bt709(take):
+    """Filtros que levam o take para BT.709 na faixa dele: P3 (iPhone) vira BT.709 em luz linear."""
+    faixa, prim = cor_da_fonte(take)
+    if prim in ("smpte432", "smpte431", "bt2020"):
+        r = "limited" if faixa == "tv" else "full"
+        zp = {"smpte432": "smpte432", "smpte431": "smpte431", "bt2020": "2020"}[prim]
+        return [f"zscale=primariesin={zp}:primaries=709:transferin=709:transfer=709:matrixin=709:matrix=709:"
+                f"rangein={r}:range={r}:dither=error_diffusion"]
+    return []
+
+
 def quadros(take, w, h):
-    """Quadros do take já girados, a 30 fps constantes, em RGB (faixa cheia do iPhone)."""
-    return ler(["ffmpeg", "-v", "error", "-i", str(take), "-vf",
-                f"fps={FPS},scale={w}:{h}:flags=bicubic:in_range=pc:in_color_matrix=bt709,format=rgb24",
+    """Quadros do take já girados, a 30 fps constantes, em RGB, em BT.709 e na faixa que o arquivo diz."""
+    faixa, _ = cor_da_fonte(take)
+    vf = [f"fps={FPS}", *para_bt709(take), f"scale={w}:{h}:flags=bicubic:in_range={faixa}:in_color_matrix=bt709",
+          "format=rgb24"]
+    return ler(["ffmpeg", "-v", "error", "-i", str(take), "-vf", ",".join(vf),
                 "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], w, h, 3)
 
 
@@ -276,9 +311,9 @@ def ajustes_cor(medidas, brilho_pct, pela="parede"):
     lin = lambda v: (np.asarray(v, float) / 255) ** 2.2
     m = [(lin(np.nanmedian(r, 0)), lin(np.nanmedian(pa, 0))) for r, pa in medidas]
     crom = lambda v: np.log(v / v[1])
-    if pela == "pele":
+    if pela in ("pele", "luz"):
         alvo_pele = np.median([crom(r) for r, _ in m], 0)
-        wbs = [np.exp(alvo_pele - crom(r)) for r, _ in m]
+        wbs = [np.exp(alvo_pele - crom(r)) if pela == "pele" else np.ones(3) for r, _ in m]
         F = [float((r * wb) @ LUM) for (r, _), wb in zip(m, wbs)]
         Wp = [float((pa * wb) @ LUM) for (_, pa), wb in zip(m, wbs)]
         Ft = np.percentile(F, brilho_pct)
@@ -356,8 +391,8 @@ def main():
     ap.add_argument("--fechar", type=float, default=1.0, help="plano mais fechado: o rosto este tanto maior")
     ap.add_argument("--olhos-fechado", type=float, default=0.36, help="altura dos olhos no plano fechado (fração)")
     ap.add_argument("--saida", default="enquadrado", help="nome do vídeo em renders/ (sem .mp4)")
-    ap.add_argument("--cor-pela", choices=["parede", "pele"], default="parede",
-                    help="referência para igualar a cor: a parede (o mesmo fundo em todos) ou a pele")
+    ap.add_argument("--cor-pela", choices=["parede", "pele", "luz"], default="parede",
+                    help="referência para igualar a cor: a parede (o mesmo fundo em todos), a pele, ou luz (só o brilho)")
     ap.add_argument("--modelo", default=str(Path(__file__).parent / "modelos" / "face_detection_yunet_2023mar.onnx"))
     a = ap.parse_args()
 
@@ -432,8 +467,10 @@ def main():
     for d in todos:
         saida = renders / f"take-{d['take'].stem}.mp4"
         if d.get("passa"):
+            vf = ",".join([f"fps={FPS}", *para_bt709(d["take"]), f"scale={W}:{H}:flags=lanczos:out_range=tv", "setsar=1",
+                           "format=yuv420p"])
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(d["take"]), "-map", "0:v:0", "-vf",
-                            f"fps={FPS},scale={W}:{H}:flags=lanczos,setsar=1,format=yuv420p", "-c:v", "libx264", "-crf", "15",
+                            vf, "-c:v", "libx264", "-crf", "15",
                             "-preset", "slow", "-g", "30", "-color_primaries", "bt709", "-color_trc", "bt709",
                             "-colorspace", "bt709", "-color_range", "tv", "-video_track_timescale", "15360", str(saida)], check=True)
             n = int(subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",

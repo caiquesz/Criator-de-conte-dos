@@ -2,24 +2,16 @@
  {
   "id": "l1",
   "ini": 0.384,
-  "fim": 0.9,
-  "y": 1340,
-  "blocos": [
+  "fim": 1.74,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 0.384,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "essa",
-        "s": 0.384
-       },
-       {
-        "t": "paciente",
-        "s": 0.46
-       }
-      ]
+      "estilo": "f",
+      "texto": "Essa paciente chegou até mim"
      }
     ]
    }
@@ -27,37 +19,21 @@
  },
  {
   "id": "l2",
-  "ini": 0.9,
-  "fim": 2.26,
-  "y": 1340,
-  "blocos": [
+  "ini": 1.74,
+  "fim": 4.128,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 1.74,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "chegou",
-        "s": 0.9
-       },
-       {
-        "t": "até",
-        "s": 1.22
-       },
-       {
-        "t": "mim",
-        "s": 1.5
-       },
-       {
-        "t": "me",
-        "s": 1.74
-       },
-       {
-        "t": "pedindo",
-        "s": 1.96
-       }
-      ]
+      "estilo": "f",
+      "texto": "me pedindo"
+     },
+     {
+      "estilo": "n",
+      "texto": "projeção no glúteo"
      }
     ]
    }
@@ -65,29 +41,17 @@
  },
  {
   "id": "l3",
-  "ini": 2.26,
-  "fim": 4.128,
-  "y": 1340,
-  "blocos": [
+  "ini": 4.128,
+  "fim": 4.84,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": true,
+    "estilo": "f",
+    "s": 4.128,
     "trechos": [
      {
-      "estilo": "creme",
-      "palavras": [
-       {
-        "t": "projeção",
-        "s": 2.26
-       },
-       {
-        "t": "no",
-        "s": 2.98
-       },
-       {
-        "t": "glúteo",
-        "s": 3.2
-       }
-      ]
+      "estilo": "f",
+      "texto": "e a primeira coisa"
      }
     ]
    }
@@ -95,33 +59,17 @@
  },
  {
   "id": "l4",
-  "ini": 4.128,
-  "fim": 4.84,
-  "y": 1500,
-  "blocos": [
+  "ini": 4.84,
+  "fim": 5.86,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 4.84,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 4.128
-       },
-       {
-        "t": "a",
-        "s": 4.24
-       },
-       {
-        "t": "primeira",
-        "s": 4.42
-       },
-       {
-        "t": "coisa",
-        "s": 4.62
-       }
-      ]
+      "estilo": "f",
+      "texto": "que eu fiz foi"
      }
     ]
    }
@@ -129,33 +77,17 @@
  },
  {
   "id": "l5",
-  "ini": 4.84,
-  "fim": 5.86,
-  "y": 1500,
-  "blocos": [
+  "ini": 5.86,
+  "fim": 7.584,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "F",
+    "s": 5.86,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "que",
-        "s": 4.84
-       },
-       {
-        "t": "eu",
-        "s": 4.98
-       },
-       {
-        "t": "fiz",
-        "s": 5.16
-       },
-       {
-        "t": "foi",
-        "s": 5.728
-       }
-      ]
+      "estilo": "F",
+      "texto": "não colocar a projeção"
      }
     ]
    }
@@ -163,43 +95,17 @@
  },
  {
   "id": "l6",
-  "ini": 5.86,
-  "fim": 7.584,
-  "y": 1500,
-  "blocos": [
+  "ini": 7.584,
+  "fim": 9.06,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": true,
+    "estilo": "f",
+    "s": 7.584,
     "trechos": [
      {
-      "estilo": "grande",
-      "palavras": [
-       {
-        "t": "não",
-        "s": 5.86
-       },
-       {
-        "t": "colocar",
-        "s": 6.22
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "grande": false,
-    "trechos": [
-     {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "a",
-        "s": 6.6
-       },
-       {
-        "t": "projeção",
-        "s": 6.84
-       }
-      ]
+      "estilo": "f",
+      "texto": "e hoje eu vou te explicar"
      }
     ]
    }
@@ -207,46 +113,21 @@
  },
  {
   "id": "l7",
-  "ini": 7.584,
-  "fim": 9.06,
-  "y": 1340,
-  "blocos": [
+  "ini": 9.06,
+  "fim": 11.18,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 9.06,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 7.584
-       },
-       {
-        "t": "hoje",
-        "s": 7.72
-       },
-       {
-        "t": "eu",
-        "s": 7.86
-       },
-       {
-        "t": "vou",
-        "s": 8.02
-       },
-       {
-        "t": "te",
-        "s": 8.1
-       }
-      ]
+      "estilo": "f",
+      "texto": "essa paciente tem"
      },
      {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "explicar",
-        "s": 8.36
-       }
-      ]
+      "estilo": "n",
+      "texto": "29 anos,"
      }
     ]
    }
@@ -254,42 +135,17 @@
  },
  {
   "id": "l8",
-  "ini": 9.06,
-  "fim": 11.18,
-  "y": 1500,
-  "blocos": [
+  "ini": 11.18,
+  "fim": 12.7,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 11.18,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "essa",
-        "s": 9.06
-       },
-       {
-        "t": "paciente",
-        "s": 9.14
-       },
-       {
-        "t": "tem",
-        "s": 9.58
-       }
-      ]
-     },
-     {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "29",
-        "s": 9.78
-       },
-       {
-        "t": "anos",
-        "s": 10.36
-       }
-      ]
+      "estilo": "f",
+      "texto": "treina, se alimenta bem,"
      }
     ]
    }
@@ -297,33 +153,17 @@
  },
  {
   "id": "l9",
-  "ini": 11.18,
-  "fim": 12.7,
-  "y": 1500,
-  "blocos": [
+  "ini": 12.7,
+  "fim": 13.52,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 12.7,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "treina",
-        "s": 11.18
-       },
-       {
-        "t": "se",
-        "s": 11.66
-       },
-       {
-        "t": "alimenta",
-        "s": 11.78
-       },
-       {
-        "t": "bem",
-        "s": 12.24
-       }
-      ]
+      "estilo": "f",
+      "texto": "cuida do corpo"
      }
     ]
    }
@@ -331,29 +171,17 @@
  },
  {
   "id": "l10",
-  "ini": 12.7,
-  "fim": 13.52,
-  "y": 1500,
-  "blocos": [
+  "ini": 13.52,
+  "fim": 15.82,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 13.52,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "cuida",
-        "s": 12.7
-       },
-       {
-        "t": "do",
-        "s": 12.9
-       },
-       {
-        "t": "corpo",
-        "s": 13.12
-       }
-      ]
+      "estilo": "f",
+      "texto": "e o pedido era preciso"
      }
     ]
    }
@@ -361,42 +189,17 @@
  },
  {
   "id": "l11",
-  "ini": 13.52,
-  "fim": 15.82,
-  "y": 1500,
-  "blocos": [
+  "ini": 15.82,
+  "fim": 16.82,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 15.82,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 13.52
-       },
-       {
-        "t": "o",
-        "s": 13.98
-       },
-       {
-        "t": "pedido",
-        "s": 14.2
-       },
-       {
-        "t": "era",
-        "s": 14.54
-       }
-      ]
-     },
-     {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "preciso",
-        "s": 14.976
-       }
-      ]
+      "estilo": "f",
+      "texto": "melhorar o contorno"
      }
     ]
    }
@@ -404,29 +207,17 @@
  },
  {
   "id": "l12",
-  "ini": 15.82,
-  "fim": 16.82,
-  "y": 1500,
-  "blocos": [
+  "ini": 16.82,
+  "fim": 18.46,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 16.82,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "melhorar",
-        "s": 15.82
-       },
-       {
-        "t": "o",
-        "s": 16.18
-       },
-       {
-        "t": "contorno",
-        "s": 16.38
-       }
-      ]
+      "estilo": "f",
+      "texto": "e ganhar projeção"
      }
     ]
    }
@@ -434,34 +225,27 @@
  },
  {
   "id": "l13",
-  "ini": 16.82,
-  "fim": 18.46,
-  "y": 1500,
-  "blocos": [
+  "ini": 18.46,
+  "fim": 20.384,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 18.46,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 16.82
-       },
-       {
-        "t": "ganhar",
-        "s": 17.08
-       }
-      ]
-     },
+      "estilo": "f",
+      "texto": "na parte"
+     }
+    ]
+   },
+   {
+    "estilo": "b",
+    "s": 19.02,
+    "trechos": [
      {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "projeção",
-        "s": 17.5
-       }
-      ]
+      "estilo": "b",
+      "texto": "superior do glúteo"
      }
     ]
    }
@@ -469,47 +253,17 @@
  },
  {
   "id": "l14",
-  "ini": 18.46,
-  "fim": 20.384,
-  "y": 1500,
-  "blocos": [
+  "ini": 20.384,
+  "fim": 21.62,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 20.384,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "na",
-        "s": 18.46
-       },
-       {
-        "t": "parte",
-        "s": 18.74
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "grande": true,
-    "trechos": [
-     {
-      "estilo": "creme",
-      "palavras": [
-       {
-        "t": "superior",
-        "s": 19.02
-       },
-       {
-        "t": "do",
-        "s": 19.48
-       },
-       {
-        "t": "glúteo",
-        "s": 19.68
-       }
-      ]
+      "estilo": "f",
+      "texto": "mas antes de definir"
      }
     ]
    }
@@ -517,29 +271,17 @@
  },
  {
   "id": "l15",
-  "ini": 20.384,
-  "fim": 21.24,
-  "y": 1340,
-  "blocos": [
+  "ini": 21.62,
+  "fim": 23.02,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 21.62,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "mas",
-        "s": 20.384
-       },
-       {
-        "t": "antes",
-        "s": 20.6
-       },
-       {
-        "t": "de",
-        "s": 20.96
-       }
-      ]
+      "estilo": "f",
+      "texto": "qualquer procedimento"
      }
     ]
    }
@@ -547,29 +289,17 @@
  },
  {
   "id": "l16",
-  "ini": 21.24,
-  "fim": 23.02,
-  "y": 1340,
-  "blocos": [
+  "ini": 23.02,
+  "fim": 24.6,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 23.02,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "definir",
-        "s": 21.24
-       },
-       {
-        "t": "qualquer",
-        "s": 21.62
-       },
-       {
-        "t": "procedimento",
-        "s": 22.16
-       }
-      ]
+      "estilo": "f",
+      "texto": "eu avaliei as características"
      }
     ]
    }
@@ -577,38 +307,21 @@
  },
  {
   "id": "l17",
-  "ini": 23.02,
-  "fim": 24.6,
-  "y": 1500,
-  "blocos": [
+  "ini": 24.6,
+  "fim": 26.912,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 24.6,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "eu",
-        "s": 23.02
-       },
-       {
-        "t": "avaliei",
-        "s": 23.32
-       },
-       {
-        "t": "as",
-        "s": 23.7
-       }
-      ]
+      "estilo": "f",
+      "texto": "e as proporções de"
      },
      {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "características",
-        "s": 23.9
-       }
-      ]
+      "estilo": "n",
+      "texto": "cada corpo"
      }
     ]
    }
@@ -616,46 +329,17 @@
  },
  {
   "id": "l18",
-  "ini": 24.6,
-  "fim": 26.912,
-  "y": 1500,
-  "blocos": [
+  "ini": 26.912,
+  "fim": 28.14,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 26.912,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 24.6
-       },
-       {
-        "t": "as",
-        "s": 24.94
-       },
-       {
-        "t": "proporções",
-        "s": 25.14
-       }
-      ]
-     },
-     {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "de",
-        "s": 25.66
-       },
-       {
-        "t": "cada",
-        "s": 25.96
-       },
-       {
-        "t": "corpo",
-        "s": 26.2
-       }
-      ]
+      "estilo": "f",
+      "texto": "e nesse caso,"
      }
     ]
    }
@@ -663,29 +347,17 @@
  },
  {
   "id": "l19",
-  "ini": 26.912,
-  "fim": 28.14,
-  "y": 1340,
-  "blocos": [
+  "ini": 28.14,
+  "fim": 29.46,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 28.14,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 26.912
-       },
-       {
-        "t": "nesse",
-        "s": 27.02
-       },
-       {
-        "t": "caso",
-        "s": 27.34
-       }
-      ]
+      "estilo": "f",
+      "texto": "antes da proporção"
      }
     ]
    }
@@ -693,29 +365,21 @@
  },
  {
   "id": "l20",
-  "ini": 28.14,
-  "fim": 29.46,
-  "y": 1340,
-  "blocos": [
+  "ini": 29.46,
+  "fim": 31.1,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 29.46,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "antes",
-        "s": 28.14
-       },
-       {
-        "t": "da",
-        "s": 28.36
-       },
-       {
-        "t": "proporção",
-        "s": 28.6
-       }
-      ]
+      "estilo": "f",
+      "texto": "havia algo pedindo"
+     },
+     {
+      "estilo": "n",
+      "texto": "atenção,"
      }
     ]
    }
@@ -723,38 +387,17 @@
  },
  {
   "id": "l21",
-  "ini": 29.46,
-  "fim": 31.1,
-  "y": 1340,
-  "blocos": [
+  "ini": 31.1,
+  "fim": 32.16,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 31.1,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "havia",
-        "s": 29.46
-       },
-       {
-        "t": "algo",
-        "s": 29.8
-       },
-       {
-        "t": "pedindo",
-        "s": 30.06
-       }
-      ]
-     },
-     {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "atenção",
-        "s": 30.44
-       }
-      ]
+      "estilo": "f",
+      "texto": "a depressão lateral"
      }
     ]
    }
@@ -762,39 +405,27 @@
  },
  {
   "id": "l22",
-  "ini": 31.1,
-  "fim": 32.16,
-  "y": 1340,
-  "blocos": [
+  "ini": 32.16,
+  "fim": 33.66,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 32.16,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "a",
-        "s": 31.1
-       }
-      ]
+      "estilo": "f",
+      "texto": "que chamamos de"
      }
     ]
    },
    {
-    "grande": true,
+    "estilo": "b",
+    "s": 33.08,
     "trechos": [
      {
-      "estilo": "creme",
-      "palavras": [
-       {
-        "t": "depressão",
-        "s": 31.28
-       },
-       {
-        "t": "lateral",
-        "s": 31.7
-       }
-      ]
+      "estilo": "b",
+      "texto": "hip dips"
      }
     ]
    }
@@ -802,43 +433,17 @@
  },
  {
   "id": "l23",
-  "ini": 32.16,
-  "fim": 33.66,
-  "y": 1340,
-  "blocos": [
+  "ini": 33.66,
+  "fim": 34.76,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 33.66,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "que",
-        "s": 32.16
-       },
-       {
-        "t": "chamamos",
-        "s": 32.46
-       },
-       {
-        "t": "de",
-        "s": 32.86
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "grande": true,
-    "trechos": [
-     {
-      "estilo": "serifa",
-      "palavras": [
-       {
-        "t": "hip dips",
-        "s": 33.08
-       }
-      ]
+      "estilo": "f",
+      "texto": "então o planejamento"
      }
     ]
    }
@@ -846,29 +451,21 @@
  },
  {
   "id": "l24",
-  "ini": 33.66,
-  "fim": 34.76,
-  "y": 1500,
-  "blocos": [
+  "ini": 34.76,
+  "fim": 36.8,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 34.76,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "então",
-        "s": 33.66
-       },
-       {
-        "t": "o",
-        "s": 33.9
-       },
-       {
-        "t": "planejamento",
-        "s": 34.06
-       }
-      ]
+      "estilo": "f",
+      "texto": "foi construído"
+     },
+     {
+      "estilo": "n",
+      "texto": "em etapas"
      }
     ]
    }
@@ -876,43 +473,17 @@
  },
  {
   "id": "l25",
-  "ini": 34.76,
-  "fim": 36.8,
-  "y": 1500,
-  "blocos": [
+  "ini": 36.8,
+  "fim": 37.96,
+  "base": 1105,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 36.8,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "foi",
-        "s": 34.76
-       },
-       {
-        "t": "construído",
-        "s": 34.98
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "grande": true,
-    "trechos": [
-     {
-      "estilo": "creme",
-      "palavras": [
-       {
-        "t": "em",
-        "s": 35.44
-       },
-       {
-        "t": "etapas",
-        "s": 35.74
-       }
-      ]
+      "estilo": "f",
+      "texto": "na primeira sessão,"
      }
     ]
    }
@@ -920,29 +491,17 @@
  },
  {
   "id": "l26",
-  "ini": 36.8,
-  "fim": 37.96,
-  "y": 1075,
-  "blocos": [
+  "ini": 37.96,
+  "fim": 38.72,
+  "base": 1105,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 37.96,
     "trechos": [
      {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "na",
-        "s": 36.8
-       },
-       {
-        "t": "primeira",
-        "s": 36.9
-       },
-       {
-        "t": "sessão",
-        "s": 37.3
-       }
-      ]
+      "estilo": "f",
+      "texto": "nós trabalhamos"
      }
     ]
    }
@@ -950,42 +509,21 @@
  },
  {
   "id": "l27",
-  "ini": 37.96,
+  "ini": 38.72,
   "fim": 40.54,
-  "y": 1075,
-  "blocos": [
+  "base": 1105,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 38.72,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "nós",
-        "s": 37.96
-       },
-       {
-        "t": "trabalhamos",
-        "s": 38.32
-       },
-       {
-        "t": "o",
-        "s": 38.72
-       }
-      ]
+      "estilo": "f",
+      "texto": "o"
      },
      {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "contorno",
-        "s": 39.02
-       },
-       {
-        "t": "lateral",
-        "s": 39.46
-       }
-      ]
+      "estilo": "n",
+      "texto": "contorno lateral,"
      }
     ]
    }
@@ -994,28 +532,16 @@
  {
   "id": "l28",
   "ini": 40.54,
-  "fim": 41.56,
-  "y": 1340,
-  "blocos": [
+  "fim": 41.38,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 40.54,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "porque",
-        "s": 40.54
-       },
-       {
-        "t": "projetar",
-        "s": 40.8
-       },
-       {
-        "t": "essa",
-        "s": 41.38
-       }
-      ]
+      "estilo": "f",
+      "texto": "porque projetar"
      }
     ]
    }
@@ -1023,33 +549,17 @@
  },
  {
   "id": "l29",
-  "ini": 41.56,
+  "ini": 41.38,
   "fim": 43.584,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 41.38,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "região",
-        "s": 41.56
-       },
-       {
-        "t": "superior",
-        "s": 42.02
-       },
-       {
-        "t": "do",
-        "s": 42.64
-       },
-       {
-        "t": "glúteo",
-        "s": 42.84
-       }
-      ]
+      "estilo": "f",
+      "texto": "essa região superior do glúteo"
      }
     ]
    }
@@ -1059,40 +569,19 @@
   "id": "l30",
   "ini": 43.584,
   "fim": 45.728,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 43.584,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "sem",
-        "s": 43.584
-       },
-       {
-        "t": "antes",
-        "s": 43.8
-       },
-       {
-        "t": "tratar",
-        "s": 44.16
-       },
-       {
-        "t": "o",
-        "s": 44.58
-       }
-      ]
+      "estilo": "f",
+      "texto": "sem antes tratar o"
      },
      {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "hip dips",
-        "s": 44.76
-       }
-      ]
+      "estilo": "n",
+      "texto": "hip dips"
      }
     ]
    }
@@ -1102,35 +591,15 @@
   "id": "l31",
   "ini": 45.728,
   "fim": 46.62,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 45.728,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "faz",
-        "s": 45.728
-       },
-       {
-        "t": "com",
-        "s": 45.88
-       },
-       {
-        "t": "que",
-        "s": 46.06
-       },
-       {
-        "t": "o",
-        "s": 46.16
-       },
-       {
-        "t": "resultado",
-        "s": 46.36
-       }
-      ]
+      "estilo": "f",
+      "texto": "faz com que o resultado"
      }
     ]
    }
@@ -1140,37 +609,25 @@
   "id": "l32",
   "ini": 46.62,
   "fim": 48.256,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 46.62,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "não",
-        "s": 46.62
-       },
-       {
-        "t": "fique",
-        "s": 46.94
-       }
-      ]
+      "estilo": "f",
+      "texto": "não fique"
      }
     ]
    },
    {
-    "grande": true,
+    "estilo": "s",
+    "s": 47.14,
     "trechos": [
      {
-      "estilo": "serifa",
-      "palavras": [
-       {
-        "t": "harmonioso",
-        "s": 47.14
-       }
-      ]
+      "estilo": "s",
+      "texto": "harmonioso"
      }
     ]
    }
@@ -1180,41 +637,15 @@
   "id": "l33",
   "ini": 48.256,
   "fim": 49.82,
-  "y": 1075,
-  "blocos": [
+  "base": 1105,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 48.256,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "já",
-        "s": 48.256
-       },
-       {
-        "t": "na",
-        "s": 48.54
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "grande": true,
-    "trechos": [
-     {
-      "estilo": "grande",
-      "palavras": [
-       {
-        "t": "segunda",
-        "s": 48.72
-       },
-       {
-        "t": "sessão",
-        "s": 49.08
-       }
-      ]
+      "estilo": "f",
+      "texto": "já na segunda sessão,"
      }
     ]
    }
@@ -1224,31 +655,15 @@
   "id": "l34",
   "ini": 49.82,
   "fim": 51.28,
-  "y": 1075,
-  "blocos": [
+  "base": 1105,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 49.82,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "com",
-        "s": 49.82
-       },
-       {
-        "t": "a",
-        "s": 50.1
-       },
-       {
-        "t": "base",
-        "s": 50.24
-       },
-       {
-        "t": "pronta",
-        "s": 50.44
-       }
-      ]
+      "estilo": "f",
+      "texto": "com a base pronta,"
      }
     ]
    }
@@ -1258,27 +673,15 @@
   "id": "l35",
   "ini": 51.28,
   "fim": 52.32,
-  "y": 1075,
-  "blocos": [
+  "base": 1105,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 51.28,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "nós",
-        "s": 51.28
-       },
-       {
-        "t": "conseguimos",
-        "s": 51.52
-       },
-       {
-        "t": "trabalhar",
-        "s": 51.94
-       }
-      ]
+      "estilo": "f",
+      "texto": "nós conseguimos trabalhar"
      }
     ]
    }
@@ -1288,27 +691,15 @@
   "id": "l36",
   "ini": 52.32,
   "fim": 53.792,
-  "y": 1075,
-  "blocos": [
+  "base": 1105,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 52.32,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "essa",
-        "s": 52.32
-       },
-       {
-        "t": "região",
-        "s": 52.58
-       },
-       {
-        "t": "superior",
-        "s": 52.98
-       }
-      ]
+      "estilo": "f",
+      "texto": "essa região superior"
      }
     ]
    }
@@ -1318,45 +709,15 @@
   "id": "l37",
   "ini": 53.792,
   "fim": 54.78,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 53.792,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "que",
-        "s": 53.792
-       },
-       {
-        "t": "foi",
-        "s": 53.9
-       },
-       {
-        "t": "a",
-        "s": 54.08
-       }
-      ]
-     },
-     {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "queixa",
-        "s": 54.26
-       }
-      ]
-     },
-     {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "dela",
-        "s": 54.54
-       }
-      ]
+      "estilo": "f",
+      "texto": "que foi a queixa dela"
      }
     ]
    }
@@ -1366,27 +727,15 @@
   "id": "l38",
   "ini": 54.78,
   "fim": 55.808,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 54.78,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "desde",
-        "s": 54.78
-       },
-       {
-        "t": "o",
-        "s": 55.12
-       },
-       {
-        "t": "início",
-        "s": 55.32
-       }
-      ]
+      "estilo": "f",
+      "texto": "desde o início"
      }
     ]
    }
@@ -1396,31 +745,15 @@
   "id": "l39",
   "ini": 55.808,
   "fim": 57.08,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": true,
+    "estilo": "F",
+    "s": 55.808,
     "trechos": [
      {
-      "estilo": "creme",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 55.808
-       },
-       {
-        "t": "não",
-        "s": 55.94
-       },
-       {
-        "t": "termina",
-        "s": 56.22
-       },
-       {
-        "t": "aí",
-        "s": 56.64
-       }
-      ]
+      "estilo": "F",
+      "texto": "e não termina aí"
      }
     ]
    }
@@ -1429,41 +762,16 @@
  {
   "id": "l40",
   "ini": 57.08,
-  "fim": 58.88,
-  "y": 1340,
-  "blocos": [
+  "fim": 58.12,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 57.08,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "essa",
-        "s": 57.08
-       },
-       {
-        "t": "paciente",
-        "s": 57.2
-       },
-       {
-        "t": "segue",
-        "s": 57.76
-       },
-       {
-        "t": "em",
-        "s": 58.12
-       }
-      ]
-     },
-     {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "tratamento",
-        "s": 58.28
-       }
-      ]
+      "estilo": "f",
+      "texto": "essa paciente segue"
      }
     ]
    }
@@ -1471,25 +779,17 @@
  },
  {
   "id": "l41",
-  "ini": 58.88,
-  "fim": 59.94,
-  "y": 1340,
-  "blocos": [
+  "ini": 58.12,
+  "fim": 58.88,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 58.12,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 58.88
-       },
-       {
-        "t": "manutenções",
-        "s": 59.26
-       }
-      ]
+      "estilo": "f",
+      "texto": "em tratamento"
      }
     ]
    }
@@ -1497,33 +797,17 @@
  },
  {
   "id": "l42",
-  "ini": 59.94,
-  "fim": 60.86,
-  "y": 1340,
-  "blocos": [
+  "ini": 58.88,
+  "fim": 60.54,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 58.88,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "de",
-        "s": 59.94
-       },
-       {
-        "t": "acordo",
-        "s": 60.3
-       },
-       {
-        "t": "com",
-        "s": 60.54
-       },
-       {
-        "t": "o",
-        "s": 60.72
-       }
-      ]
+      "estilo": "f",
+      "texto": "e manutenções de acordo"
      }
     ]
    }
@@ -1531,38 +815,17 @@
  },
  {
   "id": "l43",
-  "ini": 60.86,
+  "ini": 60.54,
   "fim": 62.32,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 60.54,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "que",
-        "s": 60.86
-       },
-       {
-        "t": "o",
-        "s": 60.92
-       }
-      ]
-     },
-     {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "corpo",
-        "s": 60.98
-       },
-       {
-        "t": "responde",
-        "s": 61.2
-       }
-      ]
+      "estilo": "f",
+      "texto": "com o que o corpo responde"
      }
     ]
    }
@@ -1572,27 +835,15 @@
   "id": "l44",
   "ini": 62.32,
   "fim": 63.46,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 62.32,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "a",
-        "s": 62.32
-       },
-       {
-        "t": "harmonização",
-        "s": 62.52
-       },
-       {
-        "t": "glútea",
-        "s": 62.96
-       }
-      ]
+      "estilo": "f",
+      "texto": "a harmonização glútea"
      }
     ]
    }
@@ -1602,31 +853,15 @@
   "id": "l45",
   "ini": 63.46,
   "fim": 64.92,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": true,
+    "estilo": "F",
+    "s": 63.46,
     "trechos": [
      {
-      "estilo": "grande",
-      "palavras": [
-       {
-        "t": "não",
-        "s": 63.46
-       },
-       {
-        "t": "é",
-        "s": 63.72
-       },
-       {
-        "t": "um",
-        "s": 63.92
-       },
-       {
-        "t": "evento",
-        "s": 64.14
-       }
-      ]
+      "estilo": "F",
+      "texto": "não é um evento,"
      }
     ]
    }
@@ -1636,27 +871,25 @@
   "id": "l46",
   "ini": 64.92,
   "fim": 65.88,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": true,
+    "estilo": "f",
+    "s": 64.92,
     "trechos": [
      {
-      "estilo": "serifa",
-      "palavras": [
-       {
-        "t": "é",
-        "s": 64.92
-       },
-       {
-        "t": "um",
-        "s": 65.02
-       },
-       {
-        "t": "processo",
-        "s": 65.26
-       }
-      ]
+      "estilo": "f",
+      "texto": "é um"
+     }
+    ]
+   },
+   {
+    "estilo": "b",
+    "s": 65.26,
+    "trechos": [
+     {
+      "estilo": "b",
+      "texto": "processo"
      }
     ]
    }
@@ -1666,35 +899,15 @@
   "id": "l47",
   "ini": 65.88,
   "fim": 67.616,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 65.88,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "o",
-        "s": 65.88
-       },
-       {
-        "t": "que",
-        "s": 66.06
-       },
-       {
-        "t": "ela",
-        "s": 66.2
-       },
-       {
-        "t": "me",
-        "s": 66.42
-       },
-       {
-        "t": "pediu",
-        "s": 66.72
-       }
-      ]
+      "estilo": "f",
+      "texto": "o que ela me pediu"
      }
     ]
    }
@@ -1704,32 +917,19 @@
   "id": "l48",
   "ini": 67.616,
   "fim": 68.8,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 67.616,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "era",
-        "s": 67.616
-       },
-       {
-        "t": "o",
-        "s": 67.82
-       }
-      ]
+      "estilo": "f",
+      "texto": "era o"
      },
      {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "destino",
-        "s": 68.08
-       }
-      ]
+      "estilo": "n",
+      "texto": "destino,"
      }
     ]
    }
@@ -1739,39 +939,15 @@
   "id": "l49",
   "ini": 68.8,
   "fim": 70.656,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 68.8,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "o",
-        "s": 68.8
-       },
-       {
-        "t": "que",
-        "s": 68.86
-       },
-       {
-        "t": "o",
-        "s": 68.92
-       },
-       {
-        "t": "corpo",
-        "s": 68.98
-       },
-       {
-        "t": "dela",
-        "s": 69.16
-       },
-       {
-        "t": "precisava",
-        "s": 69.48
-       }
-      ]
+      "estilo": "f",
+      "texto": "o que o corpo dela precisava"
      }
     ]
    }
@@ -1781,45 +957,25 @@
   "id": "l50",
   "ini": 70.656,
   "fim": 72.0,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 70.656,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "era",
-        "s": 70.656
-       },
-       {
-        "t": "o",
-        "s": 70.88
-       }
-      ]
+      "estilo": "f",
+      "texto": "era o"
      }
     ]
    },
    {
-    "grande": true,
+    "estilo": "b",
+    "s": 71.0,
     "trechos": [
      {
-      "estilo": "creme",
-      "palavras": [
-       {
-        "t": "ponto",
-        "s": 71.0
-       },
-       {
-        "t": "de",
-        "s": 71.18
-       },
-       {
-        "t": "partida",
-        "s": 71.4
-       }
-      ]
+      "estilo": "b",
+      "texto": "ponto de partida"
      }
     ]
    }
@@ -1829,27 +985,15 @@
   "id": "l51",
   "ini": 72.0,
   "fim": 72.96,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 72.0,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "um",
-        "s": 72.0
-       },
-       {
-        "t": "bom",
-        "s": 72.22
-       },
-       {
-        "t": "resultado",
-        "s": 72.44
-       }
-      ]
+      "estilo": "f",
+      "texto": "um bom resultado"
      }
     ]
    }
@@ -1859,36 +1003,15 @@
   "id": "l52",
   "ini": 72.96,
   "fim": 74.82,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 72.96,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "não",
-        "s": 72.96
-       },
-       {
-        "t": "começa",
-        "s": 73.3
-       },
-       {
-        "t": "na",
-        "s": 73.74
-       }
-      ]
-     },
-     {
-      "estilo": "negrito",
-      "palavras": [
-       {
-        "t": "aplicação",
-        "s": 73.92
-       }
-      ]
+      "estilo": "f",
+      "texto": "não começa na aplicação,"
      }
     ]
    }
@@ -1898,49 +1021,29 @@
   "id": "l53",
   "ini": 74.82,
   "fim": 76.66,
-  "y": 1340,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 74.82,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "começa",
-        "s": 74.82
-       },
-       {
-        "t": "com",
-        "s": 75.06
-       },
-       {
-        "t": "uma",
-        "s": 75.32
-       }
-      ]
+      "estilo": "f",
+      "texto": "começa com uma"
      }
     ]
    },
    {
-    "grande": true,
+    "estilo": "f",
+    "s": 75.44,
     "trechos": [
      {
-      "estilo": "grande",
-      "palavras": [
-       {
-        "t": "avaliação",
-        "s": 75.44
-       },
-       {
-        "t": "bem",
-        "s": 75.94
-       },
-       {
-        "t": "feita",
-        "s": 76.3
-       }
-      ]
+      "estilo": "f",
+      "texto": "avaliação"
+     },
+     {
+      "estilo": "n",
+      "texto": "bem feita"
      }
     ]
    }
@@ -1949,28 +1052,16 @@
  {
   "id": "l54",
   "ini": 76.66,
-  "fim": 77.54,
-  "y": 1340,
-  "blocos": [
+  "fim": 78.14,
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 76.66,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "e",
-        "s": 76.66
-       },
-       {
-        "t": "um",
-        "s": 76.86
-       },
-       {
-        "t": "planejamento",
-        "s": 76.98
-       }
-      ]
+      "estilo": "f",
+      "texto": "e um planejamento pensado"
      }
     ]
    }
@@ -1978,43 +1069,27 @@
  },
  {
   "id": "l55",
-  "ini": 77.54,
+  "ini": 78.14,
   "fim": 79.5,
-  "y": 1500,
-  "blocos": [
+  "base": 1530,
+  "linhas": [
    {
-    "grande": false,
+    "estilo": "f",
+    "s": 78.14,
     "trechos": [
      {
-      "estilo": "fina",
-      "palavras": [
-       {
-        "t": "pensado",
-        "s": 77.54
-       },
-       {
-        "t": "para",
-        "s": 78.14
-       }
-      ]
+      "estilo": "f",
+      "texto": "para"
      }
     ]
    },
    {
-    "grande": true,
+    "estilo": "b",
+    "s": 78.46,
     "trechos": [
      {
-      "estilo": "creme",
-      "palavras": [
-       {
-        "t": "cada",
-        "s": 78.46
-       },
-       {
-        "t": "paciente",
-        "s": 78.66
-       }
-      ]
+      "estilo": "b",
+      "texto": "cada paciente"
      }
     ]
    }
