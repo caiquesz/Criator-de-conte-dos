@@ -100,6 +100,15 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
 - **Foto que a cliente retocou** (6ª versão: tirou uma manchinha que a paciente não quer mostrar): troque a original
   em `fotos-originais/` pela retocada (mesmo nome), rode `preparar_fotos.converter` e o `cortar_fotos.py`, e não
   guarde a versão sem retoque em lugar nenhum.
+- **Trecho de voz gravado à parte** (Caso de paciente, 7ª versão: "nessa parte a gente gravou uma gravação de áudio
+  dela, por isso o tom ficou diferente"): a voz continua intocada, **só aquele trecho** é igualado ao resto, e só
+  porque ela pediu. Ache as emendas pelas pausas, meça o timbre **só nas vogais** contra trechos de 2,6 s da fala
+  normal (com tudo, o "s" e o "ch" da frase enganam a medida) e confira a altura da voz (F0): lá era a mesma, a
+  diferença era o microfone do celular (agudos +6 a +22 dB, um pouco de grave) e 2 dB a mais de volume. Corrija
+  com EQ de fase linear (~90% da diferença) e o volume das frases vizinhas, transições de 20 ms nas pausas, e
+  **nunca mude a altura da voz** (é o que soaria artificial). O resto sai idêntico ao original, amostra por
+  amostra; o plano lê a voz de `assets/video/voz-igualada.wav`. Modelo: `projetos/caso-paciente/igualar_voz.py`.
+- **Som do lápis baixo:** a 0,75 ela achou alto; 0,3 (uns 17 dB abaixo da voz) ficou o volume.
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,

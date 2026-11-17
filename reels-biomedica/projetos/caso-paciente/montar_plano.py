@@ -308,7 +308,7 @@ for t in entradas[:-1]:
     candidatos.append((t, "click-agudo", 0.7))                           # a palavra que pesa
 candidatos.append((entradas[-1], "brilho", 0.6))                         # "cada paciente", no fim
 for lado in MARCACAO["lados"]:
-    candidatos.append((lado["ini"], "lapis", 0.75))                      # o lápis riscando a marcação
+    candidatos.append((lado["ini"], "lapis", 0.3))                       # o lápis riscando (7ª: "ficou muito alto", era 0,75)
 aceitos = []
 for t, som, vol in candidatos:
     if som == "lapis" or all(abs(t - x[0]) >= 0.4 or (som == "click" and x[1] == "whoosh-rapido" and t - x[0] >= 0.39)
@@ -318,7 +318,8 @@ sons = [{"t": round(t, 3), "som": som, "vol": vol} for t, som, vol in sorted(ace
 
 plano = {
     "video": "assets/video/video.mp4",
-    "video_original": "assets/video/original.mov",
+    # a voz da mixagem: o original, com só a frase gravada à parte igualada ao resto (igualar_voz.py, 7ª versão)
+    "video_original": "assets/video/voz-igualada.wav",
     "video_tem_audio": True,          # o som do original vai junto no vídeo-base (o HyperFrames pede); a mixagem lê a voz do original
     "duracao": DUR,
     "cores": {"texto": "#FFFFFF", "destaque": "#FFFFFF", "destaque_escuro": "#FFFFFF", "brilho": False, "vazamento": "#FF8A3D"},

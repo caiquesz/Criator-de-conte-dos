@@ -1,6 +1,6 @@
 {
  "video": "assets/video/video.mp4",
- "video_original": "assets/video/original.mov",
+ "video_original": "assets/video/voz-igualada.wav",
  "video_tem_audio": true,
  "duracao": 79.5,
  "cores": {
@@ -106,12 +106,12 @@
   {
    "t": 31.4,
    "som": "lapis",
-   "vol": 0.75
+   "vol": 0.3
   },
   {
    "t": 32.38,
    "som": "lapis",
-   "vol": 0.75
+   "vol": 0.3
   },
   {
    "t": 33.08,
