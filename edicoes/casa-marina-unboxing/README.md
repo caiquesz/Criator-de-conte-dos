@@ -2,8 +2,17 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v15.mp4`.** O vídeo tem 38,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
-As versões anteriores ficaram no histórico do git (v14 `b6eea67`, v13 `aac6a06`, v12 `f3abec4`, v11 `ef70f53`, v10 `9b82e24`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+**Entrega atual: `casa-marina-unboxing-v16.mp4`.** O vídeo tem 38,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
+As versões anteriores ficaram no histórico do git (v15 `caa9581`, v14 `b6eea67`, v13 `aac6a06`, v12 `f3abec4`, v11 `ef70f53`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v16: ajustes sobre a v15
+- **Fonte nova nas duas linhas**, a partir da referência da cliente ("Elegant", fonte Luxena):
+  - a Luxena é paga, então usei a gratuita mais parecida e legível no vídeo: **Noto Serif Display** (OFL), serifada de alto contraste, condensada (largura 90);
+  - linha de cima (produto) com peso 450, em maiúsculas e minúsculas como na referência ("Tapete Geométrico");
+  - linha de baixo (material ou medida) na mesma fonte, com peso 420.
+- **Maior:** o nome passou de 60 px para 104 px (ajusta sozinho até 880 px de largura) e a linha de baixo ficou com 64 px. Continua branco, sem contorno, com sombra difusa.
+- A posição de cada nome foi conferida de novo com os blocos maiores. O sousplat subiu para y=390, para ler melhor no take da mesa com o prato.
+- Cortes, grading e logo continuam os da v15 (`scripts/render_v16.py` sobre o master limpo da v14).
 
 ## v15: ajustes sobre a v14
 - **Logo de abertura no centro da tela:** a posição passou de (540, 600) para (540, 960).
