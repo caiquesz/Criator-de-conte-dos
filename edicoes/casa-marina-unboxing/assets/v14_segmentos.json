@@ -1,0 +1,142 @@
+[
+ {
+  "name": "caixa_chega",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6847.MOV",
+  "start": 0.3,
+  "frames": 78,
+  "out0": 0
+ },
+ {
+  "name": "adesivo",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/out/v11/adesivo_slow.mp4",
+  "start": 0.6,
+  "frames": 48,
+  "out0": 78
+ },
+ {
+  "name": "abre_caixa",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6850.MOV",
+  "start": 1.4,
+  "frames": 36,
+  "out0": 126
+ },
+ {
+  "name": "papel_seda",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6851.MOV",
+  "start": 1.4,
+  "frames": 45,
+  "out0": 162
+ },
+ {
+  "name": "tira_sousplat_cru",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6852.MOV",
+  "start": 3.4,
+  "frames": 33,
+  "out0": 207
+ },
+ {
+  "name": "tira_sousplat_verm",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6853.MOV",
+  "start": 3.5,
+  "frames": 33,
+  "out0": 240
+ },
+ {
+  "name": "mesa_prato",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw/video.MOV",
+  "start": 32.6667,
+  "frames": 33,
+  "out0": 273
+ },
+ {
+  "name": "mesa_vermelho",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw/video.MOV",
+  "start": 36.2333,
+  "frames": 57,
+  "out0": 306
+ },
+ {
+  "name": "tira_retang_marinho",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6861.MOV",
+  "start": 4.2,
+  "frames": 48,
+  "out0": 363
+ },
+ {
+  "name": "deck_retang_vermelho",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6877.MOV",
+  "start": 0.5,
+  "frames": 45,
+  "out0": 411
+ },
+ {
+  "name": "deck_retang_marinho",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6876.MOV",
+  "start": 0.2,
+  "frames": 60,
+  "out0": 456
+ },
+ {
+  "name": "tira_geometrico",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6857.MOV",
+  "start": 7.0,
+  "frames": 38,
+  "out0": 516
+ },
+ {
+  "name": "deck_geometrico",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6868.MOV",
+  "start": 2.3,
+  "frames": 66,
+  "out0": 554
+ },
+ {
+  "name": "tira_passadeira",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6859.MOV",
+  "start": 4.3,
+  "frames": 39,
+  "out0": 620
+ },
+ {
+  "name": "deck_passadeira_jogo",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6862.MOV",
+  "start": 1.4,
+  "frames": 69,
+  "out0": 659
+ },
+ {
+  "name": "abre_sala",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6884.MOV",
+  "start": 1.9,
+  "frames": 78,
+  "out0": 728
+ },
+ {
+  "name": "deck_tapete_sala",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6890.MOV",
+  "start": 2.5,
+  "frames": 60,
+  "out0": 806
+ },
+ {
+  "name": "menores_aparecem",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/out/v10/menores_live.mp4",
+  "start": 0.0,
+  "frames": 108,
+  "out0": 866
+ },
+ {
+  "name": "tira_redondo_teal",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6854.MOV",
+  "start": 5.3,
+  "frames": 39,
+  "out0": 974
+ },
+ {
+  "name": "redondos_final",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6882.MOV",
+  "start": 0.0,
+  "frames": 153,
+  "out0": 1013
+ }
+]

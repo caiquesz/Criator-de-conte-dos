@@ -1,0 +1,163 @@
+[
+ {
+  "name": "caixa_chega",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6847.MOV",
+  "start": 0.3,
+  "frames": 78,
+  "out0": 0
+ },
+ {
+  "name": "adesivo",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6849.MOV",
+  "start": 1.1,
+  "frames": 39,
+  "out0": 78
+ },
+ {
+  "name": "abre_caixa",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6850.MOV",
+  "start": 1.4,
+  "frames": 36,
+  "out0": 117
+ },
+ {
+  "name": "papel_seda",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6851.MOV",
+  "start": 1.4,
+  "frames": 45,
+  "out0": 153
+ },
+ {
+  "name": "tira_sousplat_cru",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6852.MOV",
+  "start": 3.4,
+  "frames": 33,
+  "out0": 198
+ },
+ {
+  "name": "tira_sousplat_verm",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6853.MOV",
+  "start": 3.5,
+  "frames": 33,
+  "out0": 231
+ },
+ {
+  "name": "mesa_prato",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw/video.MOV",
+  "start": 32.6667,
+  "frames": 33,
+  "out0": 264
+ },
+ {
+  "name": "mesa_vermelho",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw/video.MOV",
+  "start": 36.2333,
+  "frames": 57,
+  "out0": 297
+ },
+ {
+  "name": "tira_redondo_teal",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6854.MOV",
+  "start": 5.3,
+  "frames": 39,
+  "out0": 354
+ },
+ {
+  "name": "tira_redondo_cru",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6855.MOV",
+  "start": 4.0,
+  "frames": 36,
+  "out0": 393
+ },
+ {
+  "name": "deck_redondo_cru",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6872.MOV",
+  "start": 0.5,
+  "frames": 60,
+  "out0": 429
+ },
+ {
+  "name": "tira_retang_marinho",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6861.MOV",
+  "start": 4.2,
+  "frames": 48,
+  "out0": 489
+ },
+ {
+  "name": "deck_retang_vermelho",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6875.MOV",
+  "start": 1.4,
+  "frames": 39,
+  "out0": 537
+ },
+ {
+  "name": "deck_retang_marinho",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6876.MOV",
+  "start": 0.2,
+  "frames": 60,
+  "out0": 576
+ },
+ {
+  "name": "tira_geometrico",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6857.MOV",
+  "start": 5.4,
+  "frames": 48,
+  "out0": 636
+ },
+ {
+  "name": "deck_geometrico",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6868.MOV",
+  "start": 2.3,
+  "frames": 66,
+  "out0": 684
+ },
+ {
+  "name": "tira_passadeira",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6859.MOV",
+  "start": 4.3,
+  "frames": 39,
+  "out0": 750
+ },
+ {
+  "name": "deck_passadeira_jogo",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6862.MOV",
+  "start": 1.4,
+  "frames": 69,
+  "out0": 789
+ },
+ {
+  "name": "deck_tapete_sala",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6890.MOV",
+  "start": 2.5,
+  "frames": 60,
+  "out0": 858
+ },
+ {
+  "name": "menores_aparecem",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/out/v10/menores_live.mp4",
+  "start": 0.0,
+  "frames": 108,
+  "out0": 918
+ },
+ {
+  "name": "oval_verde",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6883.MOV",
+  "start": 0.0,
+  "frames": 39,
+  "out0": 1026
+ },
+ {
+  "name": "oval_cru",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6883.MOV",
+  "start": 3.6,
+  "frames": 42,
+  "out0": 1065
+ },
+ {
+  "name": "oval_teal",
+  "file": "/tmp/claude-0/-home-user-Criator-de-conte-dos/0821da8b-b796-583d-9f22-c5b5d9f21fee/scratchpad/raw2/IMG_6883.MOV",
+  "start": 6.4,
+  "frames": 66,
+  "out0": 1107
+ }
+]
