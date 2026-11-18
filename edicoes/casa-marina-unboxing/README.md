@@ -2,8 +2,15 @@
 
 Vídeo bruto: `copy_61C673C5-00F2-4F88-ACCF-1E32521DE24E.MOV` (Drive), 71,9 s, 1080x1920, 30 fps.
 
-**Entrega atual: `casa-marina-unboxing-v16.mp4`.** O vídeo tem 38,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
-As versões anteriores ficaram no histórico do git (v15 `caa9581`, v14 `b6eea67`, v13 `aac6a06`, v12 `f3abec4`, v11 `ef70f53`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+**Entrega atual: `casa-marina-unboxing-v17.mp4`.** O vídeo tem 38,9 s, gravado no deck de madeira, com color grading. É H.264 Main@4.0, 1080x1920 a 30 fps, com faixa de áudio em silêncio.
+As versões anteriores ficaram no histórico do git (v16 `19c9ecc`, v15 `caa9581`, v14 `b6eea67`, v13 `aac6a06`, v12 `f3abec4`). A versão com o piso original continua em `casa-marina-unboxing-editado-v5.mp4`.
+
+## v17: ajustes sobre a v16
+- **Linhas encaixadas:** a linha de baixo sobe o máximo possível sem que nenhuma letra fique a menos de 8 px de uma letra da linha de cima.
+  - O cálculo é feito nas máscaras reais das letras: as hastes de "p" e "g" em cima se encaixam entre as de "f", "d" e "l" embaixo, sem sobreposição.
+  - O espaço é calculado para cada nome (`tight_gap` em `scripts/render_v17.py`).
+- **Mais minimalista:** o nome passou de 104 px para 80 px e de peso 450 para 380; a linha de baixo passou de 64 px para 50 px, com peso 380.
+- Cortes, grading, logo e posições continuam os da v16.
 
 ## v16: ajustes sobre a v15
 - **Fonte nova nas duas linhas**, a partir da referência da cliente ("Elegant", fonte Luxena):
