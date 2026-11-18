@@ -74,7 +74,9 @@ ultima = lambda e: e[1] if e[0] != "M" else e[1][-1][1]
 assert primeira(L[0]) == 4 and ultima(L[-1]) == len(ws) - 1
 assert all(primeira(b) == ultima(a) + 1 for a, b in zip(L, L[1:])), "as legendas têm que cobrir todas as palavras"
 
-Y_LEGENDA = 1089                 # meio da linha da legenda (referência: 726 de 1280)
+# 4ª versão (18/11: "desce a legenda um pouco mais"): a referência tem a legenda a 1089 (726 de 1280); a cliente
+# pediu mais baixa que lá. Só a legenda normal desce; as maiúsculas, que ela aprovou, ficam onde estão
+Y_LEGENDA = 1159                 # meio da linha da legenda
 Y_MAIUSC = 1107                  # meio do bloco de maiúsculas (referência: 736–747 de 1280, centralizado em x)
 # na referência o "HARMONIZAÇÃO / GLÚTEA" fica alinhado à esquerda (x 138 de 720) e mais baixo (meio a 758 de 1280):
 # o "HARMONIZAÇÃO / CORPORAL" daqui, que é o mesmo momento, vai do mesmo jeito
@@ -146,6 +148,10 @@ js_l += [f'tl.set("#assin", {{opacity:1}}, {n(ASSIN_T)});',
 # dois laços, o y com laço e bem inclinada. Comparadas na mesma escala (scratchpad, fontes-assin): a Mr Dafoe das
 # outras versões tem traço de ~14 px e contraste forte; a Satisfy (Apache 2.0) tem o peso e os laços da referência,
 # e com mais 10° de inclinação fica com a mesma inclinação.
+# Legendas (4ª versão, "não gostei da fonte da legenda tradicional, não achei igual à referência"): a Roboto 300 tinha
+# o peso certo mas outro desenho (letras redondas mais estreitas, outro "a", "e", "g", "t"); agora é a FreeSans (o
+# desenho da Helvetica) afinada até o peso da Light da referência (fonte_legenda.py), 56 px e −0,012em: altura-x de
+# 31 px (lá, 30) e "precisa de complemento" com 570 px de largura (lá, 573).
 # 2ª versão (18/11: "as fontes não estão nada iguais"): a referência é Helvetica Neue (o R de perna reta, o G com
 # esporão, o "a" com rabinho, letras coladas): UltraLight nas maiúsculas e nas duas linhas finas do título, Light
 # nas legendas, Bold no "O CLIMA?". A Inter da 1ª versão é mais larga e tem outro "a" e outro G. Entre as livres,
@@ -155,6 +161,7 @@ FONTES = "".join(
     f'\n    @font-face {{ font-family: "Roboto Ref"; font-weight: {p}; src: url("assets/fonts/Roboto-{p}.woff2") format("woff2"); }}'
     for p in (100, 300)) + \
     '\n    @font-face { font-family: "Helvetica Ref"; font-weight: 700; src: url("assets/fonts/FreeSansBold.ttf"); }' + \
+    '\n    @font-face { font-family: "Legenda Ref"; src: url("assets/fonts/FreeSans-LightRef.ttf"); }' + \
     '\n    @font-face { font-family: "Assinatura"; src: url("assets/fonts/Satisfy-400.woff2") format("woff2"); }'
 # 3ª versão (18/11: "não quero nenhum contorno nas fontes, nenhuma sombra, nenhum contorno preto; igualzinho tá no
 # vídeo"): como na referência, letra branca pura, sem sombra nenhuma
@@ -188,7 +195,7 @@ DRA, NOME1, NOME2 = (30, 95, 80), (196, 31, 140), (74, 161, 140)   # (x, y dentr
 # PESAR_DEPURAR=1 pinta cada palavra de uma cor para medir onde caiu
 COR_DEP = ("#FF0000", "#00FF00", "#0000FF") if os.environ.get("PESAR_DEPURAR") else ("#FFFFFF",) * 3
 css_l = f"""    .c {{ position: absolute; left: 60px; width: 960px; transform: translateY(-50%); text-align: center; opacity: 0;
-         font-family: "Roboto Ref"; font-weight: 300; font-size: 59px; line-height: 1.1; letter-spacing: -0.055em;
+         font-family: "Legenda Ref"; font-weight: 400; font-size: 56px; line-height: 1.1; letter-spacing: -0.012em;
          color: #FFFFFF; text-shadow: {SOMBRA}; white-space: nowrap; }}
     .m {{ position: absolute; left: 20px; width: 1040px; transform: translateY(-50%); text-align: center; opacity: 0;
          font-family: "Roboto Ref"; font-weight: 100; font-size: 98px; line-height: 0.84; letter-spacing: -0.052em;

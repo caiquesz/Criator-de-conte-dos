@@ -155,6 +155,17 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     última palavra, então o último quadro fica parado 26 quadros (`CAUDA` no `montar_video.py`; a voz vai para
     `assets/video/voz.wav`, amostra por amostra, mais silêncio). A letra de pincel agora é a Satisfy inclinada mais
     10° (o traço médio e os laços da referência); a Mr Dafoe era pesada demais.
+  **4ª versão ("gostei muito, ficou muito igual"; "desce a legenda um pouco mais"; "não gostei da fonte da legenda
+  tradicional, não achei igual à referência"; as maiúsculas ela aprovou):**
+  - **legenda normal mais baixa que na referência:** centro da altura-x em 1159 (lá, 1091), uns 70 px abaixo. As
+    maiúsculas continuam em 1107. Nos próximos vídeos dela, comece já com a legenda nessa altura;
+  - **o peso igual não basta, o desenho conta:** a Roboto 300 tinha o mesmo traço da referência (3,2 px) e mesmo
+    assim ela viu que não era igual (letras redondas estreitas, outro "a", "e", "g", "t"). A FreeSans tem o desenho
+    da Helvetica mas é Regular (5,3 px). Afinei-a no FontForge (`fonte_legenda.py`: −30 com a largura das letras
+    mantida, `squish`; com `retain` as letras ficam estreitas e espaçadas, errado) e ficou com 3,3 px: 56 px e
+    −0,012em. Para comparar fontes, ponha a frase da referência e a mesma frase em cada candidata, na mesma altura-x
+    (`font-size-adjust: ex-height`) e com o espaço ajustado para a mesma largura de frase; meça o traço. O Chrome
+    arredonda o `feMorphology` (abaixo de 0,5 px não afina; acima, tira 1 px inteiro): afine a fonte, não o render.
   Fontes: Roboto e Satisfy do npm (`@fontsource/...`), FreeSans do apt (`fonts-freefont-ttf`), copiadas para
   `assets/fonts/`. Modelo: `projetos/pesar-o-clima/montar_plano.py` e `montar_video.py`. Os nomes das camadas
   próprias não podem ser `legendas.html` nem `cards.html` (o `gerar.py` escreve por cima).
