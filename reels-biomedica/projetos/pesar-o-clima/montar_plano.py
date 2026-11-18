@@ -9,10 +9,10 @@ Medido na referência, quadro a quadro (720×1280, aqui ×1,5):
     finíssima e a última em negrito, com o nome da doutora pequeno embaixo ("DRA." fino, o nome em negrito), o bloco
     centrado a 38% da largura; entra descendo e aparecendo em 0,3 s enquanto o vídeo sai de um zoom; some numa luz
     quente (laranja, clarão branco) que leva ao plano seguinte;
-  - legendas: grotesca leve (Helvetica Neue Light na referência; aqui Inter 300), branca, com maiúsculas e pontuação
+  - legendas: grotesca leve (Helvetica Neue Light na referência; aqui Roboto 300, 59 px), branca, com maiúsculas e pontuação
     normais (vírgula, ponto, interrogação), 1 a 4 palavras por vez, centralizada a ~57% da altura; a frase inteira de
     uma vez e troca em corte seco;
-  - as palavras de impacto: maiúsculas finíssimas grandes (Inter 200, ~90 px; a 100 sumia na parede clara dela), uma a três linhas coladas, centralizadas;
+  - as palavras de impacto: maiúsculas finíssimas grandes (Roboto 100, 98 px, letras coladas), uma a três linhas coladas, centralizadas;
     entram subindo e aparecendo em 0,2 s e saem em corte seco;
   - P&B numa frase de peso, entrando e saindo por uma luz quente;
   - no fim, a assinatura em letra de pincel inclinada ("Dra Nádia / Resende", Mr Dafoe), aparecendo da esquerda.
@@ -105,11 +105,16 @@ js_l += [f'tl.set("#assin", {{opacity:1}}, {n(ASSIN_T)});',
          f'tl.fromTo("#assin-in", {{clipPath:"inset(0 100% 0 0)", opacity:0.2}}, '
          f'{{clipPath:"inset(0 0% 0 0)", opacity:1, duration:0.6, ease:"power2.out"}}, {n(ASSIN_T)});']
 
+# 2ª versão (18/11: "as fontes não estão nada iguais"): a referência é Helvetica Neue (o R de perna reta, o G com
+# esporão, o "a" com rabinho, letras coladas): UltraLight nas maiúsculas e nas duas linhas finas do título, Light
+# nas legendas, Bold no "O CLIMA?". A Inter da 1ª versão é mais larga e tem outro "a" e outro G. Entre as livres,
+# comparadas na mesma escala da referência (scratchpad, comparar2/3): Roboto Thin e Light, com as letras coladas,
+# ficaram as mais parecidas; o negrito é a FreeSans Bold (o clone da Helvetica Bold do GNU FreeFont).
 FONTES = "".join(
-    f'\n    @font-face {{ font-family: "Inter Ref"; font-weight: {p}; src: url("assets/fonts/Inter-{p}.woff2") format("woff2"); }}'
-    for p in (100, 200, 300, 400, 700, 800)) + \
+    f'\n    @font-face {{ font-family: "Roboto Ref"; font-weight: {p}; src: url("assets/fonts/Roboto-{p}.woff2") format("woff2"); }}'
+    for p in (100, 300)) + \
+    '\n    @font-face { font-family: "Helvetica Ref"; font-weight: 700; src: url("assets/fonts/FreeSansBold.ttf"); }' + \
     '\n    @font-face { font-family: "Assinatura"; src: url("assets/fonts/MrDafoe-400.woff2") format("woff2"); }'
-# a parede e o colete dela são claros (na referência o fundo era a parede marrom): a sombra é um pouco mais forte
 SOMBRA = "0 1px 3px rgba(20, 14, 10, 0.5), 0 2px 16px rgba(20, 14, 10, 0.45)"
 
 
@@ -133,10 +138,10 @@ def composicao(cid, css, corpo, js):
 
 
 css_l = f"""    .c {{ position: absolute; left: 60px; width: 960px; transform: translateY(-50%); text-align: center; opacity: 0;
-         font-family: "Inter Ref"; font-weight: 300; font-size: 46px; line-height: 1.1; letter-spacing: -0.02em;
+         font-family: "Roboto Ref"; font-weight: 300; font-size: 59px; line-height: 1.1; letter-spacing: -0.055em;
          color: #FFFFFF; text-shadow: {SOMBRA}; white-space: nowrap; }}
     .m {{ position: absolute; left: 20px; width: 1040px; transform: translateY(-50%); text-align: center; opacity: 0;
-         font-family: "Inter Ref"; font-weight: 200; font-size: 90px; line-height: 0.86; letter-spacing: -0.05em;
+         font-family: "Roboto Ref"; font-weight: 100; font-size: 98px; line-height: 0.84; letter-spacing: -0.06em;
          color: #FFFFFF; text-shadow: {SOMBRA}; }}
     .ml {{ white-space: nowrap; }}
     #assin {{ position: absolute; left: 0; top: 1330px; width: 1080px; opacity: 0; }}
@@ -154,14 +159,14 @@ abertura = """    <div id="tit">
       <div class="t1">POSSO</div><div class="t1">PESAR</div><div class="t2">O CLIMA?</div>
       <div class="dr"><span class="drf">DRA.</span> <b>NÁDIA</b><br><b>RESENDE</b></div>
     </div>"""
-css_a = f"""    #tit {{ position: absolute; left: 412px; top: 880px; transform: translateX(-50%); text-align: center; opacity: 0;
-           font-family: "Inter Ref"; color: #FFFFFF; text-shadow: {SOMBRA}; white-space: nowrap; }}
-    .t1 {{ font-weight: 200; font-size: 92px; line-height: 0.88; letter-spacing: -0.06em; }}
-    .t2 {{ font-weight: 800; font-size: 96px; line-height: 0.92; letter-spacing: -0.045em; }}
-    .dr {{ margin-top: 26px; font-size: 27px; line-height: 1.05; letter-spacing: -0.01em; text-align: left;
+css_a = f"""    #tit {{ position: absolute; left: 412px; top: 862px; transform: translateX(-50%); text-align: center; opacity: 0;
+           color: #FFFFFF; text-shadow: {SOMBRA}; white-space: nowrap; }}
+    .t1 {{ font-family: "Roboto Ref"; font-weight: 100; font-size: 92px; line-height: 0.88; letter-spacing: -0.065em; }}
+    .t2 {{ font-family: "Helvetica Ref"; font-weight: 700; font-size: 98px; line-height: 0.92; letter-spacing: -0.025em; }}
+    .dr {{ margin-top: 70px; font-size: 30px; line-height: 1.05; letter-spacing: -0.02em; text-align: left;
           display: inline-block; }}
-    .drf {{ font-weight: 200; }}
-    .dr b {{ font-weight: 800; }}"""
+    .drf {{ font-family: "Roboto Ref"; font-weight: 300; }}
+    .dr b {{ font-family: "Helvetica Ref"; font-weight: 700; }}"""
 js_a = ['tl.fromTo("#tit", {opacity:0, y:-70}, {opacity:1, y:0, duration:0.32, ease:"power2.out"}, 0.02);',
         f'tl.to("#tit", {{opacity:0, duration:0.18, ease:"power1.in"}}, {n(TITULO_FIM - 0.12)});']
 (AQUI / "compositions" / "abertura-pesar.html").write_text(composicao("abertura-pesar", css_a, abertura, js_a))

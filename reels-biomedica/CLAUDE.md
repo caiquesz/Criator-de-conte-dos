@@ -115,14 +115,22 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   os próximos vídeos dela já nesse nível.
 - **Referência da Dra. de blazer branco** (`referencias/ref-pesar-o-clima.mp4`, 18/11, para o "Posso pesar o clima?": "pegue
   as fontes, as transições, como cada palavra entra e sai, tudo; só não o color grade"). Medido quadro a quadro: título
-  em três linhas centralizadas a 38% da largura ("POSSO / PESAR" em grotesca finíssima, "O CLIMA?" em negrito, o nome
-  pequeno embaixo), entrando descendo em 0,3 s enquanto o vídeo sai de um zoom, e saindo numa luz quente (laranja e
-  clarão branco); legendas em grotesca leve (Helvetica Light lá; Inter 300, 46 px, aqui) com maiúsculas e pontuação
-  normais, 1 a 4 palavras, a ~57% da altura, troca seca; palavras de impacto em maiúsculas finas grandes (Inter 200,
-  90 px, linhas coladas), entrando de baixo em 0,2 s e saindo secas; P&B na frase de peso com luz quente na entrada e na
-  saída; a assinatura em pincel no fim (Mr Dafoe). A Inter 100 sumia na parede clara dela: use 200. Fontes do npm
-  (`@fontsource/inter`, `@fontsource/mr-dafoe`). Modelo: `projetos/pesar-o-clima/montar_plano.py` e `montar_video.py`.
-  Os nomes das camadas próprias não podem ser `legendas.html` nem `cards.html` (o `gerar.py` escreve por cima).
+  em três linhas centralizadas a 38% da largura ("POSSO / PESAR" ultrafinas, "O CLIMA?" em negrito, o nome pequeno
+  embaixo: "DRA." fino, o nome em negrito), entrando descendo em 0,3 s enquanto o vídeo sai de um zoom, e saindo numa
+  luz quente (laranja e clarão branco); legendas finas com maiúsculas e pontuação normais, 1 a 4 palavras, a ~57% da
+  altura, troca seca; palavras de impacto em maiúsculas ultrafinas grandes, linhas coladas, entrando de baixo em 0,2 s
+  e saindo secas; P&B na frase de peso com luz quente na entrada e na saída; a assinatura em pincel no fim (Mr Dafoe).
+  **2ª versão ("tá com um zoom na pessoa"; "as fontes não estão nada iguais"):**
+  - **o enquadramento faz parte da referência:** lá o rosto ocupa 30% da largura e fica a 30% da altura; no vídeo da
+    Nádia, 18–19% e a 40%. Recorte fixo de 1,6x por take, do 4K (sem perder nitidez), deslizando junto nos zooms do
+    próprio vídeo (`montar_video.py`). Meça o rosto (YuNet) nos dois vídeos antes de editar;
+  - **a fonte é Helvetica Neue** (R de perna reta, G com esporão, "a" com rabinho, letras coladas), e a Inter da 1ª
+    versão não parecia. Entre as livres, comparando na mesma escala: Roboto 100 nas maiúsculas e nas linhas finas do
+    título (98 px, −0,06em), Roboto 300 nas legendas (**59 px**, −0,055em: a altura-x da referência é ~31 px; eu tinha
+    posto 46) e FreeSans Bold (o clone da Helvetica Bold do GNU FreeFont, −0,025em) no "O CLIMA?" e no nome.
+  Fontes: Roboto e Mr Dafoe do npm (`@fontsource/...`), FreeSans do apt (`fonts-freefont-ttf`), copiadas para
+  `assets/fonts/`. Modelo: `projetos/pesar-o-clima/montar_plano.py` e `montar_video.py`. Os nomes das camadas
+  próprias não podem ser `legendas.html` nem `cards.html` (o `gerar.py` escreve por cima).
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,
