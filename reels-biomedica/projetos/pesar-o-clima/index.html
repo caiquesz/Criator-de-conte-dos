@@ -36,25 +36,25 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="57.967"
+    <div id="root" data-composition-id="main" data-start="0" data-duration="58.833"
       data-width="1080" data-height="1920">
       <div class="cam" id="cam-video" style="z-index: 1">
-        <video id="video" class="clip" src="assets/video/base.mp4" data-start="0" data-duration="57.967"
+        <video id="video" class="clip" src="assets/video/base.mp4" data-start="0" data-duration="58.833"
           data-track-index="0" data-has-audio="true" playsinline></video>
       </div>
 
       <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
-        data-start="0" data-duration="57.967" data-track-index="2" data-track-kind="captions"
+        data-start="0" data-duration="58.833" data-track-index="2" data-track-kind="captions"
         data-width="1080" data-height="1920" style="z-index: 3"></div>
 
       <div id="abertura-pesar" data-composition-id="abertura-pesar" data-composition-src="compositions/abertura-pesar.html"
-        data-start="0" data-duration="57.967" data-track-index="20" data-track-kind="graphics"
+        data-start="0" data-duration="58.833" data-track-index="20" data-track-kind="graphics"
         data-width="1080" data-height="1920" style="z-index: 6"></div>
       <div id="legendas-pesar" data-composition-id="legendas-pesar" data-composition-src="compositions/legendas-pesar.html"
-        data-start="0" data-duration="57.967" data-track-index="21" data-track-kind="graphics"
+        data-start="0" data-duration="58.833" data-track-index="21" data-track-kind="graphics"
         data-width="1080" data-height="1920" style="z-index: 7"></div>
       <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
-        data-start="0" data-duration="57.967" data-track-index="3" data-track-kind="graphics"
+        data-start="0" data-duration="58.833" data-track-index="3" data-track-kind="graphics"
         data-width="1080" data-height="1920" style="z-index: 6"></div>
 
       <div id="tr2" class="clip transicao luz" data-start="1.347" data-duration="0.8" data-track-index="5" data-layout-ignore>
@@ -86,14 +86,14 @@
       <audio id="sfx11" src="assets/sfx/whoosh-grave.mp3" data-start="36.003" data-duration="0.731" data-track-index="10" data-volume="0.25"></audio>
       <audio id="sfx12" src="assets/sfx/whoosh-rapido.mp3" data-start="37.703" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
       <audio id="sfx13" src="assets/sfx/whoosh-rapido.mp3" data-start="52.783" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
-      <audio id="sfx14" src="assets/sfx/brilho.mp3" data-start="56.263" data-duration="1.703" data-track-index="10" data-volume="0.3"></audio>
-      <audio id="sfx15" src="assets/sfx/impacto.mp3" data-start="56.291" data-duration="1.4" data-track-index="11" data-volume="0.175"></audio>
+      <audio id="sfx14" src="assets/sfx/brilho.mp3" data-start="57.713" data-duration="1.12" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx15" src="assets/sfx/impacto.mp3" data-start="57.741" data-duration="1.092" data-track-index="11" data-volume="0.175"></audio>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      tl.to({}, { duration: 57.967 }, 0);
+      tl.to({}, { duration: 58.833 }, 0);
       tl.fromTo(".cam", {scale:1.1}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 0);
       tl.fromTo("#tr2-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 1.347);
       tl.to("#tr2-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 1.767);

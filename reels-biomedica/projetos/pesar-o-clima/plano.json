@@ -1,8 +1,8 @@
 {
  "video": "assets/video/base.mp4",
- "video_original": "assets/video/original.mov",
+ "video_original": "assets/video/voz.wav",
  "video_tem_audio": true,
- "duracao": 57.9667,
+ "duracao": 58.8333,
  "cores": {
   "texto": "#FFFFFF",
   "destaque": "#FFFFFF",
@@ -104,12 +104,12 @@
    "vol": 0.55
   },
   {
-   "t": 56.25,
+   "t": 57.7,
    "som": "brilho",
    "vol": 0.6
   },
   {
-   "t": 56.27,
+   "t": 57.720000000000006,
    "som": "impacto",
    "vol": 0.35
   }

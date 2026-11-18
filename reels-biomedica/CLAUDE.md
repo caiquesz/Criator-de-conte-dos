@@ -119,7 +119,8 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   embaixo: "DRA." fino, o nome em negrito), entrando descendo em 0,3 s enquanto o vídeo sai de um zoom, e saindo numa
   luz quente (laranja e clarão branco); legendas finas com maiúsculas e pontuação normais, 1 a 4 palavras, a ~57% da
   altura, troca seca; palavras de impacto em maiúsculas ultrafinas grandes, linhas coladas, entrando de baixo em 0,2 s
-  e saindo secas; P&B na frase de peso com luz quente na entrada e na saída; a assinatura em pincel no fim (Mr Dafoe).
+  e saindo secas; P&B na frase de peso com luz quente na entrada e na saída; a assinatura em pincel no fim.
+  (Os tempos e distâncias dessa 1ª leitura estavam errados: valem os da 3ª versão, abaixo.)
   **2ª versão ("tá com um zoom na pessoa"; "as fontes não estão nada iguais"):**
   - **o enquadramento faz parte da referência:** lá o rosto ocupa 30% da largura e fica a 30% da altura; no vídeo da
     Nádia, 18–19% e a 40%. Recorte fixo de 1,6x por take, do 4K (sem perder nitidez), deslizando junto nos zooms do
@@ -128,7 +129,33 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     versão não parecia. Entre as livres, comparando na mesma escala: Roboto 100 nas maiúsculas e nas linhas finas do
     título (98 px, −0,06em), Roboto 300 nas legendas (**59 px**, −0,055em: a altura-x da referência é ~31 px; eu tinha
     posto 46) e FreeSans Bold (o clone da Helvetica Bold do GNU FreeFont, −0,025em) no "O CLIMA?" e no nome.
-  Fontes: Roboto e Mr Dafoe do npm (`@fontsource/...`), FreeSans do apt (`fonts-freefont-ttf`), copiadas para
+  **3ª versão ("o zoom é só na introdução, com a fonte na lateral"; "não quero nenhum contorno, nenhuma sombra";
+  "até a posição das palavras eu quero idêntico"; "você não tá seguindo as referências"):**
+  - **o zoom da 2ª era um erro de leitura:** na referência só a abertura (enquanto ela fala o título) é fechada, com o
+    rosto à direita (centro a 69% da largura e 31% da altura, 28% da largura) e o título à esquerda; depois da luz
+    volta o plano normal. Zoom fixo só nos quadros da abertura, o resto com o enquadramento original;
+  - **sem sombra nenhuma** em texto nenhum (`SOMBRA = "none"`): a regra da imobiliária ("sombra nas letras") não
+    vale quando a referência não tem;
+  - **"idêntico" = medido em pixels, não a olho.** Para cada texto: caixa da letra na referência (1080×1920) contra
+    a nossa no snapshot, e ajuste até ficar a 1–3 px. Medidas: título POSSO 882–947 / PESAR 960–1032 (as duas linhas
+    finas com a mesma largura, x 277–550: o PESAR é maior) / O CLIMA? 1049–1120 (x 190–627), nome em maiúscula de
+    25 px a 1216 e 1247 (x 319); legendas com a faixa do x em 1077–1106; maiúsculas com o bloco centrado em ~1107
+    (letra de 68–70 px, linha a cada 82 px), o HARMONIZAÇÃO GLÚTEA à esquerda (x 208) com letra de 58 px;
+    assinatura em x 280–840 / y 1067–1350;
+  - **o movimento também se mede**, por correlação com o quadro parado (`reels-imobiliaria/scripts/movimento_texto.py`), não pelo
+    olho em quadros soltos: na 1ª/2ª eu tinha posto o título descendo 70 px em 0,32 s e as maiúsculas subindo 60 px
+    em 0,2 s, e o certo era: título descendo de 400 px em 0,5 s (power1.out) aparecendo em 0,47 s, e o nome
+    separado, subindo 45 px em 0,18 s; maiúsculas com deslocamento e duração próprios por bloco (descendo de 360 px
+    em 0,47 s no AGACHAMENTO, de 170 px em 0,38 s no NÃO É ISSO, de 235 px em 0,12 s no A PROJEÇÃO, subindo de 200 px
+    em 0,22 s no HARMONIZAÇÃO) e as que vêm logo depois de outra trocam seco; assinatura aparecendo em 0,45 s,
+    subindo 16 px, de 105% para 100%, com cortina suave da esquerda;
+  - **o GSAP sobrescreve o `transform` do CSS:** um `y` animado apaga o `translateY(-50%)` (as maiúsculas da 2ª
+    ficaram 80 px baixas). Use `yPercent` no próprio tween;
+  - **a assinatura entra sozinha**, quando a última legenda sai, e fica 1,1 s; o vídeo dela acaba 0,4 s depois da
+    última palavra, então o último quadro fica parado 26 quadros (`CAUDA` no `montar_video.py`; a voz vai para
+    `assets/video/voz.wav`, amostra por amostra, mais silêncio). A letra de pincel agora é a Satisfy inclinada mais
+    10° (o traço médio e os laços da referência); a Mr Dafoe era pesada demais.
+  Fontes: Roboto e Satisfy do npm (`@fontsource/...`), FreeSans do apt (`fonts-freefont-ttf`), copiadas para
   `assets/fonts/`. Modelo: `projetos/pesar-o-clima/montar_plano.py` e `montar_video.py`. Os nomes das camadas
   próprias não podem ser `legendas.html` nem `cards.html` (o `gerar.py` escreve por cima).
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
