@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      :root {
+        --texto: #FFFFFF;
+        --destaque: #FFFFFF;
+        --destaque-brilho: transparent;
+        --destaque-sombra: rgba(56, 46, 46, 0.42);
+        --destaque-sombra-leve: rgba(56, 46, 46, 0.22);
+        --destaque-escuro: #FFFFFF;
+        --vazamento: #FF7A2E;
+      }
+      .cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+      .cam video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .transicao { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+      .transicao.luz { mix-blend-mode: screen; }
+      .vazamento { position: absolute; inset: -25%; opacity: 0; }
+      .vazamento.ambar {
+        background: radial-gradient(ellipse 50% 95% at 18% 55%, rgba(255, 244, 214, 0.95), transparent 46%),
+                    radial-gradient(ellipse 75% 120% at 28% 50%, var(--vazamento), transparent 68%);
+        filter: blur(30px);
+      }
+      .vazamento.quente {
+        background: radial-gradient(ellipse 60% 100% at 78% 35%, rgba(255, 92, 60, 0.75), rgba(255, 60, 90, 0.25) 50%, transparent 76%);
+        filter: blur(40px);
+      }
+      .vazamento.clarao { background: radial-gradient(ellipse 90% 80% at 50% 45%, rgba(255, 248, 232, 1), rgba(255, 214, 160, 0.85) 55%, rgba(255, 170, 110, 0.6)); }
+      .cortina { position: absolute; inset: 0; background: #000; opacity: 0; }
+      .cortina.branca { background: #fff8ee; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="57.967"
+      data-width="1080" data-height="1920">
+      <div class="cam" id="cam-video" style="z-index: 1">
+        <video id="video" class="clip" src="assets/video/base.mp4" data-start="0" data-duration="57.967"
+          data-track-index="0" data-has-audio="true" playsinline></video>
+      </div>
+
+      <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
+        data-start="0" data-duration="57.967" data-track-index="2" data-track-kind="captions"
+        data-width="1080" data-height="1920" style="z-index: 3"></div>
+
+      <div id="abertura-pesar" data-composition-id="abertura-pesar" data-composition-src="compositions/abertura-pesar.html"
+        data-start="0" data-duration="57.967" data-track-index="20" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 6"></div>
+      <div id="legendas-pesar" data-composition-id="legendas-pesar" data-composition-src="compositions/legendas-pesar.html"
+        data-start="0" data-duration="57.967" data-track-index="21" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 7"></div>
+      <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
+        data-start="0" data-duration="57.967" data-track-index="3" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 6"></div>
+
+      <div id="tr2" class="clip transicao luz" data-start="1.347" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr2-a"></div>
+        <div class="vazamento quente" id="tr2-b"></div>
+        <div class="vazamento clarao" id="tr2-c"></div>
+      </div>
+      <div id="tr3" class="clip transicao luz" data-start="32.78" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr3-a"></div>
+        <div class="vazamento quente" id="tr3-b"></div>
+        <div class="vazamento clarao" id="tr3-c"></div>
+      </div>
+      <div id="tr4" class="clip transicao luz" data-start="35.847" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr4-a"></div>
+        <div class="vazamento quente" id="tr4-b"></div>
+        <div class="vazamento clarao" id="tr4-c"></div>
+      </div>
+
+      <audio id="sfx1" src="assets/sfx/whoosh-rapido.mp3" data-start="0" data-duration="0.549" data-track-index="10" data-volume="0.25"></audio>
+      <audio id="sfx2" src="assets/sfx/whoosh-transicao.mp3" data-start="0.897" data-duration="1.944" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx3" src="assets/sfx/whoosh-rapido.mp3" data-start="2.883" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
+      <audio id="sfx4" src="assets/sfx/whoosh-rapido.mp3" data-start="5.823" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
+      <audio id="sfx5" src="assets/sfx/whoosh-rapido.mp3" data-start="12.983" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
+      <audio id="sfx6" src="assets/sfx/whoosh-rapido.mp3" data-start="19.023" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
+      <audio id="sfx7" src="assets/sfx/whoosh-rapido.mp3" data-start="22.703" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
+      <audio id="sfx8" src="assets/sfx/whoosh-rapido.mp3" data-start="27.523" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
+      <audio id="sfx9" src="assets/sfx/whoosh-transicao.mp3" data-start="32.33" data-duration="1.944" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx10" src="assets/sfx/impacto.mp3" data-start="33.141" data-duration="1.4" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="sfx11" src="assets/sfx/whoosh-grave.mp3" data-start="36.003" data-duration="0.731" data-track-index="10" data-volume="0.25"></audio>
+      <audio id="sfx12" src="assets/sfx/whoosh-rapido.mp3" data-start="37.703" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
+      <audio id="sfx13" src="assets/sfx/whoosh-rapido.mp3" data-start="52.783" data-duration="0.549" data-track-index="10" data-volume="0.275"></audio>
+      <audio id="sfx14" src="assets/sfx/brilho.mp3" data-start="56.263" data-duration="1.703" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="sfx15" src="assets/sfx/impacto.mp3" data-start="56.291" data-duration="1.4" data-track-index="11" data-volume="0.175"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: 57.967 }, 0);
+      tl.fromTo(".cam", {scale:1.1}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 0);
+      tl.fromTo("#tr2-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 1.347);
+      tl.to("#tr2-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 1.767);
+      tl.fromTo("#tr2-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 1.407);
+      tl.to("#tr2-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 1.767);
+      tl.fromTo("#tr2-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 1.567);
+      tl.to("#tr2-c", {opacity:0, duration:0.3, ease:"power2.out"}, 1.687);
+      tl.fromTo("#tr3-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 32.78);
+      tl.to("#tr3-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 33.2);
+      tl.fromTo("#tr3-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 32.84);
+      tl.to("#tr3-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 33.2);
+      tl.fromTo("#tr3-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 33);
+      tl.to("#tr3-c", {opacity:0, duration:0.3, ease:"power2.out"}, 33.12);
+      tl.fromTo("#tr4-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 35.847);
+      tl.to("#tr4-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 36.267);
+      tl.fromTo("#tr4-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 35.907);
+      tl.to("#tr4-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 36.267);
+      tl.fromTo("#tr4-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 36.067);
+      tl.to("#tr4-c", {opacity:0, duration:0.3, ease:"power2.out"}, 36.187);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<template>
+  <style>
+    @font-face { font-family: "Inter Ref"; font-weight: 100; src: url("assets/fonts/Inter-100.woff2") format("woff2"); }
+    @font-face { font-family: "Inter Ref"; font-weight: 200; src: url("assets/fonts/Inter-200.woff2") format("woff2"); }
+    @font-face { font-family: "Inter Ref"; font-weight: 300; src: url("assets/fonts/Inter-300.woff2") format("woff2"); }
+    @font-face { font-family: "Inter Ref"; font-weight: 400; src: url("assets/fonts/Inter-400.woff2") format("woff2"); }
+    @font-face { font-family: "Inter Ref"; font-weight: 700; src: url("assets/fonts/Inter-700.woff2") format("woff2"); }
+    @font-face { font-family: "Inter Ref"; font-weight: 800; src: url("assets/fonts/Inter-800.woff2") format("woff2"); }
+    @font-face { font-family: "Assinatura"; src: url("assets/fonts/MrDafoe-400.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #tit { position: absolute; left: 412px; top: 880px; transform: translateX(-50%); text-align: center; opacity: 0;
+           font-family: "Inter Ref"; color: #FFFFFF; text-shadow: 0 1px 3px rgba(20, 14, 10, 0.5), 0 2px 16px rgba(20, 14, 10, 0.45); white-space: nowrap; }
+    .t1 { font-weight: 200; font-size: 92px; line-height: 0.88; letter-spacing: -0.06em; }
+    .t2 { font-weight: 800; font-size: 96px; line-height: 0.92; letter-spacing: -0.045em; }
+    .dr { margin-top: 26px; font-size: 27px; line-height: 1.05; letter-spacing: -0.01em; text-align: left;
+          display: inline-block; }
+    .drf { font-weight: 200; }
+    .dr b { font-weight: 800; }
+  </style>
+  <div id="root" data-composition-id="abertura-pesar" data-width="1080" data-height="1920">
+    <div id="tit">
+      <div class="t1">POSSO</div><div class="t1">PESAR</div><div class="t2">O CLIMA?</div>
+      <div class="dr"><span class="drf">DRA.</span> <b>NÁDIA</b><br><b>RESENDE</b></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 57.967 }, 0);
+    tl.fromTo("#tit", {opacity:0, y:-70}, {opacity:1, y:0, duration:0.32, ease:"power2.out"}, 0.02);
+    tl.to("#tit", {opacity:0, duration:0.18, ease:"power1.in"}, 1.547);
+    window.__timelines["abertura-pesar"] = tl;
+  </script>
+</template>

@@ -113,6 +113,16 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   achou altos os volumes que eu pus (P&B 0,9, whoosh 0,4–0,7, cliques 0,6–0,7). Ficou `"volume_efeitos": 0.5` no
   plano (todos 6 dB abaixo, o equilíbrio entre eles igual; o `gerar.py` aplica o fator em todos os efeitos). Comece
   os próximos vídeos dela já nesse nível.
+- **Referência da Dra. de blazer branco** (`referencias/ref-pesar-o-clima.mp4`, 18/11, para o "Posso pesar o clima?": "pegue
+  as fontes, as transições, como cada palavra entra e sai, tudo; só não o color grade"). Medido quadro a quadro: título
+  em três linhas centralizadas a 38% da largura ("POSSO / PESAR" em grotesca finíssima, "O CLIMA?" em negrito, o nome
+  pequeno embaixo), entrando descendo em 0,3 s enquanto o vídeo sai de um zoom, e saindo numa luz quente (laranja e
+  clarão branco); legendas em grotesca leve (Helvetica Light lá; Inter 300, 46 px, aqui) com maiúsculas e pontuação
+  normais, 1 a 4 palavras, a ~57% da altura, troca seca; palavras de impacto em maiúsculas finas grandes (Inter 200,
+  90 px, linhas coladas), entrando de baixo em 0,2 s e saindo secas; P&B na frase de peso com luz quente na entrada e na
+  saída; a assinatura em pincel no fim (Mr Dafoe). A Inter 100 sumia na parede clara dela: use 200. Fontes do npm
+  (`@fontsource/inter`, `@fontsource/mr-dafoe`). Modelo: `projetos/pesar-o-clima/montar_plano.py` e `montar_video.py`.
+  Os nomes das camadas próprias não podem ser `legendas.html` nem `cards.html` (o `gerar.py` escreve por cima).
 - **O nome é Dra. Nádia Resende, com S** (o Whisper escreve "Rezende"/"Rezegues": corrija sempre).
 
 - **Ela trabalha com glúteo**, não com rosto: harmonização corporal (glúteo, gordura localizada,

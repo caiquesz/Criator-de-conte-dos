@@ -1,0 +1,118 @@
+{
+ "video": "assets/video/base.mp4",
+ "video_original": "assets/video/original.mov",
+ "video_tem_audio": true,
+ "duracao": 57.9667,
+ "cores": {
+  "texto": "#FFFFFF",
+  "destaque": "#FFFFFF",
+  "destaque_escuro": "#FFFFFF",
+  "brilho": false,
+  "vazamento": "#FF7A2E"
+ },
+ "legendas": [],
+ "fotos": [],
+ "transicoes": [
+  {
+   "t": 0.0,
+   "tipo": "corte",
+   "escala": 1.1
+  },
+  {
+   "t": 1.667,
+   "tipo": "luz",
+   "zoom": false,
+   "som": "whoosh-transicao",
+   "vol": 0.6
+  },
+  {
+   "t": 33.1,
+   "tipo": "luz",
+   "zoom": false,
+   "som": "whoosh-transicao",
+   "vol": 0.6
+  },
+  {
+   "t": 36.166666666666664,
+   "tipo": "luz",
+   "zoom": false,
+   "som": "whoosh-grave",
+   "vol": 0.5
+  }
+ ],
+ "extras": [
+  {
+   "id": "abertura-pesar",
+   "src": "compositions/abertura-pesar.html",
+   "z": 6
+  },
+  {
+   "id": "legendas-pesar",
+   "src": "compositions/legendas-pesar.html",
+   "z": 7
+  }
+ ],
+ "sfx_extra": [
+  {
+   "t": 0.04,
+   "som": "whoosh-rapido",
+   "vol": 0.5
+  },
+  {
+   "t": 2.99,
+   "som": "whoosh-rapido",
+   "vol": 0.55
+  },
+  {
+   "t": 5.93,
+   "som": "whoosh-rapido",
+   "vol": 0.55
+  },
+  {
+   "t": 13.09,
+   "som": "whoosh-rapido",
+   "vol": 0.55
+  },
+  {
+   "t": 19.13,
+   "som": "whoosh-rapido",
+   "vol": 0.55
+  },
+  {
+   "t": 22.81,
+   "som": "whoosh-rapido",
+   "vol": 0.55
+  },
+  {
+   "t": 27.63,
+   "som": "whoosh-rapido",
+   "vol": 0.55
+  },
+  {
+   "t": 33.120000000000005,
+   "som": "impacto",
+   "vol": 0.6
+  },
+  {
+   "t": 37.81,
+   "som": "whoosh-rapido",
+   "vol": 0.55
+  },
+  {
+   "t": 52.89,
+   "som": "whoosh-rapido",
+   "vol": 0.55
+  },
+  {
+   "t": 56.25,
+   "som": "brilho",
+   "vol": 0.6
+  },
+  {
+   "t": 56.27,
+   "som": "impacto",
+   "vol": 0.35
+  }
+ ],
+ "volume_efeitos": 0.5
+}
