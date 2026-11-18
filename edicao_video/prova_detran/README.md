@@ -1,7 +1,11 @@
 # Edição: "Questão comum na prova do Detran" (Alexandre)
 
-Reels final: 1080x1920, 30 fps, ~47 s (bruto de 63 s), -14 LUFS.
+Reels final: 1080x1920, 30 fps, ~50 s (bruto de 63 s), -14 LUFS.
 
+- **Gancho**: o vídeo abre com "essas provas de múltipla escolha são DANADAS" (`HOOK_RAW` em `timeline.py`,
+  com zoom no "DANADAS"); a folha da prova entra empurrando o fim do gancho. O trecho continua também no lugar
+  original, porque a frase seguinte ("porque você tem lá quatro opções") depende dele. A aparição dele no começo do
+  bruto fica escondida atrás da folha, e "quando na PROVA" aparece escrito na própria folha.
 - **Cortes**: ~15,6 s de pausas mortas removidos (lista `CUTS_RAW` em `timeline.py`), inclusive a falsa
   largada antes de "remoção" e o trecho ininteligível perto do fim. Cada corte com câmera coincide com uma troca
   de zoom (1.0x / 1.12x) para parecer corte de ângulo.

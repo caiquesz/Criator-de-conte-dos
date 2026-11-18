@@ -28,6 +28,9 @@ html, body { margin: 0; padding: 0; background: transparent; }
 .phrase .l2 { font-family: "Oblisk"; font-size: 230px; line-height: .714; color: var(--orange); text-transform: uppercase;
   text-shadow: 0 8px 30px rgba(0,0,0,.5), 0 2px 5px rgba(0,0,0,.45); white-space: nowrap; margin-top: 26px; letter-spacing: .012em; }
 .phrase .l2 .w { margin: 0 .07em; }
+/* frase escrita na folha (antes de a folha aparecer ele estaria na tela) */
+.phrase.ink .l1 { color: var(--ink); text-shadow: none; }
+.phrase.ink .l2 { color: var(--orange-ink); text-shadow: none; }
 
 /* ---------- cena A: folha de prova ---------- */
 .ink { color: var(--ink); }
@@ -293,7 +296,7 @@ function buildCaptions() {
   const caps = document.getElementById('caps');
   TL.phrases.forEach(p => {
     const d = document.createElement('div');
-    d.className = 'phrase';
+    d.className = 'phrase' + (p.ink ? ' ink' : '');
     const l1 = document.createElement('div'); l1.className = 'l1';
     const l2 = document.createElement('div'); l2.className = 'l2';
     const ws = [];

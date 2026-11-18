@@ -1,7 +1,7 @@
 """Timeline do vídeo "prova do Detran": cortes de silêncio, palavras (tempo final), frases da legenda,
 cenas de motion (papel + gradiente), transições, zoom e SFX.
 uso: python3 timeline.py dados/palavras.json timeline.json"""
-import json, sys
+import copy, json, sys
 
 FPS = 30
 RAW_FRAMES = 1892   # 63,085 s convertido para 30 fps constantes (o .MOV do iPhone é VFR)
@@ -23,27 +23,40 @@ CUTS_RAW = [
     (55.85, 58.25),  # trecho ininteligível + pausa
     (60.35, 61.05),
 ]
+# GANCHO de abertura: "essas provas de múltipla escolha são danadas" (o trecho também fica no lugar original)
+HOOK_RAW = (29.95, 33.15)
+# o conteúdo principal começa aqui; a aparição dele no começo fica escondida atrás da folha
+START_RAW = 0.35
+
 # em frames: [a, b) removidos
 CUTS = [(round(a * FPS), round(b * FPS)) for a, b in CUTS_RAW]
-KEEP = []
-prev = 0
+MAIN = []
+prev = round(START_RAW * FPS)
 for a, b in CUTS:
-    KEEP.append((prev, a)); prev = b
-KEEP.append((prev, RAW_FRAMES))
-NFRAMES = sum(b - a for a, b in KEEP)
+    MAIN.append((prev, a)); prev = b
+MAIN.append((prev, RAW_FRAMES))
+HOOK = (round(HOOK_RAW[0] * FPS), round(HOOK_RAW[1] * FPS))
+SEGS = [HOOK] + MAIN                      # trechos do bruto, na ordem em que aparecem no vídeo final
+NFRAMES = sum(b - a for a, b in SEGS)
+HOOK_LEN = (HOOK[1] - HOOK[0]) / FPS
 
 
 def m(t):
-    """tempo do bruto -> tempo final (se cair num corte, gruda no ponto do corte)"""
+    """tempo do bruto -> tempo final no conteúdo principal (se cair num corte, gruda no ponto do corte)"""
     f = t * FPS
-    out = 0
-    for a, b in KEEP:
+    out = HOOK[1] - HOOK[0]
+    for a, b in MAIN:
         if f < a:
             return out / FPS
         if f < b:
             return (out + f - a) / FPS
         out += b - a
     return out / FPS
+
+
+def mh(t):
+    """tempo do bruto -> tempo final dentro do gancho"""
+    return (t * FPS - HOOK[0]) / FPS
 
 
 words = json.load(open(sys.argv[1]))
@@ -54,6 +67,7 @@ for w in words:
 fixes = {62: (28.88, 29.20), 92: (43.40, 43.70)}   # "agora", "é"
 for i, (s, e) in fixes.items():
     words[i]["s"], words[i]["e"] = s, e
+raw_words = copy.deepcopy(words)
 for w in words:
     w["s"] = round(m(w["s"]), 3)
     w["e"] = round(m(w["e"]), 3)
@@ -91,6 +105,13 @@ def hl_txt(t):
     return re.sub(r"[.,]+$", "", t).upper()
 
 phrases = []
+# gancho (mesmas palavras 63..69, no tempo do gancho)
+for sm, hl in [(range(63, 66), [66, 67]), (range(68, 69), [69])]:
+    ws = [{"t": small_txt(raw_words[i]["w"]), "s": round(mh(raw_words[i]["s"]), 3), "hl": False} for i in sm]
+    ws += [{"t": hl_txt(raw_words[i]["w"]), "s": round(mh(raw_words[i]["s"]), 3), "hl": True} for i in hl]
+    idx = list(sm) + hl
+    phrases.append({"start": round(max(0, ws[0]["s"] - 0.06), 3), "lastEnd": round(mh(raw_words[idx[-1]]["e"]), 3),
+                    "words": ws, "hook": True})
 for sm, hl in PH:
     ws = [{"t": small_txt(words[i]["w"]), "s": W(i), "hl": False} for i in sm]
     ws += [{"t": hl_txt(words[i]["w"]), "s": W(i), "hl": True} for i in hl]
@@ -100,18 +121,20 @@ for k, p in enumerate(phrases):
     nxt = phrases[k + 1]["start"] if k + 1 < len(phrases) else 999
     p["end"] = round(min(nxt - 0.10, p["lastEnd"] + 0.6), 3)
 phrases[-1]["end"] = NFRAMES / FPS + 1
-# "R" gigante
-phrases[2]["big"] = True
-phrases[7]["big"] = True   # REMOÇÃO sozinha
+def find(*hl):
+    return [p for p in phrases if [w["t"] for w in p["words"] if w["hl"]] == list(hl)]
+for p in find("R") + find("REMOÇÃO") + [q for q in find("DANADAS") if q.get("hook")]:
+    p["big"] = True                       # destaque gigante
+find("PROVA")[0]["ink"] = True            # "quando na PROVA," fica escrito na folha (ele não aparece mais)
 
 # ---- cenas de motion (tempo final) ----
-A_IN = (m(1.20), m(1.55))         # papel entra pela esquerda empurrando o vídeo (ele sai pela direita)
+A_IN = (HOOK_LEN - 0.35, HOOK_LEN)  # folha entra pela esquerda empurrando o fim do gancho
 CR_START = m(13.02)               # papel amassa depois de "lembrar,"
 CR_DUR, TOSS_DUR = 0.62, 0.36     # amassar + arremesso
 B_IN = (m(35.28), m(35.62))       # gradiente entra pela direita (ele sai pela esquerda)
 B_OUT = (m(49.32), m(49.66))      # gradiente sai pela direita, ele volta pela esquerda
-phrases[0]["end"] = round(A_IN[0] + 0.05, 3)
-phrases[11]["end"] = round(B_IN[0] + 0.02, 3)   # "quatro opções" sai quando o gradiente entra
+find("DANADAS")[0]["end"] = round(A_IN[0] + 0.08, 3)
+find("QUATRO", "OPÇÕES")[0]["end"] = round(B_IN[0] + 0.02, 3)   # "quatro opções" sai quando o gradiente entra
 
 
 def ease_io(p):
@@ -175,7 +198,7 @@ for f in range(NFRAMES):
         z = 1.18 * (1 + 0.03 * prog)
     if k == len(phrases) - 1:
         z = 1.0 + 0.12 * (1 - (1 - prog) ** 2)
-    if (A_IN[0] - 0.3 < t < CR_START + CR_DUR + TOSS_DUR + 0.2) or (B_IN[0] - 0.3 < t < B_OUT[1]):
+    if (A_IN[1] <= t < CR_START + CR_DUR + TOSS_DUR + 0.2) or (B_IN[0] - 0.3 < t < B_OUT[1]):
         z = 1.0
     zoom.append(round(z, 4))
 
@@ -190,7 +213,9 @@ SOFT = {"R": ("pop", .7), "DESCARTA": ("pop_soft", .5), "IMOBILIZADO": ("pop_sof
         "TUDO": ("pop_soft", .45), "OUTRA": ("pop", .65)}
 for p in phrases:
     for w in p["words"]:
-        if w["hl"] and w["t"] in SOFT:
+        if w["hl"] and p.get("hook"):
+            add("pop" if w["t"] == "DANADAS" else "pop_soft", w["s"] - 0.02, 0.8 if w["t"] == "DANADAS" else 0.45)
+        elif w["hl"] and w["t"] in SOFT:
             n, v = SOFT[w["t"]]
             add(n, w["s"] - 0.02, v)
 
@@ -229,7 +254,7 @@ add("pop", W(102) - 0.02, 0.8)
 add("whoosh", (B_OUT[0] + B_OUT[1]) / 2, 0.5, align=1.07)
 
 out = {
-    "fps": FPS, "nframes": NFRAMES, "keep": KEEP,
+    "fps": FPS, "nframes": NFRAMES, "segs": SEGS, "hookLen": HOOK_LEN,
     "words": words, "phrases": phrases,
     "A_in": A_IN, "crStart": CR_START, "crDur": CR_DUR, "tossDur": TOSS_DUR,
     "B_in": B_IN, "B_out": B_OUT,

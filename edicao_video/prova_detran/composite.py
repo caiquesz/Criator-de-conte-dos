@@ -14,11 +14,27 @@ W, H, FPS = 1080, 1920, TL["fps"]
 CX, CY = 540, 1000
 
 
-def decoder(src):
-    sel = "+".join(f"between(n\\,{a}\\,{b - 1})" for a, b in TL["keep"])
-    vf = f"fps={FPS},select='{sel}',setpts=N/{FPS}/TB,eq=contrast=1.05:saturation=1.08:gamma=0.98"
-    cmd = ["ffmpeg", "-v", "error", "-i", src, "-map", "0:v:0", "-vf", vf, "-f", "rawvideo", "-pix_fmt", "bgr24", "-"]
-    return subprocess.Popen(cmd, stdout=subprocess.PIPE, bufsize=W * H * 3 * 4)
+def frames(src):
+    """Quadros na ordem do vídeo final. Os trechos (TL["segs"]) podem vir fora de ordem (o gancho é do meio
+    do bruto): cada grupo de trechos em ordem crescente vira um decodificador ffmpeg."""
+    groups, cur = [], []
+    for a, b in TL["segs"]:
+        if cur and a < cur[-1][1]:
+            groups.append(cur); cur = []
+        cur.append((a, b))
+    groups.append(cur)
+    for g in groups:
+        sel = "+".join(f"between(n\\,{a}\\,{b - 1})" for a, b in g)
+        vf = f"fps={FPS},select='{sel}',setpts=N/{FPS}/TB,eq=contrast=1.05:saturation=1.08:gamma=0.98"
+        cmd = ["ffmpeg", "-v", "error", "-i", src, "-map", "0:v:0", "-vf", vf, "-f", "rawvideo", "-pix_fmt", "bgr24", "-"]
+        dec = subprocess.Popen(cmd, stdout=subprocess.PIPE, bufsize=W * H * 3 * 4)
+        want = sum(b - a for a, b in g)
+        for _ in range(want):
+            buf = dec.stdout.read(W * H * 3)
+            if len(buf) < W * H * 3:
+                break
+            yield np.frombuffer(buf, np.uint8).reshape(H, W, 3)
+        dec.kill(); dec.wait()
 
 
 def blend(img, ov):
@@ -52,21 +68,16 @@ def process(frame, f, layers):
 
 def main():
     src, layers = sys.argv[1], [d for d in sys.argv[2].split(",") if d]
-    dec = decoder(src)
     n = TL["nframes"]
     if sys.argv[3] == "--preview":
         pdir = sys.argv[4]; os.makedirs(pdir, exist_ok=True)
         want = set(int(x) for x in sys.argv[5].split(","))
-        for f in range(n):
-            buf = dec.stdout.read(W * H * 3)
-            if not buf:
-                break
+        for f, fr in enumerate(frames(src)):
             if f in want:
-                fr = np.frombuffer(buf, np.uint8).reshape(H, W, 3)
                 cv2.imwrite(os.path.join(pdir, f"p{f:05d}.jpg"), process(fr, f, layers), [cv2.IMWRITE_JPEG_QUALITY, 92])
             if f >= max(want):
                 break
-        dec.kill(); return
+        return
     audio, out = sys.argv[3], sys.argv[4]
     enc = subprocess.Popen([
         "ffmpeg", "-v", "error", "-y",
@@ -77,15 +88,14 @@ def main():
         "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
         "-c:a", "aac", "-b:a", "256k", "-ar", "48000",
         "-shortest", "-movflags", "+faststart", out], stdin=subprocess.PIPE)
-    for f in range(n):
-        buf = dec.stdout.read(W * H * 3)
-        if not buf:
-            print("fim antecipado no frame", f); break
-        fr = np.frombuffer(buf, np.uint8).reshape(H, W, 3)
+    f = -1
+    for f, fr in enumerate(frames(src)):
         enc.stdin.write(process(fr, f, layers).tobytes())
         if f % 150 == 0:
             print("frame", f, "/", n, flush=True)
-    enc.stdin.close(); enc.wait(); dec.wait()
+    if f + 1 != n:
+        print("ATENÇÃO: saíram", f + 1, "quadros de", n)
+    enc.stdin.close(); enc.wait()
     print("ok", out)
 
 

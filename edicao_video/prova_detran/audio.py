@@ -12,7 +12,7 @@ dur = TL["nframes"] / FPS
 
 # 1) voz: junta os trechos mantidos, com micro-fades em cada emenda
 parts, labels = [], []
-for k, (a, b) in enumerate(TL["keep"]):
+for k, (a, b) in enumerate(TL["segs"]):   # ordem do vídeo final (o gancho vem primeiro)
     ta, tb = a / FPS, b / FPS
     parts.append(f"[0:a:0]atrim={ta:.4f}:{tb:.4f},asetpts=PTS-STARTPTS,"
                  f"afade=t=in:st=0:d=0.012,afade=t=out:st={tb - ta - 0.012:.4f}:d=0.012[s{k}]")
