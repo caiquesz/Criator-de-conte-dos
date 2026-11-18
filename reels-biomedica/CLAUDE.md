@@ -159,13 +159,12 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
   tradicional, não achei igual à referência"; as maiúsculas ela aprovou):**
   - **legenda normal mais baixa que na referência:** centro da altura-x em 1159 (lá, 1091), uns 70 px abaixo. As
     maiúsculas continuam em 1107. Nos próximos vídeos dela, comece já com a legenda nessa altura;
-  - **o peso igual não basta, o desenho conta:** a Roboto 300 tinha o mesmo traço da referência (3,2 px) e mesmo
-    assim ela viu que não era igual (letras redondas estreitas, outro "a", "e", "g", "t"). A FreeSans tem o desenho
-    da Helvetica mas é Regular (5,3 px). Afinei-a no FontForge (`fonte_legenda.py`: −30 com a largura das letras
-    mantida, `squish`; com `retain` as letras ficam estreitas e espaçadas, errado) e ficou com 3,3 px: 56 px e
-    −0,012em. Para comparar fontes, ponha a frase da referência e a mesma frase em cada candidata, na mesma altura-x
-    (`font-size-adjust: ex-height`) e com o espaço ajustado para a mesma largura de frase; meça o traço. O Chrome
-    arredonda o `feMorphology` (abaixo de 0,5 px não afina; acima, tira 1 px inteiro): afine a fonte, não o render.
+  - **a legenda normal fica na Roboto 300 (59 px, −0,055em), a da 3ª versão.** Na 4ª eu troquei pela FreeSans
+    (o desenho da Helvetica) afinada no FontForge até o peso da Light e ela achou "horrível": afinada, a FreeSans
+    ficou com as letras estreitas, altas e espaçadas, nada da Helvetica Neue larga e colada da referência. Ela
+    preferiu voltar à Roboto (5ª versão). Não tente de novo afinar uma fonte Regular para imitar uma Light; se ela
+    pedir outra fonte, mande antes uma imagem com a frase da referência e as candidatas (na mesma altura-x e na
+    mesma largura de frase) para ela escolher, sem renderizar o vídeo.
   Fontes: Roboto e Satisfy do npm (`@fontsource/...`), FreeSans do apt (`fonts-freefont-ttf`), copiadas para
   `assets/fonts/`. Modelo: `projetos/pesar-o-clima/montar_plano.py` e `montar_video.py`. Os nomes das camadas
   próprias não podem ser `legendas.html` nem `cards.html` (o `gerar.py` escreve por cima).
