@@ -1,5 +1,7 @@
 # Edição de vídeo: "Quando a CNH pode ser recolhida" (Alexandre)
 
+> Outros vídeos: [`prova_detran/`](prova_detran/README.md) (papel amassando, destaques laranja).
+
 Pipeline que gerou o Reels final (1080x1920, 30 fps, ~35 s, -14 LUFS):
 
 - **Título de abertura**: a 1ª frase ("quando que ela pode ser recolhida?") vira o título

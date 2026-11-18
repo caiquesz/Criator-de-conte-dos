@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: "Oblisk"; src: url("../assets/OBLISK.otf"); }
+@font-face { font-family: "Poppins"; font-weight: 400; src: url("../assets/Poppins-Regular.ttf"); }
+@font-face { font-family: "Poppins"; font-weight: 500; src: url("../assets/Poppins-Medium.ttf"); }
+@font-face { font-family: "Poppins"; font-weight: 600; src: url("../assets/Poppins-SemiBold.ttf"); }
+@font-face { font-family: "Poppins"; font-weight: 700; src: url("../assets/Poppins-Bold.ttf"); }
+:root { --orange: #FF7A2C; --orange-ink: #E2601A; --ink: #2B221C; --cream: #FFF5EA; --card: #FBF4EA; }
+html, body { margin: 0; padding: 0; background: transparent; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+.abs { position: absolute; left: 0; top: 0; will-change: transform, opacity, filter; }
+.panel { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; display: none; }
+.panel > img.bg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 50% 50%; }
+.scene { position: absolute; inset: 0; }
+
+.obl { font-family: "Oblisk"; text-transform: uppercase; line-height: .714; white-space: nowrap; letter-spacing: .012em; }
+.sm { font-family: "Poppins"; font-weight: 500; white-space: nowrap; letter-spacing: -.01em; }
+.w { display: inline-block; }
+
+/* ---------- legenda constante ---------- */
+.phrase { position: absolute; left: 0; width: 1080px; text-align: center; }
+.phrase .l1 { font-family: "Poppins"; font-weight: 500; font-size: 54px; line-height: 1.15; color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,.55), 0 0 3px rgba(0,0,0,.35); white-space: nowrap; letter-spacing: -.01em; }
+.phrase .l1 .w { margin: 0 .13em; }
+.phrase .l2 { font-family: "Oblisk"; font-size: 230px; line-height: .714; color: var(--orange); text-transform: uppercase;
+  text-shadow: 0 8px 30px rgba(0,0,0,.5), 0 2px 5px rgba(0,0,0,.45); white-space: nowrap; margin-top: 26px; letter-spacing: .012em; }
+.phrase .l2 .w { margin: 0 .07em; }
+
+/* ---------- cena A: folha de prova ---------- */
+.ink { color: var(--ink); }
+.hdr { font-family: "Poppins"; font-weight: 600; font-size: 30px; letter-spacing: .14em; color: rgba(43,34,28,.55); }
+.rule { width: 760px; height: 3px; background: rgba(43,34,28,.22); border-radius: 2px; }
+.stamp { font-family: "Oblisk"; font-size: 96px; line-height: .714; color: var(--orange-ink); border: 7px solid var(--orange-ink);
+  padding: 18px 22px 18px 26px; border-radius: 12px; letter-spacing: .04em; }
+.qlabel { font-family: "Poppins"; font-weight: 700; font-size: 34px; letter-spacing: .12em; color: var(--orange-ink); }
+.question { width: 830px; font-family: "Poppins"; font-weight: 600; font-size: 60px; line-height: 1.27; color: var(--ink);
+  white-space: normal; letter-spacing: -.015em; }
+.question .w { margin-right: .24em; }
+.question .hlw { color: var(--orange-ink); font-weight: 700; }
+.sticker { font-family: "Oblisk"; font-size: 104px; line-height: .714; color: #fff; background: var(--orange-ink);
+  padding: 22px 28px 20px 32px; border-radius: 16px; letter-spacing: .04em; box-shadow: 0 10px 24px rgba(120,50,10,.28); }
+
+/* ---------- cena B: gradiente ---------- */
+.wsm { font-family: "Poppins"; font-weight: 500; color: rgba(255,248,240,.95); text-shadow: 0 2px 14px rgba(110,35,0,.35); }
+.wobl { color: #FFF7EE; text-shadow: 0 10px 34px rgba(110,35,0,.35), 0 2px 4px rgba(110,35,0,.25); }
+.card { width: 420px; height: 232px; border-radius: 28px; background: var(--card); box-sizing: border-box; padding: 30px 30px;
+  display: flex; gap: 26px; align-items: center; box-shadow: 0 22px 50px rgba(110,35,0,.30); position: relative; }
+.card .let { width: 112px; height: 112px; border-radius: 50%; background: rgba(226,96,26,.12); display: flex; align-items: center;
+  justify-content: center; flex: none; }
+.card .let .obl { font-size: 86px; color: var(--orange-ink); }
+.card .lines { flex: 1; }
+.card .ln { height: 16px; border-radius: 8px; background: rgba(43,34,28,.16); margin: 16px 0; }
+#sceneB > .abs { z-index: 2; }
+#sceneB > .abs.atras { z-index: 1; }
+.card svg.strike { position: absolute; left: -10px; top: -10px; width: 440px; height: 252px; overflow: visible; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="panelA" class="panel"><img class="bg" src="assets/fundo_papel.jpg"><div class="scene" id="sceneA"></div></div>
+  <div id="panelB" class="panel"><img class="bg" id="bgB" src="assets/fundo_laranja.jpg"><div class="scene" id="sceneB"></div></div>
+  <div id="caps"></div>
+</div>
+<script src="timeline.js"></script>
+<script>
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const eo = p => 1 - Math.pow(1 - clamp(p), 3);
+const ei = p => Math.pow(clamp(p), 3);
+const eio = p => { p = clamp(p); return p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3) / 2; };
+const eback = p => { p = clamp(p); const c1 = 1.9, c3 = c1 + 1; return 1 + c3*Math.pow(p - 1, 3) + c1*Math.pow(p - 1, 2); };
+const W = i => TL.words[i].s;
+const E = i => TL.words[i].e;
+
+const IN = {
+  up:    p => ({ o: eo(p*1.3), dy: (1 - eo(p)) * 30, b: (1 - eo(p)) * 12 }),
+  pop:   p => ({ o: clamp(p*3), s: .55 + .45*eback(p), b: (1 - eo(p*1.4)) * 16 }),
+  slam:  p => ({ o: clamp(p*4), s: 1 + .9*(1 - eo(p)), b: (1 - eo(p)) * 8 }),
+  right: p => ({ o: eo(p*1.3), dx: (1 - eo(p)) * 140, b: (1 - eo(p)) * 12 }),
+  rise:  p => ({ o: eo(p*1.5), dy: (1 - eo(p)) * 320, s: .92 + .08*eo(p), b: (1 - eo(p)) * 10 }),
+  drop:  p => ({ o: eo(p*1.4), dy: -(1 - eo(p)) * 60, s: .9 + .1*eback(p), b: (1 - eo(p)) * 12 }),
+  fade:  p => ({ o: eo(p) }),
+};
+const OUT = {
+  out:   q => ({ o: 1 - eo(q), s: 1 + .14*ei(q), b: eo(q) * 16 }),
+  up:    q => ({ o: 1 - eo(q), dy: -ei(q) * 140, b: eo(q) * 12 }),
+  left:  q => ({ o: 1 - eo(q), dx: -ei(q) * 260, b: eo(q) * 14 }),
+  down:  q => ({ o: 1 - eo(q), dy: ei(q) * 260, s: 1 - .1*ei(q), b: eo(q) * 10 }),
+  none:  q => ({}),
+};
+let TARGET = null;
+const itemsA = [], itemsB = [];
+function el(html, parent, cls) {
+  const d = document.createElement('div');
+  d.className = 'abs ' + (cls || '');
+  d.innerHTML = html;
+  parent.appendChild(d);
+  return d;
+}
+function A(node, x, y, tin, inType, tout, outType, opt = {}) {
+  const it = Object.assign({ node, x, y, tin, inType, tout, outType, inD: inType === 'pop' ? .36 : (inType === 'slam' ? .2 : .32),
+    outD: .24, rot: 0, drift: 0, abs: true, ax: '-50%', ay: '-50%' }, opt);
+  TARGET.push(it); return it;
+}
+function line(parent, wordsArr, x, y, cls, size, tout, outType, opt = {}) {
+  const d = el('', parent, cls);
+  d.style.fontSize = size + 'px';
+  const box = A(d, x, y, -1, 'none', tout, outType, opt);
+  wordsArr.forEach(([txt, t, type, extra]) => {
+    const s = document.createElement('span');
+    s.className = 'w' + (extra && extra.cls ? ' ' + extra.cls : '');
+    s.textContent = txt;
+    if (!opt.noMargin) s.style.margin = '0 ' + (cls.includes('obl') ? '.05em' : '.12em');
+    d.appendChild(s);
+    TARGET.push({ node: s, tin: t, inType: type || 'up', inD: type === 'pop' ? .36 : .3, tout: 1e9, outType: 'none', abs: false, drift: 0 });
+  });
+  return box;
+}
+function stateOf(it, t) {
+  let st = { o: 1, dx: 0, dy: 0, s: 1, b: 0 };
+  if (it.inType !== 'none') {
+    if (t < it.tin) return { o: 0, dx: 0, dy: 0, s: 1, b: 0 };
+    const p = (t - it.tin) / it.inD;
+    if (p < 1) Object.assign(st, IN[it.inType](p));
+  }
+  if (t >= it.tout) {
+    const q = (t - it.tout) / it.outD;
+    if (q >= 1) return { o: 0, dx: 0, dy: 0, s: 1, b: 0 };
+    const o2 = OUT[it.outType](q, it);
+    st.o *= (o2.o ?? 1); st.dx += (o2.dx || 0); st.dy += (o2.dy || 0); st.s *= (o2.s ?? 1); st.b += (o2.b || 0);
+  }
+  if (it.drift && t > it.tin) st.s *= 1 + it.drift * clamp((t - it.tin) / Math.max(.5, it.tout - it.tin));
+  if (it.extra) it.extra(st, t);
+  return st;
+}
+function apply(it, st) {
+  const n = it.node;
+  if (st.o <= 0.001) { if (it.abs) n.style.display = 'none'; else n.style.visibility = 'hidden'; return; }
+  if (it.abs) n.style.display = 'block'; else n.style.visibility = 'visible';
+  n.style.opacity = st.o.toFixed(3);
+  const rot = it.rot + (st.r || 0);
+  n.style.transform = it.abs
+    ? `translate(${it.x}px, ${it.y}px) translate(${it.ax}, ${it.ay}) translate(${st.dx.toFixed(2)}px, ${st.dy.toFixed(2)}px) scale(${st.s.toFixed(4)}) rotate(${rot.toFixed(2)}deg)`
+    : `translate(${st.dx.toFixed(2)}px, ${st.dy.toFixed(2)}px) scale(${st.s.toFixed(4)})`;
+  n.style.filter = st.b > .05 ? `blur(${st.b.toFixed(2)}px)` : 'none';
+}
+const OB = (txt, size, cls = '', style = '') => `<div class="obl ${cls}" style="font-size:${size}px;${style}">${txt}</div>`;
+
+/* ================= CENA A: folha de prova ================= */
+let needle, eLabel, pumpIcon;
+function buildA() {
+  TARGET = itemsA;
+  const P = document.getElementById('sceneA');
+  const T0 = TL.A_in[0], END = 1e9;   // tudo fica até o papel amassar
+  // cabeçalho impresso na folha (entra junto com o papel)
+  A(el('<div class="hdr">PROVA TEÓRICA · DETRAN</div>', P), 118, 336, T0, 'none', END, 'none', { ax: '0%' });
+  A(el('<div class="rule"></div>', P), 118, 384, T0, 'none', END, 'none', { ax: '0%' });
+  // selo "MUITO COMUM"
+  A(el('<div class="stamp">MUITO COMUM</div>', P), 330, 500, W(5), 'slam', END, 'none', { rot: -7 });
+  // PERGUNTA:
+  A(el('<div class="qlabel">PERGUNTA</div>', P), 118, 640, W(9), 'up', END, 'none', { ax: '0%' });
+  // a pergunta, palavra por palavra
+  const qw = [];
+  for (let i = 10; i <= 26; i++) {
+    let txt = TL.words[i].w.replace(/[.,]$/, '');
+    if (i === 10) txt = 'O';
+    if (i === 26) txt += '?';
+    const hl = (i === 24 || i === 25 || i === 26);
+    qw.push([txt, W(i) - .04, 'up', hl ? { cls: 'hlw' } : null]);
+  }
+  const q = line(P, qw, 118, 680, 'question', 60, END, 'none', { ax: '0%', ay: '0%', noMargin: true });
+  q.node.style.transformOrigin = '0 0';
+  // marcador de combustível
+  const g = el(`<svg width="560" height="330" viewBox="0 0 560 330">
+      <path d="M 70 290 A 210 210 0 0 1 490 290" fill="none" stroke="rgba(43,34,28,.16)" stroke-width="30" stroke-linecap="round"/>
+      <path d="M 70 290 A 210 210 0 0 1 150 125" fill="none" stroke="#E2601A" stroke-width="30" stroke-linecap="round"/>
+      ${[...Array(9)].map((_, k) => { const a = Math.PI * (1 - k / 8); const r1 = 168, r2 = k % 2 ? 182 : 192;
+        return `<line x1="${280 + r1*Math.cos(a)}" y1="${290 - r1*Math.sin(a)}" x2="${280 + r2*Math.cos(a)}" y2="${290 - r2*Math.sin(a)}" stroke="rgba(43,34,28,.55)" stroke-width="${k % 2 ? 4 : 7}" stroke-linecap="round"/>`; }).join('')}
+      <g id="pump" transform="translate(250 200)">
+        <rect x="0" y="0" width="44" height="60" rx="7" fill="rgba(43,34,28,.8)"/>
+        <rect x="8" y="9" width="28" height="18" rx="3" fill="#FBF4EA"/>
+        <path d="M44 14 h10 a6 6 0 0 1 6 6 v26 a5 5 0 0 0 10 0 v-32 l-9 -9" fill="none" stroke="rgba(43,34,28,.8)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="needle"><line x1="280" y1="290" x2="280" y2="105" stroke="#2B221C" stroke-width="11" stroke-linecap="round"/></g>
+      <circle cx="280" cy="290" r="22" fill="#2B221C"/>
+    </svg>
+    <div class="obl" id="eLab" style="position:absolute;left:18px;top:250px;font-size:84px;color:#E2601A">E</div>
+    <div class="obl" style="position:absolute;right:22px;top:250px;font-size:84px;color:#2B221C">F</div>`, P);
+  g.style.width = '560px'; g.style.height = '330px';
+  A(g, 540, 1225, W(25) - .08, 'up', END, 'none', { inD: .36,
+    extra: (st, t) => { if (t > W(26) && t < W(26) + .35) st.dx += Math.sin((t - W(26)) * 70) * 9 * (1 - (t - W(26)) / .35); } });
+  needle = g.querySelector('#needle'); eLabel = g.querySelector('#eLab'); pumpIcon = g.querySelector('#pump');
+  // SEM COMBUSTÍVEL
+  line(P, [['SEM', W(25)], ['COMBUSTÍVEL', W(26), 'pop']], 540, 1505, 'obl', 150, END, 'none', { });
+  P.lastChild.style.color = 'var(--orange-ink)';
+  // LEMBRE!
+  A(el('<div class="sticker">LEMBRE!</div>', P), 760, 520, W(30) - .03, 'slam', END, 'none', { rot: 8 });
+  // o clipe do fundo é redesenhado por cima: o adesivo fica "preso" debaixo dele
+  A(el('<img src="assets/clipe.png" style="display:block">', P), 0, 0, W(30) - .03, 'none', END, 'none', { ax: '0%', ay: '0%' });
+}
+
+/* ================= CENA B: gradiente ================= */
+let strikes = [], hook, hookIt, lens, lensIt, clockHand;
+function cardHTML(letter, widths) {
+  return `<div class="card"><div class="let">${OB(letter, 86)}</div>
+    <div class="lines">${widths.map(w => `<div class="ln" style="width:${w}%"></div>`).join('')}</div>
+    <svg class="strike" viewBox="0 0 440 252"><path d="M 30 222 L 410 30" fill="none" stroke="#2B221C" stroke-width="16" stroke-linecap="round"
+      stroke-dasharray="440" stroke-dashoffset="440"/></svg></div>`;
+}
+function buildB() {
+  TARGET = itemsB;
+  const P = document.getElementById('sceneB');
+  const T1 = TL.B_in[1] - .1, OUTB = TL.B_out[0];
+  const SY = 545, BY = 670;
+  // títulos (cada um sai quando o próximo entra)
+  const t2 = W(76) - .05, t3 = W(81) - .05, t4 = W(86) - .05, t5 = W(92) - .05, t6 = W(95) - .05, t7 = W(100) - .05;
+  line(P, [['duas', W(76)], ['a', W(77)], ['gente', W(78)], ['normalmente', W(79)]], 540, SY, 'wsm', 60, t3, 'up');
+  A(el(OB('DESCARTA', 190, 'wobl'), P), 540, BY, W(80), 'pop', t3, 'up');
+  line(P, [['as', W(81)], ['outras', W(82)], ['duas', W(83)], ['são', W(84)]], 540, SY, 'wsm', 60, t4, 'up');
+  A(el(OB('PARECIDAS', 190, 'wobl'), P), 540, BY, W(85), 'pop', t4, 'up');
+  line(P, [['parece', W(86)], ['que', W(87)], ['é', W(88)]], 540, SY, 'wsm', 60, t5, 'up');
+  line(P, [['FEITO', W(89), 'pop'], ['PRA', W(90), 'pop'], ['PEGAR', W(91), 'pop']], 540, BY, 'obl wobl', 190, t5, 'up');
+  line(P, [['é', W(92)], ['mais', W(93)]], 540, SY, 'wsm', 60, t6, 'up');
+  A(el(OB('PORTUGUÊS', 190, 'wobl'), P), 540, BY, W(94), 'pop', t6, 'up');
+  line(P, [['tem', W(95)], ['que', W(96)], ['ter', W(97)], ['uma', W(98)]], 540, SY, 'wsm', 60, t7, 'up');
+  A(el(OB('ATENÇÃO', 190, 'wobl'), P), 540, BY, W(99), 'pop', t7, 'up');
+  line(P, [['use', W(100)], ['o', W(101)]], 540, SY, 'wsm', 60, OUTB + 1, 'none');
+  A(el(OB('TEMPO', 210, 'wobl'), P), 540, BY + 10, W(102), 'pop', OUTB + 1, 'none', { drift: .04 });
+  line(P, [['que', W(103)], ['vocês', W(104)], ['têm', W(105)]], 540, 1480, 'wsm', 58, OUTB + 1, 'none');
+
+  // cartões A B C D
+  const pos = [[305, 1010, -3], [775, 1010, 2], [305, 1280, 2.5], [775, 1280, -2]];
+  const lw = [[88, 70, 52], [84, 74, 50], [80, 60, 72], [90, 56, 66]];
+  const cardsOut = W(100) - .1;
+  ['A', 'B', 'C', 'D'].forEach((L, k) => {
+    const c = el(cardHTML(L, k < 2 ? [86, 72, 54] : lw[k]), P);
+    strikes.push(c.querySelector('.strike path'));
+    const [x, y, r] = pos[k];
+    const tin = TL.B_in[1] + .02 + k * .11;
+    if (k >= 2) {
+      // C e D: riscados e descartados
+      const tStrike = W(80) + (k - 2) * .22;
+      A(c, x, y, tin, 'pop', W(81) - .2, 'down', { rot: r, outD: .35,
+        extra: (st, t) => { if (t > tStrike + .2) st.o *= 1 - .45 * clamp((t - tStrike - .2) / .25); } });
+    } else {
+      // A e B: descem pro centro, ficam lado a lado ("parecidas")
+      const tMove = W(81) - .05;
+      A(c, x, y, tin, 'pop', cardsOut, 'down', { rot: r, outD: .3,
+        extra: (st, t) => {
+          const mv = eio((t - tMove) / .45);
+          st.dy += mv * 140; st.s *= 1 + .06 * mv;
+          if (t > W(85) && t < W(86)) st.r = Math.sin((t - W(85)) * 11 + k * 3.1) * 2.2 * (1 - clamp((t - W(85)) / .9));
+          // anzol puxa o cartão B um pouquinho
+          if (k === 1) { const hp = clamp((t - (W(91) + .05)) / .5); st.dy -= Math.sin(hp * Math.PI) * 26; }
+        } });
+    }
+  });
+  // anzol
+  hook = el(`<svg width="150" height="1100" viewBox="0 0 150 1100"><line x1="75" y1="0" x2="75" y2="960" stroke="#FFF7EE" stroke-width="6"/>
+    <path d="M 75 960 L 75 1035 A 38 38 0 0 1 13 1050 L 4 1030" fill="none" stroke="#FFF7EE" stroke-width="13" stroke-linecap="round"/>
+    <path d="M 4 1030 l 22 -4" stroke="#FFF7EE" stroke-width="11" stroke-linecap="round"/></svg>`, P, 'atras');
+  hookIt = A(hook, 800, 0, W(89) - .02, 'fade', W(92) + .05, 'none', { inD: .05, outD: .4,
+    extra: (st, t) => {
+      const d = eback((t - (W(89) - .02)) / .45);
+      const up = eio((t - (W(92) + .05)) / .4);
+      st.dy = -550 + d * 1115 - up * 1150;
+      st.r = Math.sin((t - W(89)) * 5) * 3 * (1 - up);
+    } });
+  hookIt.y = 0; hook.style.transformOrigin = '50% 0';
+  // lupa
+  lens = el(`<svg width="300" height="300" viewBox="0 0 300 300"><circle cx="120" cy="120" r="92" fill="rgba(255,255,255,.16)" stroke="#FFF7EE" stroke-width="18"/>
+    <path d="M 66 92 A 60 60 0 0 1 112 58" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="9" stroke-linecap="round"/>
+    <line x1="188" y1="188" x2="272" y2="272" stroke="#FFF7EE" stroke-width="28" stroke-linecap="round"/></svg>`, P);
+  lensIt = A(lens, 300, 1150, W(95) - .05, 'pop', cardsOut, 'down', { outD: .3,
+    extra: (st, t) => { const mv = eio((t - W(96)) / .9); st.dx += mv * 470; st.dy += Math.sin(mv * Math.PI) * -40; } });
+  // relógio
+  const ck = el(`<svg width="420" height="460" viewBox="0 0 420 460">
+      <rect x="180" y="6" width="60" height="34" rx="10" fill="#FFF7EE"/><rect x="198" y="36" width="24" height="30" fill="#FFF7EE"/>
+      <circle cx="210" cy="250" r="185" fill="#FFF7EE"/><circle cx="210" cy="250" r="160" fill="none" stroke="rgba(226,96,26,.25)" stroke-width="4"/>
+      ${[...Array(12)].map((_, k) => { const a = k / 12 * Math.PI * 2; return `<line x1="${210 + 140*Math.sin(a)}" y1="${250 - 140*Math.cos(a)}" x2="${210 + 158*Math.sin(a)}" y2="${250 - 158*Math.cos(a)}" stroke="#2B221C" stroke-width="${k % 3 ? 5 : 10}" stroke-linecap="round"/>`; }).join('')}
+      <g id="hand"><line x1="210" y1="250" x2="210" y2="118" stroke="#E2601A" stroke-width="12" stroke-linecap="round"/></g>
+      <circle cx="210" cy="250" r="16" fill="#2B221C"/></svg>`, P);
+  clockHand = ck.querySelector('#hand');
+  A(ck, 540, 1175, W(100) + .02, 'pop', OUTB + 1, 'none', { inD: .4 });
+}
+
+/* ================= LEGENDA CONSTANTE ================= */
+const CAP_Y = 1105;
+const phraseIts = [];
+function buildCaptions() {
+  const caps = document.getElementById('caps');
+  TL.phrases.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'phrase';
+    const l1 = document.createElement('div'); l1.className = 'l1';
+    const l2 = document.createElement('div'); l2.className = 'l2';
+    const ws = [];
+    p.words.forEach(w => {
+      const s = document.createElement('span'); s.className = 'w'; s.textContent = w.t;
+      (w.hl ? l2 : l1).appendChild(s);
+      ws.push({ node: s, tin: w.s - .05, inType: w.hl ? 'pop' : 'up', inD: w.hl ? .34 : .3, tout: 1e9, outType: 'none', abs: false, drift: 0 });
+    });
+    if (l1.childNodes.length) d.appendChild(l1);
+    if (l2.childNodes.length) d.appendChild(l2);
+    caps.appendChild(d);
+    const base = p.big ? 400 : 230;
+    l2.style.fontSize = base + 'px';
+    if (l2.childNodes.length) {
+      const wpx = l2.scrollWidth;
+      if (wpx > 900) l2.style.fontSize = (base * 900 / wpx) + 'px';
+    }
+    const l1h = l1.childNodes.length ? l1.offsetHeight : 0;
+    d.style.top = (CAP_Y - (l1h ? l1h / 2 : 0)) + 'px';
+    phraseIts.push({ box: d, p, ws });
+  });
+}
+function renderCaptions(t) {
+  phraseIts.forEach(({ box, p, ws }) => {
+    if (t < p.start - .01 || t > p.end + .3) { box.style.display = 'none'; return; }
+    box.style.display = 'block';
+    let o = 1, b = 0, dy = 0;
+    if (t >= p.end) { const q = clamp((t - p.end) / .2); o = 1 - eo(q); b = q * 10; dy = -ei(q) * 18; }
+    box.style.opacity = o.toFixed(3);
+    box.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : 'none';
+    box.style.transform = `translateY(${dy.toFixed(2)}px)`;
+    ws.forEach(it => apply(it, stateOf(it, t)));
+  });
+}
+
+/* ================= RENDER ================= */
+function placePanel(id, x, sp) {
+  const P = document.getElementById(id);
+  if (x === null || x === undefined) { P.style.display = 'none'; return false; }
+  P.style.display = 'block';
+  P.style.transform = `translateX(${x.toFixed(2)}px)`;
+  P.style.filter = sp > 1 ? `blur(${Math.min(14, sp * .18).toFixed(2)}px)` : 'none';
+  return true;
+}
+// opts.paperOnly: desenha só o papel no instante t (print usado pelo efeito de amassar)
+function render(f, opts = {}) {
+  const t = f / TL.fps;
+  const sp = TL.speed[f];
+  const ax = opts.paperOnly ? 0 : TL.panelA[f];
+  if (placePanel('panelA', ax, opts.paperOnly ? 0 : sp)) {
+    itemsA.forEach(it => apply(it, stateOf(it, t)));
+    // ponteiro: aparece em F e desce até E durante a pausa "sem ... combustível"
+    const np = eio((t - (W(25) + .15)) / (W(26) - W(25) - .15));
+    const ang = 62 - 146 * np + (t > W(26) ? Math.sin((t - W(26)) * 40) * 4 * Math.max(0, 1 - (t - W(26)) / .4) : 0);
+    needle.setAttribute('transform', `rotate(${ang.toFixed(2)} 280 290)`);
+    const blink = t > W(26) ? (Math.floor((t - W(26)) * 4) % 2 === 0 ? 1 : .35) : 1;
+    eLabel.style.opacity = blink;
+    pumpIcon.style.opacity = t > W(26) ? (.55 + .45 * blink) : 1;
+  }
+  if (!opts.paperOnly && placePanel('panelB', TL.panelB[f], sp)) {
+    const kp = clamp((t - TL.B_in[0]) / (TL.B_out[1] - TL.B_in[0]));
+    document.getElementById('bgB').style.transform = `scale(${(1.04 + .07 * kp).toFixed(4)}) translate(${(-14 + 28 * kp).toFixed(2)}px, 0px)`;
+    itemsB.forEach(it => apply(it, stateOf(it, t)));
+    strikes.forEach((pth, k) => {
+      if (k < 2) return;
+      const p = eo((t - (W(80) + (k - 2) * .22)) / .22);
+      pth.setAttribute('stroke-dashoffset', (440 * (1 - p)).toFixed(1));
+    });
+    const hp = (t - (W(100) + .05)) * 300;  // graus
+    clockHand.setAttribute('transform', `rotate(${Math.max(0, hp).toFixed(2)} 210 250)`);
+  }
+  if (opts.paperOnly) { document.getElementById('caps').style.display = 'none'; document.getElementById('panelB').style.display = 'none'; return; }
+  document.getElementById('caps').style.display = 'block';
+  renderCaptions(t);
+}
+window.__ready = (async () => {
+  await document.fonts.load('100px Oblisk');
+  for (const w of [500, 600, 700]) await document.fonts.load(`${w} 50px Poppins`);
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.complete ? 1 : new Promise(r => i.onload = r)));
+  buildA(); buildB(); buildCaptions();
+  return true;
+})();
+</script>
+</body>
+</html>

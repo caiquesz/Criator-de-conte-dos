@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<style>html,body{margin:0;background:transparent}canvas{display:block}</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+/* Papel amassando: o quadro inteiro (textura) vira uma bola de papel 3D e é jogado pra fora.
+   setTexture(url) carrega o "print" do último quadro antes do efeito.
+   draw(p, toss): p = 0..1 progresso do amassado, toss = 0..1 progresso do arremesso. */
+const W = 1080, H = 1920;
+const canvas = document.getElementById('c');
+const gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: false, antialias: true, preserveDrawingBuffer: true });
+
+const VS = `#version 300 es
+precision highp float;
+in vec2 aUV;
+uniform float uP;        // amassado 0..1
+uniform mat4 uMVP;
+uniform mat3 uRot;       // rotação da bola
+uniform vec3 uOffset;    // posição da bola (arremesso)
+uniform float uScale;
+out vec2 vUV;
+out vec3 vPos;
+out float vCrease;
+out float vS1;
+
+vec2 hash2(vec2 p) {
+  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+  return fract(sin(p) * 43758.5453);
+}
+vec3 hash3(vec2 p) {
+  vec3 q = vec3(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)), dot(p, vec2(419.2, 371.9)));
+  return fract(sin(q) * 43758.5453);
+}
+// Worley F1: cones com vincos nas bordas das células (cara de papel amassado)
+float worley(vec2 x) {
+  vec2 n = floor(x), f = fract(x);
+  float md = 8.0;
+  for (int j = -1; j <= 1; j++) for (int i = -1; i <= 1; i++) {
+    vec2 g = vec2(float(i), float(j));
+    vec2 o = hash2(n + g);
+    vec2 r = g + o - f;
+    md = min(md, dot(r, r));
+  }
+  return sqrt(md);
+}
+float vnoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  float a = hash2(i).x, b = hash2(i + vec2(1, 0)).x, c = hash2(i + vec2(0, 1)).x, d = hash2(i + vec2(1, 1)).x;
+  return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+void main() {
+  vUV = aUV;
+  vec2 q = vec2((aUV.x - 0.5) * float(${W}), (0.5 - aUV.y) * float(${H}));   // px, centro = 0
+  vec2 qn = q / 960.0;                                                         // ~[-0.56,0.56]x[-1,1]
+  float r = length(qn);
+
+  // cada região começa a amassar num tempo um pouco diferente (bordas primeiro)
+  float delay = 0.16 * (1.0 - smoothstep(0.0, 1.15, r)) + 0.08 * vnoise(qn * 3.0);
+  float lp = clamp((uP - delay) / (1.0 - delay), 0.0, 1.0);
+  float s1 = smoothstep(0.0, 0.62, lp);      // enruga e encolhe
+  float s2 = smoothstep(0.38, 1.0, lp);      // fecha em bola
+
+  // vincos: duas oitavas de Worley
+  float c1 = worley(qn * 4.2 + 1.7);
+  float c2 = worley(qn * 9.5 + 5.3);
+  float crease = (c1 * 0.75 + c2 * 0.35);
+  vCrease = crease;
+  vS1 = s1;
+
+  // estágio 1: folha enrugada encolhendo pro centro
+  vec3 wr = vec3(q * (1.0 - 0.52 * s1), 0.0);
+  wr.z += (crease - 0.45) * 300.0 * s1;
+  wr.xy += (vec2(vnoise(qn * 6.0), vnoise(qn * 6.0 + 3.0)) - 0.5) * 120.0 * s1;
+
+  // estágio 2: bola (esfera irregular)
+  vec3 dir = normalize(vec3(qn * 1.9, 1.05 - r * 1.35) + (vec3(vnoise(qn * 3.1), vnoise(qn * 3.1 + 7.0), vnoise(qn * 3.1 + 13.0)) - 0.5) * 0.9);
+  float R = 190.0 * (0.86 + 0.28 * vnoise(qn * 5.0)) - 62.0 * crease;
+  vec3 ball = dir * R;
+
+  vec3 pos = mix(wr, ball, s2);
+  pos = uRot * pos * uScale + uOffset;
+  vPos = pos;
+  gl_Position = uMVP * vec4(pos, 1.0);
+}`;
+
+const FS = `#version 300 es
+precision highp float;
+in vec2 vUV;
+in vec3 vPos;
+in float vCrease;
+in float vS1;
+uniform sampler2D uTex;
+uniform float uP;
+out vec4 outColor;
+void main() {
+  vec3 n = normalize(cross(dFdx(vPos), dFdy(vPos)));
+  if (!gl_FrontFacing) n = -n;
+  if (n.z < 0.0) n = -n;
+  vec3 L = normalize(vec3(-0.45, 0.65, 0.9));
+  float flatL = L.z;                         // papel plano -> fator 1.0 (igual ao print)
+  float dif = max(dot(n, L), 0.0);
+  float amb = 0.42;
+  float shade = amb + (1.0 - amb) * dif / flatL;
+  // vincos mais escuros (oclusão) e um brilho leve nas quinas
+  shade *= 1.0 - 0.25 * vS1 * smoothstep(0.32, 0.0, vCrease);
+  float spec = pow(max(dot(reflect(-L, n), vec3(0, 0, 1)), 0.0), 18.0) * 0.12 * uP;
+  vec4 tex = texture(uTex, vUV);
+  vec3 col = tex.rgb;
+  if (!gl_FrontFacing) col = mix(col, vec3(0.93, 0.91, 0.87), 0.85) * 0.92;   // verso do papel
+  col = col * min(shade, 1.25) + spec;
+  outColor = vec4(col, 1.0);
+}`;
+
+function sh(type, src) {
+  const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+  return s;
+}
+const prog = gl.createProgram();
+gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS));
+gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS));
+gl.linkProgram(prog);
+if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+gl.useProgram(prog);
+
+// malha
+const NX = 150, NY = 266;
+const uv = new Float32Array((NX + 1) * (NY + 1) * 2);
+let k = 0;
+for (let j = 0; j <= NY; j++) for (let i = 0; i <= NX; i++) { uv[k++] = i / NX; uv[k++] = j / NY; }
+const idx = new Uint32Array(NX * NY * 6);
+k = 0;
+for (let j = 0; j < NY; j++) for (let i = 0; i < NX; i++) {
+  const a = j * (NX + 1) + i, b = a + 1, c = a + NX + 1, d = c + 1;
+  idx[k++] = a; idx[k++] = c; idx[k++] = b; idx[k++] = b; idx[k++] = c; idx[k++] = d;
+}
+const vao = gl.createVertexArray(); gl.bindVertexArray(vao);
+const vb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, vb); gl.bufferData(gl.ARRAY_BUFFER, uv, gl.STATIC_DRAW);
+const loc = gl.getAttribLocation(prog, 'aUV'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+const ib = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, idx, gl.STATIC_DRAW);
+
+// câmera: plano z=0 de 1080x1920 enche a tela exatamente
+const FOV = 30 * Math.PI / 180, D = (H / 2) / Math.tan(FOV / 2);
+function perspective(fovy, aspect, near, far) {
+  const f = 1 / Math.tan(fovy / 2), nf = 1 / (near - far);
+  return [f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (far + near) * nf, -1, 0, 0, 2 * far * near * nf, 0];
+}
+function mul(a, b) { const o = new Array(16).fill(0); for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++) for (let i = 0; i < 4; i++) o[c * 4 + r] += a[i * 4 + r] * b[c * 4 + i]; return o; }
+const P = perspective(FOV, W / H, 10, D * 4);
+const V = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -D, 1];
+const MVP = mul(P, V);
+function rotMat(ax, ay, az) {
+  const cx = Math.cos(ax), sx = Math.sin(ax), cy = Math.cos(ay), sy = Math.sin(ay), cz = Math.cos(az), sz = Math.sin(az);
+  // Rz * Ry * Rx (coluna maior)
+  const Rx = [1, 0, 0, 0, cx, sx, 0, -sx, cx], Ry = [cy, 0, -sy, 0, 1, 0, sy, 0, cy], Rz = [cz, sz, 0, -sz, cz, 0, 0, 0, 1];
+  const m3 = (a, b) => { const o = new Array(9).fill(0); for (let c = 0; c < 3; c++) for (let r = 0; r < 3; r++) for (let i = 0; i < 3; i++) o[c * 3 + r] += a[i * 3 + r] * b[c * 3 + i]; return o; };
+  return m3(Rz, m3(Ry, Rx));
+}
+const U = n => gl.getUniformLocation(prog, n);
+gl.uniformMatrix4fv(U('uMVP'), false, new Float32Array(MVP));
+gl.enable(gl.DEPTH_TEST);
+
+const tex = gl.createTexture();
+window.setTexture = url => new Promise((res, rej) => {
+  const img = new Image();
+  img.onload = () => {
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    res(true);
+  };
+  img.onerror = rej; img.src = url;
+});
+
+const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+// toss: arco pra direita e pra fora do quadro, girando
+window.draw = (p, toss, dir = 1) => {
+  p = Math.max(0, Math.min(1, p)); toss = Math.max(0, Math.min(1, toss));
+  const e = 1 - Math.pow(1 - p, 1.6);   // começa rápido (mãos amassando)
+  gl.viewport(0, 0, W, H);
+  gl.clearColor(0, 0, 0, 0);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  if (toss >= 1) return;
+  const tt = toss * 0.42;                                   // segundos de arremesso
+  const ox = dir * (2900 * tt), oy = 60 * e + 1900 * tt - 0.5 * 11000 * tt * tt, oz = 0;
+  gl.uniform1f(U('uP'), e);
+  gl.uniformMatrix3fv(U('uRot'), false, new Float32Array(rotMat(0.5 * e + 6 * tt, -0.6 * e + 4 * tt * dir, dir * (0.35 * e + 9 * tt))));
+  gl.uniform3f(U('uOffset'), ox, oy, oz + 260 * Math.sin(Math.PI * Math.min(1, e * 1.3)) * 0.6 + 120 * e);
+  gl.uniform1f(U('uScale'), 1 - 0.15 * toss);
+  gl.bindVertexArray(vao);
+  gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_INT, 0);
+  gl.finish();
+};
+window.__ready = Promise.resolve(true);
+</script>
+</body>
+</html>
