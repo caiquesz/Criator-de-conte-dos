@@ -182,6 +182,12 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     fora das janelas o áudio sai igual ao original, amostra por amostra. O plano lê a voz de
     `assets/video/voz-sem-xicara.wav` (ordem: `montar_video.py`, `limpar_xicara.py`, `montar_plano.py`). Mudar só o
     áudio não pede render: `mixar.py` sobre o vídeo final anterior (ele copia a imagem e troca o som).
+  - **7ª ("na parte do 'existe uma diferença muito grande'"):** ainda soava o metal por baixo da frase. Eu tinha
+    deixado um buraco entre duas janelas (19,60–19,85 s), baixado as notas só 6–10 dB (ao nível médio em volta) e
+    ignorado notas fora da lista (6,97, 7,40, 13,2–13,9 kHz, 2,43 kHz). Agora: a frase toda numa janela só e as notas
+    da xícara até o quartil inferior do espectro em volta. Para achar o que sobra, compare a frase com trechos sem
+    xícara (mesma voz, mesma música) e procure linhas paradas; abaixo de 3 kHz, confira se a linha não é harmônico da
+    voz (freq ÷ altura da voz dá número inteiro) antes de tirar: as de 2,67 e 2,88 kHz eram, e ficaram.
   Fontes: Roboto e Satisfy do npm (`@fontsource/...`), FreeSans do apt (`fonts-freefont-ttf`), copiadas para
   `assets/fonts/`. Modelo: `projetos/pesar-o-clima/montar_plano.py` e `montar_video.py`. Os nomes das camadas
   próprias não podem ser `legendas.html` nem `cards.html` (o `gerar.py` escreve por cima).

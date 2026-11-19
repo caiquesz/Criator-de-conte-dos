@@ -10,9 +10,9 @@ e apoia de novo no pires). No áudio, cada batida é um ataque seco seguido de n
 estalinhos). Os estalos regulares a cada 0,25/0,5 s a partir dos 16 s são o chimbal da música do vídeo: ficam.
 
 Como tira, só dentro das janelas abaixo:
-  1. as notas: com análise fina em frequência (janela de 85 ms), as notas da própria xícara (lista NOTAS, ±45 Hz)
-     e qualquer outro pico estreito entre 3 e 13 kHz que fique mais de 6 dB acima do espectro em volta (±260 Hz)
-     descem até esse nível. A voz, nessa faixa, é chiado (sem picos estreitos parados), então não muda; abaixo de
+  1. as notas: com análise fina em frequência (janela de 85 ms), as notas da própria xícara (lista NOTAS, ±60 Hz)
+     descem até o nível mais baixo do espectro em volta (quartil inferior, ±260 Hz) e qualquer outro pico estreito
+     entre 3 e 14 kHz que fique mais de 6 dB acima do espectro em volta desce até o nível médio. A voz, nessa faixa, é chiado (sem picos estreitos parados), então não muda; abaixo de
      3 kHz nada é tocado;
   2. os estalos: com análise fina no tempo (janela de 5 ms), em cada estalo (ESTALOS) e na série de estalinhos,
      cada faixa acima de 2 kHz fica limitada ao que tinha nos 30 ms em volta (mediana): some o que dura poucos
@@ -33,13 +33,19 @@ sys.path.insert(0, str(AQUI.parent.parent.parent / "reels-imobiliaria" / "script
 from mixar import TAXA, pcm  # noqa: E402
 
 # janelas das notas (início, fim) e estalos (início, fim), medidos em 14–20,5 s
-JANELAS = [(14.895, 15.75), (18.055, 18.65), (18.970, 19.60), (19.845, 20.40)]
+# 7ª versão ("na parte do 'existe uma diferença muito grande'"): a frase toda (18,71–20,33 s) numa janela só; na
+# 6ª havia um buraco entre 19,60 e 19,85 s
+JANELAS = [(14.895, 15.75), (18.055, 18.65), (18.970, 20.45)]
 ESTALOS = [(14.922, 14.950), (15.128, 15.142), (15.466, 15.512), (18.061, 18.095), (18.977, 19.028), (19.850, 19.902),
            (18.15, 18.34)]                                   # o último: a xícara chacoalhando no pires
 # as notas da xícara (média de cada janela, resolução de 6 Hz; as que também aparecem sem a xícara, 16,9–17,8 e
 # 20,6–21,4 s, ficaram de fora): 4,55 kHz é a principal (11–16 dB acima do espectro em volta)
 NOTAS = [3638, 3714, 4007, 4085, 4420, 4505, 4552, 5583, 6873, 7171, 7488, 7535, 10593, 10634, 10790, 10940, 11040,
-         11085, 11390]
+         11085, 11390,
+         # 7ª: as que ainda soavam na frase e não aparecem sem a xícara (medidas em 18,95–20,45 s contra 16,9–17,9 e
+         # 20,6–22,1 s). A de 2,43 kHz fica parada enquanto a altura da voz muda; as linhas de 2,6–2,9 kHz da frase
+         # são os harmônicos 11–13 da voz dela (~220 Hz) e ficam
+         2430, 4189, 5303, 6973, 7400, 10189, 10875, 12451, 13213, 13693, 13910]
 RAMPA = 0.010
 
 
@@ -59,8 +65,9 @@ def istft(Z, n, h, tam):
 
 
 def tirar_notas(y, ini, jan):
-    """As notas da xícara (±45 Hz) e qualquer pico estreito entre 3 e 13 kHz descem ao nível do espectro em volta
-    (só nas janelas)."""
+    """As notas da xícara (±60 Hz; ±30 Hz abaixo de 3 kHz, onde passam os harmônicos da voz) descem ao nível mais
+    baixo do espectro em volta (quartil inferior) e qualquer pico estreito entre 3 e 14 kHz, ao nível médio (só nas
+    janelas)."""
     n, h = 4096, 512
     Z = stft(y, n, h)
     A = np.abs(Z)
@@ -68,16 +75,20 @@ def tirar_notas(y, ini, jan):
     t = ini + (np.arange(len(Z)) * h + n / 2) / TAXA
     viz = 22                                                   # ±22 bins ≈ ±260 Hz
     Ap = np.pad(A, ((0, 0), (viz, viz)), mode="edge")
-    fundo = np.median(sliding_window_view(Ap, 2 * viz + 1, axis=1), axis=2)
+    vizinhos = sliding_window_view(Ap, 2 * viz + 1, axis=1)
+    fundo = np.median(vizinhos, axis=2)
+    baixo = np.percentile(vizinhos, 25, axis=2)
     dentro = np.zeros(len(Z), bool)
     for a, b in jan:
         dentro |= (t >= a) & (t <= b)
-    banda = (f >= 3000) & (f <= 13000)
+    banda = (f >= 3000) & (f <= 14000)
     nota = np.zeros(len(f), bool)
     for fq in NOTAS:
-        nota |= np.abs(f - fq) <= 45
-    pico = ((A > fundo * 10 ** (6 / 20)) & banda[None, :] | (A > fundo) & nota[None, :]) & dentro[:, None]
+        nota |= np.abs(f - fq) <= (30 if fq < 3000 else 60)
+    pico = (A > fundo * 10 ** (6 / 20)) & banda[None, :] & dentro[:, None]
     nova = np.where(pico, fundo, A)
+    na_nota = (nova > baixo) & nota[None, :] & dentro[:, None]
+    nova = np.where(na_nota, baixo, nova)
     return istft(nova * np.exp(1j * np.angle(Z)), n, h, len(y))
 
 
