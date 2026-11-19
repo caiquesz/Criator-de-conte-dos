@@ -1,0 +1,639 @@
+{
+  "video": {
+    "src": "assets/video/black-friday.mp4",
+    "focus": "40% 40%"
+  },
+  "transcript": "assets/transcripts/black-friday.json",
+  "motionBlur": true,
+  "fix": {
+    "w4": "Cor e Arte"
+  },
+  "captions": {
+    "y": 1080,
+    "size": 46,
+    "maxWords": 5,
+    "maxChars": 26,
+    "yAt": [
+      {
+        "from": 4.3,
+        "to": 12.5,
+        "y": 1150
+      },
+      {
+        "from": 12.5,
+        "to": 20.23,
+        "y": 1060
+      },
+      {
+        "from": 20.23,
+        "to": 27.13,
+        "y": 1330
+      },
+      {
+        "from": 27.13,
+        "to": 33.6,
+        "y": 1180
+      },
+      {
+        "from": 33.6,
+        "to": 40,
+        "y": 1250
+      }
+    ],
+    "emph": [
+      "w45",
+      "w55"
+    ]
+  },
+  "cutout": {
+    "src": "assets/cutout/black-friday-full.webm",
+    "dur": 37.967,
+    "windows": [
+      [
+        0,
+        37.967
+      ]
+    ]
+  },
+  "titles": [
+    {
+      "id": "hook",
+      "from": "w0",
+      "to": "w4",
+      "enter": "blur-rise",
+      "y": 300,
+      "padX": 40,
+      "end": 2.45,
+      "exit": "blur",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w1",
+              "t": "Black",
+              "s": "sans",
+              "size": 210
+            }
+          ]
+        },
+        {
+          "gap": -60,
+          "tokens": [
+            {
+              "w": "w2",
+              "t": "Friday",
+              "s": "serif",
+              "size": 200
+            }
+          ]
+        },
+        {
+          "gap": 0,
+          "justify": "flex-end",
+          "tokens": [
+            {
+              "w": "w3",
+              "t": "da Cor e Arte",
+              "s": "sans-sm",
+              "size": 60
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "from": "w11",
+      "to": "w15",
+      "enter": "blur",
+      "y": 380,
+      "padX": 40,
+      "hold": 0.4,
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w12",
+              "t": "será dia 9",
+              "s": "sans",
+              "size": 112
+            }
+          ]
+        },
+        {
+          "gap": -16,
+          "tokens": [
+            {
+              "w": "w15",
+              "t": "de novembro",
+              "s": "serif",
+              "size": 160
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ao-vivo",
+      "enter": "pop",
+      "y": 600,
+      "end": 8.33,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w20",
+              "t": "ao vivo",
+              "s": "badge",
+              "size": 44
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "horario",
+      "from": "w25",
+      "to": "w27",
+      "enter": "type",
+      "typeSpeed": 0.05,
+      "y": 230,
+      "padX": 40,
+      "end": 10.6,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w25",
+              "t": "às",
+              "s": "sans-sm",
+              "size": 64
+            }
+          ]
+        },
+        {
+          "gap": -30,
+          "tokens": [
+            {
+              "w": "w26",
+              "t": "18 horas",
+              "s": "serif",
+              "size": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "loja",
+      "from": "w28",
+      "to": "w33",
+      "enter": "blur-rise",
+      "y": 400,
+      "padX": 40,
+      "end": 12.5,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w29",
+              "t": "a loja",
+              "s": "sans",
+              "size": 124
+            }
+          ]
+        },
+        {
+          "gap": -50,
+          "tokens": [
+            {
+              "w": "w31",
+              "t": "inteira",
+              "s": "serif",
+              "size": 230
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lista-tapetes",
+      "from": "w34",
+      "to": "w34",
+      "enter": "blur",
+      "y": 760,
+      "padX": 40,
+      "end": 13.5,
+      "exit": "blur",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w34",
+              "t": "Tapetes",
+              "s": "serif",
+              "size": 140
+            }
+          ]
+        }
+      ],
+      "align": "flex-start"
+    },
+    {
+      "id": "lista-almofadas",
+      "from": "w35",
+      "to": "w35",
+      "enter": "blur",
+      "y": 760,
+      "padX": 40,
+      "end": 15.06,
+      "exit": "blur",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w35",
+              "t": "almofadas",
+              "s": "serif",
+              "size": 112
+            }
+          ]
+        }
+      ],
+      "align": "flex-start"
+    },
+    {
+      "id": "lista-mantas",
+      "from": "w36",
+      "to": "w36",
+      "enter": "blur",
+      "y": 760,
+      "padX": 40,
+      "end": 16.12,
+      "exit": "blur",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w36",
+              "t": "mantas",
+              "s": "serif",
+              "size": 140
+            }
+          ]
+        }
+      ],
+      "align": "flex-start"
+    },
+    {
+      "id": "lista-kits",
+      "from": "w37",
+      "to": "w38",
+      "enter": "blur",
+      "y": 760,
+      "padX": 40,
+      "end": 17.24,
+      "exit": "blur",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w37",
+              "t": "kits",
+              "s": "sans",
+              "size": 84
+            }
+          ]
+        },
+        {
+          "gap": -26,
+          "tokens": [
+            {
+              "w": "w38",
+              "t": "americanos",
+              "s": "serif",
+              "size": 100
+            }
+          ]
+        }
+      ],
+      "align": "flex-start"
+    },
+    {
+      "id": "lista-mais",
+      "from": "w39",
+      "to": "w41",
+      "enter": "blur",
+      "y": 760,
+      "padX": 40,
+      "end": 18.65,
+      "exit": "blur",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w40",
+              "t": "e muito",
+              "s": "sans",
+              "size": 84
+            }
+          ]
+        },
+        {
+          "gap": -26,
+          "tokens": [
+            {
+              "w": "w41",
+              "t": "mais",
+              "s": "serif",
+              "size": 150
+            }
+          ]
+        }
+      ],
+      "align": "flex-start"
+    },
+    {
+      "id": "nem-antes",
+      "from": "w59",
+      "to": "w63",
+      "enter": "blur-rise",
+      "y": 500,
+      "padX": 50,
+      "end": 27.13,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w59",
+              "t": "nem antes",
+              "s": "sans",
+              "size": 120
+            }
+          ]
+        },
+        {
+          "gap": -34,
+          "tokens": [
+            {
+              "w": "w61",
+              "t": "e nem",
+              "s": "sans-sm",
+              "size": 60
+            },
+            {
+              "w": "w63",
+              "t": "depois",
+              "s": "serif",
+              "size": 180
+            }
+          ]
+        }
+      ],
+      "align": "flex-start"
+    },
+    {
+      "id": "chance",
+      "from": "w79",
+      "to": "w82",
+      "enter": "blur",
+      "y": 270,
+      "padX": 40,
+      "end": 33.6,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w79",
+              "t": "é sua grande",
+              "s": "sans",
+              "size": 100
+            }
+          ]
+        },
+        {
+          "gap": -44,
+          "tokens": [
+            {
+              "w": "w82",
+              "t": "chance",
+              "s": "serif",
+              "size": 230
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "final-selo",
+      "enter": "pop",
+      "y": 300,
+      "end": 37.96,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "at": 33.62,
+              "t": "ao vivo",
+              "s": "badge",
+              "size": 44
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "final",
+      "from": "w83",
+      "to": "w92",
+      "enter": "blur-rise",
+      "y": 390,
+      "padX": 40,
+      "end": 37.96,
+      "exit": "cut",
+      "lines": [
+        {
+          "tokens": [
+            {
+              "w": "w83",
+              "t": "dia 9",
+              "s": "sans",
+              "size": 124
+            }
+          ]
+        },
+        {
+          "gap": -16,
+          "tokens": [
+            {
+              "w": "w84",
+              "t": "de novembro",
+              "s": "serif",
+              "size": 160
+            }
+          ]
+        },
+        {
+          "gap": 10,
+          "tokens": [
+            {
+              "w": "w85",
+              "t": "às 18 horas",
+              "s": "sans",
+              "size": 84
+            }
+          ]
+        },
+        {
+          "gap": 20,
+          "tokens": [
+            {
+              "w": "w88",
+              "t": "já anota na sua agenda",
+              "s": "sans-sm",
+              "size": 50,
+              "enter": "type"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "zooms": [
+    {
+      "t": 0.0,
+      "scale": 1.0
+    },
+    {
+      "t": 0.32,
+      "scale": 1.1,
+      "dur": 0.45,
+      "ease": "power3.out"
+    },
+    {
+      "t": 4.3,
+      "scale": 1.0,
+      "origin": "55% 48%"
+    },
+    {
+      "t": 4.92,
+      "scale": 1.13,
+      "dur": 0.4,
+      "ease": "power3.out"
+    },
+    {
+      "t": 8.33,
+      "scale": 1.0,
+      "origin": "50% 38%"
+    },
+    {
+      "t": 9.42,
+      "scale": 1.09,
+      "dur": 0.5,
+      "ease": "power3.out"
+    },
+    {
+      "t": 10.6,
+      "scale": 1.0,
+      "origin": "62% 45%"
+    },
+    {
+      "t": 10.62,
+      "scale": 1.1,
+      "dur": 1.8,
+      "ease": "power2.out"
+    },
+    {
+      "t": 12.5,
+      "scale": 1.0,
+      "origin": "68% 50%"
+    },
+    {
+      "t": 12.5,
+      "scale": 1.08,
+      "dur": 6.1,
+      "ease": "none"
+    },
+    {
+      "t": 18.65,
+      "scale": 1.08
+    },
+    {
+      "t": 20.23,
+      "scale": 1.0,
+      "origin": "75% 45%"
+    },
+    {
+      "t": 25.32,
+      "scale": 1.1,
+      "dur": 0.4,
+      "ease": "power3.out"
+    },
+    {
+      "t": 27.13,
+      "scale": 1.0,
+      "origin": "40% 38%"
+    },
+    {
+      "t": 27.13,
+      "scale": 1.05,
+      "dur": 4.8,
+      "ease": "none"
+    },
+    {
+      "t": 32.02,
+      "scale": 1.14,
+      "dur": 0.4,
+      "ease": "power3.out"
+    },
+    {
+      "t": 33.6,
+      "scale": 1.0,
+      "origin": "50% 50%"
+    },
+    {
+      "t": 33.6,
+      "scale": 1.07,
+      "dur": 4.36,
+      "ease": "none"
+    }
+  ],
+  "transitions": [
+    {
+      "t": 4.3,
+      "type": "silhouette"
+    },
+    {
+      "t": 8.333,
+      "type": "whip",
+      "dir": "left"
+    },
+    {
+      "t": 10.6,
+      "type": "zoom"
+    },
+    {
+      "t": 12.5,
+      "type": "flash"
+    },
+    {
+      "t": 20.233,
+      "type": "leak"
+    },
+    {
+      "t": 27.133,
+      "type": "whip",
+      "dir": "right"
+    },
+    {
+      "t": 33.6,
+      "type": "flash"
+    }
+  ]
+}

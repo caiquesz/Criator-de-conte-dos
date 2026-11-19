@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #cam, #cam-cut, #camz, #cutz, #dim { position: absolute; inset: 0; }
+      #cam, #cam-cut { overflow: hidden; }
+      #cam { z-index: 1; }
+      #dim { z-index: 2; background: #000; opacity: 0; pointer-events: none; }
+      #cam-cut { z-index: 4; opacity: 0; }
+      #main-video, #cutout { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+    </style>
+  </head>
+  <body>
+    <!-- gerado por tools/build.mjs a partir de edits/tapetes-porta.json -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="86.6" data-width="1080" data-height="1920" data-motion-blur="on">
+      <div id="cam"><div id="camz">
+        <video id="main-video" class="clip" src="assets/video/tapetes-porta.mp4" data-start="0" data-duration="86.6" data-track-index="0" data-has-audio="true" playsinline></video>
+      </div></div>
+      <div id="dim"></div>
+      <div id="titles" data-composition-id="titles" data-composition-src="compositions/titles.html" data-start="0" data-duration="86.6" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 3"></div>
+      <div id="cam-cut"><div id="cutz">
+        <video id="cutout" class="clip" src="assets/cutout/tapetes-porta.webm" data-start="0" data-media-start="0" data-duration="86.6" data-track-index="2" muted playsinline data-layout-allow-occlusion></video>
+      </div></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="86.6" data-track-index="3" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index: 5"></div>
+      <div id="fx" data-composition-id="fx" data-composition-src="compositions/fx.html" data-start="0" data-duration="86.6" data-track-index="4" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 6"></div>
+      <audio id="sfx-0" src="assets/sfx/click-1.mp3" data-start="0.006" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-1" src="assets/sfx/click-2.mp3" data-start="0.544" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-2" src="assets/sfx/click-3.mp3" data-start="8.877" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-3" src="assets/sfx/click-1.mp3" data-start="9.356" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-4" src="assets/sfx/whoosh-1.mp3" data-start="10.504" data-duration="0.575" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-5" src="assets/sfx/click-1.mp3" data-start="10.556" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+      <audio id="sfx-6" src="assets/sfx/click-2.mp3" data-start="14.344" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-7" src="assets/sfx/click-3.mp3" data-start="17.537" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-8" src="assets/sfx/click-1.mp3" data-start="18.236" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-9" src="assets/sfx/whoosh-2.mp3" data-start="24.394" data-duration="0.653" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-10" src="assets/sfx/click-2.mp3" data-start="24.564" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+      <audio id="sfx-11" src="assets/sfx/click-3.mp3" data-start="29.097" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-12" src="assets/sfx/click-1.mp3" data-start="30.336" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-13" src="assets/sfx/whoosh-3.mp3" data-start="37.253" data-duration="0.575" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-14" src="assets/sfx/click-2.mp3" data-start="37.394" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+      <audio id="sfx-15" src="assets/sfx/whoosh-1.mp3" data-start="42.004" data-duration="0.575" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-16" src="assets/sfx/click-3.mp3" data-start="42.117" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+      <audio id="sfx-17" src="assets/sfx/click-1.mp3" data-start="48.636" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-18" src="assets/sfx/click-2.mp3" data-start="49.144" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-19" src="assets/sfx/whoosh-2.mp3" data-start="49.827" data-duration="0.653" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-20" src="assets/sfx/click-3.mp3" data-start="49.987" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+      <audio id="sfx-21" src="assets/sfx/click-1.mp3" data-start="53.236" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-22" src="assets/sfx/click-2.mp3" data-start="54.504" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-23" src="assets/sfx/whoosh-3.mp3" data-start="60.01" data-duration="0.575" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-24" src="assets/sfx/click-3.mp3" data-start="60.157" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+      <audio id="sfx-25" src="assets/sfx/whoosh-1.mp3" data-start="66.941" data-duration="0.575" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-26" src="assets/sfx/click-1.mp3" data-start="67.086" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+      <audio id="sfx-27" src="assets/sfx/whoosh-2.mp3" data-start="73.924" data-duration="0.653" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-28" src="assets/sfx/click-2.mp3" data-start="74.064" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+      <audio id="sfx-29" src="assets/sfx/click-3.mp3" data-start="75.137" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-30" src="assets/sfx/whoosh-3.mp3" data-start="79.82" data-duration="0.575" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-31" src="assets/sfx/click-1.mp3" data-start="82.056" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-32" src="assets/sfx/click-2.mp3" data-start="83.104" data-duration="0.432" data-track-index="6" data-volume="1"></audio>
+      <audio id="sfx-33" src="assets/sfx/click-3.mp3" data-start="83.237" data-duration="0.432" data-track-index="7" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.set(["#camz", "#cutz"], { scale: 1, transformOrigin: "50% 38%" }, 0);
+      tl.set("#cam-cut", { filter: "brightness(0) invert(1)" }, 10.566);
+      tl.set("#cam-cut", { filter: "none" }, 10.6);
+      tl.fromTo(["#cam", "#cam-cut"], { x: 0, scale: 1 }, { x: -194, scale: 1.4, duration: 0.14, ease: "power3.in", immediateRender: false }, 24.427);
+      tl.fromTo(["#cam", "#cam-cut"], { x: 194, scale: 1.4 }, { x: 0, scale: 1, duration: 0.24, ease: "power3.out", immediateRender: false }, 24.567);
+      tl.fromTo(["#cam", "#cam-cut"], { scale: 1 }, { scale: 1.32, duration: 0.16, ease: "power3.in", immediateRender: false }, 37.24);
+      tl.fromTo(["#cam", "#cam-cut"], { scale: 1.32 }, { scale: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, 37.4);
+      tl.fromTo(["#cam", "#cam-cut"], { x: 0, scale: 1 }, { x: 194, scale: 1.4, duration: 0.14, ease: "power3.in", immediateRender: false }, 49.86);
+      tl.fromTo(["#cam", "#cam-cut"], { x: -194, scale: 1.4 }, { x: 0, scale: 1, duration: 0.24, ease: "power3.out", immediateRender: false }, 50);
+      tl.fromTo(["#cam", "#cam-cut"], { scale: 1 }, { scale: 1.32, duration: 0.16, ease: "power3.in", immediateRender: false }, 66.94);
+      tl.fromTo(["#cam", "#cam-cut"], { scale: 1.32 }, { scale: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, 67.1);
+      tl.fromTo(["#cam", "#cam-cut"], { x: 0, scale: 1 }, { x: -194, scale: 1.4, duration: 0.14, ease: "power3.in", immediateRender: false }, 79.827);
+      tl.fromTo(["#cam", "#cam-cut"], { x: 194, scale: 1.4 }, { x: 0, scale: 1, duration: 0.24, ease: "power3.out", immediateRender: false }, 79.967);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 0);
+      tl.to(["#camz", "#cutz"], { scale: 1.06, duration: 10.6, ease: "none" }, 0);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 10.63);
+      tl.to(["#camz", "#cutz"], { scale: 1.09, duration: 0.45, ease: "power3.out" }, 17.58);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 24.57);
+      tl.to(["#camz", "#cutz"], { scale: 1.09, duration: 0.45, ease: "power3.out" }, 29.14);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 37.4);
+      tl.to(["#camz", "#cutz"], { scale: 1.06, duration: 4.7, ease: "none" }, 37.4);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 42.13);
+      tl.to(["#camz", "#cutz"], { scale: 1.09, duration: 0.45, ease: "power3.out" }, 48.8);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 50);
+      tl.to(["#camz", "#cutz"], { scale: 1.09, duration: 0.45, ease: "power3.out" }, 53.28);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 60.17);
+      tl.to(["#camz", "#cutz"], { scale: 1.06, duration: 6.9, ease: "none" }, 60.17);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 67.1);
+      tl.to(["#camz", "#cutz"], { scale: 1.06, duration: 6.9, ease: "none" }, 67.1);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 74.07);
+      tl.to(["#camz", "#cutz"], { scale: 1.08, duration: 0.45, ease: "power3.out" }, 74.1);
+      tl.set(["#camz", "#cutz"], { scale: 1 }, 79.97);
+      tl.to(["#camz", "#cutz"], { scale: 1.1, duration: 0.45, ease: "power3.out" }, 82.1);
+      tl.set("#cam-cut", { opacity: 1 }, 0);
+      tl.set("#cam-cut", { opacity: 0 }, 86.6);
+      tl.set("#cam-cut", { opacity: 1 }, 10.566);
+      tl.set("#cam-cut", { opacity: 0 }, 10.6);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

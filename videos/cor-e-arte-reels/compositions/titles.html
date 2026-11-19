@@ -1,0 +1,182 @@
+<template>
+  <style>
+      @font-face { font-family: "Poppins"; font-weight: 500; src: url("assets/fonts/Poppins-500.woff2") format("woff2"); }
+      @font-face { font-family: "Poppins"; font-weight: 600; src: url("assets/fonts/Poppins-600.woff2") format("woff2"); }
+      @font-face { font-family: "Poppins"; font-weight: 700; src: url("assets/fonts/Poppins-700.woff2") format("woff2"); }
+      @font-face { font-family: "Poppins"; font-weight: 800; src: url("assets/fonts/Poppins-800.woff2") format("woff2"); }
+      @font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 400 900; src: url("assets/fonts/PlayfairDisplay-VF.woff2") format("woff2"); }
+      @font-face { font-family: "Playfair Display"; font-style: italic; font-weight: 400 900; src: url("assets/fonts/PlayfairDisplay-Italic-VF.woff2") format("woff2"); }
+      #root { position: absolute; inset: 0; overflow: visible; }
+      .title { position: absolute; inset: 0; z-index: 2; }
+      .card { position: absolute; z-index: 1; object-fit: cover; }
+      .title-in { position: absolute; left: 0; right: 0; }
+      .tl-line { display: flex; align-items: baseline; white-space: nowrap; }
+      .tk { display: inline-block; position: relative; color: #fff; opacity: 0; will-change: transform, filter, opacity;
+            text-shadow: 0 4px 28px rgba(0, 0, 0, 0.22); }
+      .tk + .tk { margin-left: 0.24em; }
+      .ch { opacity: 0; }
+      .sans { font-family: "Poppins", sans-serif; font-weight: 700; letter-spacing: -0.055em; line-height: 0.86; }
+      .sans.sm { font-weight: 600; letter-spacing: -0.03em; }
+      .serif { font-family: "Playfair Display", serif; font-style: italic; font-weight: 400; letter-spacing: -0.035em; line-height: 0.82;
+               color: rgba(255, 255, 255, var(--tk-o, 0.94)); }
+      .serif.up { font-style: normal; letter-spacing: -0.045em; }
+      .badge { font-family: "Poppins", sans-serif; font-weight: 700; letter-spacing: 0.01em; line-height: 1; color: #fff;
+               display: inline-flex; align-items: center; gap: 0.36em; padding: 0.34em 0.7em 0.3em; border-radius: 999px;
+               background: #e3264a; text-shadow: none; }
+      .badge::before { content: ""; width: 0.46em; height: 0.46em; border-radius: 50%; background: #fff; }
+  </style>
+  <div id="root" data-composition-id="titles" data-width="1080" data-height="1920">
+      <div id="hook" class="clip title" data-start="0.05" data-duration="2.25" data-track-index="0" data-layout-allow-overlap>
+        <div class="title-in" id="hook-in" style="top:300px;padding:0 40px">
+          <div class="tl-line" style="justify-content:center"><span class="tk sans" id="hook-0-0" style="font-size:200px">Tapete</span></div>
+          <div class="tl-line" style="justify-content:center;margin-top:-54px"><span class="tk serif" id="hook-1-0" style="font-size:190px">de porta</span></div>
+        </div>
+      </div>
+      <div id="sete" class="clip title" data-start="8.92" data-duration="1.68" data-track-index="1" data-layout-allow-overlap>
+        <div class="title-in" id="sete-in" style="top:320px;padding:0 40px">
+          <div class="tl-line" style="justify-content:center"><span class="tk sans sm" id="sete-0-0" style="font-size:70px">temos</span></div>
+          <div class="tl-line" style="justify-content:center;margin-top:-26px"><span class="tk serif" id="sete-1-0" style="font-size:170px">sete modelos</span></div>
+        </div>
+      </div>
+      <div id="t1" class="clip title" data-start="14.38" data-duration="3.02" data-track-index="2" data-layout-allow-overlap>
+        <div class="title-in" id="t1-in" style="top:330px;padding:0 60px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="t1-0-0" style="font-size:104px">1. Atoalhado</span></div>
+        </div>
+      </div>
+      <div id="macio" class="clip title" data-start="17.58" data-duration="1.78" data-track-index="3" data-layout-allow-overlap>
+        <div class="title-in" id="macio-in" style="top:229px;padding:0 40px">
+          <div class="tl-line" style="justify-content:center"><span class="tk sans" id="macio-0-0" style="font-size:104px">toque</span></div>
+          <div class="tl-line" style="justify-content:center;margin-top:-36px"><span class="tk serif" id="macio-1-0" style="font-size:170px">macio</span></div>
+        </div>
+      </div>
+      <div id="t2" class="clip title" data-start="24.6" data-duration="4.3" data-track-index="0" data-layout-allow-overlap>
+        <div class="title-in" id="t2-in" style="top:330px;padding:0 60px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="t2-0-0" style="font-size:96px">2. Cravo e Canela</span></div>
+        </div>
+      </div>
+      <div id="chique" class="clip title" data-start="29.14" data-duration="2.62" data-track-index="1" data-layout-allow-overlap>
+        <div class="title-in" id="chique-in" style="top:268px;padding:0 40px">
+          <div class="tl-line" style="justify-content:center"><span class="tk sans" id="chique-0-0" style="font-size:100px">chique e</span></div>
+          <div class="tl-line" style="justify-content:center;margin-top:-34px"><span class="tk serif" id="chique-1-0" style="font-size:150px">sofisticado</span></div>
+        </div>
+      </div>
+      <div id="t3" class="clip title" data-start="37.43" data-duration="4.7" data-track-index="2" data-layout-allow-overlap>
+        <div class="title-in" id="t3-in" style="top:330px;padding:0 60px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="t3-0-0" style="font-size:104px">3. Malha</span></div>
+        </div>
+      </div>
+      <div id="t4" class="clip title" data-start="42.16" data-duration="4.14" data-track-index="3" data-layout-allow-overlap>
+        <div class="title-in" id="t4-in" style="top:330px;padding:0 60px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="t4-0-0" style="font-size:104px">4. Cairo</span></div>
+        </div>
+      </div>
+      <div id="design" class="clip title" data-start="48.68" data-duration="1.32" data-track-index="0" data-layout-allow-overlap>
+        <div class="title-in" id="design-in" style="top:300px;padding:0 40px">
+          <div class="tl-line" style="justify-content:center"><span class="tk sans" id="design-0-0" style="font-size:100px"><span class="ch" id="design-0-0-c0">u</span><span class="ch" id="design-0-0-c1">m</span><span class="ch" id="design-0-0-c2">&nbsp;</span><span class="ch" id="design-0-0-c3">d</span><span class="ch" id="design-0-0-c4">e</span><span class="ch" id="design-0-0-c5">s</span><span class="ch" id="design-0-0-c6">i</span><span class="ch" id="design-0-0-c7">g</span><span class="ch" id="design-0-0-c8">n</span></span></div>
+          <div class="tl-line" style="justify-content:center;margin-top:-34px"><span class="tk serif" id="design-1-0" style="font-size:160px"><span class="ch" id="design-1-0-c0">d</span><span class="ch" id="design-1-0-c1">i</span><span class="ch" id="design-1-0-c2">f</span><span class="ch" id="design-1-0-c3">e</span><span class="ch" id="design-1-0-c4">r</span><span class="ch" id="design-1-0-c5">e</span><span class="ch" id="design-1-0-c6">n</span><span class="ch" id="design-1-0-c7">t</span><span class="ch" id="design-1-0-c8">e</span></span></div>
+        </div>
+      </div>
+      <div id="t5" class="clip title" data-start="50.03" data-duration="3.07" data-track-index="1" data-layout-allow-overlap>
+        <div class="title-in" id="t5-in" style="top:330px;padding:0 60px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="t5-0-0" style="font-size:104px">5. Ondara</span></div>
+        </div>
+      </div>
+      <div id="classico" class="clip title" data-start="53.28" data-duration="2.4" data-track-index="2" data-layout-allow-overlap>
+        <div class="title-in" id="classico-in" style="top:297px;padding:0 40px">
+          <div class="tl-line" style="justify-content:center"><span class="tk sans" id="classico-0-0" style="font-size:100px">clássico e</span></div>
+          <div class="tl-line" style="justify-content:center;margin-top:-34px"><span class="tk serif" id="classico-1-0" style="font-size:160px">elegante</span></div>
+        </div>
+      </div>
+      <div id="t6" class="clip title" data-start="60.2" data-duration="4.3" data-track-index="3" data-layout-allow-overlap>
+        <div class="title-in" id="t6-in" style="top:330px;padding:0 60px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="t6-0-0" style="font-size:104px">6. Artesão</span></div>
+        </div>
+      </div>
+      <div id="t7" class="clip title" data-start="67.13" data-duration="4.47" data-track-index="0" data-layout-allow-overlap>
+        <div class="title-in" id="t7-in" style="top:330px;padding:0 60px">
+          <div class="tl-line" style="justify-content:flex-end"><span class="tk serif" id="t7-0-0" style="font-size:104px">7. Dominó</span></div>
+        </div>
+      </div>
+      <div id="cores" class="clip title" data-start="74.1" data-duration="4.3" data-track-index="1" data-layout-allow-overlap>
+        <div class="title-in" id="cores-in" style="top:235px;padding:0 40px">
+          <div class="tl-line" style="justify-content:center"><span class="tk sans" id="cores-0-0" style="font-size:96px">sete modelos</span></div>
+          <div class="tl-line" style="justify-content:center;margin-top:-32px"><span class="tk serif" id="cores-1-0" style="font-size:140px">e muitas cores</span></div>
+        </div>
+      </div>
+      <div id="whatsapp" class="clip title" data-start="82.1" data-duration="2.18" data-track-index="2" data-layout-allow-overlap>
+        <div class="title-in" id="whatsapp-in" style="top:269px;padding:0 40px">
+          <div class="tl-line" style="justify-content:center"><span class="tk sans" id="whatsapp-0-0" style="font-size:96px">já me chama</span></div>
+          <div class="tl-line" style="justify-content:center;margin-top:-24px"><span class="tk sans sm" id="whatsapp-1-0" style="font-size:60px">no</span><span class="tk serif" id="whatsapp-1-1" style="font-size:150px">WhatsApp</span></div>
+        </div>
+      </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // hook
+      tl.fromTo("#hook-0-0", { opacity: 0, y: 64, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 0.05);
+      tl.fromTo("#hook-1-0", { opacity: 0, y: 61, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 0.58);
+      tl.to("#hook-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 2.12);
+      // sete
+      tl.fromTo("#sete-0-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 8.92);
+      tl.fromTo("#sete-1-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 9.4);
+      // t1
+      tl.set("#t1-0-0", { opacity: 1 }, 14.38);
+      // macio
+      tl.fromTo("#macio-0-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 17.58);
+      tl.fromTo("#macio-1-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 18.28);
+      tl.to("#macio-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 19.18);
+      // t2
+      tl.set("#t2-0-0", { opacity: 1 }, 24.6);
+      // chique
+      tl.fromTo("#chique-0-0", { opacity: 0, y: 32, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 29.14);
+      tl.fromTo("#chique-1-0", { opacity: 0, y: 48, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 30.38);
+      tl.to("#chique-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 31.58);
+      // t3
+      tl.set("#t3-0-0", { opacity: 1 }, 37.43);
+      // t4
+      tl.set("#t4-0-0", { opacity: 1 }, 42.16);
+      // design
+      tl.set("#design-0-0", { opacity: 1 }, 48.68);
+      tl.set("#design-0-0-c0", { opacity: 1 }, 48.68);
+      tl.set("#design-0-0-c1", { opacity: 1 }, 48.72);
+      tl.set("#design-0-0-c2", { opacity: 1 }, 48.76);
+      tl.set("#design-0-0-c3", { opacity: 1 }, 48.8);
+      tl.set("#design-0-0-c4", { opacity: 1 }, 48.84);
+      tl.set("#design-0-0-c5", { opacity: 1 }, 48.88);
+      tl.set("#design-0-0-c6", { opacity: 1 }, 48.92);
+      tl.set("#design-0-0-c7", { opacity: 1 }, 48.96);
+      tl.set("#design-0-0-c8", { opacity: 1 }, 49);
+      tl.set("#design-1-0", { opacity: 1 }, 49.18);
+      tl.set("#design-1-0-c0", { opacity: 1 }, 49.18);
+      tl.set("#design-1-0-c1", { opacity: 1 }, 49.22);
+      tl.set("#design-1-0-c2", { opacity: 1 }, 49.26);
+      tl.set("#design-1-0-c3", { opacity: 1 }, 49.3);
+      tl.set("#design-1-0-c4", { opacity: 1 }, 49.34);
+      tl.set("#design-1-0-c5", { opacity: 1 }, 49.38);
+      tl.set("#design-1-0-c6", { opacity: 1 }, 49.42);
+      tl.set("#design-1-0-c7", { opacity: 1 }, 49.46);
+      tl.set("#design-1-0-c8", { opacity: 1 }, 49.5);
+      // t5
+      tl.set("#t5-0-0", { opacity: 1 }, 50.03);
+      // classico
+      tl.fromTo("#classico-0-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 53.28);
+      tl.fromTo("#classico-1-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 54.54);
+      tl.to("#classico-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 55.5);
+      // t6
+      tl.set("#t6-0-0", { opacity: 1 }, 60.2);
+      // t7
+      tl.set("#t7-0-0", { opacity: 1 }, 67.13);
+      // cores
+      tl.fromTo("#cores-0-0", { opacity: 0, y: 31, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 74.1);
+      tl.fromTo("#cores-1-0", { opacity: 0, y: 45, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, 75.18);
+      tl.to("#cores-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 78.22);
+      // whatsapp
+      tl.fromTo("#whatsapp-0-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 82.1);
+      tl.fromTo("#whatsapp-1-0", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 83.14);
+      tl.fromTo("#whatsapp-1-1", { opacity: 0, scale: 1.06, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 83.28);
+      tl.to("#whatsapp-in", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 84.1);
+      window.__timelines["titles"] = tl;
+    })();
+  </script>
+</template>
