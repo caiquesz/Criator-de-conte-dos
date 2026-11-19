@@ -165,6 +165,23 @@ de novo) que eu tomei por sobra; o conteúdo já estava baixado, mas a regra é 
     preferiu voltar à Roboto (5ª versão). Não tente de novo afinar uma fonte Regular para imitar uma Light; se ela
     pedir outra fonte, mande antes uma imagem com a frase da referência e as candidatas (na mesma altura-x e na
     mesma largura de frase) para ela escolher, sem renderizar o vídeo.
+  **6ª versão ("dá para remover o barulho da xícara batendo?"; "tá entre o segundo 14 e o 20, depois disso é a
+  batida da música"):**
+  - **os vídeos dela já vêm com música** (aqui, batida de 120 por minuto do começo ao fim, com chimbal a cada
+    0,25/0,5 s a partir dos 16 s). O chimbal parece estalo de objeto no detector de estalos: não é a xícara e fica;
+  - **pergunte o trecho antes de caçar um ruído no vídeo todo.** Eu procurei sozinho e marquei 7,45, 15,47 e
+    33,25 s; ao conferir, duas das janelas tinham voz (periodicidade alta na faixa de 80–1000 Hz, com a altura da
+    voz dela, 210–260 Hz) e a limpeza ia comer o começo de palavras. Sempre meça a periodicidade da voz dentro de uma
+    janela antes de mexer nela;
+  - **a xícara (de metal, dourada) não é só o estalo:** cada batida deixa notas finas soando por até ~0,5 s (4,55 kHz
+    a principal; ~3,6–4,1, ~6,9, ~7,2–7,5, ~10,6–11,4 kHz) e, quando ela segura, a xícara chacoalha no pires (série de
+    estalinhos). Confira no vídeo quadro a quadro quando a mão está na xícara;
+  - **como tirar sem mexer na voz** (`projetos/pesar-o-clima/limpar_xicara.py`): só nas janelas, (1) as notas da
+    xícara e os picos estreitos de 3–13 kHz descem ao nível do espectro em volta e (2) nos estalos, acima de 2 kHz,
+    cada faixa fica limitada à mediana dos 30 ms em volta. Abaixo de 2 kHz nada muda (a voz ficou idêntica, 0,0 dB) e
+    fora das janelas o áudio sai igual ao original, amostra por amostra. O plano lê a voz de
+    `assets/video/voz-sem-xicara.wav` (ordem: `montar_video.py`, `limpar_xicara.py`, `montar_plano.py`). Mudar só o
+    áudio não pede render: `mixar.py` sobre o vídeo final anterior (ele copia a imagem e troca o som).
   Fontes: Roboto e Satisfy do npm (`@fontsource/...`), FreeSans do apt (`fonts-freefont-ttf`), copiadas para
   `assets/fonts/`. Modelo: `projetos/pesar-o-clima/montar_plano.py` e `montar_video.py`. Os nomes das camadas
   próprias não podem ser `legendas.html` nem `cards.html` (o `gerar.py` escreve por cima).

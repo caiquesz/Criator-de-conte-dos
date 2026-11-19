@@ -1,6 +1,6 @@
 {
  "video": "assets/video/base.mp4",
- "video_original": "assets/video/voz.wav",
+ "video_original": "assets/video/voz-sem-xicara.wav",
  "video_tem_audio": true,
  "duracao": 58.8333,
  "cores": {

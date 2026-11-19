@@ -267,7 +267,8 @@ sons.sort(key=lambda s: s["t"])
 
 plano = {
     "video": "assets/video/base.mp4",
-    "video_original": "assets/video/voz.wav",          # o som do original intacto, mais silêncio na cauda
+    # o som do original, mais silêncio na cauda (montar_video.py), sem as batidas da xícara de 14–20 s (limpar_xicara.py)
+    "video_original": "assets/video/voz-sem-xicara.wav",
     "video_tem_audio": True,
     "duracao": DUR,
     "cores": {"texto": "#FFFFFF", "destaque": "#FFFFFF", "destaque_escuro": "#FFFFFF", "brilho": False, "vazamento": "#FF7A2E"},
