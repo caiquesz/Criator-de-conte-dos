@@ -1,0 +1,99 @@
+{
+ "fotos": {
+  "assets/fotos/antes-1a-etapa-b.jpg": {
+   "largura": 1349,
+   "altura": 2400,
+   "rosto": null,
+   "corpo": {
+    "caixa": [
+     0,
+     0,
+     1348,
+     2399
+    ],
+    "foco": [
+     0.5019,
+     0.4998
+    ],
+    "inteiro": false
+   }
+  },
+  "assets/fotos/antes-1a-etapa.jpg": {
+   "largura": 1349,
+   "altura": 2400,
+   "rosto": null,
+   "corpo": {
+    "caixa": [
+     0,
+     0,
+     1348,
+     2399
+    ],
+    "foco": [
+     0.5019,
+     0.4998
+    ],
+    "inteiro": false
+   }
+  },
+  "assets/fotos/antes-2a-etapa.jpg": {
+   "largura": 1800,
+   "altura": 2400,
+   "rosto": null,
+   "corpo": {
+    "caixa": [
+     0,
+     0,
+     1480,
+     2399
+    ],
+    "foco": [
+     0.4658,
+     0.4998
+    ],
+    "inteiro": false
+   }
+  },
+  "assets/fotos/depois-1a-etapa.jpg": {
+   "largura": 1350,
+   "altura": 2400,
+   "rosto": null,
+   "corpo": {
+    "caixa": [
+     0,
+     0,
+     1094,
+     2399
+    ],
+    "foco": [
+     0.4403,
+     0.4998
+    ],
+    "inteiro": false
+   }
+  },
+  "assets/fotos/depois-2a-etapa.jpg": {
+   "largura": 1800,
+   "altura": 2400,
+   "rosto": null,
+   "corpo": {
+    "caixa": [
+     90,
+     0,
+     1709,
+     2399
+    ],
+    "foco": [
+     0.4975,
+     0.4998
+    ],
+    "inteiro": false
+   }
+  }
+ },
+ "divididas": {
+  "f3": {
+   "olhos_y": 790
+  }
+ }
+}

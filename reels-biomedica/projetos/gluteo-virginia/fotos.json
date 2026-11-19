@@ -1,0 +1,32 @@
+{
+ "fotos": {
+  "assets/fotos/virginia-foto.jpg": {
+   "largura": 1320,
+   "altura": 1956,
+   "rosto": [
+    787.5,
+    909.4,
+    74.2,
+    94.6
+   ],
+   "corpo": {
+    "caixa": [
+     570,
+     814,
+     356,
+     793
+    ],
+    "foco": [
+     0.5034,
+     0.6729
+    ],
+    "inteiro": true
+   }
+  }
+ },
+ "divididas": {
+  "f1": {
+   "olhos_y": 706
+  }
+ }
+}

@@ -1,0 +1,84 @@
+<template>
+  <style>
+@font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+@font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Poppins Reels"; color: #FFFFFF; }
+    #ab { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; opacity: 0; background: #C2B29E; }
+    .ab-fundo { position: absolute; inset: 0; transform-origin: 50% 68%; }
+    .ab-fundo video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover;
+                       object-position: 50% 68%; filter: sepia(0.55) saturate(0.78) contrast(0.94) brightness(0.98); }
+    /* véu nude no alto (onde fica o título) que some antes do corpo dela */
+    .ab-veu { position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(132, 108, 92, 0.72) 0%, rgba(140, 116, 98, 0.62) 34%,
+                                  rgba(176, 156, 136, 0.2) 52%, rgba(194, 178, 158, 0) 64%, rgba(120, 100, 86, 0.18) 100%); }
+    .ab-luz { position: absolute; width: 1000px; height: 1000px; border-radius: 50%; mix-blend-mode: screen;
+      background: radial-gradient(circle, rgba(255, 190, 156, 0.85) 0%, rgba(255, 196, 166, 0.35) 38%, rgba(255, 200, 170, 0) 70%); }
+    .ab-luz.suave { background: radial-gradient(circle, rgba(255, 226, 200, 0.7) 0%, rgba(255, 226, 200, 0.25) 40%, rgba(255, 226, 200, 0) 70%); }
+    .ab-brilho { position: absolute; border-radius: 50%; background: #FFFFFF; opacity: 0;
+                  box-shadow: 0 0 10px 3px rgba(255, 244, 232, 0.85), 0 0 22px 6px rgba(255, 214, 190, 0.45); }
+    .ab-titulo { position: absolute; left: 0; top: 470px; width: 1080px; text-align: center;
+                  text-shadow: 0 2px 8px rgba(80, 54, 40, 0.35), 0 8px 34px rgba(80, 54, 40, 0.45); }
+    .ab-caso { font-weight: 400; font-size: 40px; letter-spacing: 0.55em; padding-left: 0.55em; line-height: 1; }
+    .le { display: inline-block; }
+    .ab-nome { font-weight: 600; font-size: 132px; letter-spacing: -0.025em; line-height: 1.05; margin-top: 22px; }
+    .ab-linha { width: 260px; height: 2px; margin: 30px auto 0; background: rgba(255, 255, 255, 0.9); border-radius: 2px;
+                 box-shadow: 0 0 12px rgba(255, 236, 220, 0.8); }
+    .ab-frase { font-weight: 400; font-size: 46px; letter-spacing: 0.01em; line-height: 1; margin-top: 30px; }
+  </style>
+  <div id="root" data-composition-id="abertura" data-width="1080" data-height="1920">
+    <div id="ab">
+      <div class="ab-fundo" id="ab-fundo"><video id="ab-v" class="clip" src="assets/fotos/virginia-tela.mp4" data-start="8.133" data-duration="2.4"
+        data-media-start="7" muted playsinline></video></div>
+      <div class="ab-veu"></div>
+      <div class="ab-luz" id="ab-l1" style="left:-320px;top:-260px"></div>
+      <div class="ab-luz suave" id="ab-l2" style="left:420px;top:1080px"></div>
+      <i class="ab-brilho" id="bx0" style="left:497px;top:1007px;width:8px;height:8px"></i><i class="ab-brilho" id="bx1" style="left:518px;top:1068px;width:6px;height:6px"></i><i class="ab-brilho" id="bx2" style="left:714px;top:427px;width:8px;height:8px"></i><i class="ab-brilho" id="bx3" style="left:104px;top:972px;width:5px;height:5px"></i><i class="ab-brilho" id="bx4" style="left:384px;top:1042px;width:6px;height:6px"></i><i class="ab-brilho" id="bx5" style="left:502px;top:692px;width:10px;height:10px"></i><i class="ab-brilho" id="bx6" style="left:297px;top:704px;width:5px;height:5px"></i><i class="ab-brilho" id="bx7" style="left:150px;top:399px;width:12px;height:12px"></i><i class="ab-brilho" id="bx8" style="left:972px;top:825px;width:5px;height:5px"></i><i class="ab-brilho" id="bx9" style="left:370px;top:397px;width:8px;height:8px"></i><i class="ab-brilho" id="bx10" style="left:144px;top:1273px;width:6px;height:6px"></i><i class="ab-brilho" id="bx11" style="left:783px;top:850px;width:8px;height:8px"></i><i class="ab-brilho" id="bx12" style="left:964px;top:1280px;width:7px;height:7px"></i><i class="ab-brilho" id="bx13" style="left:632px;top:1026px;width:5px;height:5px"></i><i class="ab-brilho" id="bx14" style="left:386px;top:712px;width:5px;height:5px"></i><i class="ab-brilho" id="bx15" style="left:422px;top:1077px;width:6px;height:6px"></i><i class="ab-brilho" id="bx16" style="left:255px;top:553px;width:6px;height:6px"></i><i class="ab-brilho" id="bx17" style="left:936px;top:600px;width:8px;height:8px"></i>
+      <div class="ab-titulo" id="ab-t">
+        <div class="ab-caso" id="ab-k"><span class="le" id="le0">C</span><span class="le" id="le1">A</span><span class="le" id="le2">S</span><span class="le" id="le3">O</span></div>
+        <div class="ab-nome" id="ab-n">Virgínia</div>
+        <div class="ab-linha" id="ab-r"></div>
+        <div class="ab-frase" id="ab-f">o que ninguém vê</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 66.3 }, 0);
+    tl.set("#ab", {opacity:0}, 0);
+    tl.set("#ab", {opacity:1}, 8.133);
+    tl.set("#ab", {opacity:0}, 10.533);
+    tl.fromTo("#ab-fundo", {scale:1.04, y:0}, {scale:1.12, y:-18, duration:2.4, ease:"sine.inOut"}, 8.133);
+    tl.fromTo("#ab-l1", {opacity:0, x:-40, y:-20}, {opacity:0.7, x:60, y:30, duration:1.44, ease:"sine.out"}, 8.133);
+    tl.to("#ab-l1", {opacity:0.35, x:110, duration:0.96, ease:"sine.in"}, 9.573);
+    tl.fromTo("#ab-l2", {opacity:0, x:40}, {opacity:0.55, x:-60, duration:2.4, ease:"sine.inOut"}, 8.133);
+    tl.fromTo("#ab-k", {opacity:0, filter:"blur(8px)"}, {opacity:0.96, filter:"blur(0px)", duration:1.0, ease:"power2.out"}, 8.353);
+    tl.fromTo("#le0", {x:-45}, {x:0, duration:1.1, ease:"power2.out"}, 8.353);
+    tl.fromTo("#le1", {x:-15}, {x:0, duration:1.1, ease:"power2.out"}, 8.353);
+    tl.fromTo("#le2", {x:15}, {x:0, duration:1.1, ease:"power2.out"}, 8.353);
+    tl.fromTo("#le3", {x:45}, {x:0, duration:1.1, ease:"power2.out"}, 8.353);
+    tl.fromTo("#ab-n", {opacity:0, y:26, scale:0.97, filter:"blur(14px)"}, {opacity:1, y:0, scale:1, filter:"blur(0px)", duration:1.0, ease:"power2.out"}, 8.553);
+    tl.fromTo("#ab-r", {scaleX:0, opacity:0}, {scaleX:1, opacity:0.9, duration:0.8, ease:"sine.inOut"}, 9.083);
+    tl.fromTo("#ab-f", {opacity:0, y:14, filter:"blur(6px)"}, {opacity:0.96, y:0, filter:"blur(0px)", duration:0.7, ease:"power2.out"}, 9.233);
+    tl.to("#ab-t", {opacity:0, y:-16, filter:"blur(8px)", duration:0.45, ease:"power1.in"}, 10.033);
+    tl.fromTo("#bx0", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.87, 0.87, 0]}, y:-113, scale:1, duration:1.81, ease:"sine.out"}, 8.477);
+    tl.fromTo("#bx1", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.87, 0.87, 0]}, y:-101, scale:1, duration:1.48, ease:"sine.out"}, 8.244);
+    tl.fromTo("#bx2", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.61, 0.61, 0]}, y:-164, scale:1, duration:1.69, ease:"sine.out"}, 8.81);
+    tl.fromTo("#bx3", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.86, 0.86, 0]}, y:-162, scale:1, duration:1.83, ease:"sine.out"}, 8.206);
+    tl.fromTo("#bx4", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.81, 0.81, 0]}, y:-150, scale:1, duration:1.68, ease:"sine.out"}, 8.521);
+    tl.fromTo("#bx5", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.68, 0.68, 0]}, y:-175, scale:1, duration:1.70, ease:"sine.out"}, 8.83);
+    tl.fromTo("#bx6", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.67, 0.67, 0]}, y:-103, scale:1, duration:1.36, ease:"sine.out"}, 8.549);
+    tl.fromTo("#bx7", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.74, 0.74, 0]}, y:-199, scale:1, duration:1.43, ease:"sine.out"}, 8.184);
+    tl.fromTo("#bx8", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.68, 0.68, 0]}, y:-171, scale:1, duration:1.42, ease:"sine.out"}, 8.551);
+    tl.fromTo("#bx9", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.59, 0.59, 0]}, y:-120, scale:1, duration:1.37, ease:"sine.out"}, 8.676);
+    tl.fromTo("#bx10", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.94, 0.94, 0]}, y:-151, scale:1, duration:1.41, ease:"sine.out"}, 8.627);
+    tl.fromTo("#bx11", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.66, 0.66, 0]}, y:-116, scale:1, duration:1.55, ease:"sine.out"}, 8.259);
+    tl.fromTo("#bx12", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.95, 0.95, 0]}, y:-112, scale:1, duration:1.31, ease:"sine.out"}, 8.832);
+    tl.fromTo("#bx13", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.86, 0.86, 0]}, y:-121, scale:1, duration:1.43, ease:"sine.out"}, 8.826);
+    tl.fromTo("#bx14", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.56, 0.56, 0]}, y:-166, scale:1, duration:1.43, ease:"sine.out"}, 8.232);
+    tl.fromTo("#bx15", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.90, 0.90, 0]}, y:-159, scale:1, duration:1.59, ease:"sine.out"}, 8.807);
+    tl.fromTo("#bx16", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.85, 0.85, 0]}, y:-113, scale:1, duration:1.45, ease:"sine.out"}, 8.715);
+    tl.fromTo("#bx17", {opacity:0, y:0, scale:0.6}, {keyframes:{opacity:[0, 0.59, 0.59, 0]}, y:-141, scale:1, duration:1.66, ease:"sine.out"}, 8.757);
+    window.__timelines["abertura"] = tl;
+  </script>
+</template>

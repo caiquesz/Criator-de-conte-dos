@@ -1,0 +1,125 @@
+{
+  "video": "assets/video/broll_teste.mp4",
+  "video_tem_audio": false,
+  "duracao": 5.55,
+  "cores": {
+    "texto": "#FFFFFF",
+    "destaque": "#E8B880",
+    "vazamento": "#FF9A4D"
+  },
+  "tracking": {
+    "forte": -0.035,
+    "fina": -0.01,
+    "serifa": -0.01
+  },
+  "entrelinha": -0.16,
+  "legendas": [
+    {
+      "id": "g1",
+      "y": 560,
+      "fim": 2.85,
+      "linhas": [
+        {
+          "estilo": "fina",
+          "dx": -60,
+          "palavras": [
+            {
+              "t": "uma",
+              "s": 0.3
+            },
+            {
+              "t": "sala",
+              "s": 0.42
+            },
+            {
+              "t": "de",
+              "s": 0.56
+            },
+            {
+              "t": "estar",
+              "s": 0.64
+            }
+          ]
+        },
+        {
+          "estilo": "forte",
+          "palavras": [
+            {
+              "t": "com",
+              "s": 1.0
+            },
+            {
+              "t": "pé-direito",
+              "s": 1.18
+            }
+          ]
+        },
+        {
+          "estilo": "serifa",
+          "dx": 120,
+          "palavras": [
+            {
+              "t": "duplo.",
+              "s": 1.75
+            }
+          ],
+          "cor": "texto"
+        }
+      ]
+    },
+    {
+      "id": "g2",
+      "y": 470,
+      "fim": 5.45,
+      "linhas": [
+        {
+          "estilo": "fina-it",
+          "palavras": [
+            {
+              "t": "área",
+              "s": 3.25
+            },
+            {
+              "t": "de",
+              "s": 3.4
+            },
+            {
+              "t": "lazer",
+              "s": 3.48
+            },
+            {
+              "t": "com",
+              "s": 3.65
+            }
+          ]
+        },
+        {
+          "estilo": "destaque",
+          "palavras": [
+            {
+              "t": "piscina",
+              "s": 3.95
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "id": "c1",
+      "inicio": 4.25,
+      "fim": 5.55,
+      "y": 1060,
+      "grande": "256",
+      "unidade": "m²",
+      "rotulo": "área construída"
+    }
+  ],
+  "transicoes": [
+    {
+      "t": 2.93,
+      "tipo": "luz"
+    }
+  ]
+}

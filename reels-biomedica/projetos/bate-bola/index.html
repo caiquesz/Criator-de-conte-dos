@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      :root {
+        --texto: #FFFFFF;
+        --destaque: #FFFFFF;
+        --destaque-brilho: transparent;
+        --destaque-sombra: rgba(56, 46, 46, 0.42);
+        --destaque-sombra-leve: rgba(56, 46, 46, 0.22);
+        --destaque-escuro: #FFFFFF;
+        --vazamento: #FF9A4D;
+      }
+      .cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+      .cam video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .transicao { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+      .transicao.luz { mix-blend-mode: screen; }
+      .vazamento { position: absolute; inset: -25%; opacity: 0; }
+      .vazamento.ambar {
+        background: radial-gradient(ellipse 50% 95% at 18% 55%, rgba(255, 244, 214, 0.95), transparent 46%),
+                    radial-gradient(ellipse 75% 120% at 28% 50%, var(--vazamento), transparent 68%);
+        filter: blur(30px);
+      }
+      .vazamento.quente {
+        background: radial-gradient(ellipse 60% 100% at 78% 35%, rgba(255, 92, 60, 0.75), rgba(255, 60, 90, 0.25) 50%, transparent 76%);
+        filter: blur(40px);
+      }
+      .vazamento.clarao { background: radial-gradient(ellipse 90% 80% at 50% 45%, rgba(255, 248, 232, 1), rgba(255, 214, 160, 0.85) 55%, rgba(255, 170, 110, 0.6)); }
+      .cortina { position: absolute; inset: 0; background: #000; opacity: 0; }
+      .cortina.branca { background: #fff8ee; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="71.9"
+      data-width="1080" data-height="1920">
+      <div class="cam" id="cam-video" style="z-index: 1">
+        <video id="video" class="clip" src="assets/video/video.mp4" data-start="0" data-duration="71.9"
+          data-track-index="0" data-has-audio="true" playsinline></video>
+      </div>
+
+      <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
+        data-start="0" data-duration="71.9" data-track-index="2" data-track-kind="captions"
+        data-width="1080" data-height="1920" style="z-index: 7"></div>
+
+      <div id="abertura" data-composition-id="abertura" data-composition-src="compositions/abertura.html"
+        data-start="0" data-duration="71.9" data-track-index="20" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 6"></div>
+      <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
+        data-start="0" data-duration="71.9" data-track-index="3" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 6"></div>
+
+      
+
+      <audio id="sfx1" src="assets/sfx/click.mp3" data-start="2.794" data-duration="0.366" data-track-index="10" data-volume="0.45"></audio>
+      <audio id="sfx2" src="assets/sfx/musica-abertura.mp3" data-start="2.333" data-duration="5.2" data-track-index="11" data-volume="0.65"></audio>
+      <audio id="sfx3" src="assets/sfx/pop.mp3" data-start="3.066" data-duration="0.72" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx4" src="assets/sfx/bipe.mp3" data-start="7.129" data-duration="0.3" data-track-index="10" data-volume="0.35"></audio>
+      <audio id="sfx5" src="assets/sfx/click.mp3" data-start="7.34" data-duration="0.366" data-track-index="12" data-volume="0.5"></audio>
+      <audio id="sfx6" src="assets/sfx/pop.mp3" data-start="7.293" data-duration="0.72" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="sfx7" src="assets/sfx/whoosh.mp3" data-start="10.791" data-duration="0.575" data-track-index="10" data-volume="0.4"></audio>
+      <audio id="sfx8" src="assets/sfx/pop.mp3" data-start="14.313" data-duration="0.72" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx9" src="assets/sfx/pop.mp3" data-start="28.213" data-duration="0.72" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx10" src="assets/sfx/pop.mp3" data-start="38.413" data-duration="0.72" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx11" src="assets/sfx/click-agudo.mp3" data-start="44.451" data-duration="0.34" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx12" src="assets/sfx/pop.mp3" data-start="49.573" data-duration="0.72" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx13" src="assets/sfx/pop.mp3" data-start="60.813" data-duration="0.72" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx14" src="assets/sfx/whoosh.mp3" data-start="70.324" data-duration="0.575" data-track-index="10" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: 71.9 }, 0);
+      tl.set(".cam", {filter:"grayscale(1) contrast(1.08) brightness(1.03)"}, 10.9);
+      tl.set(".cam", {filter:"none"}, 12.533);
+      tl.set(".cam", {filter:"grayscale(1) contrast(1.08) brightness(1.03)"}, 70.433);
+      tl.set(".cam", {filter:"none"}, 71.9);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

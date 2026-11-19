@@ -1,0 +1,1441 @@
+{
+ "video": "assets/video/video_estab.mp4",
+ "video_original": "assets/video/original.mov",
+ "video_tem_audio": true,
+ "recorte": "assets/video/recorte.webm",
+ "duracao": 81.48,
+ "cores": {
+  "texto": "#FFFFFF",
+  "destaque": "#FFFFFF",
+  "destaque_escuro": "#FFFFFF",
+  "brilho": false,
+  "vazamento": "#FF9A4D"
+ },
+ "tracking": {
+  "forte": -0.035,
+  "fina": -0.01,
+  "serifa": -0.01
+ },
+ "entrelinha": -0.16,
+ "legendas": [
+  {
+   "id": "g01",
+   "y": 560,
+   "fim": 0.92,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Olha",
+       "s": 0.032
+      },
+      {
+       "t": "essa",
+       "s": 0.092
+      },
+      {
+       "t": "casa",
+       "s": 0.2
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "por",
+       "s": 0.44
+      },
+      {
+       "t": "fora,",
+       "s": 0.6
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g02",
+   "y": 560,
+   "fim": 2.32,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "não",
+       "s": 1.0
+      },
+      {
+       "t": "imagino",
+       "s": 1.06
+      },
+      {
+       "t": "como",
+       "s": 1.48
+      },
+      {
+       "t": "ela",
+       "s": 1.64
+      },
+      {
+       "t": "é",
+       "s": 1.76
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "por",
+       "s": 1.82
+      },
+      {
+       "t": "dentro.",
+       "s": 1.96
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g03",
+   "y": 560,
+   "fim": 4.3,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "E",
+       "s": 2.4
+      },
+      {
+       "t": "eu",
+       "s": 2.52
+      },
+      {
+       "t": "vou",
+       "s": 2.62
+      },
+      {
+       "t": "te",
+       "s": 2.74
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "mostrar",
+       "s": 2.82
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "o",
+       "s": 3.18
+      },
+      {
+       "t": "porquê.",
+       "s": 3.36
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g04",
+   "y": 560,
+   "fim": 8.432,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Aqui",
+       "s": 7.424
+      },
+      {
+       "t": "nós",
+       "s": 7.52
+      },
+      {
+       "t": "temos",
+       "s": 7.62
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 7.8
+      },
+      {
+       "t": "sala.",
+       "s": 7.9
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g05",
+   "y": 560,
+   "fim": 9.4,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "No",
+       "s": 8.512
+      },
+      {
+       "t": "interior",
+       "s": 8.572
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "do",
+       "s": 8.76
+      },
+      {
+       "t": "imóvel,",
+       "s": 9.08
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g06",
+   "y": 560,
+   "fim": 11.12,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "contamos",
+       "s": 9.48
+      },
+      {
+       "t": "com",
+       "s": 9.92
+      },
+      {
+       "t": "esse",
+       "s": 10.0
+      },
+      {
+       "t": "piso",
+       "s": 10.12
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "amadeirado.",
+       "s": 10.38
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g07",
+   "y": 560,
+   "fim": 12.3,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Os",
+       "s": 11.81
+      }
+     ],
+     "dx": -150
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "três",
+       "s": 11.87
+      },
+      {
+       "t": "quartos,",
+       "s": 11.93
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g08",
+   "y": 560,
+   "fim": 13.42,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "sendo",
+       "s": 12.38
+      },
+      {
+       "t": "um",
+       "s": 12.58
+      },
+      {
+       "t": "deles",
+       "s": 12.74
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "suíte",
+       "s": 13.0
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g09",
+   "y": 560,
+   "fim": 14.58,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 13.5
+      },
+      {
+       "t": "um",
+       "s": 13.74
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "banheiro",
+       "s": 13.88
+      },
+      {
+       "t": "social.",
+       "s": 14.18
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g10",
+   "y": 560,
+   "fim": 16.4,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Os",
+       "s": 14.66
+      },
+      {
+       "t": "banheiros",
+       "s": 14.86
+      },
+      {
+       "t": "contêm",
+       "s": 15.28
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "box.",
+       "s": 15.64
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g11",
+   "y": 360,
+   "fim": 26.48,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Temos",
+       "s": 25.44
+      },
+      {
+       "t": "também",
+       "s": 25.52
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "essa",
+       "s": 25.86
+      },
+      {
+       "t": "área.",
+       "s": 26.1
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g12",
+   "y": 360,
+   "fim": 28.12,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Você",
+       "s": 26.56
+      },
+      {
+       "t": "pode",
+       "s": 26.88
+      },
+      {
+       "t": "transformar",
+       "s": 27.12
+      },
+      {
+       "t": "em",
+       "s": 27.66
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "escritório",
+       "s": 27.72
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g13",
+   "y": 360,
+   "fim": 29.9,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "ou",
+       "s": 28.2
+      },
+      {
+       "t": "em",
+       "s": 28.42
+      },
+      {
+       "t": "uma",
+       "s": 28.54
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "segunda",
+       "s": 28.68
+      },
+      {
+       "t": "sala.",
+       "s": 28.9
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g14",
+   "y": 560,
+   "fim": 33.01,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Aqui",
+       "s": 31.424
+      },
+      {
+       "t": "temos",
+       "s": 31.484
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "a",
+       "s": 31.66
+      },
+      {
+       "t": "cozinha",
+       "s": 31.82
+      }
+     ]
+    },
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "da",
+       "s": 32.22
+      },
+      {
+       "t": "casa.",
+       "s": 32.34
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g15",
+   "y": 560,
+   "fim": 35.3,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Ela",
+       "s": 33.09
+      },
+      {
+       "t": "contém",
+       "s": 33.16
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "armário",
+       "s": 33.58
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "embutido.",
+       "s": 33.94
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g16",
+   "y": 560,
+   "fim": 43.46,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Agora",
+       "s": 41.312
+      },
+      {
+       "t": "vem",
+       "s": 41.38
+      },
+      {
+       "t": "a",
+       "s": 41.66
+      },
+      {
+       "t": "parte",
+       "s": 41.76
+      }
+     ]
+    },
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "que",
+       "s": 42.04
+      },
+      {
+       "t": "não",
+       "s": 42.2
+      },
+      {
+       "t": "dá",
+       "s": 42.28
+      },
+      {
+       "t": "pra",
+       "s": 42.42
+      },
+      {
+       "t": "você",
+       "s": 42.54
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "ver",
+       "s": 42.78
+      },
+      {
+       "t": "da",
+       "s": 42.96
+      },
+      {
+       "t": "rua.",
+       "s": 43.08
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g17",
+   "y": 560,
+   "fim": 45.33,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Aqui",
+       "s": 43.872
+      },
+      {
+       "t": "nós",
+       "s": 44.02
+      },
+      {
+       "t": "temos",
+       "s": 44.16
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "um",
+       "s": 44.36
+      },
+      {
+       "t": "jardim.",
+       "s": 44.54
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g18",
+   "y": 560,
+   "fim": 46.58,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Nos",
+       "s": 45.41
+      },
+      {
+       "t": "fundos,",
+       "s": 45.47
+      },
+      {
+       "t": "temos",
+       "s": 45.8
+      },
+      {
+       "t": "uma",
+       "s": 45.98
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "edícula",
+       "s": 46.2
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g19",
+   "y": 560,
+   "fim": 47.62,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 46.66
+      }
+     ],
+     "dx": -160
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "fogão",
+       "s": 46.78
+      },
+      {
+       "t": "a",
+       "s": 47.22
+      },
+      {
+       "t": "lenha,",
+       "s": 47.3
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g20",
+   "y": 560,
+   "fim": 48.912,
+   "linhas": [
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "churrasqueira,",
+       "s": 47.7
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g21",
+   "y": 560,
+   "fim": 50.352,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "bancada",
+       "s": 48.992
+      },
+      {
+       "t": "em",
+       "s": 49.34
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "granito,",
+       "s": 49.44
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g22",
+   "y": 560,
+   "fim": 52.6,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "armário",
+       "s": 50.432
+      },
+      {
+       "t": "embutido",
+       "s": 50.7
+      },
+      {
+       "t": "com",
+       "s": 51.2
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "cooktop.",
+       "s": 51.4
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g23",
+   "y": 560,
+   "fim": 59.89,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Na",
+       "s": 57.73
+      },
+      {
+       "t": "mesma",
+       "s": 57.79
+      },
+      {
+       "t": "edícula,",
+       "s": 57.85
+      }
+     ]
+    },
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "ainda",
+       "s": 58.35
+      },
+      {
+       "t": "temos",
+       "s": 58.57
+      },
+      {
+       "t": "uma",
+       "s": 58.95
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "lavanderia",
+       "s": 59.25
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g24",
+   "y": 560,
+   "fim": 61.6,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "e",
+       "s": 59.97
+      }
+     ],
+     "dx": -160
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "banheiro",
+       "s": 60.11
+      },
+      {
+       "t": "social.",
+       "s": 60.49
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g25",
+   "y": 560,
+   "fim": 64.48,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Aqui",
+       "s": 63.232
+      },
+      {
+       "t": "em",
+       "s": 63.292
+      },
+      {
+       "t": "cima,",
+       "s": 63.352
+      }
+     ]
+    },
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "temos",
+       "s": 63.68
+      },
+      {
+       "t": "um",
+       "s": 63.9
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "terraço",
+       "s": 64.08
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g26",
+   "y": 560,
+   "fim": 65.96,
+   "linhas": [
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "amplo",
+       "s": 64.56
+      },
+      {
+       "t": "e",
+       "s": 65.1
+      },
+      {
+       "t": "arejado.",
+       "s": 65.32
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g27",
+   "y": 560,
+   "fim": 67.46,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Temos",
+       "s": 66.272
+      },
+      {
+       "t": "também",
+       "s": 66.332
+      },
+      {
+       "t": "mais",
+       "s": 66.68
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "um",
+       "s": 66.94
+      },
+      {
+       "t": "quarto,",
+       "s": 67.1
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g28",
+   "y": 560,
+   "fim": 68.62,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "mais",
+       "s": 67.54
+      },
+      {
+       "t": "uma",
+       "s": 67.7
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "área",
+       "s": 67.9
+      },
+      {
+       "t": "de",
+       "s": 68.12
+      },
+      {
+       "t": "serviço",
+       "s": 68.24
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g29",
+   "y": 560,
+   "fim": 70.8,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "com",
+       "s": 68.7
+      },
+      {
+       "t": "uma",
+       "s": 68.82
+      }
+     ]
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "vista",
+       "s": 68.98
+      },
+      {
+       "t": "espetacular.",
+       "s": 69.28
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g30",
+   "y": 560,
+   "fim": 74.84,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Essa",
+       "s": 72.13
+      },
+      {
+       "t": "casa",
+       "s": 72.19
+      },
+      {
+       "t": "fica",
+       "s": 72.46
+      },
+      {
+       "t": "localizada",
+       "s": 72.72
+      },
+      {
+       "t": "nos",
+       "s": 73.28
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "Expedicionários",
+       "s": 73.5
+      }
+     ]
+    },
+    {
+     "estilo": "fina-it",
+     "palavras": [
+      {
+       "t": "em",
+       "s": 74.18
+      },
+      {
+       "t": "Resende",
+       "s": 74.3
+      },
+      {
+       "t": "Costa,",
+       "s": 74.54
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g31",
+   "y": 700,
+   "fim": 79.22,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Quer",
+       "s": 78.44
+      }
+     ],
+     "dx": -140
+    },
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "conhecer?",
+       "s": 78.78
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g32",
+   "y": 700,
+   "fim": 80.86,
+   "linhas": [
+    {
+     "estilo": "fina",
+     "palavras": [
+      {
+       "t": "Chama",
+       "s": 79.62
+      },
+      {
+       "t": "a",
+       "s": 79.7
+      },
+      {
+       "t": "gente",
+       "s": 79.8
+      },
+      {
+       "t": "no",
+       "s": 79.96
+      }
+     ]
+    },
+    {
+     "estilo": "forte",
+     "palavras": [
+      {
+       "t": "WhatsApp.",
+       "s": 80.1
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  },
+  {
+   "id": "g33",
+   "y": 700,
+   "fim": 81.45,
+   "linhas": [
+    {
+     "estilo": "serifa",
+     "palavras": [
+      {
+       "t": "Tchau.",
+       "s": 80.94
+      }
+     ]
+    }
+   ],
+   "sombra_forte": true
+  }
+ ],
+ "cards": [
+  {
+   "id": "c1",
+   "inicio": 4.6,
+   "fim": 7.05,
+   "y": 900,
+   "grande": "Expedicionários",
+   "tam": 112,
+   "rotulo": "Resende Costa · MG"
+  },
+  {
+   "id": "c2",
+   "inicio": 16.75,
+   "fim": 19.95,
+   "y": 1000,
+   "grande": "3",
+   "unidade": "quartos",
+   "rotulo": "um deles suíte"
+  },
+  {
+   "id": "c3",
+   "inicio": 52.85,
+   "fim": 56.5,
+   "y": 980,
+   "grande": "Edícula",
+   "rotulo": "churrasqueira · fogão a lenha"
+  },
+  {
+   "id": "c4",
+   "inicio": 74.92,
+   "fim": 77.0,
+   "y": 330,
+   "grande": "140",
+   "unidade": "m²",
+   "rotulo": "área construída"
+  },
+  {
+   "id": "c5",
+   "inicio": 77.08,
+   "fim": 79.3,
+   "y": 330,
+   "grande": "R$ 400",
+   "unidade": "mil",
+   "rotulo": "valor do imóvel"
+  }
+ ],
+ "transicoes": [
+  {
+   "t": 4.445,
+   "tipo": "corte"
+  },
+  {
+   "t": 5.95,
+   "tipo": "corte"
+  },
+  {
+   "t": 7.175,
+   "tipo": "luz"
+  },
+  {
+   "t": 11.655,
+   "tipo": "corte"
+  },
+  {
+   "t": 16.555,
+   "tipo": "corte"
+  },
+  {
+   "t": 18.375,
+   "tipo": "corte"
+  },
+  {
+   "t": 20.09,
+   "tipo": "corte"
+  },
+  {
+   "t": 23.975,
+   "tipo": "corte"
+  },
+  {
+   "t": 25.375,
+   "tipo": "luz"
+  },
+  {
+   "t": 29.995,
+   "tipo": "corte"
+  },
+  {
+   "t": 31.43,
+   "tipo": "corte"
+  },
+  {
+   "t": 35.385,
+   "tipo": "corte"
+  },
+  {
+   "t": 36.82,
+   "tipo": "corte"
+  },
+  {
+   "t": 38.29,
+   "tipo": "corte"
+  },
+  {
+   "t": 39.795,
+   "tipo": "corte"
+  },
+  {
+   "t": 41.09,
+   "tipo": "luz"
+  },
+  {
+   "t": 45.395,
+   "tipo": "flash"
+  },
+  {
+   "t": 52.71,
+   "tipo": "corte"
+  },
+  {
+   "t": 54.04,
+   "tipo": "corte"
+  },
+  {
+   "t": 55.265,
+   "tipo": "corte"
+  },
+  {
+   "t": 56.63,
+   "tipo": "corte"
+  },
+  {
+   "t": 57.645,
+   "tipo": "corte"
+  },
+  {
+   "t": 59.78,
+   "tipo": "corte"
+  },
+  {
+   "t": 60.76,
+   "tipo": "corte"
+  },
+  {
+   "t": 61.74,
+   "tipo": "corte"
+  },
+  {
+   "t": 63.175,
+   "tipo": "luz"
+  },
+  {
+   "t": 66.22,
+   "tipo": "corte"
+  },
+  {
+   "t": 70.91,
+   "tipo": "corte"
+  },
+  {
+   "t": 71.925,
+   "tipo": "luz"
+  },
+  {
+   "t": 74.97,
+   "tipo": "corte"
+  }
+ ],
+ "trilha": {
+  "src": "assets/musica/lucky-acoustic-jesse-keller.mp3",
+  "inicio_trilha": 18.389,
+  "abaixo_da_voz_db": 12,
+  "sobe_nas_pausas_db": 4,
+  "fade_in": 0.3,
+  "fade_out": 1.6,
+  "credito": "\"Lucky Acoustic\" – Jesse Keller (CC BY)"
+ }
+}

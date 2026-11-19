@@ -1,0 +1,227 @@
+<template>
+  <style>
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: normal; src: url("assets/fonts/Poppins-300.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 300; font-style: italic; src: url("assets/fonts/Poppins-300i.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 400; font-style: normal; src: url("assets/fonts/Poppins-400.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 600; font-style: normal; src: url("assets/fonts/Poppins-600.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 700; font-style: normal; src: url("assets/fonts/Poppins-700.ttf"); }
+      @font-face { font-family: "Poppins Reels"; font-weight: 800; font-style: normal; src: url("assets/fonts/Poppins-800.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: italic; src: url("assets/fonts/InstrumentSerif-400i.ttf"); }
+      @font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; src: url("assets/fonts/InstrumentSerif-400.ttf"); }
+      #root { position: absolute; inset: 0; overflow: visible; }
+      .grupo { position: absolute; left: 0; width: 1080px; text-align: center; overflow: visible; isolation: isolate; }
+      .linha { position: relative; display: block; white-space: nowrap; line-height: 1.0; color: #fff;
+               text-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 3px 18px rgba(0, 0, 0, 0.36); }
+      /* palavra na cor de destaque: nada de sombra preta, só uma sombra no tom escuro da própria cor */
+      .linha.brilho { text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }
+      .linha.brilho.escuro { text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
+      /* fundo muito claro: a sombra fica nas próprias letras brancas, mais firme e mais justa */
+      .sombra-forte .linha {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.45), 0 4px 22px rgba(0, 0, 0, 0.35); }
+      .sombra-forte .linha.brilho { text-shadow: 0 2px 14px var(--destaque-sombra), 0 0 34px var(--destaque-brilho); }
+      .sombra-forte .linha.brilho.escuro { text-shadow: 0 2px 12px var(--destaque-sombra-leve); }
+      .p { display: inline-block; will-change: transform, filter, opacity; }
+  </style>
+  <div id="root" data-composition-id="legendas" data-width="1080" data-height="1920">
+      <div id="g01" class="clip grupo sombra-forte" data-start="0.076" data-duration="1.514" data-layout-allow-overlap style="top:600px;">
+        <div class="linha" id="g01-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g01-l0-p0">Sabe</span> <span class="p" id="g01-l0-p1">aquela</span> <span class="p" id="g01-l0-p2">casa</span></div>
+        <div class="linha" id="g01-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:104px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g01-l1-p0">que</span> <span class="p" id="g01-l1-p1">você</span> <span class="p" id="g01-l1-p2">compra</span></div>
+      </div>
+      <div id="g02" class="clip grupo sombra-forte" data-start="1.26" data-duration="1.956" data-layout-allow-overlap style="top:600px;">
+        <div class="linha" id="g02-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g02-l0-p0">e</span> <span class="p" id="g02-l0-p1">passa</span> <span class="p" id="g02-l0-p2">um</span> <span class="p" id="g02-l0-p3">ano</span></div>
+        <div class="linha" id="g02-l1" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g02-l1-p0">reformando?</span></div>
+      </div>
+      <div id="g03" class="clip grupo sombra-forte" data-start="3.276" data-duration="1.114" data-layout-allow-overlap style="top:790px;">
+        <div class="linha" id="g03-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g03-l0-p0">Essa</span> <span class="p" id="g03-l0-p1">aqui</span> <span class="p" id="g03-l0-p2">é</span> <span class="p" id="g03-l0-p3">o</span></div>
+        <div class="linha brilho escuro" id="g03-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:120px;letter-spacing:-0.035em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g03-l1-p0">contrário,</span></div>
+      </div>
+      <div id="g04" class="clip grupo sombra-forte" data-start="4.28" data-duration="1.34" data-layout-allow-overlap style="top:600px;">
+        <div class="linha" id="g04-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);position:relative;left:-60px;"><span class="p" id="g04-l0-p0">ela</span> <span class="p" id="g04-l0-p1">já</span> <span class="p" id="g04-l0-p2">está</span></div>
+        <div class="linha brilho escuro" id="g04-l1" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque-escuro);margin-top:-0.16em;position:relative;left:50px;"><span class="p" id="g04-l1-p0">pronta.</span></div>
+      </div>
+      <div id="g05" class="clip grupo sombra-forte" data-start="9.196" data-duration="1.274" data-layout-allow-overlap style="top:560px;">
+        <div class="linha" id="g05-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g05-l0-p0">O</span> <span class="p" id="g05-l0-p1">acabamento</span> <span class="p" id="g05-l0-p2">é</span></div>
+        <div class="linha" id="g05-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:112px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g05-l1-p0">todo</span> <span class="p" id="g05-l1-p1">moderno,</span></div>
+      </div>
+      <div id="g06" class="clip grupo sombra-forte" data-start="10.46" data-duration="1.45" data-layout-allow-overlap style="top:700px;text-align:left;padding-left:70px;">
+        <div class="linha brilho escuro" id="g06-l0" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:100px;letter-spacing:-0.035em;color:var(--destaque-escuro);"><span class="p" id="g06-l0-p0">porcelanato</span></div>
+        <div class="linha" id="g06-l1" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g06-l1-p0">no</span> <span class="p" id="g06-l1-p1">chão,</span></div>
+      </div>
+      <div id="g07" class="clip grupo sombra-forte" data-start="11.852" data-duration="0.898" data-layout-allow-overlap style="top:700px;text-align:left;padding-left:70px;">
+        <div class="linha" id="g07-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g07-l0-p0">forro</span> <span class="p" id="g07-l0-p1">de</span></div>
+        <div class="linha" id="g07-l1" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g07-l1-p0">madeira</span></div>
+      </div>
+      <div id="g08" class="clip grupo sombra-forte" data-start="12.54" data-duration="1.19" data-layout-allow-overlap style="top:700px;text-align:left;padding-left:70px;">
+        <div class="linha" id="g08-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g08-l0-p0">com</span> <span class="p" id="g08-l0-p1">telhado</span></div>
+        <div class="linha" id="g08-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:112px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g08-l1-p0">colonial.</span></div>
+      </div>
+      <div id="g09" class="clip grupo sombra-forte" data-start="13.76" data-duration="1.98" data-layout-allow-overlap style="top:560px;">
+        <div class="linha" id="g09-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g09-l0-p0">A</span> <span class="p" id="g09-l0-p1">sala</span> <span class="p" id="g09-l0-p2">é</span></div>
+        <div class="linha" id="g09-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:112px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g09-l1-p0">conjugada</span></div>
+        <div class="linha" id="g09-l2" style="font-family:'Poppins Reels';font-weight:300;font-style:italic;font-size:62px;letter-spacing:-0.01em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g09-l2-p0">com</span> <span class="p" id="g09-l2-p1">a</span> <span class="p" id="g09-l2-p2">cozinha,</span></div>
+      </div>
+      <div id="g10" class="clip grupo sombra-forte" data-start="15.48" data-duration="1.592" data-layout-allow-overlap style="top:560px;">
+        <div class="linha" id="g10-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g10-l0-p0">com</span> <span class="p" id="g10-l0-p1">bancada</span> <span class="p" id="g10-l0-p2">de</span></div>
+        <div class="linha brilho escuro" id="g10-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:120px;letter-spacing:-0.035em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g10-l1-p0">granito</span></div>
+      </div>
+      <div id="g11" class="clip grupo sombra-forte" data-start="17.132" data-duration="1.638" data-layout-allow-overlap style="top:560px;">
+        <div class="linha" id="g11-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g11-l0-p0">e</span> <span class="p" id="g11-l0-p1">área</span> <span class="p" id="g11-l0-p2">de</span> <span class="p" id="g11-l0-p3">serviço</span></div>
+        <div class="linha brilho escuro" id="g11-l1" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g11-l1-p0">aos</span> <span class="p" id="g11-l1-p1">fundos.</span></div>
+      </div>
+      <div id="g12" class="clip grupo sombra-forte" data-start="22.892" data-duration="0.79" data-layout-allow-overlap style="top:520px;">
+        <div class="linha" id="g12-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);position:relative;left:-140px;"><span class="p" id="g12-l0-p0">Temos</span></div>
+        <div class="linha" id="g12-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:112px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g12-l1-p0">dois</span> <span class="p" id="g12-l1-p1">quartos,</span></div>
+      </div>
+      <div id="g13" class="clip grupo sombra-forte" data-start="23.43" data-duration="1.33" data-layout-allow-overlap style="top:520px;">
+        <div class="linha" id="g13-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g13-l0-p0">sendo</span> <span class="p" id="g13-l0-p1">um</span> <span class="p" id="g13-l0-p2">deles</span></div>
+        <div class="linha brilho escuro" id="g13-l1" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g13-l1-p0">suíte.</span></div>
+      </div>
+      <div id="g14" class="clip grupo sombra-forte" data-start="34.412" data-duration="0.968" data-layout-allow-overlap style="top:560px;">
+        <div class="linha" id="g14-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g14-l0-p0">A</span> <span class="p" id="g14-l0-p1">garagem</span> <span class="p" id="g14-l0-p2">é</span></div>
+        <div class="linha" id="g14-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:112px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g14-l1-p0">coberta,</span></div>
+      </div>
+      <div id="g15" class="clip grupo sombra-forte" data-start="35.27" data-duration="1.62" data-layout-allow-overlap style="top:560px;">
+        <div class="linha" id="g15-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g15-l0-p0">cabe</span> <span class="p" id="g15-l0-p1">dois</span> <span class="p" id="g15-l0-p2">carros</span></div>
+        <div class="linha brilho escuro" id="g15-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:118px;letter-spacing:-0.035em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g15-l1-p0">independentes</span></div>
+      </div>
+      <div id="g16" class="clip grupo sombra-forte" data-start="36.95" data-duration="1.65" data-layout-allow-overlap style="top:560px;">
+        <div class="linha" id="g16-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g16-l0-p0">e</span> <span class="p" id="g16-l0-p1">a</span> <span class="p" id="g16-l0-p2">rua</span> <span class="p" id="g16-l0-p3">é</span></div>
+        <div class="linha brilho escuro" id="g16-l1" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque-escuro);margin-top:-0.16em;"><span class="p" id="g16-l1-p0">asfaltada.</span></div>
+      </div>
+      <div id="g17" class="clip grupo" data-start="39.244" data-duration="1.376" data-layout-allow-overlap style="top:650px;">
+        <div class="linha" id="g17-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g17-l0-p0">Essa</span> <span class="p" id="g17-l0-p1">é</span> <span class="p" id="g17-l0-p2">a</span> <span class="p" id="g17-l0-p3">casa</span></div>
+        <div class="linha" id="g17-l1" style="font-family:'Poppins Reels';font-weight:700;font-style:normal;font-size:112px;letter-spacing:-0.035em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g17-l1-p0">por</span> <span class="p" id="g17-l1-p1">fora,</span></div>
+      </div>
+      <div id="g18" class="clip grupo" data-start="43.116" data-duration="0.932" data-layout-allow-overlap style="top:650px;">
+        <div class="linha" id="g18-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);position:relative;left:-70px;"><span class="p" id="g18-l0-p0">E</span> <span class="p" id="g18-l0-p1">tem</span> <span class="p" id="g18-l0-p2">um</span></div>
+        <div class="linha brilho" id="g18-l1" style="font-family:'Instrument Serif';font-weight:400;font-style:italic;font-size:172px;letter-spacing:-0.01em;color:var(--destaque);margin-top:-0.16em;"><span class="p" id="g18-l1-p0">detalhe,</span></div>
+      </div>
+      <div id="g19" class="clip grupo" data-start="44.108" data-duration="2.722" data-layout-allow-overlap style="top:650px;">
+        <div class="linha" id="g19-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g19-l0-p0">o</span> <span class="p" id="g19-l0-p1">proprietário</span> <span class="p" id="g19-l0-p2">aceita</span></div>
+        <div class="linha brilho" id="g19-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:120px;letter-spacing:-0.035em;color:var(--destaque);margin-top:-0.16em;"><span class="p" id="g19-l1-p0">permuta</span></div>
+        <div class="linha" id="g19-l2" style="font-family:'Poppins Reels';font-weight:300;font-style:italic;font-size:62px;letter-spacing:-0.01em;color:var(--texto);margin-top:-0.16em;"><span class="p" id="g19-l2-p0">em</span> <span class="p" id="g19-l2-p1">terreno</span> <span class="p" id="g19-l2-p2">rural.</span></div>
+      </div>
+      <div id="g20" class="clip grupo" data-start="46.796" data-duration="1.504" data-layout-allow-overlap style="top:805px;">
+        <div class="linha" id="g20-l0" style="font-family:'Poppins Reels';font-weight:300;font-style:normal;font-size:62px;letter-spacing:-0.01em;color:var(--texto);"><span class="p" id="g20-l0-p0">Chama</span> <span class="p" id="g20-l0-p1">a</span> <span class="p" id="g20-l0-p2">gente</span> <span class="p" id="g20-l0-p3">no</span></div>
+        <div class="linha brilho" id="g20-l1" style="font-family:'Poppins Reels';font-weight:800;font-style:normal;font-size:120px;letter-spacing:-0.035em;color:var(--destaque);margin-top:-0.16em;"><span class="p" id="g20-l1-p0">WhatsApp.</span></div>
+      </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 48.36 }, 0);
+    tl.fromTo("#g01-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.096);
+    tl.fromTo("#g01-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.16);
+    tl.fromTo("#g01-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.28);
+    tl.fromTo("#g01-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.58);
+    tl.fromTo("#g01-l1-p1", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.72);
+    tl.fromTo("#g01-l1-p2", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 0.94);
+    tl.to(["#g01-l0", "#g01-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 1.26);
+    tl.fromTo("#g02-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 1.28);
+    tl.fromTo("#g02-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 1.4);
+    tl.fromTo("#g02-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 1.64);
+    tl.fromTo("#g02-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 1.86);
+    tl.fromTo("#g02-l1-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 2.16);
+    tl.to(["#g02-l0", "#g02-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 2.886);
+    tl.fromTo("#g03-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.296);
+    tl.fromTo("#g03-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.36);
+    tl.fromTo("#g03-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.6);
+    tl.fromTo("#g03-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.68);
+    tl.fromTo("#g03-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 3.74);
+    tl.to(["#g03-l0", "#g03-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 4.06);
+    tl.fromTo("#g04-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 4.3);
+    tl.fromTo("#g04-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 4.44);
+    tl.fromTo("#g04-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 4.6);
+    tl.fromTo("#g04-l1-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 4.9);
+    tl.to(["#g04-l0", "#g04-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 5.29);
+    tl.fromTo("#g05-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 9.216);
+    tl.fromTo("#g05-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 9.276);
+    tl.fromTo("#g05-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 9.54);
+    tl.fromTo("#g05-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 9.68);
+    tl.fromTo("#g05-l1-p1", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 9.82);
+    tl.to(["#g05-l0", "#g05-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 10.14);
+    tl.fromTo("#g06-l0-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 10.48);
+    tl.fromTo("#g06-l1-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 11.1);
+    tl.fromTo("#g06-l1-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 11.26);
+    tl.to(["#g06-l0", "#g06-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 11.58);
+    tl.fromTo("#g07-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 11.872);
+    tl.fromTo("#g07-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 12.02);
+    tl.fromTo("#g07-l1-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 12.1);
+    tl.to(["#g07-l0", "#g07-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 12.42);
+    tl.fromTo("#g08-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 12.56);
+    tl.fromTo("#g08-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 12.66);
+    tl.fromTo("#g08-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 13.08);
+    tl.to(["#g08-l0", "#g08-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 13.4);
+    tl.fromTo("#g09-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 13.78);
+    tl.fromTo("#g09-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 13.92);
+    tl.fromTo("#g09-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 14.22);
+    tl.fromTo("#g09-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 14.34);
+    tl.fromTo("#g09-l2-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 14.86);
+    tl.fromTo("#g09-l2-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 14.98);
+    tl.fromTo("#g09-l2-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 15.04);
+    tl.to(["#g09-l0", "#g09-l1", "#g09-l2"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 15.36);
+    tl.fromTo("#g10-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 15.5);
+    tl.fromTo("#g10-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 15.62);
+    tl.fromTo("#g10-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 16.12);
+    tl.fromTo("#g10-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 16.24);
+    tl.to(["#g10-l0", "#g10-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 16.742);
+    tl.fromTo("#g11-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 17.152);
+    tl.fromTo("#g11-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 17.212);
+    tl.fromTo("#g11-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 17.36);
+    tl.fromTo("#g11-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 17.52);
+    tl.fromTo("#g11-l1-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 17.98);
+    tl.fromTo("#g11-l1-p1", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 18.12);
+    tl.to(["#g11-l0", "#g11-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 18.44);
+    tl.fromTo("#g12-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 22.912);
+    tl.fromTo("#g12-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 22.972);
+    tl.fromTo("#g12-l1-p1", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 23.032);
+    tl.to(["#g12-l0", "#g12-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 23.352);
+    tl.fromTo("#g13-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 23.45);
+    tl.fromTo("#g13-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 23.63);
+    tl.fromTo("#g13-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 23.79);
+    tl.fromTo("#g13-l1-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 24.11);
+    tl.to(["#g13-l0", "#g13-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 24.43);
+    tl.fromTo("#g14-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 34.432);
+    tl.fromTo("#g14-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 34.492);
+    tl.fromTo("#g14-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 34.67);
+    tl.fromTo("#g14-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 34.73);
+    tl.to(["#g14-l0", "#g14-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 35.05);
+    tl.fromTo("#g15-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 35.29);
+    tl.fromTo("#g15-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 35.49);
+    tl.fromTo("#g15-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 35.71);
+    tl.fromTo("#g15-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 36.17);
+    tl.to(["#g15-l0", "#g15-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 36.56);
+    tl.fromTo("#g16-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 36.97);
+    tl.fromTo("#g16-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 37.13);
+    tl.fromTo("#g16-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 37.29);
+    tl.fromTo("#g16-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 37.51);
+    tl.fromTo("#g16-l1-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 37.67);
+    tl.to(["#g16-l0", "#g16-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 38.27);
+    tl.fromTo("#g17-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 39.264);
+    tl.fromTo("#g17-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 39.39);
+    tl.fromTo("#g17-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 39.49);
+    tl.fromTo("#g17-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 39.55);
+    tl.fromTo("#g17-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 39.83);
+    tl.fromTo("#g17-l1-p1", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 39.97);
+    tl.to(["#g17-l0", "#g17-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 40.29);
+    tl.fromTo("#g18-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 43.136);
+    tl.fromTo("#g18-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 43.196);
+    tl.fromTo("#g18-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 43.256);
+    tl.fromTo("#g18-l1-p0", {"opacity": 0, "filter": "blur(16px)", "y": 14, "scale": 1.14}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 43.316);
+    tl.to(["#g18-l0", "#g18-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 43.718);
+    tl.fromTo("#g19-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 44.128);
+    tl.fromTo("#g19-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 44.188);
+    tl.fromTo("#g19-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 44.57);
+    tl.fromTo("#g19-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 44.91);
+    tl.fromTo("#g19-l2-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 45.47);
+    tl.fromTo("#g19-l2-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 45.77);
+    tl.fromTo("#g19-l2-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 46.13);
+    tl.to(["#g19-l0", "#g19-l1", "#g19-l2"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 46.45);
+    tl.fromTo("#g20-l0-p0", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 46.816);
+    tl.fromTo("#g20-l0-p1", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 46.91);
+    tl.fromTo("#g20-l0-p2", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 46.99);
+    tl.fromTo("#g20-l0-p3", {"opacity": 0, "filter": "blur(12px)", "y": 18}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 47.17);
+    tl.fromTo("#g20-l1-p0", {"opacity": 0, "filter": "blur(14px)", "x": -28, "scale": 1.04}, {opacity:1, filter:"blur(0px)", x:0, y:0, scale:1, duration:0.34, ease:"power3.out"}, 47.27);
+    tl.to(["#g20-l0", "#g20-l1"], {opacity:0, filter:"blur(12px)", y:-26, duration:0.26, ease:"power2.in", stagger:0.05}, 47.97);
+    window.__timelines["legendas"] = tl;
+  </script>
+</template>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      :root {
+        --texto: #FFFFFF;
+        --destaque: #FFFFFF;
+        --destaque-brilho: transparent;
+        --destaque-sombra: rgba(56, 46, 46, 0.42);
+        --destaque-sombra-leve: rgba(56, 46, 46, 0.22);
+        --destaque-escuro: #FFFFFF;
+        --vazamento: #FF9A4D;
+      }
+      .cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+      .cam video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .transicao { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+      .transicao.luz { mix-blend-mode: screen; }
+      .vazamento { position: absolute; inset: -25%; opacity: 0; }
+      .vazamento.ambar {
+        background: radial-gradient(ellipse 50% 95% at 18% 55%, rgba(255, 244, 214, 0.95), transparent 46%),
+                    radial-gradient(ellipse 75% 120% at 28% 50%, var(--vazamento), transparent 68%);
+        filter: blur(30px);
+      }
+      .vazamento.quente {
+        background: radial-gradient(ellipse 60% 100% at 78% 35%, rgba(255, 92, 60, 0.75), rgba(255, 60, 90, 0.25) 50%, transparent 76%);
+        filter: blur(40px);
+      }
+      .vazamento.clarao { background: radial-gradient(ellipse 90% 80% at 50% 45%, rgba(255, 248, 232, 1), rgba(255, 214, 160, 0.85) 55%, rgba(255, 170, 110, 0.6)); }
+      .cortina { position: absolute; inset: 0; background: #000; opacity: 0; }
+      .cortina.branca { background: #fff8ee; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="81.48"
+      data-width="1080" data-height="1920">
+      <div class="cam" id="cam-video" style="z-index: 1">
+        <video id="video" class="clip" src="assets/video/video_estab.mp4" data-start="0" data-duration="81.48"
+          data-track-index="0" data-has-audio="true" playsinline></video>
+      </div>
+
+      <div id="legendas" data-composition-id="legendas" data-composition-src="compositions/legendas.html"
+        data-start="0" data-duration="81.48" data-track-index="2" data-track-kind="captions"
+        data-width="1080" data-height="1920" style="z-index: 2"></div>
+
+      <div class="cam" id="cam-recorte" style="z-index: 3">
+        <video id="recorte" class="clip" src="assets/video/recorte.webm" data-start="0" data-media-start="0"
+          data-duration="81.48" data-track-index="1" muted playsinline data-layout-allow-occlusion></video>
+      </div>
+      <div id="cards" data-composition-id="cards" data-composition-src="compositions/cards.html"
+        data-start="0" data-duration="81.48" data-track-index="3" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index: 4"></div>
+
+      <div id="tr3" class="clip transicao luz" data-start="6.855" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr3-a"></div>
+        <div class="vazamento quente" id="tr3-b"></div>
+        <div class="vazamento clarao" id="tr3-c"></div>
+      </div>
+      <div id="tr9" class="clip transicao luz" data-start="25.055" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr9-a"></div>
+        <div class="vazamento quente" id="tr9-b"></div>
+        <div class="vazamento clarao" id="tr9-c"></div>
+      </div>
+      <div id="tr16" class="clip transicao luz" data-start="40.77" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr16-a"></div>
+        <div class="vazamento quente" id="tr16-b"></div>
+        <div class="vazamento clarao" id="tr16-c"></div>
+      </div>
+      <div id="tr17" class="clip transicao flash" data-start="45.315" data-duration="0.36" data-track-index="5" data-layout-ignore><div class="cortina branca" id="tr17-a"></div></div>
+      <div id="tr26" class="clip transicao luz" data-start="62.855" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr26-a"></div>
+        <div class="vazamento quente" id="tr26-b"></div>
+        <div class="vazamento clarao" id="tr26-c"></div>
+      </div>
+      <div id="tr29" class="clip transicao luz" data-start="71.605" data-duration="0.8" data-track-index="5" data-layout-ignore>
+        <div class="vazamento ambar" id="tr29-a"></div>
+        <div class="vazamento quente" id="tr29-b"></div>
+        <div class="vazamento clarao" id="tr29-c"></div>
+      </div>
+
+      <audio id="sfx1" src="assets/sfx/click.mp3" data-start="0" data-duration="0.366" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx2" src="assets/sfx/click-agudo.mp3" data-start="1.791" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx3" src="assets/sfx/click-agudo.mp3" data-start="3.151" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx4" src="assets/sfx/whoosh-rapido.mp3" data-start="4.573" data-duration="0.549" data-track-index="10" data-volume="0.45"></audio>
+      <audio id="sfx5" src="assets/sfx/click.mp3" data-start="4.86" data-duration="0.366" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx6" src="assets/sfx/whoosh-transicao.mp3" data-start="6.405" data-duration="1.944" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx7" src="assets/sfx/click-agudo.mp3" data-start="7.395" data-duration="0.34" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx8" src="assets/sfx/click-agudo.mp3" data-start="7.771" data-duration="0.34" data-track-index="11" data-volume="0.6"></audio>
+      <audio id="sfx9" src="assets/sfx/click-agudo.mp3" data-start="10.351" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx10" src="assets/sfx/click.mp3" data-start="11.77" data-duration="0.366" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx11" src="assets/sfx/click-agudo.mp3" data-start="12.971" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx12" src="assets/sfx/whoosh-rapido.mp3" data-start="16.723" data-duration="0.549" data-track-index="10" data-volume="0.45"></audio>
+      <audio id="sfx13" src="assets/sfx/click.mp3" data-start="17.01" data-duration="0.366" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx14" src="assets/sfx/whoosh-grave.mp3" data-start="25.211" data-duration="0.731" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx15" src="assets/sfx/click-agudo.mp3" data-start="25.831" data-duration="0.34" data-track-index="11" data-volume="0.6"></audio>
+      <audio id="sfx16" src="assets/sfx/click-agudo.mp3" data-start="28.651" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx17" src="assets/sfx/click-agudo.mp3" data-start="31.395" data-duration="0.34" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx18" src="assets/sfx/click-agudo.mp3" data-start="33.911" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx19" src="assets/sfx/whoosh-transicao.mp3" data-start="40.32" data-duration="1.944" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx20" src="assets/sfx/click.mp3" data-start="41.272" data-duration="0.366" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx21" src="assets/sfx/click.mp3" data-start="43.832" data-duration="0.366" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx22" src="assets/sfx/click-agudo.mp3" data-start="44.331" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx23" src="assets/sfx/whoosh-rapido.mp3" data-start="45.288" data-duration="0.549" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx24" src="assets/sfx/click-agudo.mp3" data-start="49.411" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx25" src="assets/sfx/whoosh-rapido.mp3" data-start="52.823" data-duration="0.549" data-track-index="10" data-volume="0.45"></audio>
+      <audio id="sfx26" src="assets/sfx/click.mp3" data-start="53.11" data-duration="0.366" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx27" src="assets/sfx/click-agudo.mp3" data-start="57.701" data-duration="0.34" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx28" src="assets/sfx/click-agudo.mp3" data-start="60.081" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx29" src="assets/sfx/whoosh-transicao.mp3" data-start="62.405" data-duration="1.944" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx30" src="assets/sfx/click-agudo.mp3" data-start="64.531" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx31" src="assets/sfx/click.mp3" data-start="66.232" data-duration="0.366" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx32" src="assets/sfx/click-agudo.mp3" data-start="68.951" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx33" src="assets/sfx/whoosh-grave.mp3" data-start="71.761" data-duration="0.731" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="sfx34" src="assets/sfx/click-agudo.mp3" data-start="72.101" data-duration="0.34" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx35" src="assets/sfx/whoosh-rapido.mp3" data-start="74.893" data-duration="0.549" data-track-index="10" data-volume="0.45"></audio>
+      <audio id="sfx36" src="assets/sfx/click.mp3" data-start="75.18" data-duration="0.366" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx37" src="assets/sfx/whoosh-rapido.mp3" data-start="77.053" data-duration="0.549" data-track-index="10" data-volume="0.45"></audio>
+      <audio id="sfx38" src="assets/sfx/click.mp3" data-start="77.34" data-duration="0.366" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx39" src="assets/sfx/click.mp3" data-start="78.4" data-duration="0.366" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx40" src="assets/sfx/click-agudo.mp3" data-start="78.751" data-duration="0.34" data-track-index="11" data-volume="0.6"></audio>
+      <audio id="sfx41" src="assets/sfx/click.mp3" data-start="79.58" data-duration="0.366" data-track-index="10" data-volume="0.5"></audio>
+      <audio id="sfx42" src="assets/sfx/click-agudo.mp3" data-start="80.911" data-duration="0.34" data-track-index="10" data-volume="0.6"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: 81.48 }, 0);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 4.445);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 5.95);
+      tl.fromTo("#tr3-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 6.855);
+      tl.to("#tr3-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 7.275);
+      tl.fromTo("#tr3-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 6.915);
+      tl.to("#tr3-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 7.275);
+      tl.fromTo("#tr3-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 7.075);
+      tl.to("#tr3-c", {opacity:0, duration:0.3, ease:"power2.out"}, 7.195);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 7.175);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 11.655);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 16.555);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 18.375);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 20.09);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 23.975);
+      tl.fromTo("#tr9-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 25.055);
+      tl.to("#tr9-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 25.475);
+      tl.fromTo("#tr9-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 25.115);
+      tl.to("#tr9-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 25.475);
+      tl.fromTo("#tr9-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 25.275);
+      tl.to("#tr9-c", {opacity:0, duration:0.3, ease:"power2.out"}, 25.395);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 25.375);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 29.995);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 31.43);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 35.385);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 36.82);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 38.29);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 39.795);
+      tl.fromTo("#tr16-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 40.77);
+      tl.to("#tr16-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 41.19);
+      tl.fromTo("#tr16-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 40.83);
+      tl.to("#tr16-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 41.19);
+      tl.fromTo("#tr16-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 40.99);
+      tl.to("#tr16-c", {opacity:0, duration:0.3, ease:"power2.out"}, 41.11);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 41.09);
+      tl.fromTo("#tr17-a", {opacity:0}, {opacity:0.9, duration:0.08, ease:"power2.in"}, 45.315);
+      tl.to("#tr17-a", {opacity:0, duration:0.24, ease:"power2.out"}, 45.415);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 45.395);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 52.71);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 54.04);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 55.265);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 56.63);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 57.645);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 59.78);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 60.76);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 61.74);
+      tl.fromTo("#tr26-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 62.855);
+      tl.to("#tr26-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 63.275);
+      tl.fromTo("#tr26-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 62.915);
+      tl.to("#tr26-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 63.275);
+      tl.fromTo("#tr26-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 63.075);
+      tl.to("#tr26-c", {opacity:0, duration:0.3, ease:"power2.out"}, 63.195);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 63.175);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 66.22);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 70.91);
+      tl.fromTo("#tr29-a", {opacity:0, xPercent:-30, rotation:-6}, {opacity:1, xPercent:10, rotation:2, duration:0.42, ease:"sine.out"}, 71.605);
+      tl.to("#tr29-a", {opacity:0, xPercent:30, duration:0.36, ease:"sine.in"}, 72.025);
+      tl.fromTo("#tr29-b", {opacity:0, xPercent:25, yPercent:-8}, {opacity:0.9, xPercent:-5, yPercent:4, duration:0.36, ease:"sine.out"}, 71.665);
+      tl.to("#tr29-b", {opacity:0, xPercent:-25, duration:0.38, ease:"sine.in"}, 72.025);
+      tl.fromTo("#tr29-c", {opacity:0}, {opacity:0.92, duration:0.1, ease:"power2.in"}, 71.825);
+      tl.to("#tr29-c", {opacity:0, duration:0.3, ease:"power2.out"}, 71.945);
+      tl.fromTo(".cam", {scale:1.09}, {scale:1, duration:0.6, ease:"expo.out", immediateRender:false}, 71.925);
+      tl.fromTo(".cam", {scale:1.045}, {scale:1, duration:0.45, ease:"expo.out", immediateRender:false}, 74.97);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

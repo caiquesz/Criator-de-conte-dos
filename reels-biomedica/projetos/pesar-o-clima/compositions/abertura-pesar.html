@@ -1,0 +1,38 @@
+<template>
+  <style>
+    @font-face { font-family: "Roboto Ref"; font-weight: 100; src: url("assets/fonts/Roboto-100.woff2") format("woff2"); }
+    @font-face { font-family: "Roboto Ref"; font-weight: 300; src: url("assets/fonts/Roboto-300.woff2") format("woff2"); }
+    @font-face { font-family: "Helvetica Ref"; font-weight: 700; src: url("assets/fonts/FreeSansBold.ttf"); }
+    @font-face { font-family: "Assinatura"; src: url("assets/fonts/Satisfy-400.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #tit { position: absolute; inset: 0; color: #FFFFFF; text-shadow: none; white-space: nowrap; }
+    #tit-l, #tit-n { position: absolute; inset: 0; opacity: 0; }
+    .tl { position: absolute; transform: translateX(-50%); line-height: 1; }
+    .t1 { font-family: "Roboto Ref"; font-weight: 100; }
+    .t2 { font-family: "Helvetica Ref"; font-weight: 700; }
+    .dr { position: absolute; font-family: "Helvetica Ref"; font-weight: 700; font-size: 35.5px; line-height: 1;
+          letter-spacing: -0.02em; }
+    .drf { font-family: "Roboto Ref"; font-weight: 300; }
+  </style>
+  <div id="root" data-composition-id="abertura-pesar" data-width="1080" data-height="1920">
+    <div id="tit"><div id="tit-l">
+      <div class="tl t1" style="left:412px; top:872.5px; font-size:92px; letter-spacing:-0.005em">POSSO</div>
+      <div class="tl t1" style="left:413px; top:946.5px; font-size:102px; letter-spacing:-0.048em">PESAR</div>
+      <div class="tl t2" style="left:409px; top:1043.1px; font-size:97px; letter-spacing:-0.025em">O CLIMA?</div>
+    </div><div id="tit-n">
+      <div class="dr" style="left:317px; top:1212.8px"><span class="drf">DRA.</span> NÁDIA</div>
+      <div class="dr" style="left:317px; top:1245.8px">RESENDE</div>
+    </div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 58.833 }, 0);
+    tl.fromTo("#tit-l", {y:-400}, {y:0, duration:0.5, ease:"power1.out"}, 0);
+    tl.fromTo("#tit-l", {opacity:0}, {opacity:1, duration:0.47, ease:"sine.out"}, 0);
+    tl.fromTo("#tit-n", {y:45}, {y:0, duration:0.18, ease:"power1.out"}, 0.05);
+    tl.fromTo("#tit-n", {opacity:0}, {opacity:1, duration:0.1, ease:"none"}, 0.05);
+    tl.to("#tit", {opacity:0, duration:0.23, ease:"none"}, 1.517);
+    tl.set("#tit", {opacity:0}, 1.667);
+    window.__timelines["abertura-pesar"] = tl;
+  </script>
+</template>

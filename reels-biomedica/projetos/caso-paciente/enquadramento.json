@@ -1,0 +1,411 @@
+{
+ "olhos_alvo": [
+  540,
+  789
+ ],
+ "folga": [
+  12,
+  30
+ ],
+ "entre_olhos_alvo": [
+  104.1,
+  110.4
+ ],
+ "takes": [
+  {
+   "take": "01.mov",
+   "quadros": 264,
+   "zoom": 1.318,
+   "zoom_minimo": 1.004,
+   "olhos_antes": [
+    531,
+    789
+   ],
+   "olhos_depois": [
+    540,
+    789
+   ],
+   "entre_olhos_antes": 79,
+   "entre_olhos_depois": 104,
+   "camera_mexia_px": 0,
+   "tremor_px": 1.9,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.1604,
+    "ganho_parede": 1.1604,
+    "tom_rosto": 0.344,
+    "tom_parede": 0.7759
+   }
+  },
+  {
+   "take": "02.mov",
+   "quadros": 200,
+   "zoom": 1.047,
+   "zoom_minimo": 1.047,
+   "olhos_antes": [
+    542,
+    754
+   ],
+   "olhos_depois": [
+    546,
+    769
+   ],
+   "entre_olhos_antes": 109,
+   "entre_olhos_depois": 114,
+   "camera_mexia_px": 21,
+   "tremor_px": 1.2,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.2853,
+    "ganho_parede": 1.2853,
+    "tom_rosto": 0.3106,
+    "tom_parede": 0.7416
+   }
+  },
+  {
+   "take": "03.mov",
+   "quadros": 137,
+   "zoom": 1.1,
+   "zoom_minimo": 1.1,
+   "olhos_antes": [
+    546,
+    690
+   ],
+   "olhos_depois": [
+    540,
+    759
+   ],
+   "entre_olhos_antes": 114,
+   "entre_olhos_depois": 126,
+   "camera_mexia_px": 0,
+   "tremor_px": 1.1,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.0338,
+    "ganho_parede": 1.0338,
+    "tom_rosto": 0.3861,
+    "tom_parede": 0.9636
+   }
+  },
+  {
+   "take": "04.mov",
+   "quadros": 204,
+   "zoom": 1.055,
+   "zoom_minimo": 1.055,
+   "olhos_antes": [
+    536,
+    740
+   ],
+   "olhos_depois": [
+    528,
+    759
+   ],
+   "entre_olhos_antes": 110,
+   "entre_olhos_depois": 116,
+   "camera_mexia_px": 19,
+   "tremor_px": 0.8,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 0.8998,
+    "ganho_parede": 0.8998,
+    "tom_rosto": 0.4437,
+    "tom_parede": 0.7631
+   }
+  },
+  {
+   "take": "05.mov",
+   "quadros": 131,
+   "zoom": 1.217,
+   "zoom_minimo": 1.017,
+   "olhos_antes": [
+    546,
+    796
+   ],
+   "olhos_depois": [
+    540,
+    789
+   ],
+   "entre_olhos_antes": 86,
+   "entre_olhos_depois": 104,
+   "camera_mexia_px": 7,
+   "tremor_px": 0.5,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.1959,
+    "ganho_parede": 1.1959,
+    "tom_rosto": 0.3338,
+    "tom_parede": 0.8106
+   }
+  },
+  {
+   "take": "06.mov",
+   "quadros": 73,
+   "entra_como_veio": true
+  },
+  {
+   "take": "07.mov",
+   "quadros": 189,
+   "zoom": 1.311,
+   "zoom_minimo": 1.032,
+   "olhos_antes": [
+    518,
+    794
+   ],
+   "olhos_depois": [
+    540,
+    789
+   ],
+   "entre_olhos_antes": 79,
+   "entre_olhos_depois": 104,
+   "camera_mexia_px": 14,
+   "tremor_px": 0.6,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 0.9986,
+    "ganho_parede": 0.9986,
+    "tom_rosto": 0.3997,
+    "tom_parede": 0.7867
+   }
+  },
+  {
+   "take": "08.mov",
+   "quadros": 238,
+   "zoom": 1.145,
+   "zoom_minimo": 1.034,
+   "olhos_antes": [
+    531,
+    831
+   ],
+   "olhos_depois": [
+    540,
+    789
+   ],
+   "entre_olhos_antes": 91,
+   "entre_olhos_depois": 104,
+   "camera_mexia_px": 20,
+   "tremor_px": 0.6,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.0482,
+    "ganho_parede": 1.0482,
+    "tom_rosto": 0.3808,
+    "tom_parede": 0.8317
+   }
+  },
+  {
+   "take": "09.mov",
+   "quadros": 234,
+   "zoom": 1.271,
+   "zoom_minimo": 1.052,
+   "olhos_antes": [
+    527,
+    838
+   ],
+   "olhos_depois": [
+    540,
+    789
+   ],
+   "entre_olhos_antes": 82,
+   "entre_olhos_depois": 104,
+   "camera_mexia_px": 23,
+   "tremor_px": 0.5,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.1632,
+    "ganho_parede": 1.1632,
+    "tom_rosto": 0.3432,
+    "tom_parede": 0.7839
+   }
+  },
+  {
+   "take": "10.mov",
+   "quadros": 188,
+   "zoom": 1.558,
+   "zoom_minimo": 1.012,
+   "olhos_antes": [
+    559,
+    830
+   ],
+   "olhos_depois": [
+    540,
+    789
+   ],
+   "entre_olhos_antes": 67,
+   "entre_olhos_depois": 104,
+   "camera_mexia_px": 0,
+   "tremor_px": 3.2,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.2887,
+    "ganho_parede": 1.2887,
+    "tom_rosto": 0.3097,
+    "tom_parede": 0.5927
+   }
+  },
+  {
+   "take": "11.mov",
+   "quadros": 115,
+   "zoom": 1.062,
+   "zoom_minimo": 1.062,
+   "olhos_antes": [
+    558,
+    714
+   ],
+   "olhos_depois": [
+    540,
+    759
+   ],
+   "entre_olhos_antes": 116,
+   "entre_olhos_depois": 124,
+   "camera_mexia_px": 0,
+   "tremor_px": 3.3,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 0.9079,
+    "ganho_parede": 0.9079,
+    "tom_rosto": 0.4397,
+    "tom_parede": 0.7734
+   }
+  },
+  {
+   "take": "12.mov",
+   "quadros": 181,
+   "zoom": 1.02,
+   "zoom_minimo": 1.02,
+   "olhos_antes": [
+    531,
+    781
+   ],
+   "olhos_depois": [
+    534,
+    785
+   ],
+   "entre_olhos_antes": 110,
+   "entre_olhos_depois": 112,
+   "camera_mexia_px": 10,
+   "tremor_px": 0.7,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.001,
+    "ganho_parede": 1.001,
+    "tom_rosto": 0.3988,
+    "tom_parede": 0.5878
+   }
+  },
+  {
+   "take": "13.mov",
+   "quadros": 79,
+   "zoom": 1.071,
+   "zoom_minimo": 1.071,
+   "olhos_antes": [
+    556,
+    729
+   ],
+   "olhos_depois": [
+    552,
+    759
+   ],
+   "entre_olhos_antes": 104,
+   "entre_olhos_depois": 111,
+   "camera_mexia_px": 18,
+   "tremor_px": 0.8,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 1.0074,
+    "ganho_parede": 1.0074,
+    "tom_rosto": 0.3963,
+    "tom_parede": 0.5888
+   }
+  },
+  {
+   "take": "14.mov",
+   "quadros": 152,
+   "zoom": 1.056,
+   "zoom_minimo": 1.056,
+   "olhos_antes": [
+    535,
+    829
+   ],
+   "olhos_depois": [
+    534,
+    819
+   ],
+   "entre_olhos_antes": 105,
+   "entre_olhos_depois": 110,
+   "camera_mexia_px": 27,
+   "tremor_px": 0.6,
+   "cor": {
+    "wb": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "sat": 1.0,
+    "ganho_rosto": 0.975,
+    "ganho_parede": 0.975,
+    "tom_rosto": 0.4094,
+    "tom_parede": 0.5708
+   }
+  }
+ ]
+}

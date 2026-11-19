@@ -1,0 +1,10 @@
+[  0.02 –   5.32] Eu sou doutora Nádia Rezende, especialista em harmonização corporal e criadora do método
+    Eu@0.02  sou@0.50  doutora@0.68  Nádia@1.04  Rezende,@1.36  especialista@2.06  em@2.58  harmonização@2.74  corporal@3.30  e@4.06  criadora@4.38  do@4.78  método@4.98
+[  5.32 –   5.84] contour.
+    contour.@5.32
+[  6.86 –  11.60] Aquilo que você vê no espelho e não se sente bem, é o que a gente conversa aqui.
+    Aquilo@6.86  que@7.08  você@7.20  vê@7.46  no@7.60  espelho@7.80  e@8.26  não@8.56  se@8.76  sente@8.98  bem,@9.22  é@10.10  o@10.16  que@10.28  a@10.38  gente@10.48  conversa@10.68  aqui.@11.20
+[ 12.58 –  18.02] O glúteo que não tem o formato que você gostaria, aquela gordurinha localizada, a
+    O@12.58  glúteo@12.80  que@13.12  não@13.26  tem@13.50  o@13.68  formato@13.86  que@14.16  você@14.26  gostaria,@14.60  aquela@15.60  gordurinha@15.86  localizada,@16.38  a@17.86
+[ 18.02 –  22.76] celulite que você gostaria de tratar, a flacidez interna de coxa, posterior de
+    celulite@18.02  que@18.46  você@18.62  gostaria@18.90  de@19.36  tratar,@19.64  a@20.46  flacidez@20.54  interna@21.06  de@21.52  coxa,@21.74  posterior@22.00  de@22.42
