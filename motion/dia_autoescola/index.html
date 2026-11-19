@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: "Montserrat"; src: url("assets/Montserrat.ttf"); font-weight: 100 900; }
+:root { --azul: #30318A; --verde: #34774C; --pessego: #EDAF8A; --laranja: #D2683A; }
+html, body { margin: 0; background: #000; }
+#stage { position: relative; width: 1080px; overflow: hidden; }
+.abs { position: absolute; left: 0; top: 0; will-change: transform, opacity, filter; }
+.ln { font-family: "Montserrat"; color: var(--azul); white-space: nowrap; text-align: center; line-height: 1; }
+.lt { font-weight: 300; letter-spacing: -.005em; }
+.bd { font-weight: 700; letter-spacing: -.01em; }
+.dt { font-weight: 700; color: var(--verde); }
+.dot { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; }
+#pill { width: 600px; height: 100px; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(90deg, rgba(52,119,76,0) 0%, rgba(52,119,76,.88) 18%, rgba(52,119,76,.88) 82%, rgba(52,119,76,0) 100%); }
+#pill img { height: 74px; filter: brightness(0) invert(1); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="dots"></div>
+  <img id="foto" class="abs" src="assets/volante_foto.png" style="width:1080px">
+  <div id="content"></div>
+</div>
+<script>
+const P = new URLSearchParams(location.search);
+const FMT = P.get('fmt') || 'feed';
+const BG = P.get('bg') || 'pessego';
+const W = 1080, H = FMT === 'reels' ? 1920 : 1350;
+const stage = document.getElementById('stage');
+stage.style.height = H + 'px';
+stage.style.background = BG === 'areia'
+  ? 'linear-gradient(180deg, #F8EADC 0%, #F3DCC7 100%)'
+  : 'linear-gradient(180deg, #F2BE9C 0%, #EDAF8A 55%, #E9A783 100%)';
+const DOT = BG === 'areia' ? '#7DB58C' : '#3F8A5A';
+
+// posições (o feed é 4:5; no Reels a foto fica embaixo e o texto ganha mais respiro)
+const L = FMT === 'reels'
+  ? { fotoCY: 1078, fotoS: 1.28, icon: 300, lines: [462, 560, 672, 776], fs: [88, 88, 100, 100], dots: [925, 1015, 1105], pill: 1610 }
+  : { fotoCY: 738, fotoS: 1.04, icon: 118, lines: [258, 342, 444, 538], fs: [80, 80, 90, 90], dots: [648, 738, 828], pill: 1210 };
+
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const eo = p => 1 - Math.pow(1 - clamp(p), 3);
+const ei = p => Math.pow(clamp(p), 3);
+const eback = (p, s = 1.7) => { p = clamp(p); const c3 = s + 1; return 1 + c3*Math.pow(p - 1, 3) + s*Math.pow(p - 1, 2); };
+const prog = (t, t0, d) => clamp((t - t0) / d);
+function mk(html, parent = document.getElementById('content')) {
+  const d = document.createElement('div'); d.className = 'abs'; d.innerHTML = html; parent.appendChild(d); return d;
+}
+function set(n, { x = 0, y = 0, s = 1, r = 0, o = 1, b = 0, ax = '-50%', ay = '-50%' } = {}) {
+  if (o <= 0.002) { n.style.display = 'none'; return; }
+  n.style.display = 'block'; n.style.opacity = o.toFixed(3);
+  n.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) translate(${ax}, ${ay}) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)}deg)`;
+  n.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : 'none';
+}
+
+const ICON = `<svg width="190" height="170" viewBox="0 0 190 170">
+  <rect x="58" y="8" width="124" height="88" rx="10" fill="#34774C"/>
+  <rect x="134" y="22" width="34" height="44" rx="5" fill="#EDAF8A" opacity=".95"/>
+  <circle cx="151" cy="37" r="7" fill="#34774C"/><path d="M 140 62 q 11 -17 22 0" fill="#34774C"/>
+  <rect x="72" y="24" width="50" height="9" rx="4.5" fill="#EDAF8A" opacity=".95"/>
+  <rect x="72" y="42" width="40" height="7" rx="3.5" fill="#EDAF8A" opacity=".75"/>
+  <rect x="72" y="56" width="46" height="7" rx="3.5" fill="#EDAF8A" opacity=".75"/>
+  <rect x="72" y="76" width="96" height="6" rx="3" fill="#EDAF8A" opacity=".5"/>
+  <path d="M 22 168 L 22 128 C 22 116 28 108 38 102 L 62 88 C 70 83 80 86 82 95 C 84 103 79 108 72 112 L 66 116
+           L 92 110 C 102 108 108 114 107 122 C 106 129 101 132 94 133 L 72 137 L 64 168 Z" fill="#34774C"/>
+  <path d="M 66 116 L 80 112" stroke="#EDAF8A" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+  <g stroke="#34774C" stroke-width="7" stroke-linecap="round"><line x1="118" y1="128" x2="132" y2="134"/><line x1="112" y1="146" x2="122" y2="158"/><line x1="128" y1="112" x2="143" y2="112"/></g>
+</svg>`;
+
+let N = {};
+function build() {
+  const C = document.getElementById('content');
+  N.foto = document.getElementById('foto');
+  N.icon = mk(ICON, C);
+  // estado A: "Hoje, 19 de novembro, é o Dia da Autoescola!"
+  N.A = [
+    mk(`<div class="ln lt" style="font-size:${L.fs[0]}px">Hoje, <span class="dt">19 de</span></div>`, C),
+    mk(`<div class="ln lt" style="font-size:${L.fs[1]}px"><span class="dt">novembro</span>, é o</div>`, C),
+    mk(`<div class="ln bd" style="font-size:${L.fs[2]}px">Dia da</div>`, C),
+    mk(`<div class="ln bd" style="font-size:${L.fs[3]}px">Autoescola!</div>`, C),
+  ];
+  // estado B: "Obrigado a todos que dirigem seus sonhos com a gente!"
+  N.B = [
+    mk(`<div class="ln lt" style="font-size:${L.fs[0]}px">Obrigado a todos</div>`, C),
+    mk(`<div class="ln lt" style="font-size:${L.fs[1]}px">que dirigem seus</div>`, C),
+    mk(`<div class="ln bd" style="font-size:${L.fs[2]}px">sonhos com a</div>`, C),
+    mk(`<div class="ln bd" style="font-size:${L.fs[3]}px">gente!</div>`, C),
+  ];
+  // pontinhos: 3 fileiras em escada, como na referência
+  const dots = document.getElementById('dots'); N.dots = [];
+  [[105, L.dots[0]], [380, L.dots[1]], [655, L.dots[2]]].forEach(([x0, y], r) => {
+    for (let x = x0, k = 0; x <= 1140; x += 92, k++) {
+      const d = document.createElement('div'); d.className = 'dot'; d.style.background = DOT; dots.appendChild(d);
+      N.dots.push({ n: d, x, y, r, k });
+    }
+  });
+  N.pill = mk(`<div id="pill"><img src="assets/logo_lara.png"></div>`, C);
+}
+
+const T = { foto: 0, icon: .35, A: .6, dots: 1.0, pill: 1.7, outA: 5.9, B: 6.25, horn: 10.9, end: 12 };
+function lineState(t, tin, tout) {
+  const p = eo(prog(t, tin, .5)), q = ei(prog(t, tout, .35));
+  return { o: Math.min(clamp(p * 1.5), 1 - q), dy: (1 - p) * 46 - q * 50, b: (1 - p) * 14 + q * 12 };
+}
+function render(t) {
+  // foto do volante sobe e depois "dirige" (balanço leve)
+  const f = eo(prog(t, T.foto, .9));
+  const sway = Math.sin(t * 1.1) * clamp(t - 1);
+  set(N.foto, { x: 540 + sway * 5, y: L.fotoCY + (1 - f) * 320, s: L.fotoS + .02 * clamp(t / 12), r: sway * .5, o: clamp(f * 2), ax: '-50%', ay: '-50%' });
+  // ícone (mão segurando a CNH) com um "toque"
+  const ip = prog(t, T.icon, .55);
+  const tap = (Math.sin((t - 1.2) * 2.6) > .92 ? 1 : 0) * .04;
+  set(N.icon, { x: 540, y: L.icon, s: (.5 + .5 * eback(ip, 2.2)) * (1 + tap), o: clamp(ip * 3), b: (1 - eo(ip)) * 8 });
+  // título A e B
+  N.A.forEach((n, k) => { const s = lineState(t, T.A + k * .17, T.outA + k * .05); set(n, { x: 540, y: L.lines[k] + s.dy, o: s.o, b: s.b }); });
+  N.B.forEach((n, k) => { const s = lineState(t, T.B + k * .17, 99); set(n, { x: 540, y: L.lines[k] + s.dy, o: s.o, b: s.b }); });
+  // pontinhos entram em escada e deslizam devagar
+  const horn = prog(t, T.horn, .5);
+  N.dots.forEach(D => {
+    const p = prog(t, T.dots + D.r * .14 + D.k * .03, .35);
+    const drift = (Math.max(0, t - 2) * 12) % 92;
+    const hop = Math.sin(Math.PI * clamp((t - T.horn - D.k * .025) / .3)) * 12;
+    set(D.n, { x: D.x - drift, y: D.y - hop, s: eback(p, 2.4), o: clamp(p * 3), ax: '0px', ay: '0px' });
+  });
+  // tarja com o logo
+  const pp = eo(prog(t, T.pill, .5));
+  set(N.pill, { x: 540, y: L.pill + (1 - pp) * 40, o: pp, s: 1 + .05 * Math.sin(Math.PI * horn) });
+}
+window.__ready = (async () => {
+  await document.fonts.load('300 50px Montserrat'); await document.fonts.load('700 50px Montserrat');
+  await document.fonts.ready;
+  build();
+  await Promise.all([...document.images].map(i => i.complete ? 1 : new Promise(r => { i.onload = r; i.onerror = r; })));
+  return { W, H, dur: T.end };
+})();
+</script>
+</body>
+</html>

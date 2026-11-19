@@ -11,3 +11,4 @@ edicao_video/**/timeline.json
 edicao_video/**/*.mp4
 edicao_video/**/*.mov
 edicao_video/**/*.wav
+motion/**/sfx/
