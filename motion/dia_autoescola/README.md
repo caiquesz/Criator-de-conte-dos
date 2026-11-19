@@ -8,7 +8,10 @@ Post animado de 12 s em dois formatos: **feed 4:5 (1080x1350)** e **Reels/Storie
   pêssego `#EDAF8A`, laranja `#D2683A`. Com `?bg=areia` (ou `BG=areia` no render) o fundo vira areia clara.
 - Texto 1: "Hoje, **19 de novembro**, é o **Dia da Autoescola!**" (data em verde, em destaque).
   Texto 2: "Obrigado a todos que dirigem seus **sonhos com a gente!**"
-- `assets/volante_foto.png`: foto gerada por IA (Higgsfield, GPT Image) e recortada; não é a foto da referência.
+- `assets/volante_ref.png`: a foto do volante da própria imagem de referência, recortada (fundo azul, bolinhas e a tarja
+  "@grandesite" removidos; a pele embaixo da tarja foi reconstruída). Atenção: essa foto vem do post de outra empresa.
+- `assets/volante_foto.png`: alternativa gerada por IA (Higgsfield, GPT Image), sem direito de terceiros. Para usar,
+  troque o `src` da `<img id="foto">` no `index.html`.
 - `assets/logo_lara.png`, `lara_verde.png`, `autoescola_azul.png`: logo recortado do arquivo enviado.
 - Data: o Dia da Autoescola em 19/11 vem da Lei estadual 16.208/2016 (SP) e é comemorado pelo setor no país.
 - `versao_ilustrada.html`: primeira versão (volante ilustrado + velocímetro marcando 19), guardada como alternativa.
