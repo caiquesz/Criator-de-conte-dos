@@ -1,0 +1,8 @@
+sherpa-onnx>=1.12
+numpy
+onnxruntime
+opencv-python-headless
+pillow
+av
+opencv-contrib-python-headless
+soundfile

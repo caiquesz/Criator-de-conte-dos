@@ -1,0 +1,15 @@
+{
+  "nome": "tipografia_cinetica",
+  "descricao": "Palavras gigantes atrás da pessoa, tamanhos misturados, palavra-chave com textura (cena invertida/foto) ou laranja. Baseado nas 3 referências.",
+  "fonte_media": "Quicksand-700.ttf",
+  "fonte_leve": "Quicksand-300.ttf",
+  "fonte_gigante": "Quicksand-700.ttf",
+  "tracking": -0.02,
+  "maiusculas": false,
+  "cor_destaque": "#F5A21B",
+  "modelos": [
+    {"nome": "faz",    "chave": "inverter"},
+    {"nome": "rotina", "chave": "cor", "camada_chave": "frente"},
+    {"nome": "morar",  "chave": "foto"}
+  ]
+}

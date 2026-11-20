@@ -1,0 +1,15 @@
+{
+  "nome": "tipografia_grotesca",
+  "descricao": "Variante com grotesca pesada (Inter Black, tracking apertado) como nas referências 2 e 3.",
+  "fonte_media": "Inter-900.ttf",
+  "fonte_leve": "Inter-Medium.otf",
+  "fonte_gigante": "Inter-900.ttf",
+  "tracking": -0.06,
+  "maiusculas": false,
+  "cor_destaque": "#F5A21B",
+  "modelos": [
+    {"nome": "rotina", "chave": "cor", "camada_chave": "frente"},
+    {"nome": "morar",  "chave": "foto"},
+    {"nome": "faz",    "chave": "inverter"}
+  ]
+}
