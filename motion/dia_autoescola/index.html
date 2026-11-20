@@ -101,33 +101,33 @@ function build() {
   N.pill = mk(`<div id="pill"><img src="assets/logo_lara.png"></div>`, C);
 }
 
-const T = { foto: 0, icon: .35, A: .6, dots: 1.0, pill: 1.7, outA: 5.9, B: 6.25, horn: 10.9, end: 12 };
+const T = { foto: 0, icon: .18, A: .3, dots: .55, pill: .9, outA: 5.9, B: 6.08, horn: 10.9, end: 12 };
 function lineState(t, tin, tout) {
-  const p = eo(prog(t, tin, .5)), q = ei(prog(t, tout, .35));
-  return { o: Math.min(clamp(p * 1.5), 1 - q), dy: (1 - p) * 46 - q * 50, b: (1 - p) * 14 + q * 12 };
+  const p = eo(prog(t, tin, .28)), q = ei(prog(t, tout, .18));
+  return { o: Math.min(clamp(p * 1.6), 1 - q), dy: (1 - p) * 36 - q * 40, b: (1 - p) * 10 + q * 10 };
 }
 function render(t) {
   // foto do volante sobe e depois "dirige" (balanço leve)
-  const f = eo(prog(t, T.foto, .9));
+  const f = eo(prog(t, T.foto, .45));
   const sway = Math.sin(t * 1.1) * clamp(t - 1);
   set(N.foto, { x: 540 + sway * 5, y: L.fotoCY + (1 - f) * 320, s: L.fotoS + .015 * clamp(t / 12), r: sway * .5, o: clamp(f * 2), ax: '-50%', ay: '-50%' });
   // ícone (mão segurando a CNH) com um "toque"
-  const ip = prog(t, T.icon, .55);
+  const ip = prog(t, T.icon, .32);
   const tap = (Math.sin((t - 1.2) * 2.6) > .92 ? 1 : 0) * .04;
   set(N.icon, { x: 540, y: L.icon, s: (.5 + .5 * eback(ip, 2.2)) * (1 + tap), o: clamp(ip * 3), b: (1 - eo(ip)) * 8 });
   // título A e B
-  N.A.forEach((n, k) => { const s = lineState(t, T.A + k * .17, T.outA + k * .05); set(n, { x: 540, y: L.lines[k] + s.dy, o: s.o, b: s.b }); });
-  N.B.forEach((n, k) => { const s = lineState(t, T.B + k * .17, 99); set(n, { x: 540, y: L.lines[k] + s.dy, o: s.o, b: s.b }); });
+  N.A.forEach((n, k) => { const s = lineState(t, T.A + k * .08, T.outA + k * .025); set(n, { x: 540, y: L.lines[k] + s.dy, o: s.o, b: s.b }); });
+  N.B.forEach((n, k) => { const s = lineState(t, T.B + k * .08, 99); set(n, { x: 540, y: L.lines[k] + s.dy, o: s.o, b: s.b }); });
   // pontinhos entram em escada e deslizam devagar
   const horn = prog(t, T.horn, .5);
   N.dots.forEach(D => {
-    const p = prog(t, T.dots + D.r * .14 + D.k * .03, .35);
+    const p = prog(t, T.dots + D.r * .07 + D.k * .015, .2);
     const drift = (Math.max(0, t - 2) * 12) % 92;
     const hop = Math.sin(Math.PI * clamp((t - T.horn - D.k * .025) / .3)) * 12;
     set(D.n, { x: D.x - drift, y: D.y - hop, s: eback(p, 2.4), o: clamp(p * 3), ax: '0px', ay: '0px' });
   });
   // tarja com o logo
-  const pp = eo(prog(t, T.pill, .5));
+  const pp = eo(prog(t, T.pill, .28));
   set(N.pill, { x: 540, y: L.pill + (1 - pp) * 40, o: pp, s: 1 + .05 * Math.sin(Math.PI * horn) });
 }
 window.__ready = (async () => {

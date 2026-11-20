@@ -11,18 +11,18 @@ ev = []
 def add(name, t, vol, align=0.0):
     ev.append((name, t - align, vol))
 
-add("partida", 0.02, 0.55)     # motor ligando enquanto a foto do volante sobe
-add("swish", 0.40, 0.3, align=0.41)
-add("pop", 0.38, 0.7)          # ícone da CNH
-add("click", 0.62, 0.5); add("click", 0.79, 0.5)
-add("pop_soft", 0.96, 0.6)     # Dia da
-add("pop", 1.13, 0.8)          # Autoescola!
-add("swish", 1.15, 0.18, align=0.41)   # pontinhos
-add("click", 1.72, 0.55)       # tarja com o logo
-add("swish", 5.92, 0.25, align=0.41)
-add("click", 6.27, 0.5); add("click", 6.44, 0.5)
-add("pop_soft", 6.61, 0.6)     # sonhos com a
-add("pop", 6.78, 0.8)          # gente!
+add("partida", 0.0, 0.55)      # motor ligando enquanto a foto do volante sobe
+add("swish", 0.22, 0.3, align=0.41)
+add("pop", 0.20, 0.7)          # ícone da CNH
+add("click", 0.31, 0.5)        # 1a linha
+add("pop_soft", 0.47, 0.6)     # Dia da
+add("pop", 0.55, 0.8)          # Autoescola!
+add("swish", 0.62, 0.18, align=0.41)   # pontinhos
+add("click", 0.92, 0.55)       # tarja com o logo
+add("swish", 5.95, 0.25, align=0.41)   # troca rápida do texto
+add("click", 6.09, 0.5)
+add("pop_soft", 6.25, 0.6)     # sonhos com a
+add("pop", 6.33, 0.8)          # gente!
 add("buzina", 10.90, 0.75)     # bi-bi!
 add("pop", 10.92, 0.5)
 
